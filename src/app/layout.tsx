@@ -61,9 +61,9 @@ export default function RootLayout({
       >
         <CourseProvider>
           <body
-            className={`${poppins.variable} ${spaceGrotesk.variable} antialiased font-sans bg-background h-screen`}
+            className={`${poppins.variable} ${spaceGrotesk.variable} h-screen bg-background font-sans antialiased`}
           >
-            <main className="flex flex-col items-center justify-start size-full">
+            <main className="flex size-full flex-col items-center justify-start">
               {children}
             </main>
             <Toaster

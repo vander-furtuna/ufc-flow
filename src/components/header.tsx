@@ -1,14 +1,16 @@
 import { Logo } from './logo'
 import { ModeToggle } from './theme-toggle'
+import { SubtitlePopup } from './ui/subtitle-popup'
 import { UserPopup } from './user-popup'
 
 export function Header() {
   return (
-    <header className="w-full justify-between items-start flex">
+    <header className="flex w-full items-start justify-between">
       <div>
         <Logo className="h-12 w-auto" />
       </div>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3">
+        <SubtitlePopup />
         <ModeToggle />
         <UserPopup />
       </div>

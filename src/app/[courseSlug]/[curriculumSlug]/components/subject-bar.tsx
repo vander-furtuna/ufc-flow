@@ -1,7 +1,8 @@
-import { lighten, saturate } from 'polished'
 import { useMemo } from 'react'
 
 import { useCourse } from '@/app/contexts/course'
+import { COLORS } from '@/data/colors'
+import { getGradientColor } from '@/utils/get-gradient-color'
 
 interface SubjectBarProps {
   nature: string
@@ -21,31 +22,29 @@ export function SubjectBar({ nature, branch }: SubjectBarProps) {
 
   const backgroundStyle = useMemo(() => {
     if (nature === 'OBRIGATÓRIA') {
-      return `linear-gradient(90deg, ${saturate(0.8, lighten(0.15, '#f97316'))}, #f97316)`
+      return getGradientColor(COLORS.COMPULSORY)
     } else if (nature === 'OPTATIVA') {
       if (colors && colors?.length === 1) {
-        return `linear-gradient(90deg, ${saturate(0.8, lighten(0.15, colors[0]))}, ${colors[0]})`
+        return getGradientColor(colors[0])
       } else if (colors && colors?.length >= 2) {
         return `linear-gradient(90deg, ${colors.join(',')})`
       } else if (colors && colors?.length === 0) {
-        return `linear-gradient(90deg, ${saturate(0.8, lighten(0.15, '#7c3aed'))}, #7c3aed)`
+        return getGradientColor(COLORS.OPTIONAL)
       }
     }
     return ''
   }, [colors, nature])
 
-  console.log({ nature })
-
   return (
     <>
       <div
-        className={`h-2 w-8 rounded-[5rem] absolute bottom-2 group-hover:w-full group-hover:h-full group-hover:rounded-lg group-hover:bottom-0 ease-smooth transition-all duration-700 -z-10`}
+        className={`absolute bottom-2 -z-10 h-2 w-8 rounded-[5rem] transition-all duration-700 ease-smooth group-hover:bottom-0 group-hover:h-full group-hover:w-full group-hover:rounded-lg group-data-[selected=selected]:bottom-0 group-data-[selected=selected]:h-full group-data-[selected=selected]:w-full group-data-[selected=selected]:rounded-lg`}
         style={{
           background: backgroundStyle,
         }}
       />
       <div
-        className={`h-2 w-8 rounded-[5rem] absolute bottom-2 group-hover:w-full group-hover:h-full group-hover:rounded-lg group-hover:bottom-0 ease-smooth transition-all duration-700 -z-[15] blur-lg`}
+        className={`absolute bottom-2 -z-[15] h-2 w-8 rounded-[5rem] blur-lg transition-all duration-700 ease-smooth group-hover:bottom-0 group-hover:h-full group-hover:w-full group-hover:rounded-lg group-data-[selected=selected]:bottom-0 group-data-[selected=selected]:h-full group-data-[selected=selected]:w-full group-data-[selected=selected]:rounded-lg`}
         style={{
           background: backgroundStyle,
         }}

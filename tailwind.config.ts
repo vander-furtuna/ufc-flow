@@ -1,3 +1,4 @@
+import tailwindContainerQueries from '@tailwindcss/container-queries'
 import type { Config } from 'tailwindcss'
 import plugin from 'tailwindcss/plugin'
 import tailwindAnimate from 'tailwindcss-animate'
@@ -106,6 +107,7 @@ const config: Config = {
   },
   plugins: [
     tailwindAnimate,
+    tailwindContainerQueries,
     plugin(({ addUtilities }) => {
       addUtilities({
         '.no-scrollbar': {

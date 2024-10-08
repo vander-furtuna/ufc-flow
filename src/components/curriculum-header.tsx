@@ -1,20 +1,15 @@
-import { useCourse } from '@/app/contexts/course'
-
+import { CurriculumSwitch } from './curriculum-switch'
 import { SearchBar } from './search-bar'
-import { ToggleButton } from './toggle-button'
 
 export function CurriculumHeader() {
-  const { selectedCurriculum, selectedCourse } = useCourse()
-
   return (
-    <section className="w-full justify-between items-start flex">
-      <div className="flex gap-2">
-        <ToggleButton label={selectedCourse?.name} />
-        <ToggleButton label={selectedCurriculum?.period} />
+    <article className="flex w-full flex-col items-start justify-between gap-6 @4xl:flex-row">
+      <div className="flex w-full gap-2 md:w-fit">
+        <CurriculumSwitch />
       </div>
-      <div>
+      <div className="flex w-full justify-end">
         <SearchBar />
       </div>
-    </section>
+    </article>
   )
 }

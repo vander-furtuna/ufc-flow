@@ -54,15 +54,15 @@ export function SemesterPopup() {
           isActive={isSemesterFilterActive}
         />
       </PopoverTrigger>
-      <PopoverContent className="w-36 flex flex-col gap-4 bg-slate-100/50 backdrop-blur-md dark:bg-slate-800/50">
+      <PopoverContent className="flex w-36 flex-col gap-4 bg-slate-100/50 backdrop-blur-md dark:bg-slate-800/50">
         <strong className="text-center text-slate-700 dark:text-slate-100">
           Semestres
         </strong>
-        <div className="flex gap-4 flex-wrap justify-center">
+        <div className="flex flex-wrap justify-center gap-4">
           {totalOfSemesters.map((semester) => (
             <fieldset
               key={semester}
-              className="flex items-center justify-center rounded-md gap-2"
+              className="flex items-center justify-center gap-2 rounded-md"
             >
               <FilterCheckbox
                 {...register('semester')}
@@ -74,7 +74,7 @@ export function SemesterPopup() {
         </div>
         <div>
           <Button
-            className="text-xs w-full gap-2"
+            className="w-full gap-2 text-xs"
             variant="outline"
             onClick={handleClearFilters}
           >

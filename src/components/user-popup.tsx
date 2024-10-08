@@ -11,10 +11,10 @@ export function UserPopup() {
 
   return (
     <button
-      className="bg-foreground rounded-full size-12 flex center ring-1 ring-muted-foreground/25 opacity-30"
+      className="flex size-12 rounded-full bg-foreground opacity-30 ring-1 ring-muted-foreground/25 center"
       onClick={handleOpenUserPopup}
     >
-      <User className="text-muted size-6" />
+      <User className="size-6 text-muted" />
     </button>
   )
 }

@@ -9,7 +9,7 @@ export const CheckboxLabel = forwardRef<HTMLSpanElement, CheckboxSpanProps>(
     return (
       <span
         ref={ref}
-        className={cn('font-medium text-checkbox-text', className)}
+        className={cn('text-checkbox-text font-medium', className)}
       >
         {children}
       </span>

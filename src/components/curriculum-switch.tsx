@@ -2,19 +2,17 @@ import { ChevronsUpDown } from 'lucide-react'
 import { type ComponentProps, useCallback } from 'react'
 import { toast } from 'sonner'
 
+import { useCourse } from '@/app/contexts/course'
 import { cn } from '@/lib/utils'
 
-interface ToggleButtonProps extends ComponentProps<'button'> {
-  label?: string
-  content?: string
-}
+interface CurriculumSwitchProps extends ComponentProps<'button'> {}
 
-export function ToggleButton({
-  label,
-  content,
+export function CurriculumSwitch({
   className,
   ...rest
-}: ToggleButtonProps) {
+}: CurriculumSwitchProps) {
+  const { selectedCourse, selectedCurriculum } = useCourse()
+
   const handleOpenUserPopup = useCallback(() => {
     toast.info('Essa funcionalidade ainda não está disponível.')
   }, [])
@@ -29,10 +27,12 @@ export function ToggleButton({
       {...rest}
     >
       <div className="flex w-full flex-col items-start overflow-hidden">
-        <span className="text-xs text-foreground/80">{label}</span>
         <strong className="w-full truncate text-ellipsis text-left text-sm font-medium text-foreground">
-          {content}
+          {selectedCourse?.name}
         </strong>
+        <span className="text-xs">
+          Ano-periodo: {selectedCurriculum?.period}
+        </span>
       </div>
       <ChevronsUpDown className="size-4 shrink-0 text-muted-foreground opacity-35" />
     </button>

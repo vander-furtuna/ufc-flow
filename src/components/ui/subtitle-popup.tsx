@@ -1,64 +1,24 @@
-import { Split, X } from 'lucide-react'
+import { Info } from 'lucide-react'
 import { lighten, saturate } from 'polished'
-import { useCallback, useEffect, useMemo } from 'react'
-import { useForm } from 'react-hook-form'
 
 import { useCourse } from '@/app/contexts/course'
-import { FilterCheckbox } from '@/components/filter-checkbox'
-import { Button } from '@/components/ui/button'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
 
-import { PopupTrigger } from './popup-trigger'
+import { Button } from './button'
 
-type FormData = {
-  branch: string[]
-  nature: string[]
-}
-
-export function BranchPopup() {
-  const { selectedCurriculum, setBranchFilter, setNatureFilter, filters } =
-    useCourse()
-
-  const { register, watch, reset } = useForm<FormData>({
-    defaultValues: {
-      branch: filters.branch,
-      nature: filters.nature,
-    },
-  })
-
-  const branch = watch('branch')
-  const nature = watch('nature')
-
-  const isNatureAndBranchFilterActive = useMemo(
-    () => filters.branch.length > 0 || filters.nature.length > 0,
-    [filters.branch, filters.nature],
-  )
-
-  const handleClearFilters = useCallback(() => {
-    setBranchFilter([])
-    setNatureFilter([])
-    reset()
-  }, [setBranchFilter, setNatureFilter, reset])
-
-  useEffect(() => {
-    setBranchFilter(branch)
-  }, [branch, setBranchFilter])
-
-  useEffect(() => {
-    setNatureFilter(nature)
-  }, [nature, setNatureFilter])
+export function SubtitlePopup() {
+  const { selectedCurriculum } = useCourse()
 
   return (
     <Popover>
       <PopoverTrigger asChild className="group">
-        <PopupTrigger
-          icon={<Split className="size-4" />}
-          isActive={isNatureAndBranchFilterActive}
-        />
+        <Button size="icon" variant="ghost">
+          <Info className="size-4 text-muted-foreground" />
+        </Button>
       </PopoverTrigger>
       <PopoverContent className="flex w-fit flex-col gap-4 bg-slate-100/50 backdrop-blur-md dark:bg-slate-800/50">
         <strong className="text-center text-slate-600 dark:text-slate-100">
@@ -66,7 +26,6 @@ export function BranchPopup() {
         </strong>
         <div className="flex w-fit flex-col justify-center gap-x-8 gap-y-4">
           <fieldset className="flex items-center justify-start gap-2 rounded-md">
-            <FilterCheckbox {...register('nature')} value="OBRIGATÓRIA" />
             <div
               className="bg h-2 w-4 rounded-full"
               style={{
@@ -81,7 +40,6 @@ export function BranchPopup() {
             </label>
           </fieldset>
           <fieldset className="flex items-center justify-start gap-2 rounded-md">
-            <FilterCheckbox {...register('nature')} value="OPTATIVA" />
             <div
               className="bg h-2 w-4 rounded-full"
               style={{
@@ -101,7 +59,6 @@ export function BranchPopup() {
               key={branch.id}
               className="flex items-center justify-start gap-2 rounded-md"
             >
-              <FilterCheckbox {...register('branch')} value={branch.id} />
               <div
                 className="bg h-2 w-4 rounded-full"
                 style={{
@@ -116,16 +73,6 @@ export function BranchPopup() {
               </label>
             </fieldset>
           ))}
-        </div>
-        <div>
-          <Button
-            className="w-full gap-2 text-xs"
-            variant="outline"
-            onClick={handleClearFilters}
-          >
-            <X className="size-4" />
-            Limpar
-          </Button>
         </div>
       </PopoverContent>
     </Popover>

@@ -7,7 +7,7 @@ import { SemesterPopup } from './popups/semester-popup'
 export function Filters() {
   return (
     <motion.div
-      className="flex h-8 items-center gap-2 overflow-hidden"
+      className="flex h-8 shrink-0 items-center gap-2 overflow-hidden"
       initial={{
         opacity: 0,
         x: 20,

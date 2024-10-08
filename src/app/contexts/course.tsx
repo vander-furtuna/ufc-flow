@@ -28,15 +28,18 @@ interface CourseContextType {
   selectedCurriculum: CurriculumStructure | null
   selectedSubjects: Subject[]
   filteredSubjects: Subject[]
+  selectedSubject: Subject | null
+  isCourseLoading: boolean
   selectCourseBySlug: (slug: string) => void
   selectCurriculumBySlug: (slug: string) => void
 
   filters: FilterState
-  setDurationFilter: (duration: string[]) => void
+  setDurationFilter: (duration: string[] | number[]) => void
   setQueryFilter: (query: string) => void
   setBranchFilter: (branch: string[]) => void
-  setSemesterFilter: (semester: string[]) => void
+  setSemesterFilter: (semester: string[] | number[]) => void
   setNatureFilter: (type: string[]) => void
+  setSelectedSubject: (subject: Subject | null) => void
 }
 
 const courseContext = createContext<CourseContextType>({} as CourseContextType)
@@ -46,11 +49,13 @@ export function CourseProvider({
 }: Readonly<{
   children: ReactNode
 }>) {
+  const [isCourseLoading, setIsCourseLoading] = useState(true)
   const [courses, setCourses] = useState<Course[]>([])
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null)
   const [selectedCurriculum, setSelectedCurriculum] =
     useState<CurriculumStructure | null>(null)
   const [selectedSubjects, setSelectedSubjects] = useState<Subject[]>([])
+  const [selectedSubject, setSelectedSubject] = useState<Subject | null>(null)
   const [filteredSubjects, setFilteredSubjects] = useState<Subject[]>([])
 
   const [filters, setFilters] = useState<FilterState>({
@@ -75,6 +80,7 @@ export function CourseProvider({
   const selectCurriculumBySlug = useCallback(
     (slug: string) => {
       if (selectedCourse) {
+        setIsCourseLoading(true)
         const curriculum = selectedCourse.curriculumStructures.find(
           (curriculum) => curriculum.slug === slug,
         )
@@ -84,6 +90,8 @@ export function CourseProvider({
           setSelectedSubjects(curriculum.subjects)
           setFilteredSubjects(curriculum.subjects)
         }
+
+        setIsCourseLoading(false)
       }
     },
     [selectedCourse],
@@ -96,8 +104,10 @@ export function CourseProvider({
     }))
   }, [])
 
-  const setDurationFilter = useCallback((duration: string[]) => {
-    const numberDurationFilter = duration.map((duration) => parseInt(duration))
+  const setDurationFilter = useCallback((duration: string[] | number[]) => {
+    const numberDurationFilter = duration.map((duration) =>
+      typeof duration === 'string' ? parseInt(duration) : duration,
+    )
 
     setFilters((prev) => ({
       ...prev,
@@ -105,8 +115,10 @@ export function CourseProvider({
     }))
   }, [])
 
-  const setSemesterFilter = useCallback((semester: string[]) => {
-    const numberSemesterFilter = semester.map((semester) => parseInt(semester))
+  const setSemesterFilter = useCallback((semester: string[] | number[]) => {
+    const numberSemesterFilter = semester.map((semester) =>
+      typeof semester === 'string' ? parseInt(semester) : semester,
+    )
 
     setFilters((prev) => ({
       ...prev,
@@ -186,7 +198,9 @@ export function CourseProvider({
       selectedCourse,
       selectedCurriculum,
       selectedSubjects,
+      selectedSubject,
       filteredSubjects,
+      isCourseLoading,
       selectCourseBySlug,
       selectCurriculumBySlug,
 
@@ -196,13 +210,16 @@ export function CourseProvider({
       setBranchFilter,
       setSemesterFilter,
       setNatureFilter,
+      setSelectedSubject,
     }),
     [
       courses,
       selectedCourse,
       selectedCurriculum,
       selectedSubjects,
+      selectedSubject,
       filteredSubjects,
+      isCourseLoading,
       selectCourseBySlug,
       selectCurriculumBySlug,
 
@@ -212,6 +229,7 @@ export function CourseProvider({
       setBranchFilter,
       setSemesterFilter,
       setNatureFilter,
+      setSelectedSubject,
     ],
   )
 

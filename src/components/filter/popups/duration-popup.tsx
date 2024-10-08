@@ -52,15 +52,15 @@ export function DurationPopup() {
           isActive={isDurationFilterActive}
         />
       </PopoverTrigger>
-      <PopoverContent className="w-44 flex flex-col gap-4 bg-slate-100/50 backdrop-blur-md dark:bg-slate-800/50">
+      <PopoverContent className="flex w-44 flex-col gap-4 bg-slate-100/50 backdrop-blur-md dark:bg-slate-800/50">
         <strong className="text-center text-slate-600 dark:text-slate-100">
           Duração
         </strong>
-        <form className="flex gap-x-8 gap-y-4 flex-wrap justify-center">
+        <form className="flex flex-wrap justify-center gap-x-8 gap-y-4">
           {durationOptions.map((duration) => (
             <fieldset
               key={duration}
-              className="flex items-center justify-center rounded-md gap-2"
+              className="flex items-center justify-center gap-2 rounded-md"
             >
               <FilterCheckbox
                 {...register('duration')}
@@ -72,7 +72,7 @@ export function DurationPopup() {
         </form>
         <div>
           <Button
-            className="text-xs w-full gap-2"
+            className="w-full gap-2 text-xs"
             variant="outline"
             onClick={handleClearDurationFilter}
           >

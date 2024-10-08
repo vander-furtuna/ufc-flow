@@ -21,27 +21,27 @@ export function SearchBar() {
   )
 
   return (
-    <div className="flex items-center justify-centerw w-fit h-12 bg-accent rounded-md transition-all border border-border dark:border-slate-700 pl-4">
+    <div className="justify-centerw flex h-12 w-full items-center rounded-md border border-border bg-accent pl-4 transition-all @4xl:w-fit dark:border-slate-700">
       <input
         onChange={(e) => setQueryFilter(e.target.value)}
         value={filters.query}
         type="text"
-        className="h-full bg-transparent text-sm outline-0 border-0 w-56"
+        className="h-full w-full border-0 bg-transparent text-sm outline-0 @4xl:w-56"
         placeholder="Pesquisar"
       />
 
       <AnimatePresence>{isFiltersOpen && <Filters />}</AnimatePresence>
 
       <button
-        className="center data-[open=open]:bg-slate-200 dark:data-[open=open]:bg-slate-700 size-6 rounded-md data-[active=active]:bg-slate-400 dark:data-[active=active]:bg-slate-400 dark:data-[active=active]:text-slate-700 text-muted-foreground data-[active=active]:text-slate-100 transition-colors"
+        className="size-6 flex-shrink-0 rounded-md text-muted-foreground transition-colors center data-[active=active]:bg-slate-400 data-[open=open]:bg-slate-200 data-[active=active]:text-slate-100 dark:data-[active=active]:bg-slate-400 dark:data-[open=open]:bg-slate-700 dark:data-[active=active]:text-slate-700"
         data-active={isFiltersActive ? 'active' : 'inactive'}
         onClick={() => setIsFiltersOpen((prev) => !prev)}
       >
-        <Settings2 className="size-4 " />
+        <Settings2 className="size-4" />
       </button>
 
-      <button className="h-full w-12 center">
-        <Search className="text-muted-foreground size-6" />
+      <button className="h-full w-12 flex-shrink-0 center">
+        <Search className="size-6 text-muted-foreground" />
       </button>
     </div>
   )

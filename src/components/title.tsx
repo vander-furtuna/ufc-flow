@@ -5,7 +5,7 @@ export interface SemesterTitleProps {
 }
 
 export function Line() {
-  return <div className="w-full h-0.5 bg-foreground/10" />
+  return <div className="h-0.5 w-full bg-foreground/10" />
 }
 
 export function SemesterTitle({ children }: SemesterTitleProps) {

@@ -6,7 +6,9 @@ import { useCourse } from '@/app/contexts/course'
 import { CurriculumHeader } from '@/components/curriculum-header'
 import { Header } from '@/components/header'
 
+import { Sidebar } from './components/sidebar/sidebax'
 import { SubjectDiagram } from './components/subject-diagram'
+import { SubjectDiagramSkeleton } from './components/subject-diagram-skeleton'
 
 interface CurriculumProps {
   params: {
@@ -21,6 +23,7 @@ export default function Curriculum({ params }: CurriculumProps) {
     selectedCurriculum,
     selectCourseBySlug,
     selectCurriculumBySlug,
+    isCourseLoading,
   } = useCourse()
 
   const handleGetSelectedCurriculumBySlug = useCallback(() => {
@@ -49,10 +52,13 @@ export default function Curriculum({ params }: CurriculumProps) {
   }, [handleGetSelectedCurriculumBySlug])
 
   return (
-    <main className="w-full justify-center items-start max-w-5xl py-12 flex flex-col gap-12">
-      <Header />
-      <CurriculumHeader />
-      <SubjectDiagram />
+    <main className="flex w-full justify-center gap-6 px-8 md:gap-12">
+      <section className="flex w-full max-w-5xl flex-col items-start justify-center gap-12 py-12 @container">
+        <Header />
+        <CurriculumHeader />
+        {isCourseLoading ? <SubjectDiagramSkeleton /> : <SubjectDiagram />}
+      </section>
+      <Sidebar />
     </main>
   )
 }

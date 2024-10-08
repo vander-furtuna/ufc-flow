@@ -16,14 +16,14 @@ export function SubjectDiagram() {
   )
 
   return (
-    <section className="flex flex-col items-center justify-start gap-12 w-full">
+    <article className="flex w-full flex-col items-center justify-start gap-12">
       {filteredSubjects.length > 0 ? (
         semestersValues.map((period) => {
           if (filteredSubjects.some((course) => course.semester === period)) {
             return (
-              <div key={period} className="flex gap-4 flex-col w-full">
+              <div key={period} className="flex w-full flex-col gap-4">
                 <SemesterTitle>{period}º PERÍODO</SemesterTitle>
-                <div className="grid grid-cols-[repeat(auto-fit,_minmax(9rem,_1fr))] auto-rows-[100px] justify-items-center grid-flow-dense gap-4 w-full">
+                <div className="grid w-full grid-flow-dense auto-rows-[100px] grid-cols-[repeat(auto-fit,_minmax(9rem,_1fr))] justify-items-center gap-4">
                   <AnimatePresence>
                     {filteredSubjects
                       .filter((subject) => subject.semester === period)
@@ -44,6 +44,6 @@ export function SubjectDiagram() {
           <NoResultCard />
         </div>
       )}
-    </section>
+    </article>
   )
 }
