@@ -3,7 +3,7 @@ import plugin from 'tailwindcss/plugin'
 import tailwindAnimate from 'tailwindcss-animate'
 
 const config: Config = {
-  darkMode: ['class'],
+  darkMode: ['selector'],
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -94,6 +94,13 @@ const config: Config = {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
+      },
+      spacing: {
+        22: '5.5rem',
+        38: '9.5rem',
+      },
+      transitionTimingFunction: {
+        smooth: 'cubic-bezier(0.075, 0.82, 0.165, 1)',
       },
     },
   },
