@@ -1,16 +1,37 @@
 import './globals.css'
 
 import type { Metadata } from 'next'
-import { Poppins, Space_Grotesk } from 'next/font/google'
+import { Space_Grotesk } from 'next/font/google'
+import localFont from 'next/font/local'
 import { Toaster } from 'sonner'
 
 import { ThemeProvider } from '@/components/theme-provider'
 
 import { CourseProvider } from './contexts/course'
 
-const poppins = Poppins({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+const poppins = localFont({
+  src: [
+    {
+      path: './fonts/poppins/Poppins-Regular.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: './fonts/poppins/Poppins-Medium.ttf',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: './fonts/poppins/Poppins-SemiBold.ttf',
+      weight: '600',
+      style: 'normal',
+    },
+    {
+      path: './fonts/poppins/Poppins-Bold.ttf',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
   variable: '--font-poppins',
 })
 
