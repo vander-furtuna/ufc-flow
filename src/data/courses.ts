@@ -14,17 +14,17 @@ export const COURSES_DATA: Course[] = [
           {
             id: '32e0b683-60aa-4e51-9b1a-0739239b69b6',
             name: 'Ciências da Computação',
-            color: 'blue',
+            color: '#22d3ee',
           },
           {
             id: '2053b18f-bcc3-4cc4-9517-c5e771c9ab3d',
             name: 'Automação e Controle',
-            color: 'green',
+            color: '#FFB800',
           },
           {
             id: 'e8451499-5b1c-4b5b-a35b-6bf729873f43',
             name: 'Telecomunicações',
-            color: 'red',
+            color: '#5BE41B',
           },
         ],
         subjects: [
@@ -1069,17 +1069,6 @@ export const COURSES_DATA: Course[] = [
             id: '9583819f-32f0-4b6b-a271-b8061378a5ab',
             code: 'PRG0004',
             name: 'EDUCAÇÃO EM DIREITOS HUMANOS',
-            semester: 10,
-            duration: 64,
-            nature: 'OPTATIVA',
-            type: 'DISCIPLINA',
-            branch: [],
-            prerequisites: [],
-          },
-          {
-            id: '913dc814-0e17-4426-a505-cab1e261c402',
-            code: 'PRG0005',
-            name: 'DIFERENÇA E ENFRENTAMENTO PROFISSIONAL NAS DESIGUALDADES SOCIAIS',
             semester: 10,
             duration: 64,
             nature: 'OPTATIVA',

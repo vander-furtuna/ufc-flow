@@ -6,7 +6,7 @@ export type Branch = {
   color: string
 }
 
-export type Subjects = {
+export type Subject = {
   id: string
   code: string
   name: string
@@ -23,7 +23,7 @@ export type CurriculumStructure = {
   period: string
   slug: string
   branchs: Branch[]
-  subjects: Subjects[]
+  subjects: Subject[]
 }
 
 export type Course = {

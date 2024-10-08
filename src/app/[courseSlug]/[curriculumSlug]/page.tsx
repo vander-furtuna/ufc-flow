@@ -3,7 +3,10 @@
 import { useCallback, useEffect } from 'react'
 
 import { useCourse } from '@/app/contexts/course'
+import { CurriculumHeader } from '@/components/curriculum-header'
 import { Header } from '@/components/header'
+
+import { SubjectDiagram } from './components/subject-diagram'
 
 interface CurriculumProps {
   params: {
@@ -46,8 +49,10 @@ export default function Curriculum({ params }: CurriculumProps) {
   }, [handleGetSelectedCurriculumBySlug])
 
   return (
-    <main className="w-full justify-center items-start max-w-5xl py-12">
+    <main className="w-full justify-center items-start max-w-5xl py-12 flex flex-col gap-12">
       <Header />
+      <CurriculumHeader />
+      <SubjectDiagram />
     </main>
   )
 }
