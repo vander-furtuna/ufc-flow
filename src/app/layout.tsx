@@ -81,7 +81,7 @@ export default function RootLayout({
     <html lang="pt-br" suppressHydrationWarning>
       <ThemeProvider
         attribute="class"
-        defaultTheme="light"
+        defaultTheme="system"
         enableSystem
         disableTransitionOnChange
       >
