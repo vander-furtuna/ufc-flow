@@ -6,6 +6,7 @@ import { useCourse } from '@/app/contexts/course'
 import { CurriculumHeader } from '@/components/curriculum-header'
 import { Header } from '@/components/header'
 
+import { Footer } from './components/footer'
 import { Sidebar } from './components/sidebar/sidebax'
 import { SubjectDiagram } from './components/subject-diagram'
 import { SubjectDiagramSkeleton } from './components/subject-diagram-skeleton'
@@ -52,11 +53,12 @@ export default function Curriculum({ params }: CurriculumProps) {
   }, [handleGetSelectedCurriculumBySlug])
 
   return (
-    <main className="flex w-full justify-center gap-6 px-8 md:gap-12">
-      <section className="flex w-full max-w-5xl flex-col items-start justify-center gap-12 py-12 @container">
+    <main className="flex h-full w-full items-start justify-center gap-6 px-8 md:gap-12">
+      <section className="flex h-full w-full max-w-5xl flex-col items-center justify-start gap-12 py-12 @container">
         <Header />
         <CurriculumHeader />
         {isCourseLoading ? <SubjectDiagramSkeleton /> : <SubjectDiagram />}
+        <Footer />
       </section>
       <Sidebar />
     </main>
