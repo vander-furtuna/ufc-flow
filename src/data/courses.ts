@@ -850,7 +850,7 @@ export const COURSES_DATA: Course[] = [
             duration: 64,
             nature: 'OPTATIVA',
             type: 'DISCIPLINA',
-            branch: ['e8451499-5b1c-4b5b-a35b-6bf729873f43'],
+            branch: [],
             prerequisites: ['SBL0077'],
           },
           {
