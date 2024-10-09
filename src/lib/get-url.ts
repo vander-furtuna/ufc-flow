@@ -1,5 +1,5 @@
 export function getUrl(path?: string) {
-  const baseUrl = 'http://localhost:3000'
+  const baseUrl = 'https://ufc-flow.vercel.app'
   const normalizedPath = path && !path.startsWith('/') ? `/${path}` : path || ''
   return `${baseUrl}${normalizedPath}`
 }
