@@ -5,7 +5,7 @@ import { VanderLogo } from '@/components/vander-logo'
 
 export function Footer() {
   return (
-    <footer className="mt-auto flex h-24 w-full items-center justify-between pb-4">
+    <footer className="mt-auto flex w-full items-center justify-between pb-0">
       <div className="flex items-center gap-4">
         <span className="font-space text-sm font-semibold">Powered By</span>
         <VanderLogo className="h-12 w-fit" />

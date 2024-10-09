@@ -53,8 +53,8 @@ export default function Curriculum({ params }: CurriculumProps) {
   }, [handleGetSelectedCurriculumBySlug])
 
   return (
-    <main className="flex h-full w-full items-start justify-center gap-6 px-8 md:gap-12">
-      <section className="flex h-full w-full max-w-5xl flex-col items-center justify-start gap-12 py-12 @container">
+    <main className="flex h-full min-h-dvh w-full items-start justify-center gap-6 px-8 md:gap-12">
+      <section className="flex h-full min-h-dvh w-full max-w-5xl flex-col items-center justify-start gap-12 py-12 @container">
         <Header />
         <CurriculumHeader />
         {isCourseLoading ? <SubjectDiagramSkeleton /> : <SubjectDiagram />}
