@@ -119,7 +119,7 @@ export function Sidebar() {
                   {selectedSubject.name}
                 </strong>
                 <button
-                  className="absolute bottom-4 flex w-fit gap-2 rounded-full bg-slate-50/40 px-2 py-1 font-semibold text-slate-800 transition-all duration-300 center dark:bg-slate-900/10 dark:text-slate-100 dark:hover:bg-slate-900/20"
+                  className="absolute bottom-2 flex w-fit gap-2 rounded-full bg-slate-50/40 px-2 py-1 font-semibold text-slate-800 transition-all duration-300 center dark:bg-slate-900/10 dark:text-slate-100 dark:hover:bg-slate-900/20"
                   onClick={() => copyToClipboard(selectedSubject.code)}
                 >
                   <span className="font-space text-sm">
