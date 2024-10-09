@@ -23,7 +23,11 @@ export function SubjectCard({ subject }: SubjectCardProps) {
       transition={{ duration: 0.2 }}
       key={subject.code}
       className="group relative flex h-24 w-38 flex-shrink-0 cursor-pointer flex-col gap-1 rounded-lg bg-transparent px-4 text-center text-[10px] ring-1 ring-border transition-all duration-300 center before:absolute before:-z-20 before:size-full before:rounded-lg before:bg-accent before:content-[''] hover:shadow-lg hover:ring-0 data-[selected=selected]:shadow-lg data-[selected=selected]:ring-0 dark:ring-slate-700"
-      onClick={() => setSelectedSubject(subject)}
+      onClick={() =>
+        selectedSubject?.code === subject.code
+          ? setSelectedSubject(null)
+          : setSelectedSubject(subject)
+      }
       data-selected={
         selectedSubject?.code === subject.code ? 'selected' : 'unselected'
       }

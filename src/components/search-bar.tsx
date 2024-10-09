@@ -1,4 +1,3 @@
-import { AnimatePresence } from 'framer-motion'
 import { Search, Settings2 } from 'lucide-react'
 import { useMemo, useState } from 'react'
 
@@ -30,11 +29,13 @@ export function SearchBar() {
         placeholder="Pesquisar"
       />
 
-      <AnimatePresence>{isFiltersOpen && <Filters />}</AnimatePresence>
+      {/* <AnimatePresence>{isFiltersOpen && <Filters />}</AnimatePresence> */}
+      <Filters isOpen={isFiltersOpen} />
 
       <button
         className="size-6 flex-shrink-0 rounded-md text-muted-foreground transition-colors center data-[active=active]:bg-slate-400 data-[open=open]:bg-slate-200 data-[active=active]:text-slate-100 dark:data-[active=active]:bg-slate-400 dark:data-[open=open]:bg-slate-700 dark:data-[active=active]:text-slate-700"
         data-active={isFiltersActive ? 'active' : 'inactive'}
+        data-open={isFiltersOpen && !isFiltersActive ? 'open' : 'closed'}
         onClick={() => setIsFiltersOpen((prev) => !prev)}
       >
         <Settings2 className="size-4" />

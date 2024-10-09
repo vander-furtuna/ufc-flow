@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { Badge, Calendar, Clock, Split, X } from 'lucide-react'
+import { Badge, Calendar, Clock, Copy, Split, X } from 'lucide-react'
 import { useCallback, useMemo } from 'react'
+import { toast } from 'sonner'
 
 import { useCourse } from '@/app/contexts/course'
 import { Glow } from '@/components/glow'
@@ -14,12 +15,8 @@ import { SectionTitle } from './section-titlte'
 // interface SidebarProps {}
 
 export function Sidebar() {
-  const {
-    selectedSubject,
-    selectedCurriculum,
-    setSelectedSubject,
-    setBranchFilter,
-  } = useCourse()
+  const { selectedSubject, selectedCurriculum, setSelectedSubject } =
+    useCourse()
 
   const colors = useMemo(
     () =>
@@ -75,6 +72,20 @@ export function Sidebar() {
     setSelectedSubject(null)
   }, [setSelectedSubject])
 
+  const copyToClipboard = useCallback((text: string) => {
+    navigator.clipboard.writeText(text).then(
+      () => {
+        toast.success(
+          'Código da disciplina copiado para a área de transferência',
+        )
+      },
+      (err) => {
+        console.error('Failed to copy the text to clipboard', err)
+        toast.error('Falha ao copiar o código da disciplina')
+      },
+    )
+  }, [])
+
   return (
     <AnimatePresence>
       {selectedSubject && (
@@ -97,7 +108,7 @@ export function Sidebar() {
                 colors={glowColor}
                 className="absolute -top-72 left-1/2 z-10 size-[32rem] -translate-x-1/2 blur-[100px]"
               />
-              <div className="relative z-20 h-36 w-full px-8 center">
+              <div className="relative z-20 h-40 w-full px-8 center">
                 <button
                   className="absolute right-3 top-3 size-6 rounded-md transition-colors center hover:bg-foreground/20"
                   onClick={handleUnselectSubject}
@@ -107,6 +118,17 @@ export function Sidebar() {
                 <strong className="w-full text-center font-space text-lg center dark:text-slate-50">
                   {selectedSubject.name}
                 </strong>
+                <button
+                  className="absolute bottom-4 flex w-fit gap-2 rounded-full bg-slate-50/40 px-2 py-1 font-semibold text-slate-800 transition-all duration-300 center dark:bg-slate-900/10 dark:text-slate-100 dark:hover:bg-slate-900/20"
+                  onClick={() => copyToClipboard(selectedSubject.code)}
+                >
+                  <span className="font-space text-sm">
+                    {selectedSubject.code}
+                  </span>
+                  <figure className="size-4">
+                    <Copy strokeWidth={2.5} className="size-3" />
+                  </figure>
+                </button>
               </div>
               <div className="relative z-20 flex flex-col gap-2">
                 <div className="gap-1 center">
@@ -136,7 +158,7 @@ export function Sidebar() {
                       key={branch.id}
                       Icon={<Split strokeWidth={2} className="size-4" />}
                       label={branch.name}
-                      onClick={() => setBranchFilter([branch.id])}
+                      // onClick={() => setBranchFilter([branch.id])}
                     />
                   ))}
                 </div>
