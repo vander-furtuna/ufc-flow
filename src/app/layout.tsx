@@ -67,8 +67,8 @@ export const metadata: Metadata = {
     title: 'UFC Flow | Explore as disciplinas de seu curso',
     description:
       'Explore as disciplinas de seu curso na Universidade Federal do Ceará com UFC Flow',
-    images: ['https://tech-talk-ssr.vercel.app/banner.png'],
-    url: 'https://tech-talk-ssr.vercel.app',
+    images: ['https://ufc-flow.vercel.app/banner.png'],
+    url: 'https://ufc-flow.vercel.app',
   },
 }
 
