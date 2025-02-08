@@ -115,7 +115,7 @@ export function Sidebar() {
                 >
                   <X className="size-5 opacity-70" />
                 </button>
-                <strong className="w-full text-center font-space text-lg center dark:text-slate-50">
+                <strong className="w-full text-center font-space text-lg drop-shadow-lg center dark:text-slate-50">
                   {selectedSubject.name}
                 </strong>
                 <button
