@@ -20,7 +20,7 @@ export function SearchBar() {
   )
 
   return (
-    <div className="justify-centerw flex h-12 w-full items-center rounded-md border border-border bg-accent pl-4 transition-all sm:w-fit dark:border-slate-700">
+    <div className="justify-centerw flex h-12 w-full items-center rounded-md border border-border bg-accent/50 pl-4 shadow-lg shadow-foreground/5 backdrop-blur-md transition-all sm:w-fit dark:border-slate-700">
       <input
         onChange={(e) => setQueryFilter(e.target.value)}
         value={filters.query}
