@@ -25,7 +25,7 @@ export function SearchBar() {
         onChange={(e) => setQueryFilter(e.target.value)}
         value={filters.query}
         type="text"
-        className="h-full w-full border-0 bg-transparent text-sm outline-0 sm:w-56"
+        className="h-full w-full border-0 bg-transparent text-sm outline-0 sm:w-72"
         placeholder="Pesquisar"
       />
 
