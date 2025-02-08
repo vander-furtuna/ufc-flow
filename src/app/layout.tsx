@@ -1,12 +1,13 @@
 import './globals.css'
 
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Space_Grotesk } from 'next/font/google'
 import localFont from 'next/font/local'
 import { Toaster } from 'sonner'
 
 import { ThemeProvider } from '@/components/theme-provider'
 
+import { FloatingBar } from './[courseSlug]/[curriculumSlug]/components/floating-bar'
 import { CourseProvider } from './contexts/course'
 
 const poppins = localFont({
@@ -40,6 +41,13 @@ const spaceGrotesk = Space_Grotesk({
   weight: ['400', '500', '600', '700'],
   variable: '--font-space-grotesk',
 })
+
+export const viewport: Viewport = {
+  initialScale: 1,
+  minimumScale: 1,
+  height: 'device-height',
+  width: 'device-width',
+}
 
 export const metadata: Metadata = {
   title: {
@@ -91,6 +99,7 @@ export default function RootLayout({
           >
             <main className="flex min-h-screen w-full flex-col items-center justify-start">
               {children}
+              <FloatingBar />
             </main>
             <Toaster
               toastOptions={{

@@ -20,12 +20,12 @@ export function SearchBar() {
   )
 
   return (
-    <div className="justify-centerw flex h-12 w-full items-center rounded-md border border-border bg-accent pl-4 transition-all @4xl:w-fit dark:border-slate-700">
+    <div className="justify-centerw flex h-12 w-full items-center rounded-md border border-border bg-accent pl-4 transition-all sm:w-fit dark:border-slate-700">
       <input
         onChange={(e) => setQueryFilter(e.target.value)}
         value={filters.query}
         type="text"
-        className="h-full w-full border-0 bg-transparent text-sm outline-0 @4xl:w-56"
+        className="h-full w-full border-0 bg-transparent text-sm outline-0 sm:w-56"
         placeholder="Pesquisar"
       />
 
