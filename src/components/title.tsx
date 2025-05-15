@@ -12,7 +12,7 @@ export function SemesterTitle({ children }: SemesterTitleProps) {
   return (
     <div className="flex items-center gap-6">
       <Line />
-      <strong className="font-clash text-nowrap text-xl text-foreground/90">
+      <strong className="text-nowrap font-clash text-xl text-foreground/90">
         {children}
       </strong>
       <Line />

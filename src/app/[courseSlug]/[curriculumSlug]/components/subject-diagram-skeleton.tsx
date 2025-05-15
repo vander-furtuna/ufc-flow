@@ -19,7 +19,7 @@ export function SubjectDiagramSkeleton() {
               {Array.from({ length: 5 }, (_, i) => i + 1).map((element) => {
                 return (
                   <div
-                    className="font-clash h-24 w-38 animate-pulse rounded-lg bg-slate-100 ring-1 ring-border center dark:bg-slate-900"
+                    className="h-24 w-38 animate-pulse rounded-lg bg-slate-100 font-clash ring-1 ring-border center dark:bg-slate-900"
                     key={element}
                   />
                 )

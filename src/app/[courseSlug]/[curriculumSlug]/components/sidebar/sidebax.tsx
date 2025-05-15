@@ -11,7 +11,7 @@ import { capitalizeWords } from '@/utils/capitalize-words'
 
 import { SubjectCardSmall } from '../subject-card-small'
 import { Pill } from './pill'
-import { SectionTitle } from './section-titlte'
+import { SectionTitle } from './section-title'
 
 // interface SidebarProps {}
 
