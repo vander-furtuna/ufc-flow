@@ -1,19 +1,20 @@
-import { Clock, X } from 'lucide-react'
+import { Clock } from 'lucide-react'
 import { useCallback, useMemo } from 'react'
 
 import { useFilter } from '@/app/contexts/filter'
 import { FilterCheckbox } from '@/components/filter-checkbox'
-import { Button } from '@/components/ui/button'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
 
+import { ClearButton } from './clear-button'
 import { PopupTrigger } from './popup-trigger'
 
 export function DurationPopup() {
-  const { durationFilter, changeDurationFilter } = useFilter()
+  const { durationFilter, changeDurationFilter, setDurationFilter } =
+    useFilter()
 
   const durationOptions = useMemo(() => [32, 48, 64, 96], [])
 
@@ -61,10 +62,7 @@ export function DurationPopup() {
           ))}
         </form>
         <div>
-          <Button className="w-full gap-2 text-xs" variant="outline">
-            <X className="size-4" />
-            Limpar
-          </Button>
+          <ClearButton onClick={() => setDurationFilter([])} />
         </div>
       </PopoverContent>
     </Popover>

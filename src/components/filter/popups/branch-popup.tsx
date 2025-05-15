@@ -1,23 +1,29 @@
-import { Split, X } from 'lucide-react'
+import { Tag } from 'lucide-react'
 import { lighten, saturate } from 'polished'
 import { useCallback, useMemo } from 'react'
 
 import { useCourse } from '@/app/contexts/course'
 import { useFilter } from '@/app/contexts/filter'
 import { FilterCheckbox } from '@/components/filter-checkbox'
-import { Button } from '@/components/ui/button'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
 
+import { ClearButton } from './clear-button'
 import { PopupTrigger } from './popup-trigger'
 
 export function BranchPopup() {
   const { selectedCurriculum } = useCourse()
-  const { branchFilter, natureFilter, changeBranchFilter, changeNatureFilter } =
-    useFilter()
+  const {
+    branchFilter,
+    natureFilter,
+    changeBranchFilter,
+    changeNatureFilter,
+    setBranchFilter,
+    setNatureFilter,
+  } = useFilter()
 
   const isNatureAndBranchFilterActive = useMemo(
     () => branchFilter.length > 0 || natureFilter.length > 0,
@@ -50,7 +56,7 @@ export function BranchPopup() {
     <Popover>
       <PopoverTrigger asChild className="group">
         <PopupTrigger
-          icon={<Split className="size-4" />}
+          icon={<Tag className="size-4" />}
           isActive={isNatureAndBranchFilterActive}
         />
       </PopoverTrigger>
@@ -124,10 +130,12 @@ export function BranchPopup() {
           ))}
         </div>
         <div>
-          <Button className="w-full gap-2 text-xs" variant="outline">
-            <X className="size-4" />
-            Limpar
-          </Button>
+          <ClearButton
+            onClick={() => {
+              setBranchFilter([])
+              setNatureFilter([])
+            }}
+          />
         </div>
       </PopoverContent>
     </Popover>

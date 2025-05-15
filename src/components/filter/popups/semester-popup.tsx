@@ -1,15 +1,15 @@
-import { Calendar, X } from 'lucide-react'
+import { Calendar } from 'lucide-react'
 import { useCallback, useMemo } from 'react'
 
 import { useFilter } from '@/app/contexts/filter'
 import { FilterCheckbox } from '@/components/filter-checkbox'
-import { Button } from '@/components/ui/button'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
 
+import { ClearButton } from './clear-button'
 import { PopupTrigger } from './popup-trigger'
 
 export function SemesterPopup() {
@@ -18,7 +18,8 @@ export function SemesterPopup() {
     [],
   )
 
-  const { semesterFilter, changeSemesterFilter } = useFilter()
+  const { semesterFilter, changeSemesterFilter, setSemesterFilter } =
+    useFilter()
 
   const handleCheckedSemester = useCallback(
     (semester: string, checked: boolean) => {
@@ -64,10 +65,7 @@ export function SemesterPopup() {
           ))}
         </div>
         <div>
-          <Button className="w-full gap-2 text-xs" variant="outline">
-            <X className="size-4" />
-            Limpar
-          </Button>
+          <ClearButton onClick={() => setSemesterFilter([])} />
         </div>
       </PopoverContent>
     </Popover>

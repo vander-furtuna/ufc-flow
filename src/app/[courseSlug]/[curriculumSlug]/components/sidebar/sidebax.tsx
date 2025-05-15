@@ -113,8 +113,9 @@ export function Sidebar() {
             exit={{ opacity: 0, x: 10 }}
             transition={{ duration: 0.3 }}
             drag="x"
+            dragElastic={0}
             onDragEnd={(_e, info) => {
-              if (info.offset.x > 2) {
+              if (info.offset.x > 2 || info.offset.x < -2) {
                 handleUnselectSubject()
               }
             }}
@@ -125,7 +126,7 @@ export function Sidebar() {
                 colors={glowColor}
                 className="absolute -top-72 left-1/2 z-10 size-[32rem] -translate-x-1/2 blur-[100px]"
               />
-              <div className="relative z-20 h-40 w-full px-8 center">
+              <div className="relative z-20 h-44 w-full px-8 center">
                 <button
                   className="absolute right-3 top-3 size-6 rounded-md transition-colors center hover:bg-foreground/20"
                   onClick={handleUnselectSubject}
