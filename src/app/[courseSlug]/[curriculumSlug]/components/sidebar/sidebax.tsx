@@ -112,6 +112,12 @@ export function Sidebar() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 10 }}
             transition={{ duration: 0.3 }}
+            drag="x"
+            onDragEnd={(_e, info) => {
+              if (info.offset.x > 2) {
+                handleUnselectSubject()
+              }
+            }}
             className="fixed h-dvh w-72 flex-shrink-0 py-8"
           >
             <div className="relative h-full w-full overflow-hidden overflow-y-auto overflow-x-hidden rounded-md bg-slate-100/50 pb-16 backdrop-blur-md no-scrollbar md:bg-slate-100 dark:bg-slate-900/60 dark:md:bg-slate-900">
