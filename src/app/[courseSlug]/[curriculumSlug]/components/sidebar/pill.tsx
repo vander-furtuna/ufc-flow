@@ -12,7 +12,7 @@ export function Pill({ Icon, label, ...rest }: PillProps) {
       {...rest}
     >
       {Icon}
-      <span className="font-space text-sm">{label}</span>
+      <span className="font-clash text-sm">{label}</span>
     </button>
   )
 }
