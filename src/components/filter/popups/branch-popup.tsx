@@ -1,62 +1,62 @@
-import { Split, X } from 'lucide-react'
+import { Tag } from 'lucide-react'
 import { lighten, saturate } from 'polished'
-import { useCallback, useEffect, useMemo } from 'react'
-import { useForm } from 'react-hook-form'
+import { useCallback, useMemo } from 'react'
 
 import { useCourse } from '@/app/contexts/course'
+import { useFilter } from '@/app/contexts/filter'
 import { FilterCheckbox } from '@/components/filter-checkbox'
-import { Button } from '@/components/ui/button'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
 
+import { ClearButton } from './clear-button'
 import { PopupTrigger } from './popup-trigger'
 
-type FormData = {
-  branch: string[]
-  nature: string[]
-}
-
 export function BranchPopup() {
-  const { selectedCurriculum, setBranchFilter, setNatureFilter, filters } =
-    useCourse()
-
-  const { register, watch, reset } = useForm<FormData>({
-    defaultValues: {
-      branch: filters.branch,
-      nature: filters.nature,
-    },
-  })
-
-  const branch = watch('branch')
-  const nature = watch('nature')
+  const { selectedCurriculum } = useCourse()
+  const {
+    branchFilter,
+    natureFilter,
+    changeBranchFilter,
+    changeNatureFilter,
+    setBranchFilter,
+    setNatureFilter,
+  } = useFilter()
 
   const isNatureAndBranchFilterActive = useMemo(
-    () => filters.branch.length > 0 || filters.nature.length > 0,
-    [filters.branch, filters.nature],
+    () => branchFilter.length > 0 || natureFilter.length > 0,
+    [branchFilter, natureFilter],
   )
 
-  const handleClearFilters = useCallback(() => {
-    setBranchFilter([])
-    setNatureFilter([])
-    reset()
-  }, [setBranchFilter, setNatureFilter, reset])
+  const handleCheckBranch = useCallback(
+    (branch: string, checked: boolean) => {
+      if (checked) {
+        changeBranchFilter(branch, 'add')
+      } else {
+        changeBranchFilter(branch, 'remove')
+      }
+    },
+    [changeBranchFilter],
+  )
 
-  useEffect(() => {
-    setBranchFilter(branch)
-  }, [branch, setBranchFilter])
-
-  useEffect(() => {
-    setNatureFilter(nature)
-  }, [nature, setNatureFilter])
+  const handleCheckNature = useCallback(
+    (nature: string, checked: boolean) => {
+      if (checked) {
+        changeNatureFilter(nature, 'add')
+      } else {
+        changeNatureFilter(nature, 'remove')
+      }
+    },
+    [changeNatureFilter],
+  )
 
   return (
     <Popover>
       <PopoverTrigger asChild className="group">
         <PopupTrigger
-          icon={<Split className="size-4" />}
+          icon={<Tag className="size-4" />}
           isActive={isNatureAndBranchFilterActive}
         />
       </PopoverTrigger>
@@ -66,7 +66,11 @@ export function BranchPopup() {
         </strong>
         <div className="flex w-fit flex-col justify-center gap-x-8 gap-y-4">
           <fieldset className="flex items-center justify-start gap-2 rounded-md">
-            <FilterCheckbox {...register('nature')} value="OBRIGATÓRIA" />
+            <FilterCheckbox
+              value="OBRIGATÓRIA"
+              checked={natureFilter.includes('OBRIGATÓRIA')}
+              onCheckedChange={handleCheckNature}
+            />
             <div
               className="bg h-2 w-4 rounded-full"
               style={{
@@ -81,7 +85,11 @@ export function BranchPopup() {
             </label>
           </fieldset>
           <fieldset className="flex items-center justify-start gap-2 rounded-md">
-            <FilterCheckbox {...register('nature')} value="OPTATIVA" />
+            <FilterCheckbox
+              value="OPTATIVA"
+              checked={natureFilter.includes('OPTATIVA')}
+              onCheckedChange={handleCheckNature}
+            />
             <div
               className="bg h-2 w-4 rounded-full"
               style={{
@@ -101,7 +109,11 @@ export function BranchPopup() {
               key={branch.id}
               className="flex items-center justify-start gap-2 rounded-md"
             >
-              <FilterCheckbox {...register('branch')} value={branch.id} />
+              <FilterCheckbox
+                value={branch.id}
+                checked={branchFilter.includes(branch.id)}
+                onCheckedChange={handleCheckBranch}
+              />
               <div
                 className="bg h-2 w-4 rounded-full"
                 style={{
@@ -118,14 +130,12 @@ export function BranchPopup() {
           ))}
         </div>
         <div>
-          <Button
-            className="w-full gap-2 text-xs"
-            variant="outline"
-            onClick={handleClearFilters}
-          >
-            <X className="size-4" />
-            Limpar
-          </Button>
+          <ClearButton
+            onClick={() => {
+              setBranchFilter([])
+              setNatureFilter([])
+            }}
+          />
         </div>
       </PopoverContent>
     </Popover>

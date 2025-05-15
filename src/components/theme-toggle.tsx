@@ -1,6 +1,6 @@
 'use client'
 
-import { Bolt, Moon, Sun } from 'lucide-react'
+import { Moon, Sun, SunMoon } from 'lucide-react'
 import { useTheme } from 'next-themes'
 
 import { Button } from '@/components/ui/button'
@@ -8,6 +8,8 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
@@ -23,17 +25,22 @@ export function ModeToggle() {
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent
+        align="end"
+        className="bg-slate-100/50 backdrop-blur-md dark:bg-slate-800/50"
+      >
+        <DropdownMenuLabel>Tema</DropdownMenuLabel>
+        <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => setTheme('light')}>
-          <Sun className="mr-2 size-4" />
-          <span>Light</span>
+          <Sun className="mr-2 size-5" />
+          <span>Claro</span>
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme('dark')}>
-          <Moon className="mr-2 size-4" />
-          <span>Dark</span>
+          <Moon className="mr-2 size-5" />
+          <span>Escuro</span>
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme('system')}>
-          <Bolt className="mr-2 size-4" />
+          <SunMoon className="mr-2 size-5" />
           Auto
         </DropdownMenuItem>
       </DropdownMenuContent>

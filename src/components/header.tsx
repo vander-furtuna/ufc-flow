@@ -9,7 +9,7 @@ export function Header() {
       <div>
         <Logo className="h-12 w-auto" />
       </div>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-1">
         <SubtitlePopup />
         <ModeToggle />
         <UserPopup />

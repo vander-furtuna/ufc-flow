@@ -12,7 +12,7 @@ export function SectionTitle({ children }: SectionTitleProps) {
   return (
     <div className="flex items-center gap-4 px-2">
       <Line />
-      <h2 className="text-md text-nowrap text-center font-space font-semibold uppercase">
+      <h2 className="text-md text-nowrap text-center font-clash font-semibold uppercase">
         {children}
       </h2>
       <Line />
