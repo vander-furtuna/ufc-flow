@@ -14,6 +14,8 @@ import { COURSES_DATA } from '@/data/courses'
 import type { Course, CurriculumStructure, Subject } from '@/types/course'
 import { normalizeWords } from '@/utils/normalize-words'
 
+import { useFilter } from './filter'
+
 type FilterState = {
   query: string
   duration: number[]
@@ -50,6 +52,14 @@ export function CourseProvider({
 }: Readonly<{
   children: ReactNode
 }>) {
+  const {
+    branchFilter,
+    natureFilter,
+    normalizedQueryFilter,
+    semesterFilter,
+    durationFilter,
+  } = useFilter()
+
   const [isCourseLoading, setIsCourseLoading] = useState(true)
   const [courses, setCourses] = useState<Course[]>([])
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null)
@@ -59,7 +69,7 @@ export function CourseProvider({
   const [selectedSubject, setSelectedSubject] = useState<Subject | null>(null)
   const [filteredSubjects, setFilteredSubjects] = useState<Subject[]>([])
 
-  const [filters, setFilters] = useState<FilterState>({
+  const [oldFilters, setFilters] = useState<FilterState>({
     query: '',
     duration: [],
     branch: [],
@@ -143,36 +153,36 @@ export function CourseProvider({
 
   const applyFilters = useCallback(() => {
     const filtered = selectedCurriculum?.subjects.filter((subject) => {
-      if (filters.query.length > 0) {
+      if (normalizedQueryFilter.length > 0) {
         if (
-          !normalizeWords(subject.name).includes(
-            normalizeWords(filters.query),
-          ) &&
-          !subject.code.toLowerCase().includes(filters.query.toLowerCase())
+          !normalizeWords(subject.name).includes(normalizedQueryFilter) &&
+          !subject.code
+            .toLowerCase()
+            .includes(normalizedQueryFilter.toLowerCase())
         ) {
           return false
         }
       }
-      if (filters.duration.length > 0) {
-        if (!filters.duration.includes(subject.duration)) {
+      if (durationFilter.length > 0) {
+        if (!durationFilter.includes(subject.duration)) {
           return false
         }
       }
 
-      if (filters.branch.length > 0) {
-        if (!filters.branch.some((branch) => subject.branch.includes(branch))) {
+      if (branchFilter.length > 0) {
+        if (!branchFilter.some((branch) => subject.branch.includes(branch))) {
           return false
         }
       }
 
-      if (filters.semester.length > 0) {
-        if (!filters.semester.includes(subject.semester)) {
+      if (semesterFilter.length > 0) {
+        if (!semesterFilter.includes(subject.semester)) {
           return false
         }
       }
 
-      if (filters.nature.length > 0) {
-        if (!filters.nature.includes(subject.nature)) {
+      if (natureFilter.length > 0) {
+        if (!natureFilter.includes(subject.nature)) {
           return false
         }
       }
@@ -183,7 +193,14 @@ export function CourseProvider({
     if (filtered) {
       setFilteredSubjects(filtered)
     }
-  }, [filters, selectedCurriculum])
+  }, [
+    normalizedQueryFilter,
+    durationFilter,
+    branchFilter,
+    semesterFilter,
+    natureFilter,
+    selectedCurriculum,
+  ])
 
   const clearAllFilters = useCallback(() => {
     setFilters({
@@ -201,7 +218,7 @@ export function CourseProvider({
 
   useEffect(() => {
     applyFilters()
-  }, [filters, applyFilters])
+  }, [applyFilters])
 
   const value = useMemo(
     () => ({
@@ -215,7 +232,7 @@ export function CourseProvider({
       selectCourseBySlug,
       selectCurriculumBySlug,
 
-      filters,
+      filters: oldFilters,
       setDurationFilter,
       setQueryFilter,
       setBranchFilter,
@@ -235,7 +252,7 @@ export function CourseProvider({
       selectCourseBySlug,
       selectCurriculumBySlug,
 
-      filters,
+      oldFilters,
       setDurationFilter,
       setQueryFilter,
       setBranchFilter,

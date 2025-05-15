@@ -4,6 +4,7 @@ import { useCallback, useMemo } from 'react'
 import { toast } from 'sonner'
 
 import { useCourse } from '@/app/contexts/course'
+import { useFilter } from '@/app/contexts/filter'
 import { Glow } from '@/components/glow'
 import { COLORS } from '@/data/colors'
 import { capitalizeWords } from '@/utils/capitalize-words'
@@ -15,6 +16,16 @@ import { SectionTitle } from './section-titlte'
 // interface SidebarProps {}
 
 export function Sidebar() {
+  const {
+    branchFilter,
+    natureFilter,
+    semesterFilter,
+    durationFilter,
+    setBranchFilter,
+    setNatureFilter,
+    setSemesterFilter,
+    setDurationFilter,
+  } = useFilter()
   const { selectedSubject, selectedCurriculum, setSelectedSubject } =
     useCourse()
 
@@ -115,7 +126,7 @@ export function Sidebar() {
                 >
                   <X className="size-5 opacity-70" />
                 </button>
-                <strong className="font-clash w-full text-center text-lg font-semibold drop-shadow-lg center dark:text-slate-50">
+                <strong className="w-full text-center font-clash text-lg font-semibold drop-shadow-lg center dark:text-slate-50">
                   {selectedSubject.name}
                 </strong>
                 <button
@@ -135,21 +146,27 @@ export function Sidebar() {
                   <Pill
                     Icon={<Badge strokeWidth={2} className="size-4" />}
                     label={capitalizeWords(selectedSubject.nature)}
-                    // onClick={() => setNatureFilter([selectedSubject.nature])}
+                    colors={glowColor}
+                    isActive={natureFilter.includes(selectedSubject.nature)}
+                    onClick={() => setNatureFilter([selectedSubject.nature])}
                   />
                   <Pill
                     Icon={<Calendar strokeWidth={2} className="size-4" />}
                     label={`${selectedSubject.semester}º`}
-                    // onClick={() =>
-                    //   setSemesterFilter([selectedSubject.semester])
-                    // }
+                    colors={glowColor}
+                    isActive={semesterFilter.includes(selectedSubject.semester)}
+                    onClick={() =>
+                      setSemesterFilter([selectedSubject.semester])
+                    }
                   />
                   <Pill
                     Icon={<Clock strokeWidth={2} className="size-4" />}
                     label={`${selectedSubject.duration}h`}
-                    // onClick={() =>
-                    //   setDurationFilter([selectedSubject.duration])
-                    // }
+                    colors={glowColor}
+                    isActive={durationFilter.includes(selectedSubject.duration)}
+                    onClick={() =>
+                      setDurationFilter([selectedSubject.duration])
+                    }
                   />
                 </div>
                 <div className="flex-wrap gap-1 center">
@@ -158,7 +175,9 @@ export function Sidebar() {
                       key={branch.id}
                       Icon={<Split strokeWidth={2} className="size-4" />}
                       label={branch.name}
-                      // onClick={() => setBranchFilter([branch.id])}
+                      colors={glowColor}
+                      isActive={branchFilter.includes(branch.id)}
+                      onClick={() => setBranchFilter([branch.id])}
                     />
                   ))}
                 </div>

@@ -8,39 +8,56 @@ import {
   useState,
 } from 'react'
 
+import { normalizeWords } from '@/utils/normalize-words'
+
 type Mode = 'add' | 'remove'
 
 type FilterContextProps = {
-  query: string
-  duration: number[]
-  branch: string[]
-  nature: string[]
-  semester: number[]
+  queryFilter: string
+  normalizedQueryFilter: string
+  durationFilter: number[]
+  branchFilter: string[]
+  natureFilter: string[]
+  semesterFilter: number[]
 
   changeQueryFilter: (query: string) => void
   changeDurationFilter: (duration: string | number, mode: Mode) => void
   changeBranchFilter: (branch: string, mode: Mode) => void
   changeSemesterFilter: (semester: string | number, mode: Mode) => void
   changeNatureFilter: (nature: string, mode: Mode) => void
+
+  setDurationFilter: (duration: number[]) => void
+  setQueryFilter: (query: string) => void
+  setBranchFilter: (branch: string[]) => void
+  setSemesterFilter: (semester: number[]) => void
+  setNatureFilter: (nature: string[]) => void
+
+  isFiltersActive: boolean
+  clearAllFilters: () => void
 }
 
 const filterContext = createContext({} as FilterContextProps)
 
 export function FilterProvider({ children }: { children: React.ReactNode }) {
-  const [query, setQuery] = useState('')
-  const [duration, setDuration] = useState<number[]>([])
-  const [branch, setBranch] = useState<string[]>([])
-  const [nature, setNature] = useState<string[]>([])
-  const [semester, setSemester] = useState<number[]>([])
+  const [queryFilter, setQueryFilter] = useState('')
+  const [durationFilter, setDurationFilter] = useState<number[]>([])
+  const [branchFilter, setBranchFilter] = useState<string[]>([])
+  const [natureFilter, setNatureFilter] = useState<string[]>([])
+  const [semesterFilter, setSemesterFilter] = useState<number[]>([])
+
+  const normalizedQueryFilter = useMemo(
+    () => normalizeWords(queryFilter),
+    [queryFilter],
+  )
 
   const changeDurationFilter = useCallback(
     (duration: string | number, mode: Mode) => {
       const parsedDuration = Number(duration)
 
       if (mode === 'add') {
-        setDuration((old) => [...old, parsedDuration])
+        setDurationFilter((old) => [...old, parsedDuration])
       } else {
-        setDuration((old) => old.filter((d) => d !== parsedDuration))
+        setDurationFilter((old) => old.filter((d) => d !== parsedDuration))
       }
     },
     [],
@@ -51,9 +68,9 @@ export function FilterProvider({ children }: { children: React.ReactNode }) {
       const parsedSemester = Number(semester)
 
       if (mode === 'add') {
-        setSemester((old) => [...old, parsedSemester])
+        setSemesterFilter((old) => [...old, parsedSemester])
       } else if (mode === 'remove') {
-        setSemester((old) => {
+        setSemesterFilter((old) => {
           return old.filter((s) => s !== parsedSemester)
         })
       }
@@ -63,48 +80,89 @@ export function FilterProvider({ children }: { children: React.ReactNode }) {
 
   const changeBranchFilter = useCallback((branch: string, mode: Mode) => {
     if (mode === 'add') {
-      setBranch((old) => [...old, branch])
+      setBranchFilter((old) => [...old, branch])
     } else {
-      setBranch((old) => old.filter((b) => b !== branch))
+      setBranchFilter((old) => old.filter((b) => b !== branch))
     }
   }, [])
 
   const changeNatureFilter = useCallback((nature: string, mode: Mode) => {
     if (mode === 'add') {
-      setNature((old) => [...old, nature])
+      setNatureFilter((old) => [...old, nature])
     } else {
-      setNature((old) => old.filter((n) => n !== nature))
+      setNatureFilter((old) => old.filter((n) => n !== nature))
     }
   }, [])
 
-  const changeQueryFilter = useCallback((query: string) => setQuery(query), [])
+  const changeQueryFilter = useCallback(
+    (query: string) => setQueryFilter(query),
+    [],
+  )
+
+  const clearAllFilters = useCallback(() => {
+    setQueryFilter('')
+    setDurationFilter([])
+    setBranchFilter([])
+    setSemesterFilter([])
+    setNatureFilter([])
+  }, [])
+
+  const isFiltersActive = useMemo(() => {
+    return (
+      queryFilter !== '' ||
+      durationFilter.length > 0 ||
+      branchFilter.length > 0 ||
+      natureFilter.length > 0 ||
+      semesterFilter.length > 0
+    )
+  }, [queryFilter, durationFilter, branchFilter, natureFilter, semesterFilter])
 
   const value = useMemo(
     () => ({
-      query,
-      duration,
-      branch,
-      nature,
-      semester,
+      queryFilter,
+      normalizedQueryFilter,
+      durationFilter,
+      branchFilter,
+      natureFilter,
+      semesterFilter,
 
       changeQueryFilter,
       changeDurationFilter,
       changeSemesterFilter,
       changeBranchFilter,
       changeNatureFilter,
+
+      setQueryFilter,
+      setDurationFilter,
+      setSemesterFilter,
+      setBranchFilter,
+      setNatureFilter,
+
+      isFiltersActive,
+      clearAllFilters,
     }),
     [
-      query,
-      duration,
-      branch,
-      nature,
-      semester,
+      queryFilter,
+      normalizedQueryFilter,
+      durationFilter,
+      branchFilter,
+      natureFilter,
+      semesterFilter,
 
       changeQueryFilter,
       changeDurationFilter,
       changeSemesterFilter,
       changeBranchFilter,
       changeNatureFilter,
+
+      setQueryFilter,
+      setDurationFilter,
+      setSemesterFilter,
+      setBranchFilter,
+      setNatureFilter,
+
+      isFiltersActive,
+      clearAllFilters,
     ],
   )
 

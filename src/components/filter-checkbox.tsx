@@ -4,13 +4,14 @@ import { Checkbox as BaseCheckbox } from './checkbox'
 
 interface CheckboxProps extends ComponentProps<'input'> {
   label?: string
-  onCheckedChange?: (checked: boolean) => void
+  onCheckedChange: (value: string, checked: boolean) => void
 }
 
 export const FilterCheckbox = forwardRef<HTMLInputElement, CheckboxProps>(
   ({ label, className, onCheckedChange, onChange, ...rest }, ref) => {
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-      onCheckedChange?.(event.target.checked)
+      console.log('executou')
+      onCheckedChange(event.target.value, event.target.checked)
       onChange?.(event)
     }
 

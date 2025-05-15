@@ -1,30 +1,22 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { Search, Settings2, X } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 
-import { useCourse } from '@/app/contexts/course'
+import { useFilter } from '@/app/contexts/filter'
 
 import { Filters } from './filter/filters'
 
 export function SearchBar() {
-  const { filters, setQueryFilter, clearAllFilters } = useCourse()
-  const [isFiltersOpen, setIsFiltersOpen] = useState(false)
+  const { isFiltersActive, clearAllFilters, queryFilter, changeQueryFilter } =
+    useFilter()
 
-  const isFiltersActive = useMemo(
-    () =>
-      filters.query !== '' ||
-      filters.branch.length > 0 ||
-      filters.semester.length > 0 ||
-      filters.nature.length > 0 ||
-      filters.duration.length > 0,
-    [filters],
-  )
+  const [isFiltersOpen, setIsFiltersOpen] = useState(false)
 
   return (
     <div className="justify-centerw flex h-12 w-full items-center rounded-md border border-border bg-accent/50 pl-4 shadow-lg shadow-foreground/5 backdrop-blur-md transition-all sm:w-fit dark:border-slate-700">
       <input
-        onChange={(e) => setQueryFilter(e.target.value)}
-        value={filters.query}
+        onChange={(e) => changeQueryFilter(e.target.value)}
+        value={queryFilter}
         type="text"
         className="h-full w-full border-0 bg-transparent text-sm outline-0 sm:w-72"
         placeholder="Pesquisar"
@@ -47,7 +39,7 @@ export function SearchBar() {
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
-            className="ml-2 size-6 rounded-md bg-slate-400 text-slate-100 center"
+            className="ml-2 size-6 flex-shrink-0 rounded-md bg-slate-400 text-slate-100 center dark:text-slate-700"
             data-active={isFiltersActive ? 'active' : 'inactive'}
             onClick={clearAllFilters}
           >
