@@ -40,6 +40,7 @@ interface CourseContextType {
   setSemesterFilter: (semester: string[] | number[]) => void
   setNatureFilter: (type: string[]) => void
   setSelectedSubject: (subject: Subject | null) => void
+  clearAllFilters: () => void
 }
 
 const courseContext = createContext<CourseContextType>({} as CourseContextType)
@@ -184,6 +185,16 @@ export function CourseProvider({
     }
   }, [filters, selectedCurriculum])
 
+  const clearAllFilters = useCallback(() => {
+    setFilters({
+      query: '',
+      duration: [],
+      branch: [],
+      semester: [],
+      nature: [],
+    })
+  }, [])
+
   useEffect(() => {
     setCourses(COURSES_DATA)
   }, [])
@@ -211,6 +222,7 @@ export function CourseProvider({
       setSemesterFilter,
       setNatureFilter,
       setSelectedSubject,
+      clearAllFilters,
     }),
     [
       courses,
@@ -230,6 +242,7 @@ export function CourseProvider({
       setSemesterFilter,
       setNatureFilter,
       setSelectedSubject,
+      clearAllFilters,
     ],
   )
 

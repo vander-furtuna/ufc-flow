@@ -38,6 +38,17 @@ export function BranchPopup() {
     [filters.branch, filters.nature],
   )
 
+  const handleSelectBranch = useCallback(
+    (checked: boolean, branch: string) => {
+      if (checked) {
+        setBranchFilter((prev) => [...prev, branch])
+      } else {
+        setBranchFilter((prev) => prev.filter((b) => b !== branch))
+      }
+    },
+    [setBranchFilter],
+  )
+
   const handleClearFilters = useCallback(() => {
     setBranchFilter([])
     setNatureFilter([])

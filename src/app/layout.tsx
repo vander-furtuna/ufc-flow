@@ -9,6 +9,7 @@ import { ThemeProvider } from '@/components/theme-provider'
 
 import { FloatingBar } from './[courseSlug]/[curriculumSlug]/components/floating-bar'
 import { CourseProvider } from './contexts/course'
+import { FilterProvider } from './contexts/filter'
 
 const poppins = localFont({
   src: [
@@ -93,22 +94,24 @@ export default function RootLayout({
         enableSystem
         disableTransitionOnChange
       >
-        <CourseProvider>
-          <body
-            className={`${poppins.variable} ${spaceGrotesk.variable} max-h-full min-h-screen bg-background font-sans antialiased`}
-          >
-            <main className="flex min-h-screen w-full flex-col items-center justify-start">
-              {children}
-              <FloatingBar />
-            </main>
-            <Toaster
-              toastOptions={{
-                className:
-                  'bg-card rounded-md text-card-foreground border-input',
-              }}
-            />
-          </body>
-        </CourseProvider>
+        <FilterProvider>
+          <CourseProvider>
+            <body
+              className={`${poppins.variable} ${spaceGrotesk.variable} max-h-full min-h-screen bg-background font-sans antialiased`}
+            >
+              <main className="flex min-h-screen w-full flex-col items-center justify-start">
+                {children}
+                <FloatingBar />
+              </main>
+              <Toaster
+                toastOptions={{
+                  className:
+                    'bg-card rounded-md text-card-foreground border-input',
+                }}
+              />
+            </body>
+          </CourseProvider>
+        </FilterProvider>
       </ThemeProvider>
     </html>
   )

@@ -1,4 +1,5 @@
-import { Search, Settings2 } from 'lucide-react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { Search, Settings2, X } from 'lucide-react'
 import { useMemo, useState } from 'react'
 
 import { useCourse } from '@/app/contexts/course'
@@ -6,7 +7,7 @@ import { useCourse } from '@/app/contexts/course'
 import { Filters } from './filter/filters'
 
 export function SearchBar() {
-  const { filters, setQueryFilter } = useCourse()
+  const { filters, setQueryFilter, clearAllFilters } = useCourse()
   const [isFiltersOpen, setIsFiltersOpen] = useState(false)
 
   const isFiltersActive = useMemo(
@@ -40,6 +41,20 @@ export function SearchBar() {
       >
         <Settings2 className="size-4" />
       </button>
+      <AnimatePresence>
+        {isFiltersActive && (
+          <motion.button
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0, opacity: 0 }}
+            className="ml-2 size-6 rounded-md bg-slate-400 text-slate-100 center"
+            data-active={isFiltersActive ? 'active' : 'inactive'}
+            onClick={clearAllFilters}
+          >
+            <X className="size-4" />
+          </motion.button>
+        )}
+      </AnimatePresence>
 
       <button className="h-full w-12 flex-shrink-0 center">
         <Search className="size-6 text-muted-foreground" />
