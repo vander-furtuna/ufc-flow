@@ -1,4 +1,4 @@
-import { AnimatePresence } from 'framer-motion'
+import { AnimatePresence } from 'motion/react'
 import { useMemo } from 'react'
 
 import { SemesterTitle } from '@/components/title'

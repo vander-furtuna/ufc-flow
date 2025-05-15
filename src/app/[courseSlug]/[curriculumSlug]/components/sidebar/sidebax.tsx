@@ -1,5 +1,5 @@
-import { AnimatePresence, motion } from 'framer-motion'
 import { Badge, Calendar, Clock, Copy, Split, X } from 'lucide-react'
+import { AnimatePresence, motion } from 'motion/react'
 import { useCallback, useMemo } from 'react'
 import { toast } from 'sonner'
 
