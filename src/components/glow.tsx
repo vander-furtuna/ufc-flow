@@ -32,16 +32,16 @@ export function Glow({ colors, className, ...rest }: GlowProps) {
             {typeof colors === 'string' ? (
               <>
                 <stop
-                  stop-color={saturate(0.8, lighten(0.15, colors))}
+                  stopColor={saturate(0.8, lighten(0.15, colors))}
                   className=""
                 />
-                <stop offset="1" stop-color={colors} />
+                <stop offset="1" stopColor={colors} />
               </>
             ) : (
               colors?.map((currentColor, index) => (
                 <stop
                   key={index}
-                  stop-color={currentColor}
+                  stopColor={currentColor}
                   offset={index === 0 ? 0 : (index + 1) / colors.length}
                 />
               ))

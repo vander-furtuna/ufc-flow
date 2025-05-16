@@ -45,13 +45,13 @@ export function VanderLogo({ className, ...rest }: VanderLogoProps) {
           <path
             d="M219.572 23.1631L217.801 22L216.006 23.1251C213.35 24.7895 211.171 27.1109 209.677 29.8616C208.187 32.6049 207.426 35.6843 207.467 38.8038V69.4596C207.427 72.5793 208.187 75.6591 209.677 78.4033C211.167 81.1478 213.338 83.4663 215.985 85.1321L237.375 98.951C240.363 100.938 243.873 102 247.465 102C251.058 102 254.568 100.938 257.556 98.951L278.937 85.1327C281.586 83.4693 283.759 81.1519 285.251 78.4069C286.741 75.6651 287.503 72.5875 287.464 69.4695V38.8038C287.504 35.683 286.743 32.6024 285.251 29.8586C283.755 27.1075 281.574 24.7864 278.915 23.1236L277.12 22.0009L275.352 23.1633L247.49 41.4695L247.465 41.4532L247.441 41.4695L219.572 23.1631Z"
             stroke="url(#paint1_linear_425_549)"
-            stroke-width="9.2"
+            strokeWidth="9.2"
           />
         </g>
         <path
           d="M219.572 23.1631L217.801 22L216.006 23.1251C213.35 24.7895 211.171 27.1109 209.677 29.8616C208.187 32.6049 207.426 35.6843 207.467 38.8038V69.4596C207.427 72.5793 208.187 75.6591 209.677 78.4033C211.167 81.1478 213.338 83.4663 215.985 85.1321L237.375 98.951C240.363 100.938 243.873 102 247.465 102C251.058 102 254.568 100.938 257.556 98.951L278.937 85.1327C281.586 83.4693 283.759 81.1519 285.251 78.4069C286.741 75.6651 287.503 72.5875 287.464 69.4695V38.8038C287.504 35.683 286.743 32.6024 285.251 29.8586C283.755 27.1075 281.574 24.7864 278.915 23.1236L277.12 22.0009L275.352 23.1633L247.49 41.4695L247.465 41.4532L247.441 41.4695L219.572 23.1631Z"
           stroke="url(#paint2_linear_425_549)"
-          stroke-width="10"
+          strokeWidth="10"
         />
         <defs>
           <filter
@@ -61,9 +61,9 @@ export function VanderLogo({ className, ...rest }: VanderLogoProps) {
             width="121.2"
             height="122.065"
             filterUnits="userSpaceOnUse"
-            color-interpolation-filters="sRGB"
+            colorInterpolationFilters="sRGB"
           >
-            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            <feFlood floodOpacity="0" result="BackgroundImageFix" />
             <feBlend
               mode="normal"
               in="SourceGraphic"
@@ -83,8 +83,8 @@ export function VanderLogo({ className, ...rest }: VanderLogoProps) {
             y2="93.2189"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stop-color={currentColor.from} />
-            <stop offset="1" stop-color={currentColor.to} />
+            <stop stopColor={currentColor.from} />
+            <stop offset="1" stopColor={currentColor.to} />
           </linearGradient>
           <linearGradient
             id="paint1_linear_425_549"
@@ -94,8 +94,8 @@ export function VanderLogo({ className, ...rest }: VanderLogoProps) {
             y2="62"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stop-color={currentColor.from} />
-            <stop offset="1" stop-color={currentColor.to} />
+            <stop stopColor={currentColor.from} />
+            <stop offset="1" stopColor={currentColor.to} />
           </linearGradient>
           <linearGradient
             id="paint2_linear_425_549"
@@ -105,8 +105,8 @@ export function VanderLogo({ className, ...rest }: VanderLogoProps) {
             y2="62"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stop-color={currentColor.from} />
-            <stop offset="1" stop-color={currentColor.to} />
+            <stop stopColor={currentColor.from} />
+            <stop offset="1" stopColor={currentColor.to} />
           </linearGradient>
         </defs>
       </svg>
