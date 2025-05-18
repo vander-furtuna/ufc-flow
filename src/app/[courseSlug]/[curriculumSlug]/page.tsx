@@ -55,7 +55,7 @@ export default function Curriculum(props: CurriculumProps) {
 
   return (
     <main className="flex h-full min-h-dvh w-full items-start justify-center gap-6 px-8 md:gap-12">
-      <section className="flex h-full min-h-dvh w-full max-w-5xl flex-col items-center justify-start gap-12 pb-24 pt-12 @container">
+      <section className="@container flex h-full min-h-dvh w-full max-w-5xl flex-col items-center justify-start gap-12 pt-12 pb-24">
         {/* <FloatingBar /> */}
         <Header />
         <CurriculumHeader />

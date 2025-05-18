@@ -14,12 +14,12 @@ export function SubjectDiagramSkeleton() {
       {semestersValues.map((period) => (
         <div key={period} className="flex w-full flex-col gap-4">
           <SemesterTitle>{period}º PERÍODO</SemesterTitle>
-          <div className="grid w-full grid-flow-dense auto-rows-[100px] grid-cols-[repeat(auto-fit,_minmax(9rem,_1fr))] justify-items-center gap-4">
+          <div className="grid w-full grid-flow-dense auto-rows-[100px] grid-cols-[repeat(auto-fit,minmax(9rem,1fr))] justify-items-center gap-4">
             <AnimatePresence>
               {Array.from({ length: 5 }, (_, i) => i + 1).map((element) => {
                 return (
                   <div
-                    className="h-24 w-38 animate-pulse rounded-lg bg-slate-100 font-clash ring-1 ring-border center dark:bg-slate-900"
+                    className="font-clash ring-border center h-24 w-38 animate-pulse rounded-lg bg-slate-100 ring-1 dark:bg-slate-900"
                     key={element}
                   />
                 )

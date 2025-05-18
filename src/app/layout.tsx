@@ -3,9 +3,9 @@ import './globals.css'
 import type { Metadata, Viewport } from 'next'
 import { Poppins } from 'next/font/google'
 import localFont from 'next/font/local'
-import { Toaster } from 'sonner'
 
 import { ThemeProvider } from '@/components/theme-provider'
+import { Toaster } from '@/components/ui/sonner'
 
 import { FloatingBar } from './[courseSlug]/[curriculumSlug]/components/floating-bar'
 import { CourseProvider } from './contexts/course'
@@ -77,7 +77,7 @@ export default function RootLayout({
       <FilterProvider>
         <CourseProvider>
           <body
-            className={`${poppins.variable} ${clashDisplay.variable} max-h-full min-h-screen bg-background font-sans antialiased`}
+            className={`${poppins.variable} ${clashDisplay.variable} bg-background max-h-full min-h-screen font-sans antialiased`}
             suppressHydrationWarning
           >
             <ThemeProvider
@@ -90,12 +90,7 @@ export default function RootLayout({
                 {children}
                 <FloatingBar />
               </main>
-              <Toaster
-                toastOptions={{
-                  className:
-                    'bg-card rounded-md text-card-foreground border-input',
-                }}
-              />
+              <Toaster />
             </ThemeProvider>
           </body>
         </CourseProvider>
