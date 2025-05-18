@@ -8,7 +8,7 @@ type ClearButtonProps = ComponentProps<typeof Button>
 export function ClearButton({ ...props }: ClearButtonProps) {
   return (
     <Button
-      className="w-full gap-2 border-muted-foreground bg-transparent text-xs"
+      className="border-muted-foreground w-full gap-2 bg-transparent text-xs"
       variant="outline"
       {...props}
     >

@@ -45,7 +45,7 @@ export function SemesterPopup() {
           isActive={isSemesterFilterActive}
         />
       </PopoverTrigger>
-      <PopoverContent className="flex w-36 flex-col gap-4 bg-slate-100/50 backdrop-blur-md dark:bg-slate-800/50">
+      <PopoverContent className="border-border flex w-36 flex-col gap-4 bg-slate-100/50 backdrop-blur-md dark:bg-slate-800/50">
         <strong className="text-center text-slate-700 dark:text-slate-100">
           Semestres
         </strong>

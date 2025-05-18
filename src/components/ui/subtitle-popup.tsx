@@ -17,10 +17,10 @@ export function SubtitlePopup() {
     <Popover>
       <PopoverTrigger asChild className="group">
         <Button size="icon" variant="ghost">
-          <Info className="size-4 text-muted-foreground" />
+          <Info className="text-muted-foreground size-4" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="flex w-fit flex-col gap-4 bg-slate-100/50 backdrop-blur-md dark:bg-slate-800/50">
+      <PopoverContent className="border-border flex w-fit flex-col gap-4 bg-slate-100/50 backdrop-blur-md dark:bg-slate-800/50">
         <strong className="text-center text-slate-600 dark:text-slate-100">
           Tipo / Vertente
         </strong>
@@ -34,7 +34,7 @@ export function SubtitlePopup() {
             />
             <label
               htmlFor="compulsory"
-              className="text-nowrap text-center text-sm"
+              className="text-center text-sm text-nowrap"
             >
               Obrigatória
             </label>
@@ -48,7 +48,7 @@ export function SubtitlePopup() {
             />
             <label
               htmlFor="optional"
-              className="text-nowrap text-center text-sm"
+              className="text-center text-sm text-nowrap"
             >
               Optativa
             </label>
@@ -67,7 +67,7 @@ export function SubtitlePopup() {
               />
               <label
                 htmlFor={`${branch.id}-branch`}
-                className="text-nowrap text-center text-sm"
+                className="text-center text-sm text-nowrap"
               >
                 {branch.name}
               </label>

@@ -40,7 +40,7 @@ export function SubjectDiagram() {
           return null
         })
       ) : (
-        <div className="size-full center">
+        <div className="center size-full">
           <NoResultCard />
         </div>
       )}
