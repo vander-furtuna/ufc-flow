@@ -54,7 +54,7 @@ export const metadata: Metadata = {
   ],
   authors: [
     {
-      name: 'UFC Flow',
+      name: 'Vanderlei Furtuna',
       url: 'https://github.com/vander-furtuna',
     },
   ],
@@ -62,8 +62,8 @@ export const metadata: Metadata = {
     title: 'UFC Flow | Explore as disciplinas de seu curso',
     description:
       'Explore as disciplinas de seu curso na Universidade Federal do Ceará com UFC Flow',
-    images: ['https://ufc-flow.vercel.app/banner.png'],
-    url: 'https://ufc-flow.vercel.app',
+    images: [`${process.env.NEXT_PUBLIC_SITE_URL}/banner.png`],
+    url: `${process.env.NEXT_PUBLIC_SITE_URL}`,
   },
 }
 
