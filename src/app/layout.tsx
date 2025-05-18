@@ -1,7 +1,7 @@
 import './globals.css'
 
 import type { Metadata, Viewport } from 'next'
-import { Poppins, Space_Grotesk } from 'next/font/google'
+import { Poppins } from 'next/font/google'
 import localFont from 'next/font/local'
 import { Toaster } from 'sonner'
 
@@ -11,43 +11,18 @@ import { FloatingBar } from './[courseSlug]/[curriculumSlug]/components/floating
 import { CourseProvider } from './contexts/course'
 import { FilterProvider } from './contexts/filter'
 
-// const poppins = localFont({
-//   src: [
-//     {
-//       path: './fonts/poppins/Poppins-Regular.ttf',
-//       weight: '400',
-//       style: 'normal',
-//     },
-//     {
-//       path: './fonts/poppins/Poppins-Medium.ttf',
-//       weight: '500',
-//       style: 'normal',
-//     },
-//     {
-//       path: './fonts/poppins/Poppins-SemiBold.ttf',
-//       weight: '600',
-//       style: 'normal',
-//     },
-//     {
-//       path: './fonts/poppins/Poppins-Bold.ttf',
-//       weight: '700',
-//       style: 'normal',
-//     },
-//   ],
-//   variable: '--font-poppins',
-// })
-
 const poppins = Poppins({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
+  display: 'swap',
   variable: '--font-poppins',
 })
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-space-grotesk',
-})
+// const spaceGrotesk = Space_Grotesk({
+//   subsets: ['latin'],
+//   weight: ['400', '500', '600', '700'],
+//   variable: '--font-space-grotesk',
+// })
 
 const clashDisplay = localFont({
   src: '../assets/fonts/clash-display/ClashDisplay-Variable.woff2',
@@ -102,7 +77,7 @@ export default function RootLayout({
       <FilterProvider>
         <CourseProvider>
           <body
-            className={`${poppins.variable} ${spaceGrotesk.variable} ${clashDisplay.variable} max-h-full min-h-screen bg-background font-sans antialiased`}
+            className={`${poppins.variable} ${clashDisplay.variable} max-h-full min-h-screen bg-background font-sans antialiased`}
           >
             <ThemeProvider
               attribute="class"
