@@ -99,16 +99,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br" suppressHydrationWarning>
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="system"
-        enableSystem
-        disableTransitionOnChange
-      >
-        <FilterProvider>
-          <CourseProvider>
-            <body
-              className={`${poppins.variable} ${spaceGrotesk.variable} ${clashDisplay.variable} max-h-full min-h-screen bg-background font-sans antialiased`}
+      <FilterProvider>
+        <CourseProvider>
+          <body
+            className={`${poppins.variable} ${spaceGrotesk.variable} ${clashDisplay.variable} max-h-full min-h-screen bg-background font-sans antialiased`}
+          >
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
             >
               <main className="flex min-h-screen w-full flex-col items-center justify-start">
                 {children}
@@ -120,10 +120,10 @@ export default function RootLayout({
                     'bg-card rounded-md text-card-foreground border-input',
                 }}
               />
-            </body>
-          </CourseProvider>
-        </FilterProvider>
-      </ThemeProvider>
+            </ThemeProvider>
+          </body>
+        </CourseProvider>
+      </FilterProvider>
     </html>
   )
 }

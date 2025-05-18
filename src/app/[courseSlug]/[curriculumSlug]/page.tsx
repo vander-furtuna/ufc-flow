@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, use } from 'react';
+import { use, useCallback, useEffect } from 'react'
 
 import { useCourse } from '@/app/contexts/course'
 import { CurriculumHeader } from '@/components/curriculum-header'
@@ -19,7 +19,7 @@ interface CurriculumProps {
 }
 
 export default function Curriculum(props: CurriculumProps) {
-  const params = use(props.params);
+  const params = use(props.params)
   const {
     selectedCourse,
     selectedCurriculum,
