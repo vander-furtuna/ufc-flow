@@ -78,6 +78,7 @@ export default function RootLayout({
         <CourseProvider>
           <body
             className={`${poppins.variable} ${clashDisplay.variable} max-h-full min-h-screen bg-background font-sans antialiased`}
+            suppressHydrationWarning
           >
             <ThemeProvider
               attribute="class"
