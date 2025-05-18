@@ -26,7 +26,7 @@ export function SearchBar() {
       <Filters isOpen={isFiltersOpen} />
 
       <button
-        className="size-6 flex-shrink-0 rounded-md text-muted-foreground transition-colors center data-[active=active]:bg-slate-400 data-[open=open]:bg-slate-200 data-[active=active]:text-slate-100 dark:data-[active=active]:bg-slate-400 dark:data-[open=open]:bg-slate-700 dark:data-[active=active]:text-slate-700"
+        className="size-6 shrink-0 rounded-md text-muted-foreground transition-colors center data-[active=active]:bg-slate-400 data-[open=open]:bg-slate-200 data-[active=active]:text-slate-100 dark:data-[active=active]:bg-slate-400 dark:data-[open=open]:bg-slate-700 dark:data-[active=active]:text-slate-700"
         data-active={isFiltersActive ? 'active' : 'inactive'}
         data-open={isFiltersOpen && !isFiltersActive ? 'open' : 'closed'}
         onClick={() => setIsFiltersOpen((prev) => !prev)}
@@ -39,7 +39,7 @@ export function SearchBar() {
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
-            className="ml-2 size-6 flex-shrink-0 rounded-md bg-slate-400 text-slate-100 center dark:text-slate-700"
+            className="ml-2 size-6 shrink-0 rounded-md bg-slate-400 text-slate-100 center dark:text-slate-700"
             data-active={isFiltersActive ? 'active' : 'inactive'}
             onClick={clearAllFilters}
           >
@@ -48,7 +48,7 @@ export function SearchBar() {
         )}
       </AnimatePresence>
 
-      <button className="h-full w-12 flex-shrink-0 center">
+      <button className="h-full w-12 shrink-0 center">
         <Search className="size-6 text-muted-foreground" />
       </button>
     </div>

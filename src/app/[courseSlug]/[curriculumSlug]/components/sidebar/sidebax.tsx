@@ -101,7 +101,7 @@ export function Sidebar() {
     <AnimatePresence>
       {selectedSubject && (
         <motion.aside
-          className="fixed right-4 h-full w-72 flex-shrink-0 overflow-hidden md:relative"
+          className="fixed right-4 h-full w-72 shrink-0 overflow-hidden md:relative"
           initial={{ width: '0rem' }}
           animate={{ width: '18rem' }}
           exit={{ width: '0rem' }}
@@ -119,12 +119,12 @@ export function Sidebar() {
                 handleUnselectSubject()
               }
             }}
-            className="fixed h-dvh w-72 flex-shrink-0 py-8"
+            className="fixed h-dvh w-72 shrink-0 py-8"
           >
             <div className="relative h-full w-full overflow-hidden overflow-y-auto overflow-x-hidden rounded-md bg-slate-100/50 pb-16 backdrop-blur-md no-scrollbar md:bg-slate-100 dark:bg-slate-900/60 dark:md:bg-slate-900">
               <Glow
                 colors={glowColor}
-                className="absolute -top-72 left-1/2 z-10 size-[32rem] -translate-x-1/2 blur-[100px]"
+                className="absolute -top-72 left-1/2 z-10 size-128 -translate-x-1/2 blur-[100px]"
               />
               <div className="relative z-20 h-44 w-full px-8 center">
                 <button
@@ -216,7 +216,7 @@ export function Sidebar() {
                 </div>
               )}
             </div>
-            <div className="fixed bottom-8 z-50 h-16 w-72 rounded-md bg-gradient-to-t from-slate-100 to-transparent dark:from-slate-900" />
+            <div className="fixed bottom-8 z-50 h-16 w-72 rounded-md bg-linear-to-t from-slate-100 to-transparent dark:from-slate-900" />
           </motion.div>
         </motion.aside>
       )}

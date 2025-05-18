@@ -53,7 +53,7 @@ export function SubtitlePopup() {
               Optativa
             </label>
           </fieldset>
-          <div className="h-[1px] w-full bg-slate-200 dark:bg-slate-700" />
+          <div className="h-px w-full bg-slate-200 dark:bg-slate-700" />
           {selectedCurriculum?.branchs.map((branch) => (
             <fieldset
               key={branch.id}

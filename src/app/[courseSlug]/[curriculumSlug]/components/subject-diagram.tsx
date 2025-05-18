@@ -23,7 +23,7 @@ export function SubjectDiagram() {
             return (
               <div key={period} className="flex w-full flex-col gap-4">
                 <SemesterTitle>{period}º PERÍODO</SemesterTitle>
-                <div className="grid w-full grid-flow-dense auto-rows-[100px] grid-cols-[repeat(auto-fit,_minmax(9rem,_1fr))] justify-items-center gap-4">
+                <div className="grid w-full grid-flow-dense auto-rows-[100px] grid-cols-[repeat(auto-fit,minmax(9rem,1fr))] justify-items-center gap-4">
                   <AnimatePresence>
                     {filteredSubjects
                       .filter((subject) => subject.semester === period)

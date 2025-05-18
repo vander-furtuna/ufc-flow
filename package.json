@@ -32,6 +32,7 @@
   },
   "devDependencies": {
     "@rocketseat/eslint-config": "^2.2.2",
+    "@tailwindcss/postcss": "^4.1.7",
     "@types/node": "^20",
     "@types/react": "19.1.4",
     "@types/react-dom": "19.1.5",
@@ -39,8 +40,8 @@
     "eslint-config-next": "15.3.2",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "postcss": "^8",
-    "prettier-plugin-tailwindcss": "^0.6.8",
-    "tailwindcss": "^3.4.1",
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "tailwindcss": "^4.1.7",
     "typescript": "^5.8.3"
   },
   "pnpm": {

@@ -77,7 +77,7 @@ export default function RootLayout({
       <FilterProvider>
         <CourseProvider>
           <body
-            className={`${poppins.variable} ${clashDisplay.variable} max-h-full min-h-screen bg-background font-sans antialiased`}
+            className={`${poppins.variable} ${clashDisplay.variable} bg-background max-h-full min-h-screen font-sans antialiased`}
             suppressHydrationWarning
           >
             <ThemeProvider
