@@ -1,7 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server'
 
-import { getUrl } from './lib/get-url'
-
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
 
@@ -10,9 +8,12 @@ export function middleware(request: NextRequest) {
   }
 
   if (!pathname.includes('/engenharia-de-computacao-ufc-sobral/2006-2')) {
-    return NextResponse.redirect(
-      new URL(getUrl('/engenharia-de-computacao-ufc-sobral/2006-2')),
-    )
+    // Get host from the request
+    const host = request.headers.get('host') || 'localhost:3000'
+    const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http'
+    const redirectUrl = `${protocol}://${host}/engenharia-de-computacao-ufc-sobral/2006-2`
+
+    return NextResponse.redirect(new URL(redirectUrl))
   }
 }
 

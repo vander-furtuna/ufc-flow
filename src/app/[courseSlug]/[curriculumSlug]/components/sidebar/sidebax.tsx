@@ -216,7 +216,7 @@ export function Sidebar() {
                 </div>
               )}
             </div>
-            <div className="fixed bottom-8 z-50 h-16 w-full rounded-md bg-gradient-to-t from-slate-100 to-transparent dark:from-slate-900" />
+            <div className="fixed bottom-8 z-50 h-16 w-72 rounded-md bg-gradient-to-t from-slate-100 to-transparent dark:from-slate-900" />
           </motion.div>
         </motion.aside>
       )}
