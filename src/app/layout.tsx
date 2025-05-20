@@ -1,28 +1,39 @@
 import './globals.css'
 
 import type { Metadata, Viewport } from 'next'
-import { Poppins } from 'next/font/google'
 import localFont from 'next/font/local'
 
 import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/sonner'
 
-import { FloatingBar } from './[courseSlug]/[curriculumSlug]/components/floating-bar'
 import { CourseProvider } from './contexts/course'
 import { FilterProvider } from './contexts/filter'
 
-const poppins = Poppins({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  display: 'swap',
+const poppins = localFont({
+  src: [
+    {
+      path: '../assets/fonts/poppins/Poppins-Regular.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../assets/fonts/poppins/Poppins-Medium.ttf',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../assets/fonts/poppins/Poppins-SemiBold.ttf',
+      weight: '600',
+      style: 'normal',
+    },
+    {
+      path: '../assets/fonts/poppins/Poppins-Bold.ttf',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
   variable: '--font-poppins',
 })
-
-// const spaceGrotesk = Space_Grotesk({
-//   subsets: ['latin'],
-//   weight: ['400', '500', '600', '700'],
-//   variable: '--font-space-grotesk',
-// })
 
 const clashDisplay = localFont({
   src: '../assets/fonts/clash-display/ClashDisplay-Variable.woff2',
@@ -86,10 +97,7 @@ export default function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-              <main className="flex min-h-screen w-full flex-col items-center justify-start">
-                {children}
-                <FloatingBar />
-              </main>
+              {children}
               <Toaster />
             </ThemeProvider>
           </body>

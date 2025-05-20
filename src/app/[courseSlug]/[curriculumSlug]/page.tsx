@@ -6,6 +6,7 @@ import { useCourse } from '@/app/contexts/course'
 import { CurriculumHeader } from '@/components/curriculum-header'
 import { Header } from '@/components/header'
 
+import { FloatingBar } from './components/floating-bar'
 import { Footer } from './components/footer'
 import { Sidebar } from './components/sidebar/sidebax'
 import { SubjectDiagram } from './components/subject-diagram'
@@ -54,15 +55,18 @@ export default function Curriculum(props: CurriculumProps) {
   }, [handleGetSelectedCurriculumBySlug])
 
   return (
-    <main className="flex h-full min-h-dvh w-full items-start justify-center gap-6 px-8 md:gap-12">
-      <section className="@container flex h-full min-h-dvh w-full max-w-5xl flex-col items-center justify-start gap-12 pt-12 pb-24">
-        {/* <FloatingBar /> */}
-        <Header />
-        <CurriculumHeader />
-        {isCourseLoading ? <SubjectDiagramSkeleton /> : <SubjectDiagram />}
-        <Footer />
-      </section>
-      <Sidebar />
+    <main className="flex min-h-screen w-full flex-col items-center justify-start">
+      <article className="flex h-full min-h-dvh w-full items-start justify-center gap-6 px-8 md:gap-12">
+        <section className="@container flex h-full min-h-dvh w-full max-w-5xl flex-col items-center justify-start gap-12 pt-12 pb-24">
+          {/* <FloatingBar /> */}
+          <Header />
+          <CurriculumHeader />
+          {isCourseLoading ? <SubjectDiagramSkeleton /> : <SubjectDiagram />}
+          <Footer />
+        </section>
+        <Sidebar />
+      </article>
+      <FloatingBar />
     </main>
   )
 }
