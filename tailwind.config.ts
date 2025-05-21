@@ -103,6 +103,14 @@ const config: Config = {
       transitionTimingFunction: {
         smooth: 'cubic-bezier(0.075, 0.82, 0.165, 1)',
       },
+      animation: {
+        border: 'border 4s linear infinite',
+      },
+      keyframes: {
+        border: {
+          to: { '--border-angle': '360deg' },
+        },
+      },
     },
   },
   plugins: [
