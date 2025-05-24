@@ -51,6 +51,9 @@
     },
     "ignoredBuiltDependencies": [
       "sharp"
+    ],
+    "onlyBuiltDependencies": [
+      "@tailwindcss/oxide"
     ]
   }
 }
