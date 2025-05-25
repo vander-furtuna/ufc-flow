@@ -16,6 +16,7 @@ export type Subject = {
   type: string
   branch: string[]
   prerequisites: string[]
+  slug: string
 }
 
 export type CurriculumStructure = {

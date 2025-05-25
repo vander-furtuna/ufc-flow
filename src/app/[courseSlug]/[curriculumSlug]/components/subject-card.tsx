@@ -1,5 +1,5 @@
 import { motion } from 'motion/react'
-import { useMemo } from 'react'
+import { type ComponentProps, useCallback, useMemo } from 'react'
 
 import { useCourse } from '@/app/contexts/course'
 import type { Subject } from '@/types/course'
@@ -7,30 +7,38 @@ import { capitalizeWords } from '@/utils/capitalize-words'
 
 import { SubjectBar } from './subject-bar'
 
-interface SubjectCardProps {
+type SubjectCardProps = ComponentProps<'button'> & {
   subject: Subject
 }
 
-export function SubjectCard({ subject }: SubjectCardProps) {
+export function SubjectCard({ subject, id }: SubjectCardProps) {
   const { selectedSubject, setSelectedSubject } = useCourse()
   const name = useMemo(() => capitalizeWords(subject.name), [subject.name])
 
+  const handleClickSubject = useCallback(() => {
+    if (selectedSubject?.code === subject.code) {
+      setSelectedSubject(null)
+    } else {
+      setSelectedSubject(subject)
+    }
+  }, [selectedSubject, setSelectedSubject, subject])
+
+  const selectedStatus = useMemo(
+    () => (selectedSubject?.code === subject.code ? 'selected' : 'unselected'),
+    [selectedSubject, subject.code],
+  )
+
   return (
     <motion.button
+      id={id}
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       exit={{ scale: 0, opacity: 0 }}
       transition={{ duration: 0.2 }}
       key={subject.code}
       className="group ring-border center before:bg-accent relative flex h-24 w-38 shrink-0 cursor-pointer flex-col gap-1 rounded-lg bg-transparent px-4 text-center text-[10px] ring-1 transition-all duration-300 before:absolute before:-z-20 before:size-full before:rounded-lg before:content-[''] after:absolute after:right-0 after:-z-10 after:size-full after:rounded-lg after:bg-black after:opacity-0 after:content-[''] hover:shadow-lg hover:ring-0 data-[selected=selected]:shadow-lg data-[selected=selected]:ring-0 dark:ring-slate-700 dark:after:opacity-15"
-      onClick={() =>
-        selectedSubject?.code === subject.code
-          ? setSelectedSubject(null)
-          : setSelectedSubject(subject)
-      }
-      data-selected={
-        selectedSubject?.code === subject.code ? 'selected' : 'unselected'
-      }
+      onClick={handleClickSubject}
+      data-selected={selectedStatus}
     >
       <span className="text-accent-foreground text-xs font-medium drop-shadow-sm">
         {name}
