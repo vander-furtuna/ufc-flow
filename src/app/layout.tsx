@@ -19,12 +19,6 @@ const poppins = Poppins({
   variable: '--font-poppins',
 })
 
-// const spaceGrotesk = Space_Grotesk({
-//   subsets: ['latin'],
-//   weight: ['400', '500', '600', '700'],
-//   variable: '--font-space-grotesk',
-// })
-
 const clashDisplay = localFont({
   src: '../assets/fonts/clash-display/ClashDisplay-Variable.woff2',
   variable: '--font-clash-display',
