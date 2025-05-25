@@ -16,14 +16,6 @@ import { normalizeWords } from '@/utils/normalize-words'
 
 import { useFilter } from './filter'
 
-type FilterState = {
-  query: string
-  duration: number[]
-  branch: string[]
-  semester: number[]
-  nature: string[]
-}
-
 interface CourseContextType {
   courses: Course[]
   selectedCourse: Course | null
@@ -35,14 +27,7 @@ interface CourseContextType {
   selectCourseBySlug: (slug: string) => void
   selectCurriculumBySlug: (slug: string) => void
 
-  filters: FilterState
-  setDurationFilter: (duration: string[] | number[]) => void
-  setQueryFilter: (query: string) => void
-  setBranchFilter: (branch: string[]) => void
-  setSemesterFilter: (semester: string[] | number[]) => void
-  setNatureFilter: (type: string[]) => void
   setSelectedSubject: (subject: Subject | null) => void
-  clearAllFilters: () => void
 }
 
 const courseContext = createContext<CourseContextType>({} as CourseContextType)
@@ -68,14 +53,6 @@ export function CourseProvider({
   const [selectedSubjects, setSelectedSubjects] = useState<Subject[]>([])
   const [selectedSubject, setSelectedSubject] = useState<Subject | null>(null)
   const [filteredSubjects, setFilteredSubjects] = useState<Subject[]>([])
-
-  const [oldFilters, setFilters] = useState<FilterState>({
-    query: '',
-    duration: [],
-    branch: [],
-    semester: [],
-    nature: [],
-  })
 
   const selectCourseBySlug = useCallback(
     (slug: string) => {
@@ -107,49 +84,6 @@ export function CourseProvider({
     },
     [selectedCourse],
   )
-
-  const setQueryFilter = useCallback((query: string) => {
-    setFilters((prev) => ({
-      ...prev,
-      query,
-    }))
-  }, [])
-
-  const setDurationFilter = useCallback((duration: string[] | number[]) => {
-    const numberDurationFilter = duration.map((duration) =>
-      typeof duration === 'string' ? parseInt(duration) : duration,
-    )
-
-    setFilters((prev) => ({
-      ...prev,
-      duration: numberDurationFilter,
-    }))
-  }, [])
-
-  const setSemesterFilter = useCallback((semester: string[] | number[]) => {
-    const numberSemesterFilter = semester.map((semester) =>
-      typeof semester === 'string' ? parseInt(semester) : semester,
-    )
-
-    setFilters((prev) => ({
-      ...prev,
-      semester: numberSemesterFilter,
-    }))
-  }, [])
-
-  const setBranchFilter = useCallback((branch: string[]) => {
-    setFilters((prev) => ({
-      ...prev,
-      branch,
-    }))
-  }, [])
-
-  const setNatureFilter = useCallback((nature: string[]) => {
-    setFilters((prev) => ({
-      ...prev,
-      nature,
-    }))
-  }, [])
 
   const applyFilters = useCallback(() => {
     const filtered = selectedCurriculum?.subjects.filter((subject) => {
@@ -202,16 +136,6 @@ export function CourseProvider({
     selectedCurriculum,
   ])
 
-  const clearAllFilters = useCallback(() => {
-    setFilters({
-      query: '',
-      duration: [],
-      branch: [],
-      semester: [],
-      nature: [],
-    })
-  }, [])
-
   useEffect(() => {
     setCourses(COURSES_DATA)
   }, [])
@@ -232,14 +156,7 @@ export function CourseProvider({
       selectCourseBySlug,
       selectCurriculumBySlug,
 
-      filters: oldFilters,
-      setDurationFilter,
-      setQueryFilter,
-      setBranchFilter,
-      setSemesterFilter,
-      setNatureFilter,
       setSelectedSubject,
-      clearAllFilters,
     }),
     [
       courses,
@@ -252,14 +169,7 @@ export function CourseProvider({
       selectCourseBySlug,
       selectCurriculumBySlug,
 
-      oldFilters,
-      setDurationFilter,
-      setQueryFilter,
-      setBranchFilter,
-      setSemesterFilter,
-      setNatureFilter,
       setSelectedSubject,
-      clearAllFilters,
     ],
   )
 
