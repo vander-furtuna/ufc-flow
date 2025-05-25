@@ -10,7 +10,6 @@ interface CheckboxProps extends ComponentProps<'input'> {
 export const FilterCheckbox = forwardRef<HTMLInputElement, CheckboxProps>(
   ({ label, className, onCheckedChange, onChange, ...rest }, ref) => {
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-      console.log('executou')
       onCheckedChange(event.target.value, event.target.checked)
       onChange?.(event)
     }
