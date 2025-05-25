@@ -38,6 +38,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: [],
+            slug: 'introducao-a-engenharia',
           },
           {
             id: '5530b6bb-290c-462f-82e9-183ff8e6cdef',
@@ -49,6 +50,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: [],
+            slug: 'matematica-discreta-para-computacao',
           },
           {
             id: '9ce3e067-61dd-41f5-86d6-a89038ec02dd',
@@ -60,6 +62,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: [],
+            slug: 'calculo-diferencial-e-integral-i',
           },
           {
             id: 'c53a2213-eda7-45ca-9282-17bc193c8464',
@@ -71,6 +74,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: [],
+            slug: 'fisica-geral-i',
           },
           {
             id: '3188b8b4-89be-40f5-a90e-d0107ae26175',
@@ -82,6 +86,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: [],
+            slug: 'programacao-computacional',
           },
           {
             id: '3ab939de-add4-4957-9ea4-cf55b85714bf',
@@ -93,6 +98,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: ['SBL0086'],
+            slug: 'tecnicas-de-programacao',
           },
           {
             id: '33f2e2fe-1348-44f9-8d50-9044796ebbbd',
@@ -104,6 +110,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: ['SBL0057'],
+            slug: 'algebra-linear',
           },
           {
             id: '28fceda4-eafd-486d-bf9e-f6a59958f0df',
@@ -115,6 +122,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: ['SBL0057'],
+            slug: 'calculo-diferencial-e-integral-ii',
           },
           {
             id: '449d3646-2d6c-4b38-aa78-c1c061d1e1fc',
@@ -126,6 +134,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: [],
+            slug: 'desenho-para-engenharia',
           },
           {
             id: '9210abd2-65e8-4a0c-b9ef-625d1b511c3d',
@@ -137,6 +146,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: ['SBL0074'],
+            slug: 'fisica-experimental-i',
           },
           {
             id: '2616b1c4-3283-461c-bda7-95f5506cfe7d',
@@ -148,6 +158,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: ['SBL0057', 'SBL0074'],
+            slug: 'fisica-geral-ii',
           },
           {
             id: '85e2853f-90f7-4f87-8d0c-2f019ae71226',
@@ -159,6 +170,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: ['SBL0057'],
+            slug: 'probabilidade-e-estatistica',
           },
           {
             id: 'dac8c0eb-5148-4391-b30e-424b245c51f1',
@@ -170,6 +182,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: ['SBL0086'],
+            slug: 'estruturas-de-dados',
           },
           {
             id: '41ad6838-701f-4da2-b19d-19089a42fc94',
@@ -181,6 +194,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: ['SBL0058'],
+            slug: 'calculo-vetorial',
           },
           {
             id: '94b4b1f4-d85f-42b1-86f1-4115d9262eeb',
@@ -192,6 +206,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: ['SBL0075', 'SBL0058'],
+            slug: 'fisica-geral-iii',
           },
           {
             id: 'a48717ea-a1f5-4fc4-af7b-6046b36886f7',
@@ -203,6 +218,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: ['SBL0075', 'SBL0058'],
+            slug: 'fisica-experimental-ii',
           },
           {
             id: '3b464ebe-87a6-4fcd-858b-a11b104a5f89',
@@ -214,6 +230,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: ['SBL0056', 'SBL0057', 'SBL0086'],
+            slug: 'metodos-numericos',
           },
           {
             id: '0e3edbc4-01f7-4d18-bbc9-53d9d19009e1',
@@ -225,6 +242,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: ['SBL0058'],
+            slug: 'series-e-equacoes-diferenciais',
           },
           {
             id: 'e164e2d6-0b18-48f9-9c2a-825852f8c16e',
@@ -236,6 +254,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: ['ECO0015'],
+            slug: 'paradigmas-de-linguagem-de-programacao',
           },
           {
             id: '6cd5911a-80e3-4ed9-bea4-f8fe738230bc',
@@ -247,6 +266,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: ['SBL0086'],
+            slug: 'arquitetura-e-organizacao-de-computadores',
           },
           {
             id: '5cd8f171-2425-4a66-980b-15fd1bfe0304',
@@ -258,6 +278,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: ['SBL0067', 'SBL0081', 'SBL0089'],
+            slug: 'circuitos-eletricos-i',
           },
           {
             id: 'c07d9c57-9037-4af6-9f67-41ff170c5160',
@@ -269,6 +290,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: ['SBL0059', 'SBL0067'],
+            slug: 'eletromagnetismo-aplicado',
           },
           {
             id: '84e220c7-4b82-4227-afad-2f0312b8eb7a',
@@ -280,6 +302,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: ['SBL0067', 'SBL0073'],
+            slug: 'eletronica-digital',
           },
           {
             id: '29151b2f-f3cf-4b10-bcd8-4212f379390a',
@@ -291,6 +314,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: ['ECO0016'],
+            slug: 'sistemas-operacionais',
           },
           {
             id: '79839066-543a-41e5-b63b-72b2d1c06f73',
@@ -302,6 +326,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: ['ECO0020'],
+            slug: 'engenharia-de-software',
           },
           {
             id: '24b9825b-73ec-4c29-be70-a9ad056bd13a',
@@ -313,6 +338,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: ['SBL0069'],
+            slug: 'microprocessadores',
           },
           {
             id: '9fae002f-dec0-48fa-b442-c82b0a70c1f6',
@@ -324,6 +350,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: ['ECO0021'],
+            slug: 'redes-de-computadores',
           },
           {
             id: '2e821c48-6c05-4af1-b964-ebee2985e150',
@@ -335,6 +362,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: ['ECO0016'],
+            slug: 'banco-de-dados',
           },
           {
             id: 'cdb89b88-dd7e-49e4-bda5-f188f5d1ee9b',
@@ -346,6 +374,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: ['ECO0016', 'ECO0020', 'ECO0025'],
+            slug: 'inteligencia-computacional',
           },
           {
             id: '253cad29-31e9-4648-82e4-722f0133a659',
@@ -357,6 +386,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: ['ECO0005'],
+            slug: 'ciencias-tecnologia-e-sociedade',
           },
           {
             id: 'a22ba09a-a701-46b9-b96e-0937a2b118c3',
@@ -368,6 +398,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: ['ECO0020', 'ECO0022'],
+            slug: 'software-em-tempo-real',
           },
           {
             id: '8d38bb8a-7a95-490a-b1ba-489535e9096e',
@@ -379,6 +410,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: [],
+            slug: 'engenharia-ambiental',
           },
           {
             id: 'e9be9260-5757-424f-aecd-35a201e193e8',
@@ -390,6 +422,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: [],
+            slug: 'fundamentos-de-administracao',
           },
           {
             id: 'b444a0aa-6d00-42d2-a780-55e18e371c78',
@@ -401,6 +434,7 @@ export const COURSES_DATA: Course[] = [
             type: 'ESTÁGIO',
             branch: [],
             prerequisites: [],
+            slug: 'estagio-supervisionado',
           },
           {
             id: '77650159-aa6d-4710-8451-b729ad889f5b',
@@ -412,6 +446,7 @@ export const COURSES_DATA: Course[] = [
             type: 'ESTÁGIO',
             branch: [],
             prerequisites: [],
+            slug: 'seminario-de-estagio',
           },
           {
             id: '713b97f8-a4ea-4ba9-af86-894bc673a5b2',
@@ -423,6 +458,7 @@ export const COURSES_DATA: Course[] = [
             type: 'TRABALHO DE CONCLUSÃO DE CURSO',
             branch: [],
             prerequisites: [],
+            slug: 'seminario-de-monografia',
           },
           {
             id: '4bb57988-4f8e-45d3-9da9-aad16b216841',
@@ -434,6 +470,7 @@ export const COURSES_DATA: Course[] = [
             type: 'TRABALHO DE CONCLUSÃO DE CURSO',
             branch: [],
             prerequisites: [],
+            slug: 'trabalho-de-conclusao-de-curso',
           },
           {
             id: 'bc219ca4-b5b8-4052-b28d-687b2277d095',
@@ -445,6 +482,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: [],
+            slug: 'comunicacao-e-expressao',
           },
           {
             id: '60426d7b-d059-44d1-8c26-cfa707ec2c38',
@@ -456,6 +494,7 @@ export const COURSES_DATA: Course[] = [
             type: 'ATIVIDADES COMPLEMENTARES',
             branch: [],
             prerequisites: [],
+            slug: 'atividades-complementares',
           },
           {
             id: '3c9c0c5e-50f1-4381-a964-71f2519e40d4',
@@ -467,6 +506,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['32e0b683-60aa-4e51-9b1a-0739239b69b6'],
             prerequisites: ['ECO0016', 'ECO0025'],
+            slug: 'teoria-dos-automatos-e-linguagens-formais',
           },
           {
             id: '84491ece-d65b-419b-8f3e-f99173c1fef9',
@@ -478,6 +518,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['32e0b683-60aa-4e51-9b1a-0739239b69b6'],
             prerequisites: ['ECO0016'],
+            slug: 'pesquisa-e-ordenacao-de-dados',
           },
           {
             id: '32752745-bedc-4a17-beec-4f68b23c7904',
@@ -489,6 +530,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['32e0b683-60aa-4e51-9b1a-0739239b69b6'],
             prerequisites: ['ECO0025'],
+            slug: 'logica-matematica',
           },
           {
             id: 'beb18d9d-cf72-4a1d-8de5-4728f7c663d2',
@@ -500,6 +542,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['32e0b683-60aa-4e51-9b1a-0739239b69b6'],
             prerequisites: ['ECO0015'],
+            slug: 'topicos-em-programacao',
           },
           {
             id: '929c6333-09ec-431d-850a-93e1cdf73585',
@@ -511,6 +554,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['32e0b683-60aa-4e51-9b1a-0739239b69b6'],
             prerequisites: ['ECO0016', 'ECO0025'],
+            slug: 'algoritmos-em-grafos',
           },
           {
             id: '9abffdb5-c312-4623-90af-8696dff5cfdb',
@@ -522,6 +566,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['32e0b683-60aa-4e51-9b1a-0739239b69b6'],
             prerequisites: ['ECO0016', 'ECO0025'],
+            slug: 'construcao-e-analise-de-algoritmos',
           },
           {
             id: 'ae38e461-b021-4987-9967-a0f42bcb66ef',
@@ -533,6 +578,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['32e0b683-60aa-4e51-9b1a-0739239b69b6'],
             prerequisites: ['ECO0015', 'SBL0056'],
+            slug: 'computacao-grafica',
           },
           {
             id: '26db9eaa-0313-48e0-b14b-971ed39c1913',
@@ -544,6 +590,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['32e0b683-60aa-4e51-9b1a-0739239b69b6'],
             prerequisites: ['ECO0031'],
+            slug: 'sistemas-de-gerenciamento-de-banco-de-dados',
           },
           {
             id: 'a46262a9-288a-4ff4-8c33-893e3847924c',
@@ -555,6 +602,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['32e0b683-60aa-4e51-9b1a-0739239b69b6'],
             prerequisites: ['ECO0020', 'ECO0042'],
+            slug: 'construcao-de-compiladores',
           },
           {
             id: '4961b506-7c62-4af1-8e66-2936a5ed2c26',
@@ -566,6 +614,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['32e0b683-60aa-4e51-9b1a-0739239b69b6'],
             prerequisites: ['SBL0088'],
+            slug: 'sistemas-distribuidos',
           },
           {
             id: 'cda4fc85-0b74-4bb6-82e7-91c03e729f05',
@@ -577,6 +626,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['32e0b683-60aa-4e51-9b1a-0739239b69b6'],
             prerequisites: ['ECO0020', 'ECO0016'],
+            slug: 'programacao-distribuida-e-paralela',
           },
           {
             id: '9d3da4ac-0331-471e-bd60-dfa8c470e8d1',
@@ -588,6 +638,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['32e0b683-60aa-4e51-9b1a-0739239b69b6'],
             prerequisites: ['ECO0020'],
+            slug: 'redes-de-petri',
           },
           {
             id: '0c5ca018-a736-49b9-9385-1b650209a497',
@@ -599,6 +650,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['32e0b683-60aa-4e51-9b1a-0739239b69b6'],
             prerequisites: ['SBL0088'],
+            slug: 'redes-de-alta-velocidade',
           },
           {
             id: 'a3fbba73-f0fd-4895-a656-63892502a87b',
@@ -610,6 +662,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['32e0b683-60aa-4e51-9b1a-0739239b69b6'],
             prerequisites: ['ECO0028'],
+            slug: 'sistemas-tolerantes-a-falhas',
           },
           {
             id: 'd34133c2-dfbd-4469-9bb4-68af8df82493',
@@ -621,6 +674,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['32e0b683-60aa-4e51-9b1a-0739239b69b6'],
             prerequisites: ['ECO0015'],
+            slug: 'tecnologias-web',
           },
           {
             id: '76abc61f-18bc-4cc0-acef-a5514ba032b2',
@@ -632,6 +686,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['32e0b683-60aa-4e51-9b1a-0739239b69b6'],
             prerequisites: ['ECO0028'],
+            slug: 'qualidade-de-software',
           },
           {
             id: '8a737ce3-0fd3-410f-9d8d-6a1a52db84ca',
@@ -643,6 +698,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['32e0b683-60aa-4e51-9b1a-0739239b69b6'],
             prerequisites: ['ECO0028'],
+            slug: 'gerencia-e-configuracao-de-software',
           },
           {
             id: '9ba9d5cd-21e1-46d0-9fe2-0af751339352',
@@ -654,6 +710,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['32e0b683-60aa-4e51-9b1a-0739239b69b6'],
             prerequisites: ['ECO0028'],
+            slug: 'verificacao-de-software',
           },
           {
             id: '1d66dad8-893f-4819-a78c-213a237765f2',
@@ -665,6 +722,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['32e0b683-60aa-4e51-9b1a-0739239b69b6'],
             prerequisites: [],
+            slug: 'metodologia-cientifica-tecnologica',
           },
           {
             id: 'f22f5583-5fb8-43ae-8c0f-55d2f9e61dc9',
@@ -676,6 +734,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['32e0b683-60aa-4e51-9b1a-0739239b69b6'],
             prerequisites: [],
+            slug: 'seminarios-de-computacao-i',
           },
           {
             id: '82b4991a-62b3-4347-8d97-bab070606138',
@@ -687,6 +746,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['32e0b683-60aa-4e51-9b1a-0739239b69b6'],
             prerequisites: [],
+            slug: 'seminarios-de-computacao-ii',
           },
           {
             id: '1891dc4b-bb4f-487f-a1b0-1b633ebe75a8',
@@ -698,6 +758,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['32e0b683-60aa-4e51-9b1a-0739239b69b6'],
             prerequisites: [],
+            slug: 'topicos-especiais-em-computacao-i',
           },
           {
             id: 'b26b85ac-a482-405f-8c43-8fe3b80dc909',
@@ -709,6 +770,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['32e0b683-60aa-4e51-9b1a-0739239b69b6'],
             prerequisites: [],
+            slug: 'topicos-especiais-em-computacao-ii',
           },
           {
             id: '69448c7d-ce1c-44d7-997c-ee3d8ff4170b',
@@ -720,6 +782,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['e8451499-5b1c-4b5b-a35b-6bf729873f43'],
             prerequisites: ['SBL0083'],
+            slug: 'comunicacoes-analogicas-e-digitais',
           },
           {
             id: '34060b32-8242-4f3e-aee3-39fcaf7d44f6',
@@ -731,6 +794,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['e8451499-5b1c-4b5b-a35b-6bf729873f43'],
             prerequisites: ['SBL0083'],
+            slug: 'sistemas-de-comunicacoes-moveis',
           },
           {
             id: '8df89674-6a72-4c57-a363-8e2e5bb10def',
@@ -742,6 +806,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['e8451499-5b1c-4b5b-a35b-6bf729873f43'],
             prerequisites: ['SBL0083'],
+            slug: 'sistemas-de-comunicacoes-opticas',
           },
           {
             id: '7ed95b93-d847-4d70-a1c3-4a872b5f38d1',
@@ -753,6 +818,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['e8451499-5b1c-4b5b-a35b-6bf729873f43'],
             prerequisites: ['SBL0083'],
+            slug: 'sistemas-telefonicos',
           },
           {
             id: '456aee38-dde1-4f9c-962b-2e9cf8cda721',
@@ -764,6 +830,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['e8451499-5b1c-4b5b-a35b-6bf729873f43'],
             prerequisites: ['SBL0083'],
+            slug: 'topicos-em-redes-de-comunicacoes',
           },
           {
             id: '5ea0c2ae-72d3-47c7-ad9b-ff7eaad4473d',
@@ -775,6 +842,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['e8451499-5b1c-4b5b-a35b-6bf729873f43'],
             prerequisites: ['SBL0083'],
+            slug: 'arquitetura-e-organizacao-das-redes-de-comunicacoes',
           },
           {
             id: 'bab8fbd6-71bc-4f79-b6a3-32754c736e24',
@@ -786,6 +854,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['e8451499-5b1c-4b5b-a35b-6bf729873f43'],
             prerequisites: ['ECO0066'],
+            slug: 'topicos-em-sistemas-de-comunicacoes-moveis',
           },
           {
             id: 'fa4de123-3d4f-4fa8-a153-3b881f1ea8ac',
@@ -797,6 +866,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['e8451499-5b1c-4b5b-a35b-6bf729873f43'],
             prerequisites: ['ECO0067'],
+            slug: 'topicos-em-sistemas-de-comunicacoes-opticas',
           },
           {
             id: '9d74bae2-3412-4cc5-a1ea-2e7e40161f41',
@@ -808,6 +878,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['e8451499-5b1c-4b5b-a35b-6bf729873f43'],
             prerequisites: ['SBL0083'],
+            slug: 'sistemas-de-comunicacoes-via-radio',
           },
           {
             id: '7e2d5f7a-42b3-4754-adfc-ece86cb61f6f',
@@ -819,6 +890,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['e8451499-5b1c-4b5b-a35b-6bf729873f43'],
             prerequisites: ['SBL0083'],
+            slug: 'laboratorio-de-comunicacoes-i',
           },
           {
             id: 'a85d1234-74c1-4817-8581-568852713f68',
@@ -830,6 +902,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['e8451499-5b1c-4b5b-a35b-6bf729873f43'],
             prerequisites: ['SBL0083'],
+            slug: 'comunicacao-por-satelite',
           },
           {
             id: '940d4a47-af1c-46fc-a412-54ced61e9e64',
@@ -841,6 +914,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['e8451499-5b1c-4b5b-a35b-6bf729873f43'],
             prerequisites: ['SBL0084', 'SBL0059'],
+            slug: 'processos-estocasticos',
           },
           {
             id: '69f260da-ef5b-4b1d-934b-c2d0b3824c83',
@@ -852,6 +926,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: ['SBL0077'],
+            slug: 'empreendedorismo-e-administracao-de-empresas',
           },
           {
             id: 'd05c365b-82bf-482b-bd63-497fef234b2d',
@@ -863,6 +938,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['e8451499-5b1c-4b5b-a35b-6bf729873f43'],
             prerequisites: ['ECO0065'],
+            slug: 'seminario-de-telecomunicacoes-i',
           },
           {
             id: '364e4d90-b9d0-4352-88dc-6056f07302ba',
@@ -874,6 +950,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['e8451499-5b1c-4b5b-a35b-6bf729873f43'],
             prerequisites: ['ECO0065'],
+            slug: 'topicos-especiais-em-telecomunicacoes-i',
           },
           {
             id: 'b56d8f40-8ec8-4159-b222-eb3d19e12705',
@@ -885,6 +962,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['e8451499-5b1c-4b5b-a35b-6bf729873f43'],
             prerequisites: ['SBL0068'],
+            slug: 'linha-de-transmissao-e-guias-de-ondas',
           },
           {
             id: 'ca6e834e-18ab-4abc-8eb9-2e0d49c71673',
@@ -896,6 +974,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['2053b18f-bcc3-4cc4-9517-c5e771c9ab3d'],
             prerequisites: ['SBL0082'],
+            slug: 'microprocessadores-ii',
           },
           {
             id: '622e9893-4c29-4192-8495-0d4acdb1a6b1',
@@ -907,6 +986,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['2053b18f-bcc3-4cc4-9517-c5e771c9ab3d'],
             prerequisites: ['SBL0069'],
+            slug: 'eletronica-industrial',
           },
           {
             id: 'ef1b8bb7-4f10-4efc-8499-62fb25686505',
@@ -918,6 +998,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['2053b18f-bcc3-4cc4-9517-c5e771c9ab3d'],
             prerequisites: ['SBL0064'],
+            slug: 'teoria-do-controle-discreto',
           },
           {
             id: '34cc6217-3694-44cd-a74d-52361b1a9263',
@@ -932,6 +1013,7 @@ export const COURSES_DATA: Course[] = [
               '32e0b683-60aa-4e51-9b1a-0739239b69b6',
             ],
             prerequisites: ['SBL0082'],
+            slug: 'sistemas-embarcados',
           },
           {
             id: '9469e519-f90a-4997-9996-57da4078ad14',
@@ -943,6 +1025,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['2053b18f-bcc3-4cc4-9517-c5e771c9ab3d'],
             prerequisites: ['SBL0064'],
+            slug: 'seminario-em-automacao-e-controle-i',
           },
           {
             id: 'af22995b-20fb-4281-8fbf-eaee334ac7b3',
@@ -954,6 +1037,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['2053b18f-bcc3-4cc4-9517-c5e771c9ab3d'],
             prerequisites: ['SBL0064'],
+            slug: 'topicos-especiais-em-automacao-e-controle-i',
           },
           {
             id: 'c29db79a-c472-4897-aa99-557ca5c260b9',
@@ -965,6 +1049,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['32e0b683-60aa-4e51-9b1a-0739239b69b6'],
             prerequisites: ['ECO0042'],
+            slug: 'teoria-da-computacao',
           },
           {
             id: '33252bca-98be-43b1-a22b-34f8a13c6c40',
@@ -976,6 +1061,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['32e0b683-60aa-4e51-9b1a-0739239b69b6'],
             prerequisites: ['ECO0028', 'ECO0031'],
+            slug: 'analise-e-projetos-de-sistemas-i',
           },
           {
             id: '2d70a84f-09ea-4b2f-91ab-def9e57a1881',
@@ -987,6 +1073,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['32e0b683-60aa-4e51-9b1a-0739239b69b6'],
             prerequisites: ['ECO0100'],
+            slug: 'analise-e-projetos-de-sistemas-ii',
           },
           {
             id: '2275db70-e1ec-4b37-90c3-babec80e4671',
@@ -998,6 +1085,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['32e0b683-60aa-4e51-9b1a-0739239b69b6'],
             prerequisites: ['SBL0081'],
+            slug: 'programacao-linear',
           },
           {
             id: '578227dc-beb5-4ce8-8a17-e000151925fa',
@@ -1009,6 +1097,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['32e0b683-60aa-4e51-9b1a-0739239b69b6'],
             prerequisites: ['ECO0056'],
+            slug: 'tecnologias-web-ii',
           },
           {
             id: '7fa401bd-7d58-4589-8d82-82fb3b2c6437',
@@ -1020,6 +1109,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['32e0b683-60aa-4e51-9b1a-0739239b69b6'],
             prerequisites: ['ECO0016', 'ECO0047'],
+            slug: 'algoritmos-distribuidos',
           },
           {
             id: '6812d27d-6f5e-4821-9509-dd4a5dd9f6b2',
@@ -1031,6 +1121,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['32e0b683-60aa-4e51-9b1a-0739239b69b6'],
             prerequisites: ['ECO0028'],
+            slug: 'teste-de-software',
           },
           {
             id: '5286f26f-9220-45b8-8fc7-2e6815fd8b9a',
@@ -1042,6 +1133,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['32e0b683-60aa-4e51-9b1a-0739239b69b6'],
             prerequisites: ['ECO0103'],
+            slug: 'desenvolvimento-para-dispositivos-moveis',
           },
           {
             id: '4bff9853-88d9-4376-956e-96db09dcd006',
@@ -1053,6 +1145,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['2053b18f-bcc3-4cc4-9517-c5e771c9ab3d'],
             prerequisites: ['SBL0061'],
+            slug: 'circuitos-eletricos-ii',
           },
           {
             id: 'fd37be65-2374-42af-819c-ca9377fe523e',
@@ -1064,6 +1157,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['2053b18f-bcc3-4cc4-9517-c5e771c9ab3d'],
             prerequisites: ['SBL0064'],
+            slug: 'controle-adaptativo',
           },
           {
             id: 'ce950935-b09c-40b7-9f23-7b2edb3385dc',
@@ -1075,6 +1169,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['2053b18f-bcc3-4cc4-9517-c5e771c9ab3d'],
             prerequisites: ['SBL0091'],
+            slug: 'controle-de-sistemas-dinamicos',
           },
           {
             id: '05e726aa-1cda-48c4-9b1a-208847a7689b',
@@ -1086,6 +1181,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['2053b18f-bcc3-4cc4-9517-c5e771c9ab3d'],
             prerequisites: ['SBL0064'],
+            slug: 'controle-e-automacao-industrial',
           },
           {
             id: '61366fef-eb62-4da6-a69b-a4367e7c622f',
@@ -1097,6 +1193,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: ['SBL0076'],
+            slug: 'engenharia-economica',
           },
           {
             id: 'dfe88a4c-c5c3-45fb-ae95-880f73f51a68',
@@ -1108,6 +1205,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: [],
+            slug: 'fundamentos-de-economia',
           },
           {
             id: 'f463dba2-40b7-4d6e-9f31-be0cd3b5e35c',
@@ -1119,6 +1217,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['2053b18f-bcc3-4cc4-9517-c5e771c9ab3d'],
             prerequisites: [],
+            slug: 'higiene-industrial-e-seguranca-no-trabalho',
           },
           {
             id: '58d3f9f0-cef7-4749-bbf2-0bf299ea4530',
@@ -1130,6 +1229,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['2053b18f-bcc3-4cc4-9517-c5e771c9ab3d'],
             prerequisites: ['SBL0084', 'SBL0091', 'SBL0064'],
+            slug: 'identificacao-de-sistemas',
           },
           {
             id: 'd61f6faf-584e-4ea4-a997-58411f1172f6',
@@ -1141,6 +1241,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['e8451499-5b1c-4b5b-a35b-6bf729873f43'],
             prerequisites: ['SBL0084', 'SBL0091'],
+            slug: 'principios-de-comunicacoes',
           },
           {
             id: 'c875f005-65e9-49c9-aaf9-974d816f5a6d',
@@ -1155,6 +1256,7 @@ export const COURSES_DATA: Course[] = [
               'e8451499-5b1c-4b5b-a35b-6bf729873f43',
             ],
             prerequisites: ['SBL0091'],
+            slug: 'processamento-digital-de-sinais',
           },
           {
             id: 'aeb41bf0-4d18-49b6-b2b6-b42a96c6afb5',
@@ -1166,6 +1268,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['2053b18f-bcc3-4cc4-9517-c5e771c9ab3d'],
             prerequisites: [],
+            slug: 'quimica-geral',
           },
           {
             id: '65bfbecc-6436-491b-8f5b-0877b1049a8d',
@@ -1177,6 +1280,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['2053b18f-bcc3-4cc4-9517-c5e771c9ab3d'],
             prerequisites: ['SBL0069'],
+            slug: 'sistemas-eletronicos',
           },
           {
             id: '828eebc4-3165-4f37-8ce2-3c4c78582798',
@@ -1191,6 +1295,7 @@ export const COURSES_DATA: Course[] = [
               'e8451499-5b1c-4b5b-a35b-6bf729873f43',
             ],
             prerequisites: ['SBL0061', 'SBL0095'],
+            slug: 'sistemas-lineares',
           },
           {
             id: '331ee96a-45bd-47d7-b88e-263546985b73',
@@ -1202,6 +1307,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['2053b18f-bcc3-4cc4-9517-c5e771c9ab3d'],
             prerequisites: ['SBL0069'],
+            slug: 'tecnicas-avancadas-em-eletronica-digital',
           },
           {
             id: 'a1fc2393-0c50-4c9d-b6de-1232aa9ba81c',
@@ -1213,6 +1319,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: ['2053b18f-bcc3-4cc4-9517-c5e771c9ab3d'],
             prerequisites: ['SBL0082'],
+            slug: 'tecnicas-avancadas-em-microprocessadores',
           },
           {
             id: 'e121b56b-97f0-45de-943c-e0aa010614fd',
@@ -1227,6 +1334,7 @@ export const COURSES_DATA: Course[] = [
               'e8451499-5b1c-4b5b-a35b-6bf729873f43',
             ],
             prerequisites: ['SBL0059'],
+            slug: 'variaveis-complexas',
           },
           {
             id: 'b042476d-d057-4dcc-82d6-e9dd67e27531',
@@ -1238,6 +1346,7 @@ export const COURSES_DATA: Course[] = [
             type: 'DISCIPLINA',
             branch: [],
             prerequisites: [],
+            slug: 'lingua-brasileira-de-sinais',
           },
         ],
       },

@@ -29,7 +29,11 @@ export function SubjectDiagram() {
                       .filter((subject) => subject.semester === period)
                       .map((subject) => {
                         return (
-                          <SubjectCard subject={subject} key={subject.code} />
+                          <SubjectCard
+                            subject={subject}
+                            key={subject.code}
+                            id={subject.slug}
+                          />
                         )
                       })}
                   </AnimatePresence>
