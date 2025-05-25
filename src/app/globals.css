@@ -151,6 +151,4 @@
   }
 }
 
-@utility text-balance {
-  text-wrap: balance;
-}
+/* Removed standalone @utility directive for text-balance */
