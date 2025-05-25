@@ -1,21 +1,16 @@
-import { Calendar, X } from 'lucide-react'
-import { useCallback, useEffect, useMemo } from 'react'
-import { useForm } from 'react-hook-form'
+import { Calendar } from 'lucide-react'
+import { useCallback, useMemo } from 'react'
 
-import { useCourse } from '@/app/contexts/course'
+import { useFilter } from '@/app/contexts/filter'
 import { FilterCheckbox } from '@/components/filter-checkbox'
-import { Button } from '@/components/ui/button'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
 
+import { ClearButton } from './clear-button'
 import { PopupTrigger } from './popup-trigger'
-
-type FormData = {
-  semester: string[]
-}
 
 export function SemesterPopup() {
   const totalOfSemesters = useMemo(
@@ -23,28 +18,24 @@ export function SemesterPopup() {
     [],
   )
 
-  const { setSemesterFilter, filters } = useCourse()
+  const { semesterFilter, changeSemesterFilter, setSemesterFilter } =
+    useFilter()
 
-  const { register, watch, reset } = useForm<FormData>({
-    defaultValues: {
-      semester: filters.semester.map((semester) => semester.toString()),
+  const handleCheckedSemester = useCallback(
+    (semester: string, checked: boolean) => {
+      if (checked) {
+        changeSemesterFilter(semester, 'add')
+      } else {
+        changeSemesterFilter(semester, 'remove')
+      }
     },
-  })
-  const semester = watch('semester')
-
-  const handleClearFilters = useCallback(() => {
-    setSemesterFilter([])
-    reset()
-  }, [setSemesterFilter, reset])
-
-  const isSemesterFilterActive = useMemo(
-    () => filters.semester.length > 0,
-    [filters.semester],
+    [changeSemesterFilter],
   )
 
-  useEffect(() => {
-    setSemesterFilter(semester)
-  }, [semester, setSemesterFilter])
+  const isSemesterFilterActive = useMemo(
+    () => semesterFilter.length > 0,
+    [semesterFilter],
+  )
 
   return (
     <Popover>
@@ -54,7 +45,7 @@ export function SemesterPopup() {
           isActive={isSemesterFilterActive}
         />
       </PopoverTrigger>
-      <PopoverContent className="flex w-36 flex-col gap-4 bg-slate-100/50 backdrop-blur-md dark:bg-slate-800/50">
+      <PopoverContent className="border-border flex w-36 flex-col gap-4 bg-slate-100/50 backdrop-blur-md dark:bg-slate-800/50">
         <strong className="text-center text-slate-700 dark:text-slate-100">
           Semestres
         </strong>
@@ -65,22 +56,16 @@ export function SemesterPopup() {
               className="flex items-center justify-center gap-2 rounded-md"
             >
               <FilterCheckbox
-                {...register('semester')}
-                value={semester}
                 label={`${semester}º`}
+                value={semester}
+                checked={semesterFilter.includes(Number(semester))}
+                onCheckedChange={handleCheckedSemester}
               />
             </fieldset>
           ))}
         </div>
         <div>
-          <Button
-            className="w-full gap-2 text-xs"
-            variant="outline"
-            onClick={handleClearFilters}
-          >
-            <X className="size-4" />
-            Limpar
-          </Button>
+          <ClearButton onClick={() => setSemesterFilter([])} />
         </div>
       </PopoverContent>
     </Popover>

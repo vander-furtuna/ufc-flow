@@ -5,14 +5,14 @@ export interface SemesterTitleProps {
 }
 
 export function Line() {
-  return <div className="h-0.5 w-full bg-foreground/10" />
+  return <div className="bg-foreground/10 h-0.5 w-full" />
 }
 
 export function SemesterTitle({ children }: SemesterTitleProps) {
   return (
     <div className="flex items-center gap-6">
       <Line />
-      <strong className="text-nowrap font-space text-xl text-foreground/90">
+      <strong className="font-clash text-foreground/90 text-xl text-nowrap">
         {children}
       </strong>
       <Line />

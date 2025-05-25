@@ -7,7 +7,7 @@ export function Footer() {
   return (
     <footer className="mt-auto flex w-full items-center justify-between pb-0">
       <div className="flex items-center gap-4">
-        <span className="font-space text-sm font-semibold">Powered By</span>
+        <span className="font-clash text-sm font-semibold">Powered By</span>
         <VanderLogo className="h-12 w-fit" />
       </div>
       <div>

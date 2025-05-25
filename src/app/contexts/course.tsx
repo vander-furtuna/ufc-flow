@@ -14,13 +14,7 @@ import { COURSES_DATA } from '@/data/courses'
 import type { Course, CurriculumStructure, Subject } from '@/types/course'
 import { normalizeWords } from '@/utils/normalize-words'
 
-type FilterState = {
-  query: string
-  duration: number[]
-  branch: string[]
-  semester: number[]
-  nature: string[]
-}
+import { useFilter } from './filter'
 
 interface CourseContextType {
   courses: Course[]
@@ -33,12 +27,6 @@ interface CourseContextType {
   selectCourseBySlug: (slug: string) => void
   selectCurriculumBySlug: (slug: string) => void
 
-  filters: FilterState
-  setDurationFilter: (duration: string[] | number[]) => void
-  setQueryFilter: (query: string) => void
-  setBranchFilter: (branch: string[]) => void
-  setSemesterFilter: (semester: string[] | number[]) => void
-  setNatureFilter: (type: string[]) => void
   setSelectedSubject: (subject: Subject | null) => void
 }
 
@@ -49,6 +37,14 @@ export function CourseProvider({
 }: Readonly<{
   children: ReactNode
 }>) {
+  const {
+    branchFilter,
+    natureFilter,
+    normalizedQueryFilter,
+    semesterFilter,
+    durationFilter,
+  } = useFilter()
+
   const [isCourseLoading, setIsCourseLoading] = useState(true)
   const [courses, setCourses] = useState<Course[]>([])
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null)
@@ -57,14 +53,6 @@ export function CourseProvider({
   const [selectedSubjects, setSelectedSubjects] = useState<Subject[]>([])
   const [selectedSubject, setSelectedSubject] = useState<Subject | null>(null)
   const [filteredSubjects, setFilteredSubjects] = useState<Subject[]>([])
-
-  const [filters, setFilters] = useState<FilterState>({
-    query: '',
-    duration: [],
-    branch: [],
-    semester: [],
-    nature: [],
-  })
 
   const selectCourseBySlug = useCallback(
     (slug: string) => {
@@ -97,81 +85,38 @@ export function CourseProvider({
     [selectedCourse],
   )
 
-  const setQueryFilter = useCallback((query: string) => {
-    setFilters((prev) => ({
-      ...prev,
-      query,
-    }))
-  }, [])
-
-  const setDurationFilter = useCallback((duration: string[] | number[]) => {
-    const numberDurationFilter = duration.map((duration) =>
-      typeof duration === 'string' ? parseInt(duration) : duration,
-    )
-
-    setFilters((prev) => ({
-      ...prev,
-      duration: numberDurationFilter,
-    }))
-  }, [])
-
-  const setSemesterFilter = useCallback((semester: string[] | number[]) => {
-    const numberSemesterFilter = semester.map((semester) =>
-      typeof semester === 'string' ? parseInt(semester) : semester,
-    )
-
-    setFilters((prev) => ({
-      ...prev,
-      semester: numberSemesterFilter,
-    }))
-  }, [])
-
-  const setBranchFilter = useCallback((branch: string[]) => {
-    setFilters((prev) => ({
-      ...prev,
-      branch,
-    }))
-  }, [])
-
-  const setNatureFilter = useCallback((nature: string[]) => {
-    setFilters((prev) => ({
-      ...prev,
-      nature,
-    }))
-  }, [])
-
   const applyFilters = useCallback(() => {
     const filtered = selectedCurriculum?.subjects.filter((subject) => {
-      if (filters.query.length > 0) {
+      if (normalizedQueryFilter.length > 0) {
         if (
-          !normalizeWords(subject.name).includes(
-            normalizeWords(filters.query),
-          ) &&
-          !subject.code.toLowerCase().includes(filters.query.toLowerCase())
+          !normalizeWords(subject.name).includes(normalizedQueryFilter) &&
+          !subject.code
+            .toLowerCase()
+            .includes(normalizedQueryFilter.toLowerCase())
         ) {
           return false
         }
       }
-      if (filters.duration.length > 0) {
-        if (!filters.duration.includes(subject.duration)) {
+      if (durationFilter.length > 0) {
+        if (!durationFilter.includes(subject.duration)) {
           return false
         }
       }
 
-      if (filters.branch.length > 0) {
-        if (!filters.branch.some((branch) => subject.branch.includes(branch))) {
+      if (branchFilter.length > 0) {
+        if (!branchFilter.some((branch) => subject.branch.includes(branch))) {
           return false
         }
       }
 
-      if (filters.semester.length > 0) {
-        if (!filters.semester.includes(subject.semester)) {
+      if (semesterFilter.length > 0) {
+        if (!semesterFilter.includes(subject.semester)) {
           return false
         }
       }
 
-      if (filters.nature.length > 0) {
-        if (!filters.nature.includes(subject.nature)) {
+      if (natureFilter.length > 0) {
+        if (!natureFilter.includes(subject.nature)) {
           return false
         }
       }
@@ -182,7 +127,14 @@ export function CourseProvider({
     if (filtered) {
       setFilteredSubjects(filtered)
     }
-  }, [filters, selectedCurriculum])
+  }, [
+    normalizedQueryFilter,
+    durationFilter,
+    branchFilter,
+    semesterFilter,
+    natureFilter,
+    selectedCurriculum,
+  ])
 
   useEffect(() => {
     setCourses(COURSES_DATA)
@@ -190,7 +142,7 @@ export function CourseProvider({
 
   useEffect(() => {
     applyFilters()
-  }, [filters, applyFilters])
+  }, [applyFilters])
 
   const value = useMemo(
     () => ({
@@ -204,12 +156,6 @@ export function CourseProvider({
       selectCourseBySlug,
       selectCurriculumBySlug,
 
-      filters,
-      setDurationFilter,
-      setQueryFilter,
-      setBranchFilter,
-      setSemesterFilter,
-      setNatureFilter,
       setSelectedSubject,
     }),
     [
@@ -223,12 +169,6 @@ export function CourseProvider({
       selectCourseBySlug,
       selectCurriculumBySlug,
 
-      filters,
-      setDurationFilter,
-      setQueryFilter,
-      setBranchFilter,
-      setSemesterFilter,
-      setNatureFilter,
       setSelectedSubject,
     ],
   )

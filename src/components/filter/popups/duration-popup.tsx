@@ -1,48 +1,38 @@
-import { Clock, X } from 'lucide-react'
-import { useCallback, useEffect, useMemo } from 'react'
-import { useForm } from 'react-hook-form'
+import { Clock } from 'lucide-react'
+import { useCallback, useMemo } from 'react'
 
-import { useCourse } from '@/app/contexts/course'
+import { useFilter } from '@/app/contexts/filter'
 import { FilterCheckbox } from '@/components/filter-checkbox'
-import { Button } from '@/components/ui/button'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
 
+import { ClearButton } from './clear-button'
 import { PopupTrigger } from './popup-trigger'
 
 export function DurationPopup() {
-  const { setDurationFilter, filters } = useCourse()
+  const { durationFilter, changeDurationFilter, setDurationFilter } =
+    useFilter()
 
   const durationOptions = useMemo(() => [32, 48, 64, 96], [])
 
-  type FormData = {
-    duration: string[]
-  }
-
-  const { register, watch, reset } = useForm<FormData>({
-    defaultValues: {
-      duration: filters.duration.map((duration) => duration.toString()),
+  const handleCheckDuration = useCallback(
+    (duration: string, checked: boolean) => {
+      if (checked) {
+        changeDurationFilter(duration, 'add')
+      } else {
+        changeDurationFilter(duration, 'remove')
+      }
     },
-  })
-
-  const duration = watch('duration')
-
-  const handleClearDurationFilter = useCallback(() => {
-    reset()
-    setDurationFilter([])
-  }, [setDurationFilter, reset])
-
-  const isDurationFilterActive = useMemo(
-    () => filters.duration.length > 0,
-    [filters.duration],
+    [changeDurationFilter],
   )
 
-  useEffect(() => {
-    setDurationFilter(duration)
-  }, [duration, setDurationFilter])
+  const isDurationFilterActive = useMemo(
+    () => durationFilter.length > 0,
+    [durationFilter],
+  )
 
   return (
     <Popover>
@@ -52,7 +42,7 @@ export function DurationPopup() {
           isActive={isDurationFilterActive}
         />
       </PopoverTrigger>
-      <PopoverContent className="flex w-44 flex-col gap-4 bg-slate-100/50 backdrop-blur-md dark:bg-slate-800/50">
+      <PopoverContent className="border-border flex w-44 flex-col gap-4 bg-slate-100/50 backdrop-blur-md dark:bg-slate-800/50">
         <strong className="text-center text-slate-600 dark:text-slate-100">
           Duração
         </strong>
@@ -63,22 +53,16 @@ export function DurationPopup() {
               className="flex items-center justify-center gap-2 rounded-md"
             >
               <FilterCheckbox
-                {...register('duration')}
+                onCheckedChange={handleCheckDuration}
                 value={duration.toString()}
+                checked={durationFilter.includes(Number(duration))}
                 label={`${duration}h`}
               />
             </fieldset>
           ))}
         </form>
         <div>
-          <Button
-            className="w-full gap-2 text-xs"
-            variant="outline"
-            onClick={handleClearDurationFilter}
-          >
-            <X className="size-4" />
-            Limpar
-          </Button>
+          <ClearButton onClick={() => setDurationFilter([])} />
         </div>
       </PopoverContent>
     </Popover>

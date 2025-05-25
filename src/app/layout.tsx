@@ -1,45 +1,27 @@
 import './globals.css'
 
+import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Space_Grotesk } from 'next/font/google'
+import { Poppins } from 'next/font/google'
 import localFont from 'next/font/local'
-import { Toaster } from 'sonner'
 
 import { ThemeProvider } from '@/components/theme-provider'
+import { Toaster } from '@/components/ui/sonner'
 
 import { FloatingBar } from './[courseSlug]/[curriculumSlug]/components/floating-bar'
 import { CourseProvider } from './contexts/course'
+import { FilterProvider } from './contexts/filter'
 
-const poppins = localFont({
-  src: [
-    {
-      path: './fonts/poppins/Poppins-Regular.ttf',
-      weight: '400',
-      style: 'normal',
-    },
-    {
-      path: './fonts/poppins/Poppins-Medium.ttf',
-      weight: '500',
-      style: 'normal',
-    },
-    {
-      path: './fonts/poppins/Poppins-SemiBold.ttf',
-      weight: '600',
-      style: 'normal',
-    },
-    {
-      path: './fonts/poppins/Poppins-Bold.ttf',
-      weight: '700',
-      style: 'normal',
-    },
-  ],
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
   variable: '--font-poppins',
 })
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-space-grotesk',
+const clashDisplay = localFont({
+  src: '../assets/fonts/clash-display/ClashDisplay-Variable.woff2',
+  variable: '--font-clash-display',
 })
 
 export const viewport: Viewport = {
@@ -67,7 +49,7 @@ export const metadata: Metadata = {
   ],
   authors: [
     {
-      name: 'UFC Flow',
+      name: 'Vanderlei Furtuna',
       url: 'https://github.com/vander-furtuna',
     },
   ],
@@ -75,8 +57,8 @@ export const metadata: Metadata = {
     title: 'UFC Flow | Explore as disciplinas de seu curso',
     description:
       'Explore as disciplinas de seu curso na Universidade Federal do Ceará com UFC Flow',
-    images: ['https://ufc-flow.vercel.app/banner.png'],
-    url: 'https://ufc-flow.vercel.app',
+    images: [`${process.env.NEXT_PUBLIC_SITE_URL}/banner.png`],
+    url: `${process.env.NEXT_PUBLIC_SITE_URL}`,
   },
 }
 
@@ -87,29 +69,28 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br" suppressHydrationWarning>
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="system"
-        enableSystem
-        disableTransitionOnChange
-      >
+      <Analytics />
+      <FilterProvider>
         <CourseProvider>
           <body
-            className={`${poppins.variable} ${spaceGrotesk.variable} max-h-full min-h-screen bg-background font-sans antialiased`}
+            className={`${poppins.variable} ${clashDisplay.variable} bg-background max-h-full min-h-screen font-sans antialiased`}
+            suppressHydrationWarning
           >
-            <main className="flex min-h-screen w-full flex-col items-center justify-start">
-              {children}
-              <FloatingBar />
-            </main>
-            <Toaster
-              toastOptions={{
-                className:
-                  'bg-card rounded-md text-card-foreground border-input',
-              }}
-            />
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <main className="flex min-h-screen w-full flex-col items-center justify-start">
+                {children}
+                <FloatingBar />
+              </main>
+              <Toaster />
+            </ThemeProvider>
           </body>
         </CourseProvider>
-      </ThemeProvider>
+      </FilterProvider>
     </html>
   )
 }

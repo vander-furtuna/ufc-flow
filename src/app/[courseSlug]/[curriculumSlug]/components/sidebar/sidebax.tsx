@@ -1,20 +1,29 @@
-import { AnimatePresence, motion } from 'framer-motion'
-import { Badge, Calendar, Clock, Copy, Split, X } from 'lucide-react'
+import { Calendar, Clock, Copy, Pin, Tag, X } from 'lucide-react'
+import { AnimatePresence, motion } from 'motion/react'
 import { useCallback, useMemo } from 'react'
 import { toast } from 'sonner'
 
 import { useCourse } from '@/app/contexts/course'
+import { useFilter } from '@/app/contexts/filter'
 import { Glow } from '@/components/glow'
 import { COLORS } from '@/data/colors'
 import { capitalizeWords } from '@/utils/capitalize-words'
 
 import { SubjectCardSmall } from '../subject-card-small'
 import { Pill } from './pill'
-import { SectionTitle } from './section-titlte'
-
-// interface SidebarProps {}
+import { SectionTitle } from './section-title'
 
 export function Sidebar() {
+  const {
+    branchFilter,
+    natureFilter,
+    semesterFilter,
+    durationFilter,
+    setBranchFilter,
+    setNatureFilter,
+    setSemesterFilter,
+    setDurationFilter,
+  } = useFilter()
   const { selectedSubject, selectedCurriculum, setSelectedSubject } =
     useCourse()
 
@@ -81,7 +90,7 @@ export function Sidebar() {
       },
       (err) => {
         console.error('Failed to copy the text to clipboard', err)
-        toast.error('Falha ao copiar o código da disciplina')
+        toast.error('Não foi possível copiar o código da disciplina')
       },
     )
   }, [])
@@ -90,7 +99,7 @@ export function Sidebar() {
     <AnimatePresence>
       {selectedSubject && (
         <motion.aside
-          className="fixed right-4 h-full w-72 flex-shrink-0 overflow-hidden md:relative"
+          className="fixed right-4 h-full w-72 shrink-0 overflow-hidden md:relative"
           initial={{ width: '0rem' }}
           animate={{ width: '18rem' }}
           exit={{ width: '0rem' }}
@@ -101,28 +110,35 @@ export function Sidebar() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 10 }}
             transition={{ duration: 0.3 }}
-            className="fixed h-dvh w-72 flex-shrink-0 py-8"
+            drag="x"
+            dragElastic={0}
+            onDragEnd={(_e, info) => {
+              if (info.offset.x > 2 || info.offset.x < -2) {
+                handleUnselectSubject()
+              }
+            }}
+            className="fixed h-dvh w-72 shrink-0 py-8"
           >
-            <div className="relative h-full w-full overflow-hidden overflow-y-auto overflow-x-hidden rounded-md bg-slate-100/50 pb-16 backdrop-blur-md no-scrollbar md:bg-slate-100 dark:bg-slate-900/60 dark:md:bg-slate-900">
+            <div className="no-scrollbar relative h-full w-full overflow-hidden overflow-x-hidden overflow-y-auto rounded-md bg-slate-100/50 pb-16 backdrop-blur-md md:bg-slate-100 dark:bg-slate-900/60 dark:md:bg-slate-900">
               <Glow
                 colors={glowColor}
-                className="absolute -top-72 left-1/2 z-10 size-[32rem] -translate-x-1/2 blur-[100px]"
+                className="absolute -top-72 left-1/2 z-10 size-128 -translate-x-1/2 blur-[100px]"
               />
-              <div className="relative z-20 h-40 w-full px-8 center">
+              <div className="center relative z-20 h-44 w-full px-8">
                 <button
-                  className="absolute right-3 top-3 size-6 rounded-md transition-colors center hover:bg-foreground/20"
+                  className="center hover:bg-foreground/20 absolute top-3 right-3 size-6 rounded-md transition-colors"
                   onClick={handleUnselectSubject}
                 >
                   <X className="size-5 opacity-70" />
                 </button>
-                <strong className="w-full text-center font-space text-lg drop-shadow-lg center dark:text-slate-50">
+                <strong className="font-clash center w-full text-center text-lg font-semibold drop-shadow-lg dark:text-slate-50">
                   {selectedSubject.name}
                 </strong>
                 <button
-                  className="absolute bottom-2 flex w-fit gap-2 rounded-full bg-slate-50/40 px-2 py-1 font-semibold text-slate-800 transition-all duration-300 center dark:bg-slate-900/10 dark:text-slate-100 dark:hover:bg-slate-900/20"
+                  className="center absolute bottom-2 flex w-fit gap-2 rounded-full bg-slate-50/40 px-2 py-1 font-semibold text-slate-800 transition-all duration-300 dark:bg-slate-900/10 dark:text-slate-100 dark:hover:bg-slate-900/20"
                   onClick={() => copyToClipboard(selectedSubject.code)}
                 >
-                  <span className="font-space text-sm">
+                  <span className="font-clash text-sm">
                     {selectedSubject.code}
                   </span>
                   <figure className="size-4">
@@ -131,34 +147,42 @@ export function Sidebar() {
                 </button>
               </div>
               <div className="relative z-20 flex flex-col gap-2">
-                <div className="gap-1 center">
+                <div className="center gap-1">
                   <Pill
-                    Icon={<Badge strokeWidth={2} className="size-4" />}
+                    Icon={<Pin strokeWidth={2} className="size-4" />}
                     label={capitalizeWords(selectedSubject.nature)}
-                    // onClick={() => setNatureFilter([selectedSubject.nature])}
+                    colors={glowColor}
+                    isActive={natureFilter.includes(selectedSubject.nature)}
+                    onClick={() => setNatureFilter([selectedSubject.nature])}
                   />
                   <Pill
                     Icon={<Calendar strokeWidth={2} className="size-4" />}
                     label={`${selectedSubject.semester}º`}
-                    // onClick={() =>
-                    //   setSemesterFilter([selectedSubject.semester])
-                    // }
+                    colors={glowColor}
+                    isActive={semesterFilter.includes(selectedSubject.semester)}
+                    onClick={() =>
+                      setSemesterFilter([selectedSubject.semester])
+                    }
                   />
                   <Pill
                     Icon={<Clock strokeWidth={2} className="size-4" />}
                     label={`${selectedSubject.duration}h`}
-                    // onClick={() =>
-                    //   setDurationFilter([selectedSubject.duration])
-                    // }
+                    colors={glowColor}
+                    isActive={durationFilter.includes(selectedSubject.duration)}
+                    onClick={() =>
+                      setDurationFilter([selectedSubject.duration])
+                    }
                   />
                 </div>
-                <div className="flex-wrap gap-1 center">
+                <div className="center flex-wrap gap-1">
                   {getBranchs.map((branch) => (
                     <Pill
                       key={branch.id}
-                      Icon={<Split strokeWidth={2} className="size-4" />}
+                      Icon={<Tag strokeWidth={2} className="size-4" />}
                       label={branch.name}
-                      // onClick={() => setBranchFilter([branch.id])}
+                      colors={glowColor}
+                      isActive={branchFilter.includes(branch.id)}
+                      onClick={() => setBranchFilter([branch.id])}
                     />
                   ))}
                 </div>
@@ -190,7 +214,7 @@ export function Sidebar() {
                 </div>
               )}
             </div>
-            <div className="fixed bottom-8 z-50 h-16 w-full rounded-md bg-gradient-to-t from-slate-100 to-transparent dark:from-slate-900" />
+            <div className="fixed bottom-8 z-50 h-16 w-72 rounded-md bg-linear-to-t from-slate-100 to-transparent dark:from-slate-900" />
           </motion.div>
         </motion.aside>
       )}

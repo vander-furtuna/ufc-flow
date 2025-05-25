@@ -9,7 +9,7 @@ interface FiltersProps {
 export function Filters({ isOpen }: FiltersProps) {
   return (
     <div
-      className="mr-0 flex h-8 max-w-0 shrink-0 items-center gap-2 overflow-hidden opacity-0 transition-all duration-500 ease-smooth data-[open=open]:mr-2 data-[open=open]:max-w-40 data-[open=open]:opacity-100"
+      className="ease-smooth mr-0 flex h-8 max-w-0 shrink-0 items-center gap-2 overflow-hidden opacity-0 transition-all duration-500 data-[open=open]:mr-2 data-[open=open]:max-w-32 data-[open=open]:opacity-100"
       data-open={isOpen ? 'open' : 'closed'}
     >
       <BranchPopup />

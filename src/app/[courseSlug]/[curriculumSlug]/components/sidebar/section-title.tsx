@@ -5,14 +5,14 @@ export interface SectionTitleProps {
 }
 
 export function Line() {
-  return <div className="h-0.5 w-full bg-foreground/10" />
+  return <div className="bg-foreground/10 h-0.5 w-full" />
 }
 
 export function SectionTitle({ children }: SectionTitleProps) {
   return (
     <div className="flex items-center gap-4 px-2">
       <Line />
-      <h2 className="text-md text-nowrap text-center font-space font-semibold uppercase">
+      <h2 className="text-md font-clash text-center font-semibold text-nowrap uppercase">
         {children}
       </h2>
       <Line />
