@@ -34,7 +34,7 @@ export function CurriculumSwitch({
           Ano-periodo: {selectedCurriculum?.period}
         </span>
       </div>
-      <ChevronsUpDown className="text-foreground size-4 shrink-0 opacity-35" />
+      <ChevronsUpDown className="text-muted-foreground size-4 shrink-0" />
     </button>
   )
 }

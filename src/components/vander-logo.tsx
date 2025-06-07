@@ -1,3 +1,5 @@
+'use client'
+
 import { type ComponentProps, useCallback, useState } from 'react'
 
 import { LOGO_COLORS, type LogoColor } from '@/constants/logo-colors'
