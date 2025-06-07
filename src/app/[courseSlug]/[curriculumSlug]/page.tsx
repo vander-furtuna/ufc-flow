@@ -18,8 +18,9 @@ interface CurriculumProps {
   }>
 }
 
-export default function Curriculum(props: CurriculumProps) {
-  const params = use(props.params)
+export default function Curriculum({ params }: CurriculumProps) {
+  const { courseSlug, curriculumSlug } = use(params)
+
   const {
     selectedCourse,
     selectedCurriculum,
@@ -31,18 +32,18 @@ export default function Curriculum(props: CurriculumProps) {
   const handleGetSelectedCurriculumBySlug = useCallback(() => {
     if (!selectedCurriculum) {
       if (!selectedCourse) {
-        selectCourseBySlug(params.courseSlug)
+        selectCourseBySlug(courseSlug)
       }
 
       if (selectedCourse) {
-        selectCurriculumBySlug(params.curriculumSlug)
+        selectCurriculumBySlug(curriculumSlug)
       }
     }
 
     return null
   }, [
-    params.courseSlug,
-    params.curriculumSlug,
+    courseSlug,
+    curriculumSlug,
     selectedCourse,
     selectedCurriculum,
     selectCourseBySlug,
