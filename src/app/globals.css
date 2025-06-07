@@ -131,6 +131,17 @@
   --color-sidebar-ring: var(--sidebar-ring);
 
   --ease-smooth: cubic-bezier(0.075, 0.82, 0.165, 1);
+
+  --animate-border: border 4s linear infinite;
+
+  @keyframes border {
+    from {
+      --border-angle: 0deg;
+    }
+    to {
+      --border-angle: 360deg;
+    }
+  }
 }
 
 /*

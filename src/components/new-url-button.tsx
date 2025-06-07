@@ -17,7 +17,7 @@ export function NewUrlButton({ className, ...rest }: NewUrlProps) {
   return (
     <button
       className={cn(
-        'animate-border w-full rounded-md border-2 border-transparent [background:linear-gradient(45deg,theme(colors.slate.100),theme(colors.slate.100)_50%,theme(colors.slate.100))_padding-box,conic-gradient(from_var(--border-angle),theme(colors.slate.200/.48)_80%,_theme(colors.amber.500)_86%,_theme(colors.emerald.300)_90%,_theme(colors.sky.500)_94%,_theme(colors.slate.600/.48))_border-box] dark:[background:linear-gradient(45deg,theme(colors.slate.900),theme(colors.slate.900)_50%,theme(colors.slate.900))_padding-box,conic-gradient(from_var(--border-angle),theme(colors.slate.700/.48)_80%,_theme(colors.amber.500)_86%,_theme(colors.emerald.300)_90%,_theme(colors.sky.500)_94%,_theme(colors.slate.200/.48))_border-box]',
+        'animate-border [background:linear-gradient(45deg,theme(colors.border),theme(colors.border)_50%,theme(colors.border))_padding-box,conic-gradient(from_var(--border-angle),theme(colors.slate.200/.48)_80%,_theme(colors.amber.500)_86%,_theme(colors.emerald.300)_90%,_theme(colors.sky.500)_94%,_theme(colors.slate.600/.48))_border-box] w-full rounded-md border-1 border-transparent dark:[background:linear-gradient(45deg,theme(colors.slate.900),theme(colors.slate.900)_50%,theme(colors.slate.900))_padding-box,conic-gradient(from_var(--border-angle),theme(colors.slate.700/.48)_80%,_theme(colors.amber.500)_86%,_theme(colors.emerald.300)_90%,_theme(colors.sky.500)_94%,_theme(colors.slate.200/.48))_border-box]',
         className,
       )}
       onClick={handleOpenUserPopup}
