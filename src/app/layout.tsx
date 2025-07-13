@@ -2,7 +2,6 @@ import './globals.css'
 
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Poppins } from 'next/font/google'
 import localFont from 'next/font/local'
 
 import { ThemeProvider } from '@/components/theme-provider'
@@ -12,12 +11,12 @@ import { FloatingBar } from './[courseSlug]/[curriculumSlug]/components/floating
 import { CourseProvider } from './contexts/course'
 import { FilterProvider } from './contexts/filter'
 
-const poppins = Poppins({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  display: 'swap',
-  variable: '--font-poppins',
-})
+// const poppins = Poppins({
+//   subsets: ['latin'],
+//   weight: ['400', '500', '600', '700'],
+//   display: 'swap',
+//   variable: '--font-poppins',
+// })
 
 const clashDisplay = localFont({
   src: '../assets/fonts/clash-display/ClashDisplay-Variable.woff2',
@@ -73,7 +72,7 @@ export default function RootLayout({
       <FilterProvider>
         <CourseProvider>
           <body
-            className={`${poppins.variable} ${clashDisplay.variable} bg-background max-h-full min-h-screen font-sans antialiased`}
+            className={`${clashDisplay.variable} bg-background max-h-full min-h-screen font-sans antialiased`}
             suppressHydrationWarning
           >
             <ThemeProvider
