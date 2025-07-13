@@ -14,6 +14,8 @@ export default async function Curriculum({ params }: CurriculumProps) {
 
   const data = await getSubjectsInformations()
 
+  console.log('Curriculum data:', data)
+
   return (
     <main className="flex h-full min-h-dvh w-full items-start justify-center gap-6 px-8 md:gap-12">
       <CurriculumSection params={loadedParams} />
