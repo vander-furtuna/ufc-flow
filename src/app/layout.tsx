@@ -39,9 +39,9 @@ export const metadata: Metadata = {
   description:
     'Explore as disciplinas de seu curso na Universidade Federal do Ceará com UFC Flow',
   keywords: [
+    'UFC Flow',
     'UFC',
     'Universidade Federal do Ceará',
-    'UFC Flow',
     'Curso',
     'Disciplina',
     'Grade Curricular',
@@ -57,8 +57,8 @@ export const metadata: Metadata = {
     title: 'UFC Flow | Explore as disciplinas de seu curso',
     description:
       'Explore as disciplinas de seu curso na Universidade Federal do Ceará com UFC Flow',
-    images: [`${process.env.NEXT_PUBLIC_SITE_URL}/banner.png`],
-    url: `${process.env.NEXT_PUBLIC_SITE_URL}`,
+    images: ['https://flow.ufc.br/banner.png'],
+    url: 'https://flow.ufc.br',
   },
 }
 
