@@ -2,10 +2,9 @@
 
 import { useCallback, useEffect } from 'react'
 
-import { useCourse } from '@/app/contexts/course'
 import { CurriculumHeader } from '@/components/curriculum-header'
 import { Header } from '@/components/header'
-import { getSubjectsInformations } from '@/utils/get-subjects-informations'
+import { useCourse } from '@/contexts/course'
 
 import { Footer } from './footer'
 import { Sidebar } from './sidebar/sidebax'
@@ -54,16 +53,6 @@ export function CurriculumSection({ params }: CurriculumProps) {
   useEffect(() => {
     handleGetSelectedCurriculumBySlug()
   }, [handleGetSelectedCurriculumBySlug])
-
-  const handleGetInformations = useCallback(async () => {
-    const data = await getSubjectsInformations()
-
-    console.log('Curriculum data:', data)
-  }, [])
-
-  useEffect(() => {
-    handleGetInformations()
-  }, [handleGetInformations])
 
   return (
     <>

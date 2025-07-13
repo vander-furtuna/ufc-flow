@@ -1,12 +1,12 @@
 import { Clock } from 'lucide-react'
 import { useCallback, useMemo } from 'react'
 
-import { useFilter } from '@/app/contexts/filter'
+import { useFilter } from '@/contexts/filter'
 import { FilterCheckbox } from '@/components/filter-checkbox'
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
 } from '@/components/ui/popover'
 
 import { ClearButton } from './clear-button'

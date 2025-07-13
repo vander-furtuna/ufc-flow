@@ -1,11 +1,11 @@
 import { Info } from 'lucide-react'
 import { lighten, saturate } from 'polished'
 
-import { useCourse } from '@/app/contexts/course'
+import { useCourse } from '@/contexts/course'
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
 } from '@/components/ui/popover'
 
 import { Button } from './button'

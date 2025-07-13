@@ -2,7 +2,7 @@ import { ChevronsUpDown } from 'lucide-react'
 import { type ComponentProps, useCallback } from 'react'
 import { toast } from 'sonner'
 
-import { useCourse } from '@/app/contexts/course'
+import { useCourse } from '@/contexts/course'
 import { cn } from '@/lib/utils'
 
 interface CurriculumSwitchProps extends ComponentProps<'button'> {}

@@ -1,7 +1,7 @@
 import { motion } from 'motion/react'
 import { useCallback, useMemo } from 'react'
 
-import { useCourse } from '@/app/contexts/course'
+import { useCourse } from '@/contexts/course'
 import type { Subject } from '@/types/course'
 import { capitalizeWords } from '@/utils/capitalize-words'
 

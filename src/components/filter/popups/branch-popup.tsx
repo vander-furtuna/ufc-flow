@@ -2,13 +2,13 @@ import { Tag } from 'lucide-react'
 import { lighten, saturate } from 'polished'
 import { useCallback, useMemo } from 'react'
 
-import { useCourse } from '@/app/contexts/course'
-import { useFilter } from '@/app/contexts/filter'
+import { useCourse } from '@/contexts/course'
+import { useFilter } from '@/contexts/filter'
 import { FilterCheckbox } from '@/components/filter-checkbox'
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
 } from '@/components/ui/popover'
 
 import { ClearButton } from './clear-button'

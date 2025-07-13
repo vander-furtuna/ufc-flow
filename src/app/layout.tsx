@@ -6,10 +6,11 @@ import localFont from 'next/font/local'
 
 import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/sonner'
+import { ClassProvider } from '@/contexts/class'
 
+import { CourseProvider } from '../contexts/course'
+import { FilterProvider } from '../contexts/filter'
 import { FloatingBar } from './[courseSlug]/[curriculumSlug]/components/floating-bar'
-import { CourseProvider } from './contexts/course'
-import { FilterProvider } from './contexts/filter'
 
 // const poppins = Poppins({
 //   subsets: ['latin'],
@@ -71,23 +72,25 @@ export default function RootLayout({
       <Analytics />
       <FilterProvider>
         <CourseProvider>
-          <body
-            className={`${clashDisplay.variable} bg-background max-h-full min-h-screen font-sans antialiased`}
-            suppressHydrationWarning
-          >
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
+          <ClassProvider>
+            <body
+              className={`${clashDisplay.variable} bg-background max-h-full min-h-screen font-sans antialiased`}
+              suppressHydrationWarning
             >
-              <main className="flex min-h-screen w-full flex-col items-center justify-start">
-                {children}
-                <FloatingBar />
-              </main>
-              <Toaster />
-            </ThemeProvider>
-          </body>
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="system"
+                enableSystem
+                disableTransitionOnChange
+              >
+                <main className="flex min-h-screen w-full flex-col items-center justify-start">
+                  {children}
+                  <FloatingBar />
+                </main>
+                <Toaster />
+              </ThemeProvider>
+            </body>
+          </ClassProvider>
         </CourseProvider>
       </FilterProvider>
     </html>
