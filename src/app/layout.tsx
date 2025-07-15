@@ -10,13 +10,32 @@ import { Toaster } from '@/components/ui/sonner'
 import { FloatingBar } from './[courseSlug]/[curriculumSlug]/components/floating-bar'
 import { AppProvider } from './app-provider'
 
-// const poppins = Poppins({
-//   subsets: ['latin'],
-//   weight: ['400', '500', '600', '700'],
-//   display: 'swap',
-//   variable: '--font-poppins',
-//   adjustFontFallback: false,
-// })
+const poppins = localFont({
+  src: [
+    {
+      path: '../assets/fonts/poppins/Poppins-Regular.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../assets/fonts/poppins/Poppins-Medium.ttf',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../assets/fonts/poppins/Poppins-SemiBold.ttf',
+      weight: '600',
+      style: 'normal',
+    },
+    {
+      path: '../assets/fonts/poppins/Poppins-Bold.ttf',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-poppins',
+  display: 'swap',
+})
 
 const clashDisplay = localFont({
   src: '../assets/fonts/clash-display/ClashDisplay-Variable.woff2',
@@ -71,7 +90,7 @@ export default function RootLayout({
       <Analytics />
 
       <body
-        className={`${clashDisplay.variable} bg-background max-h-full min-h-screen font-sans antialiased`}
+        className={`${clashDisplay.variable} ${poppins.variable} bg-background max-h-full min-h-screen font-sans antialiased`}
         suppressHydrationWarning
       >
         <AppProvider>

@@ -1,13 +1,13 @@
 'use client'
 
 import {
-    createContext,
-    type ReactNode,
-    useCallback,
-    useContext,
-    useEffect,
-    useMemo,
-    useState,
+  createContext,
+  type ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
 } from 'react'
 
 import { useScheduleManager } from '@/lib/indexeddb'
