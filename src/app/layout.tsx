@@ -6,17 +6,16 @@ import localFont from 'next/font/local'
 
 import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/sonner'
-import { ClassProvider } from '@/contexts/class'
 
-import { CourseProvider } from '../contexts/course'
-import { FilterProvider } from '../contexts/filter'
 import { FloatingBar } from './[courseSlug]/[curriculumSlug]/components/floating-bar'
+import { AppProvider } from './app-provider'
 
 // const poppins = Poppins({
 //   subsets: ['latin'],
 //   weight: ['400', '500', '600', '700'],
 //   display: 'swap',
 //   variable: '--font-poppins',
+//   adjustFontFallback: false,
 // })
 
 const clashDisplay = localFont({
@@ -70,29 +69,26 @@ export default function RootLayout({
   return (
     <html lang="pt-br" suppressHydrationWarning>
       <Analytics />
-      <FilterProvider>
-        <CourseProvider>
-          <ClassProvider>
-            <body
-              className={`${clashDisplay.variable} bg-background max-h-full min-h-screen font-sans antialiased`}
-              suppressHydrationWarning
-            >
-              <ThemeProvider
-                attribute="class"
-                defaultTheme="system"
-                enableSystem
-                disableTransitionOnChange
-              >
-                <main className="flex min-h-screen w-full flex-col items-center justify-start">
-                  {children}
-                  <FloatingBar />
-                </main>
-                <Toaster />
-              </ThemeProvider>
-            </body>
-          </ClassProvider>
-        </CourseProvider>
-      </FilterProvider>
+
+      <body
+        className={`${clashDisplay.variable} bg-background max-h-full min-h-screen font-sans antialiased`}
+        suppressHydrationWarning
+      >
+        <AppProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <main className="flex min-h-screen w-full flex-col items-center justify-start">
+              {children}
+              <FloatingBar />
+            </main>
+            <Toaster />
+          </ThemeProvider>
+        </AppProvider>
+      </body>
     </html>
   )
 }

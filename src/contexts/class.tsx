@@ -1,27 +1,25 @@
 'use client'
 
 import {
-  createContext,
-  type ReactNode,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
+    createContext,
+    type ReactNode,
+    useCallback,
+    useContext,
+    useEffect,
+    useMemo,
+    useState,
 } from 'react'
 
-import { getClassesInformationsService } from '@/services/scrapping/get-classes-informations'
-import {
-  getClassesFromStorage,
-  saveClassesInStorage,
-} from '@/storage/classes/local-storage'
-import type { CourseGroup } from '@/utils/get-subjects-informations'
+import { useScheduleManager } from '@/lib/indexeddb'
+import type { StorageClass, SubjectGroup } from '@/types/class'
 
-type ClassContextType = {}
-
-export type StorageClass = {
-  year: number
-  semester: number
-  classGroup: CourseGroup[]
+type ClassContextType = {
+  currentYear: number | null
+  currentSemester: number | null
+  currentClassGroup: StorageClass | null
+  changeYear: (year: number) => void
+  changeSemester: (semester: number) => void
+  getSubjectInformationByCode: (code: string) => SubjectGroup | null
 }
 
 export const ClassContext = createContext<ClassContextType>(
@@ -29,47 +27,78 @@ export const ClassContext = createContext<ClassContextType>(
 )
 
 export function ClassProvider({ children }: { children: ReactNode }) {
-  const [currentSemesterYear, setCurrentSemesterYear] = useState<number | null>(
-    2025,
-  )
+  const { fetchScheduleData } = useScheduleManager()
+
+  const [currentYear, setCurrentYear] = useState<number | null>(2025)
   const [currentSemester, setCurrentSemester] = useState<number | null>(1)
 
-  const [classes, setClasses] = useState<StorageClass[]>([])
+  const [currentClassGroup, setCurrentClassGroup] =
+    useState<StorageClass | null>(null)
 
-  const handleGetClasses = useCallback(async () => {
-    const storedClasses = getClassesFromStorage()
+  // const handleSaveScheduleData = useCallback(async () => {
+  //   const data = await fetchScheduleData(
+  //     currentYear ?? 2025,
+  //     currentSemester ?? 1,
+  //   )
 
-    if (storedClasses.length > 0) {
-      setClasses(storedClasses)
-      console.log('Classes fetched from storage:', storedClasses)
-    } else {
-      if (currentSemesterYear && currentSemester) {
-        const classesData = await getClassesInformationsService({
-          year: currentSemesterYear,
-          semester: currentSemester,
-        })
+  //   setCurrentClassGroup(data)
+  // }, [currentSemester, currentYear, fetchScheduleData])
 
-        const formattedClasses = {
-          year: currentSemesterYear,
-          semester: currentSemester,
-          classGroup: classesData,
-        } as StorageClass
+  const changeYear = useCallback((year: number) => {
+    setCurrentYear(year)
+  }, [])
 
-        setClasses([formattedClasses])
+  const changeSemester = useCallback((semester: number) => {
+    setCurrentSemester(semester)
+  }, [])
 
-        saveClassesInStorage([formattedClasses])
+  const getSubjectInformationByCode = useCallback(
+    (code: string) => {
+      if (currentClassGroup) {
+        const subject = currentClassGroup.classGroup.find(
+          (subject) => subject.code === code,
+        )
 
-        console.log('Classes fetched from API:', formattedClasses)
+        return subject ?? null
       }
-    }
-  }, [currentSemester, currentSemesterYear])
+      return null
+    },
+    [currentClassGroup],
+  )
 
   useEffect(() => {
-    if (typeof window === 'undefined') return
-    handleGetClasses()
-  }, [handleGetClasses])
+    // dispara sempre que ano, semestre ou a função de fetch mudarem
+    fetchScheduleData(currentYear ?? 2025, currentSemester ?? 1).then((data) =>
+      setCurrentClassGroup(data),
+    )
+  }, [currentYear, currentSemester])
 
-  const value = useMemo(() => ({}), [])
+  const value = useMemo(
+    () => ({
+      currentYear,
+      currentSemester,
+      currentClassGroup,
+      changeYear,
+      changeSemester,
+      getSubjectInformationByCode,
+    }),
+    [
+      currentYear,
+      currentSemester,
+      currentClassGroup,
+      changeYear,
+      changeSemester,
+      getSubjectInformationByCode,
+    ],
+  )
 
   return <ClassContext.Provider value={value}>{children}</ClassContext.Provider>
+}
+
+export function useClass() {
+  const context = useContext(ClassContext)
+  if (!context) {
+    throw new Error('useClass must be used within a ClassProvider')
+  }
+  return context
 }

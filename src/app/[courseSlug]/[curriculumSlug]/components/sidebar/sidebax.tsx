@@ -3,13 +3,14 @@ import { AnimatePresence, motion } from 'motion/react'
 import { useCallback, useMemo } from 'react'
 import { toast } from 'sonner'
 
+import { Glow } from '@/components/glow'
 import { useCourse } from '@/contexts/course'
 import { useFilter } from '@/contexts/filter'
-import { Glow } from '@/components/glow'
 import { COLORS } from '@/data/colors'
 import { capitalizeWords } from '@/utils/capitalize-words'
 
 import { SubjectCardSmall } from '../subject-card-small'
+import { Details } from './details'
 import { Pill } from './pill'
 import { SectionTitle } from './section-title'
 
@@ -99,7 +100,7 @@ export function Sidebar() {
     <AnimatePresence>
       {selectedSubject && (
         <motion.aside
-          className="fixed right-4 h-full w-72 shrink-0 overflow-hidden md:relative"
+          className="fixed right-4 h-full w-80 shrink-0 overflow-hidden md:relative"
           initial={{ width: '0rem' }}
           animate={{ width: '18rem' }}
           exit={{ width: '0rem' }}
@@ -117,12 +118,12 @@ export function Sidebar() {
                 handleUnselectSubject()
               }
             }}
-            className="fixed h-dvh w-72 shrink-0 py-8"
+            className="fixed h-dvh w-80 shrink-0 py-8"
           >
             <div className="no-scrollbar relative h-full w-full overflow-hidden overflow-x-hidden overflow-y-auto rounded-md bg-slate-100/50 pb-16 backdrop-blur-md md:bg-slate-100 dark:bg-slate-900/60 dark:md:bg-slate-900">
               <Glow
                 colors={glowColor}
-                className="absolute -top-72 left-1/2 z-10 size-128 -translate-x-1/2 blur-[100px]"
+                className="absolute -top-80 left-1/2 z-10 size-128 -translate-x-1/2 blur-[100px]"
               />
               <div className="center relative z-20 h-44 w-full px-8">
                 <button
@@ -187,6 +188,7 @@ export function Sidebar() {
                   ))}
                 </div>
               </div>
+              <Details code={selectedSubject.code} />
               {preRequisites.length > 0 && (
                 <div className="relative z-20 mt-8 flex flex-col gap-4 px-2">
                   <SectionTitle>Pre-requisítos</SectionTitle>

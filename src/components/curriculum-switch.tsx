@@ -1,40 +1,57 @@
-import { ChevronsUpDown } from 'lucide-react'
-import { type ComponentProps, useCallback } from 'react'
-import { toast } from 'sonner'
+import { Hourglass, MapPin } from 'lucide-react'
+import { type ComponentProps, type JSX } from 'react'
 
 import { useCourse } from '@/contexts/course'
 import { cn } from '@/lib/utils'
 
-interface CurriculumSwitchProps extends ComponentProps<'button'> {}
+interface CurriculumInformationsProps extends ComponentProps<'div'> {}
 
-export function CurriculumSwitch({
+type InfoPillProps = {
+  label: string
+  icon: JSX.Element
+}
+function InfoPill({ label, icon: Icon }: InfoPillProps) {
+  return (
+    <div className="bg-accent border-border flex size-fit items-center gap-1.5 rounded-full border px-2.5 py-1">
+      {Icon}
+      <span className="text-sm font-medium">{label}</span>
+    </div>
+  )
+}
+
+export function CurriculumInformations({
   className,
   ...rest
-}: CurriculumSwitchProps) {
+}: CurriculumInformationsProps) {
   const { selectedCourse, selectedCurriculum } = useCourse()
 
-  const handleOpenUserPopup = useCallback(() => {
-    toast.info('Essa funcionalidade ainda não está disponível.')
-  }, [])
-
   return (
-    <button
+    <div
       className={cn(
-        'border-border flex h-12 w-full cursor-default items-center justify-start gap-2 rounded-sm border bg-slate-100 px-3 py-2 dark:bg-slate-900',
+        'flex flex-col items-start justify-center gap-2',
         className,
       )}
-      onClick={handleOpenUserPopup}
       {...rest}
     >
-      <div className="flex w-full flex-col items-start overflow-hidden">
-        <strong className="text-foreground w-full truncate text-left text-sm font-medium text-ellipsis">
+      <div className="flex flex-col">
+        <span className="text-xs font-medium uppercase">Curso:</span>
+        <strong className="font-clash text-accent-foreground text-3xl font-semibold">
           {selectedCourse?.name}
         </strong>
-        <span className="text-xs">
-          Ano-periodo: {selectedCurriculum?.period}
-        </span>
       </div>
-      <ChevronsUpDown className="text-muted-foreground size-4 shrink-0" />
-    </button>
+
+      {selectedCurriculum && (
+        <div className="flex gap-1">
+          <InfoPill
+            label={selectedCurriculum?.period}
+            icon={<Hourglass className="text-accent-foreground/80 size-4" />}
+          />
+          <InfoPill
+            label={selectedCurriculum?.city}
+            icon={<MapPin className="text-accent-foreground/80 size-4" />}
+          />
+        </div>
+      )}
+    </div>
   )
 }

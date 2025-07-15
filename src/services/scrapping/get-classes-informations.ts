@@ -1,11 +1,11 @@
-import type { CourseGroup } from '@/utils/get-subjects-informations';
+import type { SubjectGroup, StorageClass } from '@/types/class';
 
 type GetClassesInformationsParams = { year: number; semester: number }
 
 export async function getClassesInformationsService({
   year,
   semester,
-}: GetClassesInformationsParams): Promise<CourseGroup[]> {
+}: GetClassesInformationsParams): Promise<StorageClass> {
   const response = await fetch('/api/scrapping', {
     method: 'POST',
     headers: {
@@ -18,6 +18,13 @@ export async function getClassesInformationsService({
     throw new Error('Failed to fetch classes information')
   }
 
-  const data = await response.json()
-  return data as CourseGroup[]
+  const data = (await response.json()) as SubjectGroup[]
+
+  const formattedData: StorageClass = {
+    year,
+    semester,
+    classGroup: data,
+  }
+
+  return formattedData
 }

@@ -1,43 +1,17 @@
+import { randomUUID } from 'node:crypto'
+
 import { type Cheerio, load } from 'cheerio'
 import type { Element } from 'domhandler'
 import fetchCookie from 'fetch-cookie'
 import fetch from 'node-fetch'
 import { CookieJar } from 'tough-cookie'
 
-// --- Interfaces (em TS) ---
-export interface ScheduleTime {
-  day: string
-  startTime: string
-  endTime: string
-}
-
-export interface DateRange {
-  startDate: string // YYYY-MM-DD
-  endDate: string // YYYY-MM-DD
-}
-
-export interface Instructor {
-  name: string
-  siape: string
-  profileUrl: string
-}
-
-export interface ClassSection {
-  term: string
-  sectionId: string
-  instructor: Instructor
-  reservedSeats: number
-  schedule: ScheduleTime[]
-  validity: DateRange
-  courseCode: string
-  courseName: string
-}
-
-export interface CourseGroup {
-  courseCode: string
-  courseName: string
-  classes: ClassSection[]
-}
+import type {
+  ClassSection,
+  DateRange,
+  ScheduleTime,
+  SubjectGroup,
+} from '@/types/class'
 
 // --- Helpers de parsing ---
 function parseInstructor($link: Cheerio<Element>) {
@@ -57,7 +31,7 @@ function parseSchedule(rawHtml: string): ScheduleTime[] {
     .map((line) => {
       const [day, times] = line.trim().split(' ')
       const [startTime, endTime] = times.split('-')
-      return { day, startTime, endTime }
+      return { id: randomUUID(), day, startTime, endTime }
     })
 }
 
@@ -76,7 +50,7 @@ function parseTable(
 ): ClassSection[] {
   const $table = $(table)
   const header = $table.find('thead td.subListagem > a').text().trim()
-  const [courseCode, courseName] = header.split(' - ').map((s) => s.trim())
+  const [code, name] = header.split(' - ').map((s) => s.trim())
 
   return $table
     .find('tbody tr')
@@ -91,14 +65,15 @@ function parseTable(
       const rawHorario = $tr.find('td.horario').html() || ''
 
       return {
+        id: randomUUID(),
         term,
         sectionId,
         instructor,
         reservedSeats,
         schedule: parseSchedule(rawHorario),
         validity: parseValidity(rawHorario),
-        courseCode,
-        courseName,
+        code,
+        name,
       }
     })
 }
@@ -146,14 +121,14 @@ export async function POST(req: Request): Promise<Response> {
 
   // 4) Parse e agrupamento
   const flat = tables.flatMap((t) => parseTable($, t))
-  const map = new Map<string, CourseGroup>()
+  const map = new Map<string, SubjectGroup>()
 
   for (const section of flat) {
-    const key = section.courseCode
+    const key = section.code
     if (!map.has(key)) {
       map.set(key, {
-        courseCode: key,
-        courseName: section.courseName,
+        code: key,
+        name: section.name,
         classes: [],
       })
     }

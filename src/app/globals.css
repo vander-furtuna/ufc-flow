@@ -169,3 +169,8 @@
 }
 
 /* Removed standalone @utility directive for text-balance */
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}

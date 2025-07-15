@@ -24,7 +24,7 @@ export function clearClassesStorage() {
 export function updateClassInStorage(updatedClass: StorageClass) {
   const classes = getClassesFromStorage()
   const classIndex = classes.findIndex(
-    (c) => c.classGroup.courseCode === updatedClass.classGroup.courseCode,
+    (c) => c.classGroup.code === updatedClass.classGroup.code,
   )
 
   if (classIndex !== -1) {
@@ -34,10 +34,10 @@ export function updateClassInStorage(updatedClass: StorageClass) {
     console.warn('Class not found in storage for update:', updatedClass)
   }
 }
-export function removeClassFromStorage(courseCode: string) {
+export function removeClassFromStorage(code: string) {
   const classes = getClassesFromStorage()
   const updatedClasses = classes.filter(
-    (c) => c.classGroup.courseCode !== courseCode,
+    (c) => c.classGroup.code !== code,
   )
   saveClassesInStorage(updatedClasses)
 }
