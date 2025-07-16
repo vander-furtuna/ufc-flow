@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { useCourse } from '@/app/contexts/course'
+import { useCourse } from '@/contexts/course'
 import { COLORS } from '@/data/colors'
 import { getGradientColor } from '@/utils/get-gradient-color'
 

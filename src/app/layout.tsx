@@ -2,21 +2,39 @@ import './globals.css'
 
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Poppins } from 'next/font/google'
 import localFont from 'next/font/local'
 
 import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/sonner'
 
 import { FloatingBar } from './[courseSlug]/[curriculumSlug]/components/floating-bar'
-import { CourseProvider } from './contexts/course'
-import { FilterProvider } from './contexts/filter'
+import { AppProvider } from './app-provider'
 
-const poppins = Poppins({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  display: 'swap',
+const poppins = localFont({
+  src: [
+    {
+      path: '../assets/fonts/poppins/Poppins-Regular.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../assets/fonts/poppins/Poppins-Medium.ttf',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../assets/fonts/poppins/Poppins-SemiBold.ttf',
+      weight: '600',
+      style: 'normal',
+    },
+    {
+      path: '../assets/fonts/poppins/Poppins-Bold.ttf',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
   variable: '--font-poppins',
+  display: 'swap',
 })
 
 const clashDisplay = localFont({
@@ -70,27 +88,26 @@ export default function RootLayout({
   return (
     <html lang="pt-br" suppressHydrationWarning>
       <Analytics />
-      <FilterProvider>
-        <CourseProvider>
-          <body
-            className={`${poppins.variable} ${clashDisplay.variable} bg-background max-h-full min-h-screen font-sans antialiased`}
-            suppressHydrationWarning
+
+      <body
+        className={`${clashDisplay.variable} ${poppins.variable} bg-background max-h-full min-h-screen font-sans antialiased`}
+        suppressHydrationWarning
+      >
+        <AppProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
           >
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              <main className="flex min-h-screen w-full flex-col items-center justify-start">
-                {children}
-                <FloatingBar />
-              </main>
-              <Toaster />
-            </ThemeProvider>
-          </body>
-        </CourseProvider>
-      </FilterProvider>
+            <main className="flex min-h-screen w-full flex-col items-center justify-start">
+              {children}
+              <FloatingBar />
+            </main>
+            <Toaster />
+          </ThemeProvider>
+        </AppProvider>
+      </body>
     </html>
   )
 }
