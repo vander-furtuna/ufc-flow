@@ -140,7 +140,7 @@ export default function YearSelector({
 
   useEffect(() => {
     const container = containerRef.current
-    console.log('Container 2:', container)
+
     if (container) {
       container.addEventListener('wheel', handleWheel, { passive: false })
       return () => container.removeEventListener('wheel', handleWheel)
@@ -149,7 +149,6 @@ export default function YearSelector({
 
   // Cleanup timeout
   useEffect(() => {
-    console.log('Cleanup timeout for scroll')
     return () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
       const timeout = scrollTimeoutRef.current

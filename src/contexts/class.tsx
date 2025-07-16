@@ -102,7 +102,6 @@ export function ClassProvider({ children }: { children: ReactNode }) {
     // dispara sempre que ano, semestre ou a função de fetch mudarem
     handleFetchScheduleData(currentYear, currentSemester)
 
-    console.log(`Fetching schedule data for ${currentYear}.${currentSemester}`)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentYear, currentSemester])
 

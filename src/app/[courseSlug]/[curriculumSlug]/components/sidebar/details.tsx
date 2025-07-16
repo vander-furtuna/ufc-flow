@@ -75,8 +75,6 @@ function ScheduleSection({ times }: { times: ScheduleTime[] }) {
       element.removeEventListener('scroll', checkScroll)
       resizeObserver.unobserve(element)
     }
-
-    console.log('ScheduleSection mounted and scroll checked')
   }, [times, scrollRef]) // A dependência 'times' garante que a verificação seja refeita se os itens mudarem
 
   return (
@@ -122,7 +120,7 @@ export function Details({ code }: DetailsProps) {
   useEffect(() => {
     if (code) {
       const data = getSubjectInformationByCode(code)
-      console.log('Subject Info:', data)
+
       setSubjectInfo(data)
     }
   }, [code, getSubjectInformationByCode])

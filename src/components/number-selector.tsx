@@ -140,7 +140,7 @@ export default function NumberSelector({
 
   useEffect(() => {
     const container = containerRef.current
-    console.log('Container:', container)
+
     if (container) {
       container.addEventListener('wheel', handleWheel, { passive: false })
       return () => container.removeEventListener('wheel', handleWheel)
@@ -150,7 +150,7 @@ export default function NumberSelector({
   // Cleanup timeout
   useEffect(() => {
     const timeout = scrollTimeoutRef.current
-    console.log('Cleanup timeout:', timeout)
+
     return () => {
       if (timeout) {
         clearTimeout(timeout)
