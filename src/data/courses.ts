@@ -3,13 +3,15 @@ import type { Course } from '@/types/course'
 export const COURSES_DATA: Course[] = [
   {
     id: 'ad87a8c7-7e37-496d-985b-d06ff37e3f55',
-    name: 'Engenharia de Computação - UFC Sobral',
+    name: 'Engenharia de Computação',
     slug: 'engenharia-de-computacao-ufc-sobral',
     curriculumStructures: [
       {
         id: '8a25a9fe-88ce-4cfd-b5ad-c4a7ae1b2af3',
         period: '2006.2',
         slug: '2006-2',
+        city: 'Sobral - CE',
+        minTotalHours: 3648,
         branchs: [
           {
             id: '32e0b683-60aa-4e51-9b1a-0739239b69b6',

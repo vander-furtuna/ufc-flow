@@ -1,13 +1,13 @@
 import { Calendar } from 'lucide-react'
 import { useCallback, useMemo } from 'react'
 
-import { useFilter } from '@/app/contexts/filter'
 import { FilterCheckbox } from '@/components/filter-checkbox'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
+import { useFilter } from '@/contexts/filter'
 
 import { ClearButton } from './clear-button'
 import { PopupTrigger } from './popup-trigger'

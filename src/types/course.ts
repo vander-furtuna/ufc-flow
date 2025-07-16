@@ -23,6 +23,8 @@ export type CurriculumStructure = {
   id: string
   period: string
   slug: string
+  city: string
+  minTotalHours: number
   branchs: Branch[]
   subjects: Subject[]
 }
@@ -31,5 +33,6 @@ export type Course = {
   id: string
   slug: string
   name: string
+
   curriculumStructures: CurriculumStructure[]
 }
