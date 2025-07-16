@@ -68,6 +68,7 @@ class IndexedDBStorage {
     if (!record) return null
 
     // Remove campos internos antes de retornar
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { id, updatedAt, ...scheduleData } = record
     return scheduleData as StorageClass
   }
@@ -80,6 +81,7 @@ class IndexedDBStorage {
     const records = await this.db.getAll(STORE_NAME)
 
     return records.map((record) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { id, updatedAt, ...scheduleData } = record
       return scheduleData as StorageClass
     })
@@ -122,6 +124,7 @@ class IndexedDBStorage {
     const records = await index.getAll(year)
 
     return records.map((record) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { id, updatedAt, ...scheduleData } = record
       return scheduleData as StorageClass
     })

@@ -102,7 +102,7 @@ export function Sidebar() {
         <motion.aside
           className="fixed right-4 h-full w-80 shrink-0 overflow-hidden md:relative"
           initial={{ width: '0rem' }}
-          animate={{ width: '18rem' }}
+          animate={{ width: '20rem' }}
           exit={{ width: '0rem' }}
           transition={{ duration: 0.3 }}
         >
@@ -111,16 +111,9 @@ export function Sidebar() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 10 }}
             transition={{ duration: 0.3 }}
-            drag="x"
-            dragElastic={0}
-            onDragEnd={(_e, info) => {
-              if (info.offset.x > 2 || info.offset.x < -2) {
-                handleUnselectSubject()
-              }
-            }}
             className="fixed h-dvh w-80 shrink-0 py-8"
           >
-            <div className="no-scrollbar relative h-full w-full overflow-hidden overflow-x-hidden overflow-y-auto rounded-md bg-slate-100/50 pb-16 backdrop-blur-md md:bg-slate-100 dark:bg-slate-900/60 dark:md:bg-slate-900">
+            <div className="no-scrollbar relative h-full w-full overflow-hidden overflow-x-hidden overflow-y-auto rounded-md bg-slate-100/90 pb-16 backdrop-blur-md md:bg-slate-100 dark:bg-slate-900/90 dark:md:bg-slate-900">
               <Glow
                 colors={glowColor}
                 className="absolute -top-80 left-1/2 z-10 size-128 -translate-x-1/2 blur-[100px]"

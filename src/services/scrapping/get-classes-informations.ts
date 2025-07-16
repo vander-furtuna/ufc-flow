@@ -1,4 +1,4 @@
-import type { SubjectGroup, StorageClass } from '@/types/class';
+import type { StorageClass, SubjectGroup } from '@/types/class'
 
 type GetClassesInformationsParams = { year: number; semester: number }
 

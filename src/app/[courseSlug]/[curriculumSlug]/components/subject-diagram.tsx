@@ -2,9 +2,9 @@
 import { AnimatePresence } from 'motion/react'
 import { useMemo } from 'react'
 
-import { useCourse } from '@/contexts/course'
 import { NoResultCard } from '@/components/no-result-card'
 import { SemesterTitle } from '@/components/title'
+import { useCourse } from '@/contexts/course'
 
 import { SubjectCard } from './subject-card'
 

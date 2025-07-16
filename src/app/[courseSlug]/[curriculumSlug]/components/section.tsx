@@ -52,6 +52,7 @@ export function CurriculumSection({ params }: CurriculumProps) {
 
   useEffect(() => {
     handleGetSelectedCurriculumBySlug()
+    console.log('handleGetSelectedCurriculumBySlug called')
   }, [handleGetSelectedCurriculumBySlug])
 
   return (

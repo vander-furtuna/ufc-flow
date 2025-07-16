@@ -17,9 +17,11 @@ type ClassContextType = {
   currentYear: number | null
   currentSemester: number | null
   currentClassGroup: StorageClass | null
+  isClassLoading: boolean
   changeYear: (year: number) => void
   changeSemester: (semester: number) => void
   getSubjectInformationByCode: (code: string) => SubjectGroup | null
+  handleRefreshSubjectInformations: () => void
 }
 
 export const ClassContext = createContext<ClassContextType>(
@@ -27,10 +29,11 @@ export const ClassContext = createContext<ClassContextType>(
 )
 
 export function ClassProvider({ children }: { children: ReactNode }) {
-  const { fetchScheduleData } = useScheduleManager()
+  const { fetchScheduleData, refreshScheduleData } = useScheduleManager()
 
-  const [currentYear, setCurrentYear] = useState<number | null>(2025)
-  const [currentSemester, setCurrentSemester] = useState<number | null>(1)
+  const [currentYear, setCurrentYear] = useState<number>(2025)
+  const [currentSemester, setCurrentSemester] = useState<number>(1)
+  const [isClassLoading, setIsClassLoading] = useState<boolean>(false)
 
   const [currentClassGroup, setCurrentClassGroup] =
     useState<StorageClass | null>(null)
@@ -66,11 +69,41 @@ export function ClassProvider({ children }: { children: ReactNode }) {
     [currentClassGroup],
   )
 
+  const handleFetchScheduleData = useCallback(
+    async (year: number, semester: number) => {
+      try {
+        setIsClassLoading(true)
+        const data = await fetchScheduleData(year, semester)
+        setCurrentClassGroup(data)
+      } catch (error) {
+        console.error('Error fetching schedule data:', error)
+        setCurrentClassGroup(null)
+      } finally {
+        setIsClassLoading(false)
+      }
+    },
+    [fetchScheduleData],
+  )
+
+  const handleRefreshSubjectInformations = useCallback(async () => {
+    try {
+      setIsClassLoading(true)
+      const data = await refreshScheduleData(currentYear, currentSemester)
+      setCurrentClassGroup(data)
+    } catch (error) {
+      console.error('Error refreshing schedule data:', error)
+      setCurrentClassGroup(null)
+    } finally {
+      setIsClassLoading(false)
+    }
+  }, [refreshScheduleData, currentYear, currentSemester])
+
   useEffect(() => {
     // dispara sempre que ano, semestre ou a função de fetch mudarem
-    fetchScheduleData(currentYear ?? 2025, currentSemester ?? 1).then((data) =>
-      setCurrentClassGroup(data),
-    )
+    handleFetchScheduleData(currentYear, currentSemester)
+
+    console.log(`Fetching schedule data for ${currentYear}.${currentSemester}`)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentYear, currentSemester])
 
   const value = useMemo(
@@ -78,17 +111,21 @@ export function ClassProvider({ children }: { children: ReactNode }) {
       currentYear,
       currentSemester,
       currentClassGroup,
+      isClassLoading,
       changeYear,
       changeSemester,
       getSubjectInformationByCode,
+      handleRefreshSubjectInformations,
     }),
     [
       currentYear,
       currentSemester,
       currentClassGroup,
+      isClassLoading,
       changeYear,
       changeSemester,
       getSubjectInformationByCode,
+      handleRefreshSubjectInformations,
     ],
   )
 

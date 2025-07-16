@@ -1,12 +1,12 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
-import { ChevronDown, User } from 'lucide-react'
+import { ChevronDown, Loader2, RefreshCcw, User } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
+import SelectSemesterDialog from '@/components/dialogs/select-semester-dialog'
 import { useClass } from '@/contexts/class'
 import { useHorizontalScroll } from '@/hooks/use-horizontal-scroll'
-import type { ScheduleTime } from '@/types/class'
+import type { ScheduleTime, SubjectGroup } from '@/types/class'
 
 import { SectionTitle } from './section-title'
 
@@ -20,8 +20,8 @@ function SchedulePill({ time }: { time: ScheduleTime }) {
       key={time.id}
       className="bg-accent/50 border-border flex h-7 w-fit shrink-0 items-center gap-1 rounded-full border px-2"
     >
-      <span className="text-sm font-bold">{time.day}</span>
-      <span className="text-sm font-semibold">
+      <span className="text-xs font-bold">{time.day}</span>
+      <span className="text-xs font-semibold">
         {`${time.startTime}-${time.endTime}`}
       </span>
     </div>
@@ -75,6 +75,8 @@ function ScheduleSection({ times }: { times: ScheduleTime[] }) {
       element.removeEventListener('scroll', checkScroll)
       resizeObserver.unobserve(element)
     }
+
+    console.log('ScheduleSection mounted and scroll checked')
   }, [times, scrollRef]) // A dependência 'times' garante que a verificação seja refeita se os itens mudarem
 
   return (
@@ -93,14 +95,14 @@ function ScheduleSection({ times }: { times: ScheduleTime[] }) {
         <div
           aria-hidden="true"
           data-state={showLeftShadow ? 'visible' : 'hidden'}
-          className="pointer-events-none fixed left-0 h-7 w-16 bg-gradient-to-r from-slate-900 to-transparent transition-opacity duration-300 data-[state=hidden]:opacity-0 data-[state=visible]:opacity-100"
+          className="pointer-events-none fixed left-4 h-7 w-16 bg-gradient-to-r from-slate-100/50 to-transparent transition-opacity duration-300 data-[state=hidden]:opacity-0 data-[state=visible]:opacity-100 dark:from-slate-900/50"
         />
 
         {/* Sombra da Direita */}
         <div
           aria-hidden="true"
           data-state={showRightShadow ? 'visible' : 'hidden'}
-          className="pointer-events-none fixed right-0 h-7 w-16 bg-gradient-to-l from-slate-900 to-transparent transition-opacity duration-300 data-[state=hidden]:opacity-0 data-[state=visible]:opacity-100"
+          className="pointer-events-none fixed right-4 h-7 w-16 bg-gradient-to-l from-slate-100/50 to-transparent transition-opacity duration-300 data-[state=hidden]:opacity-0 data-[state=visible]:opacity-100 dark:from-slate-900/50"
         />
       </div>
     </div>
@@ -108,20 +110,22 @@ function ScheduleSection({ times }: { times: ScheduleTime[] }) {
 }
 
 export function Details({ code }: DetailsProps) {
-  const { currentYear, currentSemester, getSubjectInformationByCode } =
-    useClass()
-
-  const { data: subjectInfo } = useQuery({
-    queryKey: ['subjectInfo', currentYear, currentSemester, code],
-    queryFn: () => getSubjectInformationByCode(code),
-  })
-
-  console.log('Details', {
-    code,
+  const [subjectInfo, setSubjectInfo] = useState<SubjectGroup | null>(null)
+  const {
     currentYear,
     currentSemester,
-    subjectInfo,
-  })
+    getSubjectInformationByCode,
+    isClassLoading,
+    handleRefreshSubjectInformations,
+  } = useClass()
+
+  useEffect(() => {
+    if (code) {
+      const data = getSubjectInformationByCode(code)
+      console.log('Subject Info:', data)
+      setSubjectInfo(data)
+    }
+  }, [code, getSubjectInformationByCode])
 
   return (
     <div className="relative z-20 mt-8 flex flex-col gap-2 px-2">
@@ -129,14 +133,36 @@ export function Details({ code }: DetailsProps) {
       <div className="flex flex-wrap items-center justify-center gap-2 px-2">
         <div className="flex w-full items-center justify-between">
           <span className="text-xs uppercase">Semestre:</span>
-
-          <div className="bg-accent/50 border-border flex items-center gap-1 rounded-full border px-2.5 py-1">
-            <span className="text-sm leading-tight font-medium">{`${currentYear}.${currentSemester}`}</span>
-            <ChevronDown className="size-4" strokeWidth={3} />
+          <div className="flex items-center gap-1">
+            <SelectSemesterDialog
+              currentSemester={currentSemester ?? undefined}
+              currentYear={currentYear ?? undefined}
+            >
+              <button
+                className="bg-accent/50 border-border hover:bg-accent/80 flex items-center gap-1 rounded-full border px-2.5 py-1 transition-colors disabled:opacity-70"
+                disabled={isClassLoading}
+              >
+                <span className="text-sm leading-tight font-medium">{`${currentYear}.${currentSemester}`}</span>
+                {isClassLoading ? (
+                  <Loader2 className="size-4 animate-spin" strokeWidth={3} />
+                ) : (
+                  <ChevronDown className="size-4" strokeWidth={3} />
+                )}
+              </button>
+            </SelectSemesterDialog>
+            {!subjectInfo && (
+              <button
+                className="bg-accent/50 border-border flex items-center gap-1 rounded-full border px-2.5 py-1 disabled:opacity-70"
+                disabled={isClassLoading}
+                onClick={handleRefreshSubjectInformations}
+              >
+                <RefreshCcw className="size-4" />
+              </button>
+            )}
           </div>
         </div>
 
-        {subjectInfo && (
+        {subjectInfo ? (
           <div className="flex w-full flex-col items-center justify-between gap-3">
             {subjectInfo.classes.map((classItem) => (
               <div
@@ -144,7 +170,9 @@ export function Details({ code }: DetailsProps) {
                 className="border-border flex w-full flex-col gap-1.5 border-t pt-2"
               >
                 <div className="flex items-center justify-between">
-                  <strong>Turma {classItem.sectionId}</strong>
+                  <strong className="text-sm font-bold">
+                    Turma {classItem.sectionId}
+                  </strong>
 
                   <div className="flex items-center gap-0.5">
                     <User className="text-muted-foreground inline size-4" />
@@ -168,6 +196,13 @@ export function Details({ code }: DetailsProps) {
                 <ScheduleSection times={classItem.schedule} />
               </div>
             ))}
+          </div>
+        ) : (
+          <div className="flex w-full flex-col items-center justify-center gap-2">
+            <span className="text-muted-foreground text-center text-sm font-medium">
+              Nenhuma turma encontrada para esta disciplina em {currentYear}.
+              {currentSemester}
+            </span>
           </div>
         )}
       </div>
