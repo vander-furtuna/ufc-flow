@@ -154,7 +154,6 @@ export const useScheduleStorage = () => {
   const saveScheduleData = async (data: StorageClass) => {
     try {
       await storage.saveScheduleData(data)
-      console.log(`Dados salvos para ${data.year}.${data.semester}`)
     } catch (error) {
       console.error('Erro ao salvar dados:', error)
       throw error
@@ -201,7 +200,6 @@ export const useScheduleStorage = () => {
   const removeScheduleData = async (year: number, semester: number) => {
     try {
       await storage.removeScheduleData(year, semester)
-      console.log(`Dados removidos para ${year}.${semester}`)
     } catch (error) {
       console.error('Erro ao remover dados:', error)
       throw error
@@ -212,7 +210,6 @@ export const useScheduleStorage = () => {
   const clearAllData = async () => {
     try {
       await storage.clearAllData()
-      console.log('Todos os dados foram limpos')
     } catch (error) {
       console.error('Erro ao limpar dados:', error)
       throw error
@@ -264,13 +261,12 @@ export function useScheduleManager() {
         if (!forceRefresh) {
           const cachedData = await getScheduleData(year, semester)
           if (cachedData) {
-            console.log(`Dados encontrados no cache para ${year}.${semester}`)
             return cachedData
           }
         }
 
         // Busca da API
-        console.log(`Buscando dados da API para ${year}.${semester}`)
+
         const apiData = await getClassesInformationsService({
           year,
           semester,
@@ -287,7 +283,6 @@ export function useScheduleManager() {
         if (!forceRefresh) {
           const cachedData = await getScheduleData(year, semester)
           if (cachedData) {
-            console.log('Retornando dados do cache devido a erro na API')
             return cachedData
           }
         }
