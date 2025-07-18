@@ -179,8 +179,8 @@ export default function YearSelector({
       <div className="relative my-12">
         {/* Botão para cima */}
         <motion.button
-          onClick={goUp}
-          disabled={selectedYear >= endYear}
+          onClick={goDown}
+          disabled={selectedYear <= startYear}
           className="bg-accent/80 hover:bg-accent absolute -top-12 left-1/2 z-10 -translate-x-1/2 transform rounded-md border p-2 transition-colors disabled:cursor-not-allowed disabled:opacity-50"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
@@ -248,8 +248,8 @@ export default function YearSelector({
 
         {/* Botão para baixo */}
         <motion.button
-          onClick={goDown}
-          disabled={selectedYear <= startYear}
+          onClick={goUp}
+          disabled={selectedYear >= endYear}
           className="bg-accent/80 hover:bg-accent absolute -bottom-12 left-1/2 z-10 -translate-x-1/2 transform rounded-md border p-2 transition-colors disabled:cursor-not-allowed disabled:opacity-50"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
