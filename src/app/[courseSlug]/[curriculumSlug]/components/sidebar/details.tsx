@@ -148,15 +148,14 @@ export function Details({ code }: DetailsProps) {
                 )}
               </button>
             </SelectSemesterDialog>
-            {!subjectInfo && (
-              <button
-                className="bg-accent/50 border-border flex items-center gap-1 rounded-full border px-2.5 py-1 disabled:opacity-70"
-                disabled={isClassLoading}
-                onClick={handleRefreshSubjectInformations}
-              >
-                <RefreshCcw className="size-4" />
-              </button>
-            )}
+
+            <button
+              className="bg-accent/50 border-border flex items-center gap-1 rounded-full border px-2.5 py-1 disabled:opacity-70"
+              disabled={isClassLoading}
+              onClick={handleRefreshSubjectInformations}
+            >
+              <RefreshCcw className="size-4" />
+            </button>
           </div>
         </div>
 

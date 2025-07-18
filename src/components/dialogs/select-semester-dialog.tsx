@@ -68,7 +68,7 @@ export default function SelectSemesterDialog({
           />
           <NumberSelector
             startNumber={1}
-            endNumber={4}
+            endNumber={2}
             initialNumber={currentSemester}
             onNumberChange={(semester) => {
               setCurrentSemester(semester)

@@ -179,8 +179,8 @@ export default function NumberSelector({
       <div className="relative my-12">
         {/* Botão para cima */}
         <motion.button
-          onClick={goUp}
-          disabled={selectedNumber >= endNumber}
+          onClick={goDown}
+          disabled={selectedNumber <= startNumber}
           className="bg-accent/80 hover:bg-accent absolute -top-12 left-1/2 z-10 -translate-x-1/2 transform rounded-md border p-2 transition-colors disabled:cursor-not-allowed disabled:opacity-50"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
@@ -250,8 +250,8 @@ export default function NumberSelector({
 
         {/* Botão para baixo */}
         <motion.button
-          onClick={goDown}
-          disabled={selectedNumber <= startNumber}
+          onClick={goUp}
+          disabled={selectedNumber >= endNumber}
           className="bg-accent/80 hover:bg-accent absolute -bottom-12 left-1/2 z-10 -translate-x-1/2 transform rounded-md border p-2 transition-colors disabled:cursor-not-allowed disabled:opacity-50"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
