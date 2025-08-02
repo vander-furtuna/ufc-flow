@@ -6,7 +6,7 @@ import { getClassesInformationsService } from '@/services/scrapping/get-classes-
 import type { StorageClass } from '@/types/class'
 
 // Configuração do banco
-const DB_NAME = 'CourseScheduleDB'
+const DB_NAME = 'UFCFlowDB'
 const DB_VERSION = 1
 const STORE_NAME = 'schedules'
 
@@ -277,14 +277,9 @@ export function useScheduleManager() {
 
         return apiData
       } catch (error) {
-        console.error('Erro ao buscar dados:', error)
-
-        // Em caso de erro, tenta retornar dados do cache
-        if (!forceRefresh) {
-          const cachedData = await getScheduleData(year, semester)
-          if (cachedData) {
-            return cachedData
-          }
+        const cachedData = await getScheduleData(year, semester)
+        if (cachedData) {
+          return cachedData
         }
 
         throw error

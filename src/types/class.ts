@@ -21,7 +21,7 @@ export interface ClassSection {
   id: string
   term: string
   sectionId: string
-  instructor: Instructor
+  instructors: Instructor[]
   reservedSeats: number
   schedule: ScheduleTime[]
   validity: DateRange

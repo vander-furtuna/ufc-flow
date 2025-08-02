@@ -59,8 +59,8 @@ function parseTable(
       const $tr = $(tr)
       const term = $tr.find('td.anoPeriodo').text().trim()
       const sectionId = $tr.find('td').eq(1).text().trim()
-      const $link = $tr.find('td.nome > a')
-      const instructor = parseInstructor($link)
+      const $link = $tr.find('td.nome > a').toArray()
+      const instructors = $link.map((el) => parseInstructor($(el)))
       const reservedSeats = Number($tr.find('td.colVagas').text().trim())
       const rawHorario = $tr.find('td.horario').html() || ''
 
@@ -68,7 +68,7 @@ function parseTable(
         id: randomUUID(),
         term,
         sectionId,
-        instructor,
+        instructors,
         reservedSeats,
         schedule: parseSchedule(rawHorario),
         validity: parseValidity(rawHorario),

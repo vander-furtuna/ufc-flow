@@ -179,16 +179,24 @@ export function Details({ code }: DetailsProps) {
                   </div>
                 </div>
                 <div className="flex flex-col items-start justify-between gap-0.5">
-                  {classItem.instructor.name && (
-                    <>
-                      <span className="text-accent-foreground/90 text-xs uppercase">
-                        Professor:
-                      </span>
-                      <span className="text-sm font-medium">
-                        {classItem.instructor.name}
-                      </span>
-                    </>
-                  )}
+                  {classItem.instructors &&
+                    classItem.instructors.length > 0 && (
+                      <>
+                        <span className="text-accent-foreground/90 text-xs uppercase">
+                          {classItem.instructors.length > 1
+                            ? 'Professores:'
+                            : 'Professor(a):'}
+                        </span>
+                        {classItem.instructors.map((instructor) => (
+                          <span
+                            className="text-sm font-medium"
+                            key={instructor.siape}
+                          >
+                            {instructor.name}
+                          </span>
+                        ))}
+                      </>
+                    )}
                 </div>
                 <ScheduleSection times={classItem.schedule} />
               </div>
