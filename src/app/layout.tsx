@@ -7,7 +7,7 @@ import localFont from 'next/font/local'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/sonner'
 
-import { FloatingBar } from './[courseSlug]/[curriculumSlug]/components/floating-bar'
+import { FloatingBar } from './api/[courseSlug]/[curriculumSlug]/components/floating-bar'
 import { AppProvider } from './app-provider'
 
 const poppins = localFont({
