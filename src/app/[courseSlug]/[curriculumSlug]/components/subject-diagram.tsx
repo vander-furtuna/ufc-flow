@@ -7,6 +7,7 @@ import { SemesterTitle } from '@/components/title'
 import { useCourse } from '@/contexts/course'
 
 import { SubjectCard } from './subject-card'
+import { SubjectTypeSubtitle } from './subject-type-subtitle'
 
 export function SubjectDiagram() {
   const { filteredSubjects } = useCourse()
@@ -17,7 +18,12 @@ export function SubjectDiagram() {
   )
 
   return (
-    <article className="flex w-full flex-col items-center justify-start gap-12">
+    <article className="flex w-full flex-col items-center justify-start gap-8">
+      <div className="flex w-full flex-col items-start justify-start gap-2">
+        <span className="font-clash font-medium">Tipo/Vertente:</span>
+        <SubjectTypeSubtitle />
+      </div>
+
       {filteredSubjects.length > 0 ? (
         semestersValues.map((period) => {
           if (filteredSubjects.some((course) => course.semester === period)) {
