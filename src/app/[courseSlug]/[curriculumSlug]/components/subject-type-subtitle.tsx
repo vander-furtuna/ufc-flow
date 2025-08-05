@@ -108,7 +108,7 @@ export function SubjectTypeSubtitle() {
       <div
         aria-hidden="true"
         data-state={showRightShadow ? 'visible' : 'hidden'}
-        className="from-background pointer-events-none absolute top-0 right-0 z-50 h-full w-16 bg-gradient-to-l to-transparent transition-all duration-200 data-[state=hidden]:opacity-0 data-[state=visible]:opacity-100"
+        className="from-background pointer-events-none absolute top-0 right-0 z-10 h-full w-16 bg-gradient-to-l to-transparent transition-all duration-200 data-[state=hidden]:opacity-0 data-[state=visible]:opacity-100"
       />
     </div>
   )

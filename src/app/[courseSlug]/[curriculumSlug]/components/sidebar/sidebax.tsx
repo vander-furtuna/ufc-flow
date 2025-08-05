@@ -100,7 +100,7 @@ export function Sidebar() {
     <AnimatePresence>
       {selectedSubject && (
         <motion.aside
-          className="fixed right-4 h-full w-80 shrink-0 overflow-hidden md:relative"
+          className="fixed right-4 z-20 h-full w-80 shrink-0 overflow-hidden md:relative"
           initial={{ width: '0rem' }}
           animate={{ width: '20rem' }}
           exit={{ width: '0rem' }}
