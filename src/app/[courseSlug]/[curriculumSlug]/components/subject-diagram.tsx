@@ -34,9 +34,10 @@ export function SubjectDiagram() {
                   <AnimatePresence>
                     {filteredSubjects
                       .filter((subject) => subject.semester === period)
-                      .map((subject) => {
+                      .map((subject, index) => {
                         return (
                           <SubjectCard
+                            childIndex={index}
                             subject={subject}
                             key={subject.code}
                             id={subject.slug}

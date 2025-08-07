@@ -126,7 +126,7 @@ export function Sidebar() {
             className="fixed h-dvh w-80 shrink-0 py-8"
           >
             <div
-              className="no-scrollbar group/container relative h-full w-full overflow-hidden overflow-x-hidden overflow-y-auto rounded-md bg-slate-100/90 pb-16 backdrop-blur-md md:bg-slate-100 dark:bg-slate-900/90 dark:md:bg-slate-900"
+              className="no-scrollbar group/container relative h-full w-full overflow-hidden overflow-x-hidden overflow-y-auto rounded-md border bg-slate-100/70 pb-16 backdrop-blur-md dark:bg-slate-900/90 dark:md:bg-slate-900"
               ref={elementRef}
             >
               <Glow
@@ -218,8 +218,9 @@ export function Sidebar() {
                 <div className="relative z-20 mt-8 flex flex-col gap-4 px-2">
                   <SectionTitle>Pré-requisitos</SectionTitle>
                   <div className="flex flex-wrap items-center justify-center gap-2">
-                    {preRequisites.map((preRequisite) => (
+                    {preRequisites.map((preRequisite, index) => (
                       <SubjectCardSmall
+                        childIndex={index}
                         subject={preRequisite}
                         key={preRequisite.id}
                       />
@@ -231,8 +232,9 @@ export function Sidebar() {
                 <div className="relative z-20 mt-8 flex flex-col gap-4 px-2">
                   <SectionTitle>Desbloqueia</SectionTitle>
                   <div className="flex flex-wrap items-center justify-center gap-2">
-                    {unlockables.map((unlockable) => (
+                    {unlockables.map((unlockable, index) => (
                       <SubjectCardSmall
+                        childIndex={index}
                         subject={unlockable}
                         key={unlockable.id}
                       />
@@ -241,7 +243,7 @@ export function Sidebar() {
                 </div>
               )}
             </div>
-            <div className="fixed bottom-8 z-50 h-16 w-72 rounded-md bg-linear-to-t from-slate-100 to-transparent dark:from-slate-900" />
+            <div className="fixed bottom-8 z-50 h-16 w-80 rounded-md bg-linear-to-t from-slate-100 to-transparent dark:from-slate-900" />
           </motion.div>
         </motion.aside>
       )}
