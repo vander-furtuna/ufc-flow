@@ -23,6 +23,7 @@ export function useDownloadAsPNG() {
         height: String(elementRef.current.scrollHeight),
         overflow: 'visible',
         overflowY: 'visible',
+        borderRadius: '0px',
       },
     })
       .then((dataUrl) => {
