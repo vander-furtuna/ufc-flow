@@ -15,10 +15,13 @@ export function useDownloadAsPNG() {
     setIsLoading(true)
     setError(null)
 
+    elementRef.current.dataset.download = 'active'
+
     toPng(elementRef.current, {
       pixelRatio: 2,
       cacheBust: true,
       height: elementRef.current.scrollHeight,
+
       style: {
         height: String(elementRef.current.scrollHeight),
         overflow: 'visible',
@@ -31,6 +34,7 @@ export function useDownloadAsPNG() {
         link.download = fileName ? `${fileName}.png` : 'disciplina.png'
         link.href = dataUrl
         link.click()
+        elementRef.current!.dataset.download = 'inactive'
         setIsLoading(false)
       })
       .catch((err) => {

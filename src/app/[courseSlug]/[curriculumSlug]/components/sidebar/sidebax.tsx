@@ -126,7 +126,7 @@ export function Sidebar() {
             className="fixed h-dvh w-80 shrink-0 py-8"
           >
             <div
-              className="no-scrollbar relative h-full w-full overflow-hidden overflow-x-hidden overflow-y-auto rounded-md bg-slate-100/90 pb-16 backdrop-blur-md md:bg-slate-100 dark:bg-slate-900/90 dark:md:bg-slate-900"
+              className="no-scrollbar group/container relative h-full w-full overflow-hidden overflow-x-hidden overflow-y-auto rounded-md bg-slate-100/90 pb-16 backdrop-blur-md md:bg-slate-100 dark:bg-slate-900/90 dark:md:bg-slate-900"
               ref={elementRef}
             >
               <Glow
@@ -156,7 +156,7 @@ export function Sidebar() {
                     </figure>
                   </button>
                   <button
-                    className="center flex w-fit gap-2 rounded-full bg-slate-50/40 px-2 py-1 font-semibold text-slate-800 transition-all duration-300 dark:bg-slate-900/10 dark:text-slate-100 dark:hover:bg-slate-900/20"
+                    className="center flex w-fit gap-2 rounded-full bg-slate-50/40 px-2 py-1 font-semibold text-slate-800 transition-all duration-300 group-data-[download=active]/container:hidden dark:bg-slate-900/10 dark:text-slate-100 dark:hover:bg-slate-900/20 data-[download=active]:dark:bg-slate-900/20"
                     disabled={isLoading}
                     onClick={() =>
                       downloadPNG(
