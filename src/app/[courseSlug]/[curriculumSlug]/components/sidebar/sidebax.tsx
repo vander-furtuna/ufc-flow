@@ -216,7 +216,7 @@ export function Sidebar() {
               <Details code={selectedSubject.code} />
               {preRequisites.length > 0 && (
                 <div className="relative z-20 mt-8 flex flex-col gap-4 px-2">
-                  <SectionTitle>Pre-requisítos</SectionTitle>
+                  <SectionTitle>Pré-requisitos</SectionTitle>
                   <div className="flex flex-wrap items-center justify-center gap-2">
                     {preRequisites.map((preRequisite) => (
                       <SubjectCardSmall
