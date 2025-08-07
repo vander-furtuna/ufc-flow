@@ -24,6 +24,7 @@
     "domhandler": "^5.0.3",
     "fetch-cookie": "^3.1.0",
     "got": "^14.4.7",
+    "html-to-image": "^1.11.13",
     "http2": "^3.3.7",
     "idb": "^8.0.3",
     "lucide-react": "^0.510.0",

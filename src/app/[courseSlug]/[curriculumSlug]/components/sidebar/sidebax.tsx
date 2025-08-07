@@ -1,4 +1,13 @@
-import { Calendar, Clock, Copy, Pin, Tag, X } from 'lucide-react'
+import {
+  Calendar,
+  Clock,
+  Copy,
+  Download,
+  Loader2,
+  Pin,
+  Tag,
+  X,
+} from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
 import { useCallback, useMemo } from 'react'
 import { toast } from 'sonner'
@@ -7,6 +16,7 @@ import { Glow } from '@/components/glow'
 import { useCourse } from '@/contexts/course'
 import { useFilter } from '@/contexts/filter'
 import { COLORS } from '@/data/colors'
+import { useDownloadAsPNG } from '@/hooks/use-download-as-png'
 import { capitalizeWords } from '@/utils/capitalize-words'
 
 import { SubjectCardSmall } from '../subject-card-small'
@@ -15,6 +25,8 @@ import { Pill } from './pill'
 import { SectionTitle } from './section-title'
 
 export function Sidebar() {
+  const { elementRef, downloadPNG, isLoading } = useDownloadAsPNG()
+
   const {
     branchFilter,
     natureFilter,
@@ -113,7 +125,10 @@ export function Sidebar() {
             transition={{ duration: 0.3 }}
             className="fixed h-dvh w-80 shrink-0 py-8"
           >
-            <div className="no-scrollbar relative h-full w-full overflow-hidden overflow-x-hidden overflow-y-auto rounded-md bg-slate-100/90 pb-16 backdrop-blur-md md:bg-slate-100 dark:bg-slate-900/90 dark:md:bg-slate-900">
+            <div
+              className="no-scrollbar relative h-full w-full overflow-hidden overflow-x-hidden overflow-y-auto rounded-md bg-slate-100/90 pb-16 backdrop-blur-md md:bg-slate-100 dark:bg-slate-900/90 dark:md:bg-slate-900"
+              ref={elementRef}
+            >
               <Glow
                 colors={glowColor}
                 className="absolute -top-80 left-1/2 z-10 size-128 -translate-x-1/2 blur-[100px]"
@@ -128,17 +143,34 @@ export function Sidebar() {
                 <strong className="font-clash center w-full text-center text-lg font-semibold drop-shadow-lg dark:text-slate-50">
                   {selectedSubject.name}
                 </strong>
-                <button
-                  className="center absolute bottom-2 flex w-fit gap-2 rounded-full bg-slate-50/40 px-2 py-1 font-semibold text-slate-800 transition-all duration-300 dark:bg-slate-900/10 dark:text-slate-100 dark:hover:bg-slate-900/20"
-                  onClick={() => copyToClipboard(selectedSubject.code)}
-                >
-                  <span className="font-clash text-sm">
-                    {selectedSubject.code}
-                  </span>
-                  <figure className="size-4">
-                    <Copy strokeWidth={2.5} className="size-3" />
-                  </figure>
-                </button>
+                <div className="absolute bottom-2 flex w-fit gap-1">
+                  <button
+                    className="center flex w-fit gap-2 rounded-full bg-slate-50/40 px-2 py-1 font-semibold text-slate-800 transition-all duration-300 dark:bg-slate-900/10 dark:text-slate-100 dark:hover:bg-slate-900/20"
+                    onClick={() => copyToClipboard(selectedSubject.code)}
+                  >
+                    <span className="font-clash text-sm">
+                      {selectedSubject.code}
+                    </span>
+                    <figure className="size-4">
+                      <Copy strokeWidth={2.5} className="size-3" />
+                    </figure>
+                  </button>
+                  <button
+                    className="center flex w-fit gap-2 rounded-full bg-slate-50/40 px-2 py-1 font-semibold text-slate-800 transition-all duration-300 dark:bg-slate-900/10 dark:text-slate-100 dark:hover:bg-slate-900/20"
+                    disabled={isLoading}
+                    onClick={() =>
+                      downloadPNG(
+                        `${selectedSubject.code} - ${selectedSubject.name}`,
+                      )
+                    }
+                  >
+                    {isLoading ? (
+                      <Loader2 className="size-4 animate-spin" />
+                    ) : (
+                      <Download strokeWidth={2.5} className="size-4" />
+                    )}
+                  </button>
+                </div>
               </div>
               <div className="relative z-20 flex flex-col gap-2">
                 <div className="center gap-1">
