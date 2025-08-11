@@ -32,7 +32,7 @@ export function ClassProvider({ children }: { children: ReactNode }) {
   const { fetchScheduleData, refreshScheduleData } = useScheduleManager()
 
   const [currentYear, setCurrentYear] = useState<number>(2025)
-  const [currentSemester, setCurrentSemester] = useState<number>(1)
+  const [currentSemester, setCurrentSemester] = useState<number>(2)
   const [isClassLoading, setIsClassLoading] = useState<boolean>(false)
 
   const [currentClassGroup, setCurrentClassGroup] =
