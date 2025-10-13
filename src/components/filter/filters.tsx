@@ -2,7 +2,7 @@ import { BranchPopup } from './popups/branch-popup'
 import { DurationPopup } from './popups/duration-popup'
 import { SemesterPopup } from './popups/semester-popup'
 
-interface FiltersProps {
+type FiltersProps = {
   isOpen?: boolean
 }
 

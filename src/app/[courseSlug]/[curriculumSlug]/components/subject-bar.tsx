@@ -4,7 +4,7 @@ import { useCourse } from '@/contexts/course'
 import { COLORS } from '@/data/colors'
 import { getGradientColor } from '@/utils/get-gradient-color'
 
-interface SubjectBarProps {
+type SubjectBarProps = {
   nature: string
   branch: string[]
 }

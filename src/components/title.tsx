@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 
-export interface SemesterTitleProps {
+export type SemesterTitleProps = {
   children: ReactNode
 }
 

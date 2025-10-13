@@ -3,7 +3,7 @@ import { type ComponentProps, forwardRef } from 'react'
 
 import { cn } from '@/lib/utils'
 
-interface CheckboxBoxProps extends ComponentProps<'div'> {}
+type CheckboxBoxProps = ComponentProps<'div'>
 
 export const CheckboxBox = forwardRef<HTMLDivElement, CheckboxBoxProps>(
   ({ className, ...rest }, ref) => {
