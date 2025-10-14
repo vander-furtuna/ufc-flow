@@ -1,6 +1,6 @@
 import { type ComponentProps, forwardRef } from 'react'
 
-interface CheckboxElementProps extends ComponentProps<'input'> {}
+type CheckboxElementProps = ComponentProps<'input'>
 
 export const CheckboxElement = forwardRef<
   HTMLInputElement,

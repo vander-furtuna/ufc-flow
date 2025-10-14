@@ -1,7 +1,7 @@
 import { lighten, saturate } from 'polished'
 import type { ComponentProps } from 'react'
 
-interface GlowProps extends ComponentProps<'div'> {
+type GlowProps = ComponentProps<'div'> & {
   colors?: string | string[]
 }
 

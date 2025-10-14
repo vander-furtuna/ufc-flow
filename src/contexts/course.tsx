@@ -16,7 +16,7 @@ import { normalizeWords } from '@/utils/normalize-words'
 
 import { useFilter } from './filter'
 
-interface CourseContextType {
+type CourseContextType = {
   courses: Course[]
   selectedCourse: Course | null
   selectedCurriculum: CurriculumStructure | null

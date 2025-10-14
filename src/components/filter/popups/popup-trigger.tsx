@@ -1,6 +1,6 @@
 import { type ButtonHTMLAttributes, forwardRef, type JSX } from 'react'
 
-interface PopupTriggerProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+type PopupTriggerProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   icon: JSX.Element
   isActive?: boolean
 }

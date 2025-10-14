@@ -4,7 +4,7 @@ import { type ComponentProps, type JSX } from 'react'
 import { useCourse } from '@/contexts/course'
 import { cn } from '@/lib/utils'
 
-interface CurriculumInformationsProps extends ComponentProps<'div'> {}
+type CurriculumInformationsProps = ComponentProps<'div'>
 
 type InfoPillProps = {
   label: string

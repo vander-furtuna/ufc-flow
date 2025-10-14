@@ -4,7 +4,7 @@ import { type ComponentProps, useCallback, useState } from 'react'
 
 import { LOGO_COLORS, type LogoColor } from '@/constants/logo-colors'
 
-interface VanderLogoProps extends ComponentProps<'svg'> {}
+type VanderLogoProps = ComponentProps<'svg'>
 
 function getRandomColor(): LogoColor {
   const index = Math.floor(Math.random() * LOGO_COLORS.length)

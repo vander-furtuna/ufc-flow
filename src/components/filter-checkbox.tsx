@@ -2,7 +2,7 @@ import { type ChangeEvent, type ComponentProps, forwardRef } from 'react'
 
 import { Checkbox as BaseCheckbox } from './checkbox'
 
-interface CheckboxProps extends ComponentProps<'input'> {
+type CheckboxProps = ComponentProps<'input'> & {
   label?: string
   onCheckedChange: (value: string, checked: boolean) => void
 }

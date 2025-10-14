@@ -2,7 +2,7 @@ import { type ComponentProps, forwardRef } from 'react'
 
 import { cn } from '@/lib/utils'
 
-interface CheckboxRootProps extends ComponentProps<'label'> {}
+type CheckboxRootProps = ComponentProps<'label'>
 
 export const CheckboxRoot = forwardRef<HTMLLabelElement, CheckboxRootProps>(
   ({ children, className, ...rest }, ref) => {
