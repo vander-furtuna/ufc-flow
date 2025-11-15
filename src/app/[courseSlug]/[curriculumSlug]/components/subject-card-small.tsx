@@ -7,7 +7,7 @@ import { capitalizeWords } from '@/utils/capitalize-words'
 
 import { SubjectBar } from './subject-bar'
 
-interface SubjectCardProps {
+type SubjectCardProps = {
   subject: Subject
   childIndex: number
 }

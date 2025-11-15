@@ -2,7 +2,7 @@ import type { HTMLAttributes, JSX } from 'react'
 
 import { Glow } from '@/components/glow'
 
-interface PillProps extends HTMLAttributes<HTMLButtonElement> {
+type PillProps = HTMLAttributes<HTMLButtonElement> & {
   Icon: JSX.Element
   label: string
   colors?: string | string[]

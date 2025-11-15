@@ -1,6 +1,6 @@
 import type { ComponentProps } from 'react'
 
-interface LogoProps extends ComponentProps<'svg'> {}
+type LogoProps = ComponentProps<'svg'>
 
 export function Logo({ className, ...rest }: LogoProps) {
   return (

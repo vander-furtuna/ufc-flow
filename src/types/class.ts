@@ -1,23 +1,22 @@
-// --- Interfaces (em TS) ---
-export interface ScheduleTime {
+export type ScheduleTime = {
   id: string
   day: string
   startTime: string
   endTime: string
 }
 
-export interface DateRange {
+export type DateRange = {
   startDate: string // YYYY-MM-DD
   endDate: string // YYYY-MM-DD
 }
 
-export interface Instructor {
+export type Instructor = {
   name: string
   siape: string
   profileUrl: string
 }
 
-export interface ClassSection {
+export type ClassSection = {
   id: string
   term: string
   sectionId: string
@@ -29,7 +28,7 @@ export interface ClassSection {
   name: string
 }
 
-export interface SubjectGroup {
+export type SubjectGroup = {
   code: string
   name: string
   classes: ClassSection[]

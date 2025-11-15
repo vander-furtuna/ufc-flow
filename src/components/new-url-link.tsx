@@ -5,7 +5,7 @@ import { type ComponentProps } from 'react'
 
 import { cn } from '@/lib/utils'
 
-interface NewUrlLinkProps extends ComponentProps<'a'> {}
+type NewUrlLinkProps = ComponentProps<'a'>
 
 export function NewUrlLink({ className, ...rest }: NewUrlLinkProps) {
   return (

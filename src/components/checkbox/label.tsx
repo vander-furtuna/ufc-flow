@@ -2,7 +2,7 @@ import { type ComponentProps, forwardRef } from 'react'
 
 import { cn } from '@/lib/utils'
 
-interface CheckboxSpanProps extends ComponentProps<'span'> {}
+type CheckboxSpanProps = ComponentProps<'span'>
 
 export const CheckboxLabel = forwardRef<HTMLSpanElement, CheckboxSpanProps>(
   ({ children, className }, ref) => {

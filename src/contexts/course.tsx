@@ -5,7 +5,6 @@ import {
   type ReactNode,
   useCallback,
   useContext,
-  useEffect,
   useMemo,
   useState,
 } from 'react'
@@ -16,7 +15,7 @@ import { normalizeWords } from '@/utils/normalize-words'
 
 import { useFilter } from './filter'
 
-interface CourseContextType {
+type CourseContextType = {
   courses: Course[]
   selectedCourse: Course | null
   selectedCurriculum: CurriculumStructure | null
@@ -45,14 +44,13 @@ export function CourseProvider({
     durationFilter,
   } = useFilter()
 
+  const courses = COURSES_DATA
   const [isCourseLoading, setIsCourseLoading] = useState(true)
-  const [courses, setCourses] = useState<Course[]>([])
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null)
   const [selectedCurriculum, setSelectedCurriculum] =
     useState<CurriculumStructure | null>(null)
   const [selectedSubjects, setSelectedSubjects] = useState<Subject[]>([])
   const [selectedSubject, setSelectedSubject] = useState<Subject | null>(null)
-  const [filteredSubjects, setFilteredSubjects] = useState<Subject[]>([])
 
   const selectCourseBySlug = useCallback(
     (slug: string) => {
@@ -76,7 +74,6 @@ export function CourseProvider({
         if (curriculum) {
           setSelectedCurriculum(curriculum)
           setSelectedSubjects(curriculum.subjects)
-          setFilteredSubjects(curriculum.subjects)
         }
 
         setIsCourseLoading(false)
@@ -85,64 +82,61 @@ export function CourseProvider({
     [selectedCourse],
   )
 
-  const applyFilters = useCallback(() => {
-    const filtered = selectedCurriculum?.subjects.filter((subject) => {
-      if (normalizedQueryFilter.length > 0) {
+  const filteredSubjects = useMemo(() => {
+    if (!selectedCurriculum) return []
+
+    const hasQuery = normalizedQueryFilter.length > 0
+    const normalizedQueryLower = normalizedQueryFilter.toLowerCase()
+
+    const hasDurationFilter = durationFilter.length > 0
+    const hasBranchFilter = branchFilter.length > 0
+    const hasSemesterFilter = semesterFilter.length > 0
+    const hasNatureFilter = natureFilter.length > 0
+
+    const matchesFilters = (subject: Subject) => {
+      if (hasQuery) {
+        const normalizedName = normalizeWords(subject.name)
+        const codeLower = subject.code.toLowerCase()
+
         if (
-          !normalizeWords(subject.name).includes(normalizedQueryFilter) &&
-          !subject.code
-            .toLowerCase()
-            .includes(normalizedQueryFilter.toLowerCase())
+          !normalizedName.includes(normalizedQueryFilter) &&
+          !codeLower.includes(normalizedQueryLower)
         ) {
           return false
         }
       }
-      if (durationFilter.length > 0) {
-        if (!durationFilter.includes(subject.duration)) {
-          return false
-        }
+
+      if (hasDurationFilter && !durationFilter.includes(subject.duration)) {
+        return false
       }
 
-      if (branchFilter.length > 0) {
-        if (!branchFilter.some((branch) => subject.branch.includes(branch))) {
-          return false
-        }
+      if (
+        hasBranchFilter &&
+        !branchFilter.some((branch) => subject.branch.includes(branch))
+      ) {
+        return false
       }
 
-      if (semesterFilter.length > 0) {
-        if (!semesterFilter.includes(subject.semester)) {
-          return false
-        }
+      if (hasSemesterFilter && !semesterFilter.includes(subject.semester)) {
+        return false
       }
 
-      if (natureFilter.length > 0) {
-        if (!natureFilter.includes(subject.nature)) {
-          return false
-        }
+      if (hasNatureFilter && !natureFilter.includes(subject.nature)) {
+        return false
       }
 
       return true
-    })
-
-    if (filtered) {
-      setFilteredSubjects(filtered)
     }
+
+    return selectedCurriculum.subjects.filter(matchesFilters)
   }, [
+    selectedCurriculum,
     normalizedQueryFilter,
     durationFilter,
     branchFilter,
     semesterFilter,
     natureFilter,
-    selectedCurriculum,
   ])
-
-  useEffect(() => {
-    setCourses(COURSES_DATA)
-  }, [])
-
-  useEffect(() => {
-    applyFilters()
-  }, [applyFilters])
 
   const value = useMemo(
     () => ({

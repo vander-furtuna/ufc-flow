@@ -4,7 +4,7 @@ import { toast } from 'sonner'
 
 import { cn } from '@/lib/utils'
 
-interface ToggleButtonProps extends ComponentProps<'button'> {
+type ToggleButtonProps = ComponentProps<'button'> & {
   label?: string
   content?: string
 }

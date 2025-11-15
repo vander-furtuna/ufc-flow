@@ -1,6 +1,6 @@
 import { CurriculumSection } from './components/section'
 
-interface CurriculumProps {
+type CurriculumProps = {
   params: Promise<{
     courseSlug: string
     curriculumSlug: string

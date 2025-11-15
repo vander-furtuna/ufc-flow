@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from 'motion/react'
 import type React from 'react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-interface NumberSelectorProps {
+type NumberSelectorProps = {
   startNumber?: number
   endNumber?: number
   initialNumber?: number

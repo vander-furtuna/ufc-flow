@@ -11,7 +11,7 @@ import { Sidebar } from './sidebar/sidebax'
 import { SubjectDiagram } from './subject-diagram'
 import { SubjectDiagramSkeleton } from './subject-diagram-skeleton'
 
-interface CurriculumProps {
+type CurriculumProps = {
   params: {
     courseSlug: string
     curriculumSlug: string
