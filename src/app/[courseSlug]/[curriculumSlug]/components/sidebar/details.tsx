@@ -1,12 +1,12 @@
 'use client'
 
 import { ChevronDown, Loader2, RefreshCcw, User } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import SelectSemesterDialog from '@/components/dialogs/select-semester-dialog'
 import { useClass } from '@/contexts/class'
 import { useHorizontalScroll } from '@/hooks/use-horizontal-scroll'
-import type { ScheduleTime, SubjectGroup } from '@/types/class'
+import type { ScheduleTime } from '@/types/class'
 
 import { SectionTitle } from './section-title'
 
@@ -93,14 +93,14 @@ function ScheduleSection({ times }: { times: ScheduleTime[] }) {
         <div
           aria-hidden="true"
           data-state={showLeftShadow ? 'visible' : 'hidden'}
-          className="pointer-events-none fixed left-4 h-7 w-16 bg-gradient-to-r from-slate-100/50 to-transparent transition-opacity duration-300 data-[state=hidden]:opacity-0 data-[state=visible]:opacity-100 dark:from-slate-900/50"
+          className="pointer-events-none fixed left-4 h-7 w-16 bg-linear-to-r from-slate-100/50 to-transparent transition-opacity duration-300 data-[state=hidden]:opacity-0 data-[state=visible]:opacity-100 dark:from-slate-900/50"
         />
 
         {/* Sombra da Direita */}
         <div
           aria-hidden="true"
           data-state={showRightShadow ? 'visible' : 'hidden'}
-          className="pointer-events-none fixed right-4 h-7 w-16 bg-gradient-to-l from-slate-100/50 to-transparent transition-opacity duration-300 data-[state=hidden]:opacity-0 data-[state=visible]:opacity-100 dark:from-slate-900/50"
+          className="pointer-events-none fixed right-4 h-7 w-16 bg-linear-to-l from-slate-100/50 to-transparent transition-opacity duration-300 data-[state=hidden]:opacity-0 data-[state=visible]:opacity-100 dark:from-slate-900/50"
         />
       </div>
     </div>
@@ -108,7 +108,6 @@ function ScheduleSection({ times }: { times: ScheduleTime[] }) {
 }
 
 export function Details({ code }: DetailsProps) {
-  const [subjectInfo, setSubjectInfo] = useState<SubjectGroup | null>(null)
   const {
     currentYear,
     currentSemester,
@@ -117,12 +116,8 @@ export function Details({ code }: DetailsProps) {
     handleRefreshSubjectInformations,
   } = useClass()
 
-  useEffect(() => {
-    if (code) {
-      const data = getSubjectInformationByCode(code)
-
-      setSubjectInfo(data)
-    }
+  const subjectInfo = useMemo(() => {
+    return code ? getSubjectInformationByCode(code) : null
   }, [code, getSubjectInformationByCode])
 
   return (

@@ -142,7 +142,6 @@ export default function RootLayout({
 
       <body
         className={`${clashDisplay.variable} ${poppins.variable} bg-background max-h-full min-h-screen font-sans antialiased`}
-        suppressHydrationWarning
       >
         <AppProvider>
           <ThemeProvider
