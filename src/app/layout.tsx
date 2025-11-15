@@ -134,6 +134,10 @@ export default function RootLayout({
           sizes="180x180"
         />
         <link rel="manifest" href="/manifest.webmanifest" />
+        <meta
+          name="google-site-verification"
+          content="lEERZRNV6hWpvwYW_wxSznIO01jlKtfA-5S-GMDaO3g"
+        />
       </head>
 
       <body

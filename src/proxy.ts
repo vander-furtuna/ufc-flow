@@ -24,7 +24,7 @@ function injectCurrentUrlHeaders(request: NextRequest): NextResponse {
   return NextResponse.next({ headers })
 }
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   // 1. Tenta aplicar redirecionamento
   const redirectResponse = redirectToEng(request)
   if (redirectResponse) return redirectResponse
