@@ -39,6 +39,7 @@ export function DurationPopup() {
       <PopoverTrigger asChild className="group">
         <PopupTrigger
           icon={<Clock className="size-4" />}
+          label="Duração"
           isActive={isDurationFilterActive}
         />
       </PopoverTrigger>

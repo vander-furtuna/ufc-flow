@@ -57,6 +57,7 @@ export function BranchPopup() {
       <PopoverTrigger asChild className="group">
         <PopupTrigger
           icon={<Tag className="size-4" />}
+          label="Tipo"
           isActive={isNatureAndBranchFilterActive}
         />
       </PopoverTrigger>

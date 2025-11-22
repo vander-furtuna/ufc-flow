@@ -1,20 +1,30 @@
+'use client'
+
+import { useMemo } from 'react'
 import { BranchPopup } from './popups/branch-popup'
 import { DurationPopup } from './popups/duration-popup'
 import { SemesterPopup } from './popups/semester-popup'
+import { useHorizontalScrollWithOverlay } from '@/hooks/use-horizontal-scroll-with-overlay'
 
-type FiltersProps = {
-  isOpen?: boolean
-}
+export function Filters() {
+  const { scrollRef, showLeftShadow, showRightShadow } =
+    useHorizontalScrollWithOverlay<HTMLDivElement>()
 
-export function Filters({ isOpen }: FiltersProps) {
+  const maskImage = useMemo(() => {
+    return `linear-gradient(to right, rgba(0, 0, 0, 0) ${showLeftShadow ? '2%' : '0%'}, rgba(0, 0, 0, 1) ${showLeftShadow ? '10%' : '0%'}, rgba(0, 0, 0, 1) ${showRightShadow ? '90%' : '100%'}, rgba(0, 0, 0, 0)  ${showRightShadow ? '98%' : '100%'})`
+  }, [showLeftShadow, showRightShadow])
+
   return (
     <div
-      className="ease-smooth mr-0 flex h-8 max-w-0 shrink-0 items-center gap-2 overflow-hidden opacity-0 transition-all duration-500 data-[open=open]:mr-2 data-[open=open]:max-w-32 data-[open=open]:opacity-100"
-      data-open={isOpen ? 'open' : 'closed'}
+      className="no-scrollbar relative z-100 flex w-full items-center gap-2 overflow-x-auto"
+      ref={scrollRef}
+      style={{
+        maskImage,
+      }}
     >
       <BranchPopup />
-      <DurationPopup />
       <SemesterPopup />
+      <DurationPopup />
     </div>
   )
 }

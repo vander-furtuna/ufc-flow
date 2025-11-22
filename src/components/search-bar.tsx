@@ -1,9 +1,11 @@
-import { Search, Settings2, X } from 'lucide-react'
-import { AnimatePresence, motion } from 'motion/react'
+'use client'
+
+import { BrushCleaning, ListFilter, Search } from 'lucide-react'
 import { useState } from 'react'
 
 import { useFilter } from '@/contexts/filter'
-
+import { AnimatePresence, motion } from 'motion/react'
+import { Glow } from './glow'
 import { Filters } from './filter/filters'
 
 export function SearchBar() {
@@ -13,44 +15,63 @@ export function SearchBar() {
   const [isFiltersOpen, setIsFiltersOpen] = useState(false)
 
   return (
-    <div className="justify-centerw border-border bg-accent/50 shadow-foreground/5 flex h-12 w-full items-center rounded-md border pl-4 shadow-lg backdrop-blur-md transition-all sm:w-fit dark:border-slate-700">
-      <input
-        onChange={(e) => changeQueryFilter(e.target.value)}
-        value={queryFilter}
-        type="text"
-        className="h-full w-full border-0 bg-transparent text-sm outline-0 sm:w-72"
-        placeholder="Pesquisar"
-      />
-
-      {/* <AnimatePresence>{isFiltersOpen && <Filters />}</AnimatePresence> */}
-      <Filters isOpen={isFiltersOpen} />
-
-      <button
-        className="text-muted-foreground center size-6 shrink-0 rounded-md transition-colors data-[active=active]:bg-slate-400 data-[active=active]:text-slate-100 data-[open=open]:bg-slate-200 dark:data-[active=active]:bg-slate-400 dark:data-[active=active]:text-slate-700 dark:data-[open=open]:bg-slate-700"
-        data-active={isFiltersActive ? 'active' : 'inactive'}
-        data-open={isFiltersOpen && !isFiltersActive ? 'open' : 'closed'}
-        onClick={() => setIsFiltersOpen((prev) => !prev)}
-      >
-        <Settings2 className="size-4" />
-      </button>
+    <div className="flex w-full flex-col items-center justify-center gap-1.5 sm:w-fit">
       <AnimatePresence>
-        {isFiltersActive && (
-          <motion.button
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0, opacity: 0 }}
-            className="center ml-2 size-6 shrink-0 rounded-md bg-slate-400 text-slate-100 dark:text-slate-700"
-            data-active={isFiltersActive ? 'active' : 'inactive'}
-            onClick={clearAllFilters}
+        {isFiltersOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            className="bg-accent/40 shadow-foreground/5 border-border relative flex h-fit w-full items-center gap-2 rounded-full border px-4 py-2 backdrop-blur-md"
           >
-            <X className="size-4" />
-          </motion.button>
+            <div className="relative flex min-w-0 flex-1">
+              <Filters />
+            </div>
+
+            {/* área do ícone, largura fixa e não encolhe */}
+            <div className="flex shrink-0 items-center gap-2">
+              <div className="bg-muted-foreground/50 h-4 w-px" />
+              <button
+                type="button"
+                onClick={clearAllFilters}
+                className="transition-all ease-in-out not-disabled:active:scale-90 disabled:opacity-50"
+                disabled={!isFiltersActive}
+              >
+                <BrushCleaning className="text-foreground/90 size-5" />
+              </button>
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
 
-      <button className="center h-full w-12 shrink-0">
-        <Search className="text-muted-foreground size-6" />
-      </button>
+      <div className="border-border bg-accent/70 relative flex h-12 w-full items-center justify-center gap-2 overflow-hidden rounded-full border px-4 shadow-lg backdrop-blur-md transition-all">
+        <Search className="text-muted-foreground size-6 shrink-0" />
+
+        <input
+          onChange={(e) => changeQueryFilter(e.target.value)}
+          value={queryFilter}
+          type="text"
+          className="h-full w-full border-0 bg-transparent text-sm outline-0 transition-all sm:min-w-80"
+          placeholder="Pesquisar"
+        />
+        <div className="bg-muted-foreground/50 h-4 w-px" />
+        <button
+          type="button"
+          onClick={() => setIsFiltersOpen((prev) => !prev)}
+          className="transition-all ease-in-out active:scale-90"
+        >
+          <ListFilter
+            data-state={isFiltersActive ? 'active' : 'default'}
+            className="text-muted-foreground data-[state=active]:text-accent-foreground size-6"
+          />
+        </button>
+
+        <Glow
+          data-state={isFiltersActive ? 'active' : 'inactive'}
+          className="absolute -right-8 -z-1 size-16 opacity-0 blur-lg transition-all data-[state=active]:-right-4 data-[state=active]:opacity-100"
+          colors="#22d3ee"
+        />
+      </div>
     </div>
   )
 }

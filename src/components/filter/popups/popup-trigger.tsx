@@ -1,20 +1,34 @@
+import { Glow } from '@/components/glow'
+import { DEFAULT_COLORS } from '@/constants/default-colors'
+import { ChevronDown } from 'lucide-react'
 import { type ButtonHTMLAttributes, forwardRef, type JSX } from 'react'
 
 type PopupTriggerProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   icon: JSX.Element
+  label?: string
   isActive?: boolean
 }
 
 export const PopupTrigger = forwardRef<HTMLButtonElement, PopupTriggerProps>(
-  ({ icon, isActive, ...rest }, ref) => {
+  ({ icon, isActive, label, ...rest }, ref) => {
     return (
       <button
         ref={ref}
         {...rest}
         data-active={isActive ? 'active' : 'inactive'}
-        className="group text-muted-foreground data-[state=open]:text-muted-foreground flex h-6 items-center gap-0.5 rounded-md bg-slate-200 px-2 py-1 transition-all data-[active=active]:bg-slate-400 data-[active=active]:text-slate-100 data-[state=open]:bg-slate-300 data-[state=open]:px-2.5 dark:bg-slate-700 dark:data-[active=active]:text-slate-700 dark:data-[state=open]:bg-slate-600 dark:data-[state=open]:text-slate-200"
+        className="bg-accent border-border group/filter relative flex shrink-0 cursor-pointer items-center justify-center gap-1.5 overflow-hidden rounded-full border px-2.5 py-1.5"
       >
-        {icon}
+        <i className="text-muted-foreground group-data-[active=active]/filter:text-foreground z-10">
+          {icon}
+        </i>
+        {label && <span className="z-10 text-xs">{label}</span>}
+        <ChevronDown className="text-muted-foreground z-10 size-3 transition-all group-data-[state=open]/filter:rotate-180" />
+
+        <Glow
+          colors={DEFAULT_COLORS.FORTRESS}
+          data-state={isActive ? 'active' : 'inactive'}
+          className="absolute -left-3 size-12 opacity-0 blur-sm transition-all data-[state=active]:opacity-90"
+        />
       </button>
     )
   },

@@ -1,14 +1,15 @@
 'use client'
 
 import { ChevronDown, Loader2, RefreshCcw, User } from 'lucide-react'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 
 import SelectSemesterDialog from '@/components/dialogs/select-semester-dialog'
 import { useClass } from '@/contexts/class'
-import { useHorizontalScroll } from '@/hooks/use-horizontal-scroll'
 import type { ScheduleTime } from '@/types/class'
 
 import { SectionTitle } from './section-title'
+import { useHorizontalScrollWithOverlay } from '@/hooks/use-horizontal-scroll-with-overlay'
+import { capitalizeWords } from '@/utils/capitalize-words'
 
 type DetailsProps = {
   code: string
@@ -20,8 +21,8 @@ function SchedulePill({ time }: { time: ScheduleTime }) {
       key={time.id}
       className="bg-accent/50 border-border flex h-7 w-fit shrink-0 items-center gap-1 rounded-full border px-2"
     >
-      <span className="text-xs font-bold">{time.day}</span>
-      <span className="text-xs font-semibold">
+      <span className="text-xs font-semibold">{time.day}</span>
+      <span className="text-foreground/95 text-xs font-normal">
         {`${time.startTime}-${time.endTime}`}
       </span>
     </div>
@@ -29,79 +30,25 @@ function SchedulePill({ time }: { time: ScheduleTime }) {
 }
 
 function ScheduleSection({ times }: { times: ScheduleTime[] }) {
-  const scrollRef = useHorizontalScroll()
+  const { scrollRef, showLeftShadow, showRightShadow } =
+    useHorizontalScrollWithOverlay<HTMLDivElement>()
 
-  // Estados para controlar a visibilidade das sombras de gradiente
-  const [showLeftShadow, setShowLeftShadow] = useState(false)
-  const [showRightShadow, setShowRightShadow] = useState(false)
-
-  useEffect(() => {
-    const element = scrollRef.current
-    if (!element) return
-
-    // Função para verificar a posição do scroll e atualizar a visibilidade das sombras
-    const checkScroll = () => {
-      // Verifica se o conteúdo realmente ultrapassa a área visível
-      const hasHorizontalOverflow = element.scrollWidth > element.clientWidth
-
-      if (hasHorizontalOverflow) {
-        // Mostra a sombra esquerda se o scroll não estiver no início
-        setShowLeftShadow(element.scrollLeft > 0)
-
-        // Mostra a sombra direita se o scroll não estiver no final.
-        // Usamos uma pequena tolerância (1px) para evitar problemas de arredondamento.
-        const isAtEnd =
-          element.scrollLeft + element.clientWidth >= element.scrollWidth - 1
-        setShowRightShadow(!isAtEnd)
-      } else {
-        // Se não houver overflow, esconde ambas as sombras
-        setShowLeftShadow(false)
-        setShowRightShadow(false)
-      }
-    }
-
-    // Verifica o estado inicial assim que o componente é montado e sempre que os 'times' mudam
-    checkScroll()
-
-    // Adiciona um ouvinte para o evento de scroll no elemento
-    element.addEventListener('scroll', checkScroll)
-
-    // Usa um ResizeObserver para re-verificar caso o tamanho do container mude (ex: rotação da tela)
-    const resizeObserver = new ResizeObserver(checkScroll)
-    resizeObserver.observe(element)
-
-    // Função de limpeza para remover os ouvintes quando o componente for desmontado
-    return () => {
-      element.removeEventListener('scroll', checkScroll)
-      resizeObserver.unobserve(element)
-    }
-  }, [times, scrollRef]) // A dependência 'times' garante que a verificação seja refeita se os itens mudarem
+  const maskImage = useMemo(() => {
+    return `linear-gradient(to right, rgba(0, 0, 0, 0) ${showLeftShadow ? '2%' : '0%'}, rgba(0, 0, 0, 1) ${showLeftShadow ? '10%' : '0%'}, rgba(0, 0, 0, 1) ${showRightShadow ? '90%' : '100%'}, rgba(0, 0, 0, 0)  ${showRightShadow ? '98%' : '100%'})`
+  }, [showLeftShadow, showRightShadow])
 
   return (
     <div className="flex w-full flex-col items-start justify-between gap-1">
-      <span className="text-xs uppercase">Horário:</span>
+      <span className="text-foreground/80 text-xs uppercase">Horário:</span>
 
       <div
         className="no-scrollbar relative flex w-full gap-1 overflow-x-auto text-sm font-semibold"
         ref={scrollRef}
+        style={{ maskImage }}
       >
         {times.map((time) => (
           <SchedulePill time={time} key={time.id} />
         ))}
-
-        {/* Sombra da Esquerda */}
-        <div
-          aria-hidden="true"
-          data-state={showLeftShadow ? 'visible' : 'hidden'}
-          className="pointer-events-none fixed left-4 h-7 w-16 bg-linear-to-r from-slate-100/50 to-transparent transition-opacity duration-300 data-[state=hidden]:opacity-0 data-[state=visible]:opacity-100 dark:from-slate-900/50"
-        />
-
-        {/* Sombra da Direita */}
-        <div
-          aria-hidden="true"
-          data-state={showRightShadow ? 'visible' : 'hidden'}
-          className="pointer-events-none fixed right-4 h-7 w-16 bg-linear-to-l from-slate-100/50 to-transparent transition-opacity duration-300 data-[state=hidden]:opacity-0 data-[state=visible]:opacity-100 dark:from-slate-900/50"
-        />
       </div>
     </div>
   )
@@ -177,7 +124,7 @@ export function Details({ code }: DetailsProps) {
                   {classItem.instructors &&
                     classItem.instructors.length > 0 && (
                       <>
-                        <span className="text-accent-foreground/90 text-xs uppercase">
+                        <span className="text-accent-foreground/80 text-xs uppercase">
                           {classItem.instructors.length > 1
                             ? 'Professores:'
                             : 'Professor(a):'}
@@ -187,7 +134,7 @@ export function Details({ code }: DetailsProps) {
                             className="text-sm font-medium"
                             key={instructor.siape}
                           >
-                            {instructor.name}
+                            {capitalizeWords(instructor.name)}
                           </span>
                         ))}
                       </>
