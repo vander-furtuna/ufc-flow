@@ -223,7 +223,7 @@ export function Sidebar() {
             </div>
           )}
         </div>
-        <div className="fixed z-50 h-16 w-full rounded-md bg-linear-to-t from-slate-100 to-transparent transition-all duration-300 ease-in-out group-data-[state=closed]/sidebar:w-0 md:bottom-8 md:w-80 dark:from-slate-900" />
+        <div className="fixed bottom-0 z-100 h-16 w-full rounded-md bg-linear-to-t from-slate-100 to-transparent transition-all duration-300 ease-in-out group-data-[state=closed]/sidebar:w-0 md:bottom-8 md:z-50 md:w-80 dark:from-slate-900" />
       </div>
     </aside>
   )
