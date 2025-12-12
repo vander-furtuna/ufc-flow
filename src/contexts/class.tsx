@@ -72,11 +72,11 @@ export function ClassProvider({ children }: { children: ReactNode }) {
   )
 
   const handleFetchScheduleData = useCallback(
-    async (year: number, semester: number) => {
+    async (courseId: string, year: number, semester: number) => {
       try {
         if (!selectedCourse) return
         setIsClassLoading(true)
-        const data = await fetchScheduleData(selectedCourse.id, year, semester)
+        const data = await fetchScheduleData(courseId, year, semester)
         setCurrentClassGroup(data)
       } catch (error) {
         console.error('Error fetching schedule data:', error)
@@ -107,11 +107,12 @@ export function ClassProvider({ children }: { children: ReactNode }) {
   }, [refreshScheduleData, currentYear, currentSemester, selectedCourse])
 
   useEffect(() => {
-    // dispara sempre que ano, semestre ou a função de fetch mudarem
-    handleFetchScheduleData(currentYear, currentSemester)
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentYear, currentSemester])
+    handleFetchScheduleData(
+      selectedCourse?.id ?? '',
+      currentYear,
+      currentSemester,
+    )
+  }, [currentYear, currentSemester, selectedCourse, handleFetchScheduleData])
 
   const value = useMemo(
     () => ({
