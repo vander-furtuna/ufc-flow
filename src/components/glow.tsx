@@ -30,22 +30,29 @@ export function Glow({ colors, className, ...rest }: GlowProps) {
             y2="239"
             gradientUnits="userSpaceOnUse"
           >
-            {typeof colors === 'string' ? (
-              <>
-                <stop
-                  stopColor={saturate(0.8, lighten(0.15, colors))}
-                  className=""
-                />
-                <stop offset="1" stopColor={colors} />
-              </>
+            {colors && colors !== '' ? (
+              typeof colors === 'string' ? (
+                <>
+                  <stop
+                    stopColor={saturate(0.8, lighten(0.15, colors))}
+                    className=""
+                  />
+                  <stop offset="1" stopColor={colors} />
+                </>
+              ) : (
+                colors?.map((currentColor, index) => (
+                  <stop
+                    key={index}
+                    stopColor={currentColor}
+                    offset={index === 0 ? 0 : (index + 1) / colors.length}
+                  />
+                ))
+              )
             ) : (
-              colors?.map((currentColor, index) => (
-                <stop
-                  key={index}
-                  stopColor={currentColor}
-                  offset={index === 0 ? 0 : (index + 1) / colors.length}
-                />
-              ))
+              <>
+                <stop stopColor="transparent" />
+                <stop offset="1" stopColor="transparent" />
+              </>
             )}
           </linearGradient>
         </defs>

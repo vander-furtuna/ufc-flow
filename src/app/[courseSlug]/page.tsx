@@ -1,7 +1,9 @@
+import { Header } from '@/components/header'
+
 export default function Course() {
   return (
-    <main>
-      <h1 className="font-clash text-3xl font-bold">Hello, world!</h1>
+    <main className="min-h-dvh w-full pt-12 pb-24">
+      <Header />
     </main>
   )
 }

@@ -80,10 +80,10 @@ function parseTable(
 
 // --- Server Action ---
 export async function POST(req: Request): Promise<Response> {
-  const { year, semester } = await req.json()
+  const { year, semester, courseId } = await req.json()
 
   const baseURL = 'https://si3.ufc.br/sigaa/'
-  const TURMAS_PATH = 'public/curso/turmas.jsf?lc=pt_BR&id=657484'
+  const TURMAS_PATH = `public/curso/turmas.jsf?lc=pt_BR&id=${courseId}`
 
   // Cria um cookie jar e um fetch com gerenciamento de cookies
   const jar = new CookieJar()
@@ -99,11 +99,11 @@ export async function POST(req: Request): Promise<Response> {
   const formData = new URLSearchParams({
     form: 'form',
     'form:lc': 'pt_BR',
-    'form:id': '657484',
+    'form:id': courseId || '',
     'form:inputAno': year,
     'form:inputPeriodo': semester,
     'form:j_id_jsp_9230792_38': 'pt_BR',
-    'form:j_id_jsp_9230792_39': '657484',
+    'form:j_id_jsp_9230792_39': courseId || '',
     'form:j_id_jsp_9230792_40': 'Buscar',
     'javax.faces.ViewState': viewState,
   })

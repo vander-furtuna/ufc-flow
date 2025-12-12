@@ -22,6 +22,7 @@ function SchedulePill({ time }: { time: ScheduleTime }) {
       className="bg-accent/50 border-border flex h-7 w-fit shrink-0 items-center gap-1 rounded-full border px-2"
     >
       <span className="text-xs font-semibold">{time.day}</span>
+
       <span className="text-foreground/95 text-xs font-normal">
         {`${time.startTime}-${time.endTime}`}
       </span>
@@ -68,9 +69,9 @@ export function Details({ code }: DetailsProps) {
   }, [code, getSubjectInformationByCode])
 
   return (
-    <div className="relative z-20 mt-8 flex flex-col gap-2 px-2">
+    <div className="relative z-20 mt-8 flex flex-col gap-2">
       <SectionTitle>Detalhes</SectionTitle>
-      <div className="flex flex-wrap items-center justify-center gap-2 px-2">
+      <div className="flex flex-wrap items-center justify-center gap-2 px-4">
         <div className="flex w-full items-center justify-between">
           <span className="text-xs uppercase">Semestre:</span>
           <div className="flex items-center gap-1">
