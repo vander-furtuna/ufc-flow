@@ -7,7 +7,6 @@ import localFont from 'next/font/local'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/sonner'
 
-import { FloatingBar } from './[courseSlug]/[curriculumSlug]/components/floating-bar'
 import { AppProvider } from './app-provider'
 
 const poppins = localFont({
@@ -152,7 +151,7 @@ export default function RootLayout({
           >
             <main className="flex min-h-screen w-full flex-col items-center justify-start">
               {children}
-              <FloatingBar />
+              {/* <FloatingBar /> */}
             </main>
             <Toaster />
           </ThemeProvider>

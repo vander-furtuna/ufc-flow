@@ -58,6 +58,10 @@ export function CourseProvider({
 
       if (course) {
         setSelectedCourse(course)
+        setSelectedCurriculum(null)
+        setSelectedSubjects([])
+        setSelectedSubject(null)
+        setIsCourseLoading(true)
       }
     },
     [courses],

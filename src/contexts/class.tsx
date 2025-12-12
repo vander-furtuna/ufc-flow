@@ -12,6 +12,7 @@ import {
 
 import { useScheduleManager } from '@/lib/indexeddb'
 import type { StorageClass, SubjectGroup } from '@/types/class'
+import { useCourse } from './course'
 
 type ClassContextType = {
   currentYear: number | null
@@ -29,6 +30,7 @@ export const ClassContext = createContext<ClassContextType>(
 )
 
 export function ClassProvider({ children }: { children: ReactNode }) {
+  const { selectedCourse } = useCourse()
   const { fetchScheduleData, refreshScheduleData } = useScheduleManager()
 
   const [currentYear, setCurrentYear] = useState<number>(2025)
@@ -72,8 +74,9 @@ export function ClassProvider({ children }: { children: ReactNode }) {
   const handleFetchScheduleData = useCallback(
     async (year: number, semester: number) => {
       try {
+        if (!selectedCourse) return
         setIsClassLoading(true)
-        const data = await fetchScheduleData(year, semester)
+        const data = await fetchScheduleData(selectedCourse.id, year, semester)
         setCurrentClassGroup(data)
       } catch (error) {
         console.error('Error fetching schedule data:', error)
@@ -82,13 +85,18 @@ export function ClassProvider({ children }: { children: ReactNode }) {
         setIsClassLoading(false)
       }
     },
-    [fetchScheduleData],
+    [fetchScheduleData, selectedCourse],
   )
 
   const handleRefreshSubjectInformations = useCallback(async () => {
     try {
+      if (!selectedCourse) return
       setIsClassLoading(true)
-      const data = await refreshScheduleData(currentYear, currentSemester)
+      const data = await refreshScheduleData(
+        selectedCourse.id,
+        currentYear,
+        currentSemester,
+      )
       setCurrentClassGroup(data)
     } catch (error) {
       console.error('Error refreshing schedule data:', error)
@@ -96,7 +104,7 @@ export function ClassProvider({ children }: { children: ReactNode }) {
     } finally {
       setIsClassLoading(false)
     }
-  }, [refreshScheduleData, currentYear, currentSemester])
+  }, [refreshScheduleData, currentYear, currentSemester, selectedCourse])
 
   useEffect(() => {
     // dispara sempre que ano, semestre ou a função de fetch mudarem

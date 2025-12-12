@@ -3,17 +3,20 @@ import { NextRequest, NextResponse } from 'next/server'
 
 // 1️⃣ Redirecionamento para um caminho específico
 function redirectToEng(request: NextRequest): NextResponse | undefined {
-  const pathname = request.nextUrl.pathname
-  if (pathname.includes('/banner.png')) return undefined
+  const slugCookie = request.cookies.get('meu_cookie_slug')
+  const slug = slugCookie?.value
 
-  if (!pathname.includes('/engenharia-de-computacao-ufc-sobral/2006-2')) {
-    const host = request.headers.get('host') ?? 'localhost:3000'
-    const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http'
-    const redirectUrl = `${protocol}://${host}/engenharia-de-computacao-ufc-sobral/2006-2`
-    return NextResponse.redirect(new URL(redirectUrl))
+  const { pathname } = request.nextUrl
+
+  if (pathname === '/') {
+    const urlDestino = slug
+      ? new URL(`${slug}`, request.url)
+      : new URL(`/cursos`, request.url)
+
+    return NextResponse.redirect(urlDestino)
   }
 
-  return undefined
+  return NextResponse.next()
 }
 
 // 2️⃣ Injeção de headers com caminho e URL completos
