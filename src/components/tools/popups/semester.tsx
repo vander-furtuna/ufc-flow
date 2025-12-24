@@ -1,9 +1,6 @@
 import SelectSemesterDialog from '@/components/dialogs/select-semester-dialog'
 import { useClass } from '@/contexts/class'
 import { CalendarFold, Loader2, RefreshCcw } from 'lucide-react'
-import { type ComponentProps } from 'react'
-
-type PopupTriggerProps = ComponentProps<'button'>
 
 export function SemesterTool() {
   const {

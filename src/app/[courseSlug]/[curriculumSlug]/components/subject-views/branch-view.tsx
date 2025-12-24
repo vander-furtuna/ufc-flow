@@ -1,10 +1,8 @@
 import { useCourse } from '@/contexts/course'
-import { useClass } from '@/contexts/class'
 import { SubjectViewBase } from './subject-view-base'
 
 export function BranchView() {
   const { selectedCurriculum } = useCourse()
-  const { currentClassGroup } = useClass()
 
   return (
     <>

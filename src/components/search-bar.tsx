@@ -42,8 +42,6 @@ export function SearchBar() {
     'filters' | 'config' | 'closed'
   >('closed')
 
-  const [isFiltersOpen, setIsFiltersOpen] = useState(false)
-
   const handleSelectMode = (mode: 'filters' | 'config' | 'closed') => {
     setOptionsMode((prev) => (prev === mode ? 'closed' : mode))
   }

@@ -81,7 +81,6 @@ const findDescendants = (
 export const generateDependencyGraph = (
   centerSubjectId: string,
   allSubjects: Subject[],
-  branches: Branch[],
 ): GraphBuildResult => {
   const centerSubject = allSubjects.find((s) => s.id === centerSubjectId)
   if (!centerSubject) return { nodes: [], edges: [] }
