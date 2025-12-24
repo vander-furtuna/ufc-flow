@@ -1,12 +1,12 @@
 'use client'
 
 import { useMemo } from 'react'
-import { BranchPopup } from './popups/branch-popup'
-import { DurationPopup } from './popups/duration-popup'
-import { SemesterPopup } from './popups/semester-popup'
 import { useHorizontalScrollWithOverlay } from '@/hooks/use-horizontal-scroll-with-overlay'
+import { GroupByPopup } from './popups/group-by'
+import { AvailabilityPopup } from './popups/availability'
+import { SemesterTool } from './popups/semester'
 
-export function Filters() {
+export function Tools() {
   const { scrollRef, showLeftShadow, showRightShadow } =
     useHorizontalScrollWithOverlay<HTMLDivElement>()
 
@@ -22,9 +22,9 @@ export function Filters() {
         maskImage,
       }}
     >
-      <BranchPopup />
-      <SemesterPopup />
-      <DurationPopup />
+      <SemesterTool />
+      <GroupByPopup />
+      <AvailabilityPopup />
     </div>
   )
 }

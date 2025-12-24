@@ -1,11 +1,13 @@
 import {
   Calendar,
+  ChevronRight,
   Clock,
   Copy,
   Download,
   Loader2,
   Pin,
   Tag,
+  Workflow,
   X,
 } from 'lucide-react'
 import { useCallback } from 'react'
@@ -22,8 +24,13 @@ import { SubjectCardSmall } from '../subject-card-small'
 import { Details } from './details'
 import { Pill } from './pill'
 import { SectionTitle } from './section-title'
+import { usePathname, useRouter } from 'next/navigation'
 
 export function Sidebar() {
+  const pathname = usePathname()
+
+  const router = useRouter()
+
   const { elementRef, downloadPNG, isLoading } = useDownloadAsPNG()
 
   const {
@@ -93,6 +100,12 @@ export function Sidebar() {
       },
     )
   }, [])
+
+  const handleGoToSubject = useCallback(() => {
+    if (selectedSubject) {
+      router.push(`${pathname}/${selectedSubject.code}`)
+    }
+  }, [selectedSubject, pathname, router])
 
   return (
     <aside
@@ -193,6 +206,21 @@ export function Sidebar() {
               ))}
             </div>
           </div>
+          {selectedSubject && (
+            <div className="mt-6 w-full px-4">
+              <button
+                className="bg-muted border-border flex w-full items-center justify-between rounded-md border px-2 py-1 decoration-0"
+                onClick={handleGoToSubject}
+              >
+                <div className="flex items-center gap-2">
+                  <Workflow className="text-foreground/80" />
+                  <span className="text-sm">Visualização em árvore</span>
+                </div>
+
+                <ChevronRight className="text-foreground/70 size-4" />
+              </button>
+            </div>
+          )}
           {selectedSubject && <Details code={selectedSubject.code} />}
           {preRequisites.length > 0 && (
             <div className="relative z-20 mt-8 flex flex-col gap-4 px-4">

@@ -5,6 +5,7 @@ export const COURSES_DATA: Course[] = [
     id: '657484',
     name: 'Engenharia de Computação',
     slug: 'engenharia-de-computacao-ufc-sobral',
+    icon: 'cpu',
     curriculumStructures: [
       {
         id: '657484',
@@ -1358,6 +1359,7 @@ export const COURSES_DATA: Course[] = [
     id: '657485',
     name: 'Engenharia Elétrica',
     slug: 'engenharia-eletrica-ufc-sobral',
+    icon: 'zap',
     curriculumStructures: [
       {
         id: '110ceaaa-6776-472b-9fac-9214d86003d5',
