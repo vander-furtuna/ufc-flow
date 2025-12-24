@@ -47,7 +47,7 @@ export default function SelectSemesterDialog({
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="z-1000 flex flex-col gap-0 overflow-y-visible p-0 sm:max-w-md [&>button:last-child]:top-3.5">
-        <DialogHeader className="contents space-y-0 text-left">
+        <DialogHeader className="space-y-0 text-left">
           <DialogTitle className="border-b px-6 py-4 text-base">
             Alterar Semestre
           </DialogTitle>

@@ -4,6 +4,7 @@ import { useCourse } from '@/contexts/course'
 import { COLORS } from '@/data/colors'
 import { getGradientColor } from '@/utils/get-gradient-color'
 import { useHorizontalScrollWithOverlay } from '@/hooks/use-horizontal-scroll-with-overlay'
+import { useMemo } from 'react'
 
 export function SubjectTypeSubtitle() {
   const { selectedCurriculum } = useCourse()
@@ -11,11 +12,18 @@ export function SubjectTypeSubtitle() {
   const { scrollRef, showLeftShadow, showRightShadow } =
     useHorizontalScrollWithOverlay<HTMLDivElement>()
 
+  const maskImage = useMemo(() => {
+    return `linear-gradient(to right, rgba(0, 0, 0, 0) ${showLeftShadow ? '2%' : '0%'}, rgba(0, 0, 0, 1) ${showLeftShadow ? '10%' : '0%'}, rgba(0, 0, 0, 1) ${showRightShadow ? '90%' : '100%'}, rgba(0, 0, 0, 0)  ${showRightShadow ? '98%' : '100%'})`
+  }, [showLeftShadow, showRightShadow])
+
   return (
-    <div className="relative w-full">
+    <div className="bg-accent/50 border-border relative w-full rounded-full border p-2">
       <div
         className="no-scrollbar relative flex w-full gap-2 overflow-x-auto"
         ref={scrollRef}
+        style={{
+          maskImage,
+        }}
       >
         <div className="bg-accent border-border flex shrink-0 items-center justify-center gap-1 rounded-full border px-2.5 py-1.5">
           <div
@@ -50,19 +58,6 @@ export function SubjectTypeSubtitle() {
           </div>
         ))}
       </div>
-      {/* Sombra da Esquerda */}
-      <div
-        aria-hidden="true"
-        data-state={showLeftShadow ? 'visible' : 'hidden'}
-        className="from-background pointer-events-none absolute top-0 left-0 h-full w-16 bg-linear-to-r to-transparent transition-all duration-200 data-[state=hidden]:opacity-0 data-[state=visible]:opacity-100"
-      />
-
-      {/* Sombra da Direita */}
-      <div
-        aria-hidden="true"
-        data-state={showRightShadow ? 'visible' : 'hidden'}
-        className="from-background pointer-events-none absolute top-0 right-0 z-10 h-full w-16 bg-linear-to-l to-transparent transition-all duration-200 data-[state=hidden]:opacity-0 data-[state=visible]:opacity-100"
-      />
     </div>
   )
 }

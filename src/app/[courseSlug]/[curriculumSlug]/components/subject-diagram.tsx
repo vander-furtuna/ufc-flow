@@ -1,21 +1,17 @@
 'use client'
-import { AnimatePresence } from 'motion/react'
-import { useMemo } from 'react'
 
 import { NoResultCard } from '@/components/no-result-card'
-import { SemesterTitle } from '@/components/title'
-import { useCourse } from '@/contexts/course'
 
-import { SubjectCard } from './subject-card'
 import { SubjectTypeSubtitle } from './subject-type-subtitle'
+import { useCourse } from '@/contexts/course'
+import { useTools } from '@/contexts/tools'
+import { BranchView } from './subject-views/branch-view'
+import { DurationView } from './subject-views/duration-view'
+import { SemesterView } from './subject-views/semester-view'
 
 export function SubjectDiagram() {
   const { filteredSubjects } = useCourse()
-
-  const semestersValues = useMemo(
-    () => Array.from({ length: 10 }, (_, i) => i + 1),
-    [],
-  )
+  const { groupBy } = useTools()
 
   return (
     <article className="flex w-full flex-col items-center justify-start gap-8">
@@ -25,32 +21,11 @@ export function SubjectDiagram() {
       </div>
 
       {filteredSubjects.length > 0 ? (
-        semestersValues.map((period) => {
-          if (filteredSubjects.some((course) => course.semester === period)) {
-            return (
-              <div key={period} className="flex w-full flex-col gap-4">
-                <SemesterTitle>{period}º PERÍODO</SemesterTitle>
-                <div className="grid w-full grid-flow-dense auto-rows-[100px] grid-cols-[repeat(auto-fit,minmax(9rem,1fr))] justify-items-center gap-4">
-                  <AnimatePresence>
-                    {filteredSubjects
-                      .filter((subject) => subject.semester === period)
-                      .map((subject, index) => {
-                        return (
-                          <SubjectCard
-                            childIndex={index}
-                            subject={subject}
-                            key={subject.code}
-                            id={subject.slug}
-                          />
-                        )
-                      })}
-                  </AnimatePresence>
-                </div>
-              </div>
-            )
-          }
-          return null
-        })
+        <>
+          {groupBy === 'semester' && <SemesterView />}
+          {groupBy === 'branch' && <BranchView />}
+          {groupBy === 'duration' && <DurationView />}
+        </>
       ) : (
         <div className="center size-full">
           <NoResultCard />
