@@ -14,6 +14,7 @@ import type { Course, CurriculumStructure, Subject } from '@/types/course'
 import { normalizeWords } from '@/utils/normalize-words'
 
 import { useFilter } from './filter'
+import { useRouter } from 'next/navigation'
 
 type CourseContextType = {
   courses: Course[]
@@ -25,8 +26,14 @@ type CourseContextType = {
   isCourseLoading: boolean
   selectCourseBySlug: (slug: string) => void
   selectCurriculumBySlug: (slug: string) => void
-
   setSelectedSubject: (subject: Subject | null) => void
+  handleSelect: (props: HandleSelectProps) => void
+}
+
+type HandleSelectProps = {
+  courseSlug: string
+  curriculumSlug: string
+  subjectCode: string
 }
 
 const courseContext = createContext<CourseContextType>({} as CourseContextType)
@@ -51,6 +58,8 @@ export function CourseProvider({
     useState<CurriculumStructure | null>(null)
   const [selectedSubjects, setSelectedSubjects] = useState<Subject[]>([])
   const [selectedSubject, setSelectedSubject] = useState<Subject | null>(null)
+
+  const router = useRouter()
 
   const selectCourseBySlug = useCallback(
     (slug: string) => {
@@ -84,6 +93,24 @@ export function CourseProvider({
       }
     },
     [selectedCourse],
+  )
+
+  const handleSelect = useCallback(
+    ({ courseSlug, curriculumSlug, subjectCode }: HandleSelectProps) => {
+      selectCourseBySlug(courseSlug)
+      selectCurriculumBySlug(curriculumSlug)
+      if (selectedCurriculum) {
+        const subject = selectedCurriculum.subjects.find(
+          (subject) => subject.code === subjectCode,
+        )
+        if (subject) {
+          setSelectedSubject(subject)
+        } else {
+          router.push(`/`)
+        }
+      }
+    },
+    [selectCourseBySlug, selectCurriculumBySlug, selectedCurriculum, router],
   )
 
   const filteredSubjects = useMemo(() => {
@@ -153,8 +180,8 @@ export function CourseProvider({
       isCourseLoading,
       selectCourseBySlug,
       selectCurriculumBySlug,
-
       setSelectedSubject,
+      handleSelect,
     }),
     [
       courses,
@@ -166,8 +193,8 @@ export function CourseProvider({
       isCourseLoading,
       selectCourseBySlug,
       selectCurriculumBySlug,
-
       setSelectedSubject,
+      handleSelect,
     ],
   )
 

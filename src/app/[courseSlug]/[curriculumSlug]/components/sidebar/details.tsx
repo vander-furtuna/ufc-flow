@@ -69,8 +69,8 @@ export function Details({ code }: DetailsProps) {
   }, [code, getSubjectInformationByCode])
 
   return (
-    <div className="relative z-20 mt-8 flex flex-col gap-2">
-      <SectionTitle>Detalhes</SectionTitle>
+    <div className="relative z-20 mt-4 flex flex-col gap-2">
+      <SectionTitle hasPadding>Detalhes</SectionTitle>
       <div className="flex flex-wrap items-center justify-center gap-2 px-4">
         <div className="flex w-full items-center justify-between">
           <span className="text-xs uppercase">Semestre:</span>

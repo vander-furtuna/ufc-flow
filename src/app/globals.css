@@ -133,6 +133,7 @@
   --ease-smooth: cubic-bezier(0.075, 0.82, 0.165, 1);
 
   --animate-border: border 4s linear infinite;
+  --animate-slow-spin: slow-spin 3s linear infinite;
 
   @keyframes border {
     from {
@@ -140,6 +141,15 @@
     }
     to {
       --border-angle: 360deg;
+    }
+  }
+
+  @keyframes slow-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
     }
   }
 }
@@ -164,6 +174,10 @@
 @utility no-scrollbar {
   scrollbar-width: none;
   -ms-overflow-style: none;
+}
+
+@utility bg-fundo {
+  background: var(--color-background) !important;
 }
 
 @utility transparent-mask-left {

@@ -1,4 +1,4 @@
-type Nature = 'OBRIGATÓRIA' | 'OPTATIVA'
+export type Nature = 'OBRIGATÓRIA' | 'OPTATIVA'
 
 export type Branch = {
   id: string
