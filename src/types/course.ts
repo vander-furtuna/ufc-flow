@@ -1,3 +1,5 @@
+import type { IconName } from 'lucide-react/dynamic'
+
 export type Nature = 'OBRIGATÓRIA' | 'OPTATIVA'
 
 export type Branch = {
@@ -33,6 +35,6 @@ export type Course = {
   id: string
   slug: string
   name: string
-
+  icon: IconName
   curriculumStructures: CurriculumStructure[]
 }

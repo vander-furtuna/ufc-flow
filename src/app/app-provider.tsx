@@ -7,15 +7,18 @@ import { ClassProvider } from '@/contexts/class'
 import { CourseProvider } from '@/contexts/course'
 import { FilterProvider } from '@/contexts/filter'
 import { queryClient } from '@/lib/query-client'
+import { ToolsProvider } from '@/contexts/tools'
 
 export function AppProvider({ children }: { children: ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
-      <FilterProvider>
-        <CourseProvider>
-          <ClassProvider>{children}</ClassProvider>
-        </CourseProvider>
-      </FilterProvider>
+      <ToolsProvider>
+        <FilterProvider>
+          <CourseProvider>
+            <ClassProvider>{children}</ClassProvider>
+          </CourseProvider>
+        </FilterProvider>
+      </ToolsProvider>
     </QueryClientProvider>
   )
 }

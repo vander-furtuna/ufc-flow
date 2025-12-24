@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import "tw-animate-css";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -37,6 +38,7 @@
     --sidebar-border: oklch(0.929 0.013 255.508);
     --sidebar-ring: oklch(0.704 0.04 256.788);
   }
+
   .dark {
     --background: oklch(0.129 0.042 264.695);
     --foreground: oklch(0.984 0.003 247.858);
@@ -76,12 +78,17 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
+  button {
+    @apply cursor-pointer;
+  }
 }
 
-@layer utilities{
+@layer utilities {
   .center {
     display: flex;
     justify-content: center;
@@ -139,6 +146,7 @@
     from {
       --border-angle: 0deg;
     }
+
     to {
       --border-angle: 360deg;
     }
@@ -148,6 +156,7 @@
     from {
       transform: rotate(0deg);
     }
+
     to {
       transform: rotate(360deg);
     }
@@ -164,9 +173,9 @@
 */
 
 @property --border-angle {
-    inherits: false;
-    initial-value: 0deg;
-    syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+  syntax: '<angle>';
 }
 
 /* Removed standalone @utility directive for text-balance */
