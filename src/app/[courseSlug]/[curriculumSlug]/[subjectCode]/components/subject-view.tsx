@@ -39,8 +39,8 @@ export function SubjectView({
   onBack,
 }: DependencyViewProps) {
   const { nodes: initialNodes, edges: initialEdges } = useMemo(() => {
-    return generateDependencyGraph(subject.id, allSubjects, branches)
-  }, [subject, allSubjects, branches])
+    return generateDependencyGraph(subject.id, allSubjects)
+  }, [subject, allSubjects])
 
   const [nodes, setNodes, onNodesChange] =
     useNodesState<Node<NodeData>>(initialNodes)
