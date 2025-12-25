@@ -51,8 +51,6 @@ export function SubjectViewBase({
       .filter((subject) => subject !== null)
   }, [subjects, availability, currentClassGroup])
 
-  console.log(mappedSubjects)
-
   return mappedSubjects && mappedSubjects.length > 0 ? (
     <div className={cn('flex w-full flex-col gap-4', className)} {...props}>
       <SemesterTitle className="uppercase">{title}</SemesterTitle>
