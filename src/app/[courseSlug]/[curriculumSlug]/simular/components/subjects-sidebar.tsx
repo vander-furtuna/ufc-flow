@@ -62,10 +62,13 @@ const cardContainerVariants = cva('', {
 function SubjectItem({
   subject,
   colors,
+  index,
+  ...props
 }: {
+  index: number
   subject: Subject
   colors: string[]
-}) {
+} & React.HTMLAttributes<HTMLDivElement>) {
   const {
     completedSubjects,
     toggleCompletedSubject,
@@ -102,8 +105,15 @@ function SubjectItem({
     (scheduledClass) => scheduledClass.code === subject.code,
   )
 
+  const globalFirstSubject = index === 0
+
+  const cardId = globalFirstSubject ? 'tour-subject-card' : undefined
+  const checkId = globalFirstSubject ? 'tour-subject-check' : undefined
+
   return (
     <div
+      {...props}
+      id={cardId}
       className={cn(
         'bg-accent/70 border-border/50 group hover:border-border text-foreground/90 hover:bg-accent/90 relative flex w-full cursor-pointer items-start justify-between gap-2 overflow-hidden rounded-md border px-3 py-3 transition-all duration-300 aria-disabled:opacity-70',
         isCompleted &&
@@ -161,6 +171,7 @@ function SubjectItem({
       </SelectedSubjectDialog>
       <div className="flex h-full flex-col items-center justify-between gap-2">
         <FilterCheckbox
+          id={checkId}
           onCheckedChange={() => toggleCompletedSubject(subject.code)}
           checked={isCompleted}
           disabled={!isCompleted && isLocked}
@@ -212,14 +223,20 @@ export function SubjectsSidebar({
   }, [selectedCurriculum, searchFilter])
 
   return (
-    <aside className="bg-accent/30 border-border/50 flex min-h-0 flex-1 shrink-0 flex-col overflow-y-auto rounded-lg border md:overflow-y-hidden">
+    <aside
+      className="bg-accent/30 border-border/50 calendar-scrollbar flex min-h-0 flex-1 shrink-0 flex-col overflow-y-auto rounded-lg border md:overflow-y-hidden"
+      id="tour-subject-list"
+    >
       <div className="border-border/50 flex w-full flex-col gap-3 border-b p-3 sm:p-4">
         <h2 className="text-foreground/90 font-clash text-2xl font-semibold tracking-wider">
           {selectedCourse?.name}
         </h2>
         <div className="flex w-full flex-col gap-2">
           {currentSchedule && schedules.length > 0 && (
-            <div className="bg-accent/80 border-border/70 hover:bg-accent/90 flex h-10 w-full items-center rounded-lg border p-0 px-2 transition-colors">
+            <div
+              className="bg-accent/80 border-border/70 hover:bg-accent/90 flex h-10 w-full items-center rounded-lg border p-0 px-2 transition-colors"
+              id="tour-agenda-controls"
+            >
               <div className="relative w-full">
                 <Select
                   value={currentSchedule?.id || ''}
@@ -255,6 +272,7 @@ export function SubjectsSidebar({
               >
                 <button
                   type="button"
+                  id="tour-agenda-delete"
                   className="text-foreground/90 rounded-md p-1.5 transition-all hover:bg-red-600/10 hover:text-red-500 focus:bg-red-600/10 active:bg-red-600/20"
                 >
                   <Trash2 className="size-4" />
@@ -263,8 +281,8 @@ export function SubjectsSidebar({
               <button
                 className="text-foreground/90 rounded-md p-1.5 transition-all hover:bg-purple-600/10 hover:text-purple-500 focus:bg-purple-600/10 active:bg-purple-600/20"
                 onClick={() => onDownloadSchedule?.()}
+                id="tour-agenda-download"
               >
-                {}
                 <Download className="size-4" />
               </button>
             </div>
@@ -291,7 +309,7 @@ export function SubjectsSidebar({
                 {sem}º Período
               </h3>
               <div className="flex w-full flex-col gap-1.5">
-                {subjects.map((subject) => {
+                {subjects.map((subject, index) => {
                   const colors = selectedCurriculum?.branchs
                     .filter((currentBranch) =>
                       subject.branch.includes(currentBranch.id),
@@ -303,6 +321,7 @@ export function SubjectsSidebar({
                       subject={subject}
                       key={subject.code}
                       colors={colors || []}
+                      index={index}
                     />
                   )
                 })}
