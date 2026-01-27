@@ -28,6 +28,24 @@ export type ClassSection = {
   name: string
 }
 
+export type ScheduledClassColor =
+  | 'red'
+  | 'orange'
+  | 'lime'
+  | 'green'
+  | 'emerald'
+  | 'teal'
+  | 'cyan'
+  | 'blue'
+  | 'violet'
+  | 'fuschia'
+  | 'pink'
+  | 'rose'
+
+export type ScheduledClass = ClassSection & {
+  color: ScheduledClassColor
+}
+
 export type SubjectGroup = {
   code: string
   name: string

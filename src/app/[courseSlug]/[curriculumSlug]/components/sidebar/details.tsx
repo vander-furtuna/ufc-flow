@@ -15,7 +15,7 @@ type DetailsProps = {
   code: string
 }
 
-function SchedulePill({ time }: { time: ScheduleTime }) {
+export function SchedulePill({ time }: { time: ScheduleTime }) {
   return (
     <div
       key={time.id}

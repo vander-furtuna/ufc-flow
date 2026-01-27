@@ -1,8 +1,7 @@
 import { useMemo } from 'react'
 
 import { useCourse } from '@/contexts/course'
-import { COLORS } from '@/data/colors'
-import { getGradientColor } from '@/utils/get-gradient-color'
+import { getSubjectStyle } from '@/utils/get-subject-style'
 
 type SubjectBarProps = {
   nature: string
@@ -20,20 +19,7 @@ export function SubjectBar({ nature, branch }: SubjectBarProps) {
     [selectedCurriculum, branch],
   )
 
-  const backgroundStyle = useMemo(() => {
-    if (nature === 'OBRIGATÓRIA') {
-      return getGradientColor(COLORS.COMPULSORY)
-    } else if (nature === 'OPTATIVA') {
-      if (colors && colors?.length === 1) {
-        return getGradientColor(colors[0])
-      } else if (colors && colors?.length >= 2) {
-        return `linear-gradient(90deg, ${colors.join(',')})`
-      } else if (colors && colors?.length === 0) {
-        return getGradientColor(COLORS.OPTIONAL)
-      }
-    }
-    return ''
-  }, [colors, nature])
+  const backgroundStyle = getSubjectStyle(colors, nature)
 
   return (
     <>

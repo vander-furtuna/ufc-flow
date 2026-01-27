@@ -4,11 +4,14 @@ import { useCallback } from 'react'
 
 import { getClassesInformationsService } from '@/services/scrapping/get-classes-informations'
 import type { StorageClass, SubjectGroup } from '@/types/class'
+import type { Schedule } from '@/types/schedule'
 
 // Configuração do banco
 const DB_NAME = 'UFCFlowDB'
-const DB_VERSION = 2 // Incrementado para incluir courseId
+const DB_VERSION = 3 // Incrementado para incluir courseId
 const STORE_NAME = 'schedules'
+const STORE_USER_AGENDAS = 'user_schedules'
+const STORE_USER_PREFERENCES = 'user_preferences'
 
 // Chave primária composta: courseId-year-semester
 const generateKey = (courseId: string, year: number, semester: number) =>
@@ -22,7 +25,7 @@ class IndexedDBStorage {
     if (this.db) return
 
     this.db = await openDB(DB_NAME, DB_VERSION, {
-      upgrade(db, oldVersion) {
+      upgrade(db, oldVersion, _, transaction) {
         // Remove store antiga se existir (para migração)
         if (oldVersion < 2 && db.objectStoreNames.contains(STORE_NAME)) {
           db.deleteObjectStore(STORE_NAME)
@@ -45,7 +48,65 @@ class IndexedDBStorage {
             },
           )
         }
+
+        // --- Stores de Agenda e Preferências ---
+        let agendaStore
+        if (!db.objectStoreNames.contains(STORE_USER_AGENDAS)) {
+          agendaStore = db.createObjectStore(STORE_USER_AGENDAS, {
+            keyPath: 'id',
+          })
+        } else {
+          agendaStore = transaction.objectStore(STORE_USER_AGENDAS)
+        }
+
+        // Adiciona índice courseId na versão 4
+        if (!agendaStore.indexNames.contains('courseId')) {
+          agendaStore.createIndex('courseId', 'courseId', { unique: false })
+        }
+
+        if (!db.objectStoreNames.contains(STORE_USER_PREFERENCES)) {
+          db.createObjectStore(STORE_USER_PREFERENCES, { keyPath: 'key' })
+        }
       },
+    })
+  }
+
+  async getSchedulesByCourse(courseId: string): Promise<Schedule[]> {
+    await this.init()
+    if (!this.db) throw new Error('Database not initialized')
+
+    // Usa o índice para buscar apenas agendas do curso específico
+    return this.db.getAllFromIndex(STORE_USER_AGENDAS, 'courseId', courseId)
+  }
+
+  async saveSchedule(schedule: Schedule): Promise<void> {
+    await this.init()
+    if (!this.db) throw new Error('Database not initialized')
+    await this.db.put(STORE_USER_AGENDAS, schedule)
+  }
+
+  async deleteSchedule(id: string): Promise<void> {
+    await this.init()
+    if (!this.db) throw new Error('Database not initialized')
+    await this.db.delete(STORE_USER_AGENDAS, id)
+  }
+
+  async getCompletedSubjects(): Promise<string[]> {
+    await this.init()
+    if (!this.db) throw new Error('Database not initialized')
+    const result = await this.db.get(
+      STORE_USER_PREFERENCES,
+      'completedSubjects',
+    )
+    return result?.value || []
+  }
+
+  async saveCompletedSubjects(subjects: string[]): Promise<void> {
+    await this.init()
+    if (!this.db) throw new Error('Database not initialized')
+    await this.db.put(STORE_USER_PREFERENCES, {
+      key: 'completedSubjects',
+      value: subjects,
     })
   }
 
@@ -217,6 +278,14 @@ class IndexedDBStorage {
 
 // Instância singleton
 const storage = new IndexedDBStorage()
+
+export const getSchedulesByCourse = (courseId: string) =>
+  storage.getSchedulesByCourse(courseId)
+export const saveSchedule = (s: Schedule) => storage.saveSchedule(s)
+export const deleteSchedule = (id: string) => storage.deleteSchedule(id)
+export const getCompletedSubjects = () => storage.getCompletedSubjects()
+export const saveCompletedSubjects = (s: string[]) =>
+  storage.saveCompletedSubjects(s)
 
 // Hooks personalizados para React
 export const useScheduleStorage = () => {
