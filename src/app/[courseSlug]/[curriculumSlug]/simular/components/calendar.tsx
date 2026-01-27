@@ -53,7 +53,10 @@ export function Calendar({ ref, ...props }: CalendarProps) {
   const { selectedCurriculum } = useCourse()
 
   return (
-    <section className="bg-background border-border/80 flex h-full flex-col overflow-hidden rounded-lg border">
+    <section
+      className="bg-background border-border/80 flex h-full flex-col overflow-hidden rounded-lg border"
+      id="tour-calendar"
+    >
       <div
         {...props}
         className="bg-background calendar-scrollbar relative grid flex-1 overflow-auto"

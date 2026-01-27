@@ -8,14 +8,14 @@ type CheckboxProps = ComponentProps<'input'> & {
 }
 
 export const FilterCheckbox = forwardRef<HTMLInputElement, CheckboxProps>(
-  ({ label, className, onCheckedChange, onChange, ...rest }, ref) => {
+  ({ label, className, onCheckedChange, onChange, id, ...rest }, ref) => {
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
       onCheckedChange(event.target.value, event.target.checked)
       onChange?.(event)
     }
 
     return (
-      <BaseCheckbox.Root className={className}>
+      <BaseCheckbox.Root className={className} id={id}>
         <BaseCheckbox.Element onChange={handleChange} ref={ref} {...rest} />
         <BaseCheckbox.Box />
         {label && <BaseCheckbox.Label>{label}</BaseCheckbox.Label>}
