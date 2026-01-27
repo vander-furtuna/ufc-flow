@@ -212,7 +212,7 @@ export function SubjectsSidebar({
   }, [selectedCurriculum, searchFilter])
 
   return (
-    <aside className="bg-accent/30 border-border/50 flex min-h-0 flex-1 shrink-0 flex-col overflow-y-auto rounded-lg border md:overflow-y-hidden">
+    <aside className="bg-accent/30 border-border/50 calendar-scrollbar flex min-h-0 flex-1 shrink-0 flex-col overflow-y-auto rounded-lg border md:overflow-y-hidden">
       <div className="border-border/50 flex w-full flex-col gap-3 border-b p-3 sm:p-4">
         <h2 className="text-foreground/90 font-clash text-2xl font-semibold tracking-wider">
           {selectedCourse?.name}

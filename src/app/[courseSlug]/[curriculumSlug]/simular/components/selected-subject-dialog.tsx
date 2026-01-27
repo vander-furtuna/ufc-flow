@@ -10,7 +10,7 @@ import {
 import type { ClassSection, SubjectGroup } from '@/types/class'
 import type { Subject } from '@/types/course'
 import { capitalizeWords } from '@/utils/capitalize-words'
-import { AlertCircle, User } from 'lucide-react'
+import { AlertCircle, AlertTriangle, Plus, User } from 'lucide-react'
 import { useState, type ComponentProps } from 'react'
 import { TimePill } from './time-pill'
 import { useSchedule } from '@/contexts/schedule'
@@ -48,20 +48,20 @@ export function SelectedSubjectDialog({
           <DialogDescription>{subject.code}</DialogDescription>
         </DialogHeader>
 
-        <div className="flex flex-col gap-2 px-5 pb-4">
+        <div className="flex flex-col gap-2 px-3 pb-4 sm:px-5">
           {scheduleInfo?.classes.map((classItem) => {
             const conflicts = checkTimeConflict(classItem, scheduleClasses)
             const hasConflict = conflicts.length > 0
             return (
               <div
                 className={cn(
-                  'bg-accent/30 border-border/50 flex flex-col gap-4 rounded-md border px-4 py-4',
+                  'bg-accent/30 border-border/50 flex flex-col gap-4 rounded-md border px-4 py-4 sm:flex-row',
                   hasConflict &&
                     'border-red-300 bg-red-500/20 dark:border-red-400/50 dark:bg-red-400/20',
                 )}
                 key={classItem.sectionId}
               >
-                <div className="flex items-center justify-between gap-2">
+                <div className="flex w-full flex-col items-start gap-2">
                   <div className="flex w-fit flex-col items-start">
                     <div className="flex">
                       <strong className="font-clash text-lg font-semibold">
@@ -82,32 +82,40 @@ export function SelectedSubjectDialog({
                       ))}
                     </div>
                   </div>
-                  <Button
-                    size="sm"
-                    onClick={() => handleAddClass(classItem)}
-                    className={cn(
-                      hasConflict &&
-                        'cursor-not-allowed bg-red-500 text-white opacity-80 dark:bg-red-400/50',
-                    )}
-                    disabled={hasConflict}
-                  >
-                    {hasConflict ? 'Conflito' : 'Adicionar'}
-                  </Button>
-                </div>
-                <div className="flex gap-1">
-                  {classItem.schedule.map((time) => (
-                    <TimePill time={time} key={time.id} />
-                  ))}
-                </div>
-                {hasConflict && (
-                  <div className="flex items-center gap-2 text-xs text-red-600">
-                    <AlertCircle className="size-4 shrink-0" />
-                    <span>
-                      Conflita com:{' '}
-                      {conflicts.map((c) => capitalizeWords(c.name)).join(', ')}
-                    </span>
+                  <div className="flex w-full flex-wrap gap-1">
+                    {classItem.schedule.map((time) => (
+                      <TimePill time={time} key={time.id} />
+                    ))}
                   </div>
-                )}
+                  {hasConflict && (
+                    <div className="flex items-center gap-2 text-xs text-red-600">
+                      <AlertCircle className="size-4 shrink-0" />
+                      <span>
+                        Conflita com:{' '}
+                        {conflicts
+                          .map((c) => capitalizeWords(c.name))
+                          .join(', ')}
+                      </span>
+                    </div>
+                  )}
+                </div>
+
+                <Button
+                  size="sm"
+                  onClick={() => handleAddClass(classItem)}
+                  className={cn(
+                    'self-end sm:self-auto',
+                    hasConflict &&
+                      'cursor-not-allowed bg-red-500 text-white opacity-80 dark:border-red-500 dark:bg-red-400/50',
+                  )}
+                  disabled={hasConflict}
+                >
+                  {hasConflict ? (
+                    <AlertTriangle className="size-5" />
+                  ) : (
+                    <Plus className="size-5" />
+                  )}
+                </Button>
               </div>
             )
           })}

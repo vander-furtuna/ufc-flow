@@ -28,7 +28,7 @@ export default function SimulationPage({
   const { handleSelectCurriculum, selectedCourse, selectedCurriculum } =
     useCourse()
 
-  const { currentSchedule } = useSchedule()
+  const { currentSchedule, completedSubjects, scheduleClasses } = useSchedule()
 
   const { elementRef, downloadPNG } = useDownloadAsPNG()
 
@@ -61,6 +61,12 @@ export default function SimulationPage({
         <header className="bg-accent/30 border-border/50 flex h-18 w-full shrink-0 items-center justify-between rounded-lg border px-3 py-4 sm:px-4">
           <Logo className="h-full" isResponsive />
           <div className="flex items-center gap-2">
+            <div className="rounded-full border border-emerald-300/50 bg-emerald-500/20 px-2 py-0.5 text-center font-medium text-emerald-700 dark:bg-emerald-400/20 dark:text-emerald-300">
+              <span className="text-xs">
+                Concluídas: {completedSubjects.length}
+              </span>
+            </div>
+
             <Button variant="ghost" size="icon" className="flex md:hidden">
               <ArrowUpDown
                 className="text-muted-foreground size-5"
@@ -71,7 +77,7 @@ export default function SimulationPage({
           </div>
         </header>
         <article
-          className="relative grid min-h-0 w-full flex-1 flex-col gap-8 transition-all data-[state=balanced]:grid-rows-[1fr_1fr] data-[state=calendar]:grid-rows-[2fr_1fr] data-[state=subjects]:grid-rows-[1fr_2fr] md:grid-cols-[25rem_1fr] md:grid-rows-1! md:gap-4"
+          className="relative grid min-h-0 w-full flex-1 flex-col gap-8 transition-all data-[state=balanced]:grid-rows-[1fr_1fr] data-[state=calendar]:grid-rows-[2.5fr_1fr] data-[state=subjects]:grid-rows-[1fr_2.5fr] md:grid-cols-[25rem_1fr] md:grid-rows-1! md:gap-4"
           data-state={expandedMode}
         >
           <SubjectsSidebar
