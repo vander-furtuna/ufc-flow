@@ -28,6 +28,10 @@ type CourseContextType = {
   selectCurriculumBySlug: (slug: string) => void
   setSelectedSubject: (subject: Subject | null) => void
   handleSelect: (props: HandleSelectProps) => void
+  handleSelectCurriculum: (props: {
+    curriculumSlug: string
+    courseSlug: string
+  }) => void
 }
 
 type HandleSelectProps = {
@@ -113,6 +117,28 @@ export function CourseProvider({
     [selectCourseBySlug, selectCurriculumBySlug, selectedCurriculum, router],
   )
 
+  const handleSelectCurriculum = useCallback(
+    ({
+      curriculumSlug,
+      courseSlug,
+    }: {
+      curriculumSlug: string
+      courseSlug: string
+    }) => {
+      const course = courses.find((course) => course.slug === courseSlug)
+
+      const curriculum = course?.curriculumStructures.find(
+        (curriculum) => curriculum.slug === curriculumSlug,
+      )
+
+      setSelectedCourse(course ?? null)
+      setSelectedCurriculum(curriculum ?? null)
+      setSelectedSubjects(curriculum ? curriculum.subjects : [])
+      setSelectedSubject(null)
+    },
+    [courses],
+  )
+
   const filteredSubjects = useMemo(() => {
     if (!selectedCurriculum) return []
 
@@ -182,6 +208,7 @@ export function CourseProvider({
       selectCurriculumBySlug,
       setSelectedSubject,
       handleSelect,
+      handleSelectCurriculum,
     }),
     [
       courses,
@@ -195,6 +222,7 @@ export function CourseProvider({
       selectCurriculumBySlug,
       setSelectedSubject,
       handleSelect,
+      handleSelectCurriculum,
     ],
   )
 

@@ -7,12 +7,7 @@ import { ModeToggle } from './theme-toggle'
 import { CalendarFold } from 'lucide-react'
 
 export function Header() {
-  const {
-    currentSemester,
-    currentYear,
-    handleRefreshSubjectInformations,
-    isClassLoading,
-  } = useClass()
+  const { currentSemester, currentYear, isClassLoading } = useClass()
 
   return (
     <header className="flex w-full items-start justify-between">

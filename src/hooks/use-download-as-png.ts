@@ -1,12 +1,20 @@
 import { toPng } from 'html-to-image'
-import { useCallback, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
-export function useDownloadAsPNG() {
+type UseDownloadAsPNGProps = {
+  height?: number
+  width?: number
+}
+
+export function useDownloadAsPNG({
+  height,
+  width,
+}: UseDownloadAsPNGProps = {}) {
   const elementRef = useRef<HTMLDivElement>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<Error | null>(null)
 
-  const downloadPNG = useCallback((fileName: string) => {
+  const downloadPNG = (fileName: string) => {
     if (elementRef.current === null) {
       setError(new Error('Elemento de referência não encontrado.'))
       return
@@ -20,10 +28,12 @@ export function useDownloadAsPNG() {
     toPng(elementRef.current, {
       pixelRatio: 2,
       cacheBust: true,
-      height: elementRef.current.scrollHeight,
+      height: height ?? elementRef.current.scrollHeight,
+      width: width ?? elementRef.current.scrollWidth,
 
       style: {
-        height: String(elementRef.current.scrollHeight),
+        width: `${width ?? elementRef.current.scrollWidth}px`,
+        height: `${height ?? elementRef.current.scrollHeight}px`,
         overflow: 'visible',
         overflowY: 'visible',
         borderRadius: '0px',
@@ -31,7 +41,9 @@ export function useDownloadAsPNG() {
     })
       .then((dataUrl) => {
         const link = document.createElement('a')
-        link.download = fileName ? `${fileName}.png` : 'disciplina.png'
+        link.download = fileName
+          ? `${fileName}.png`
+          : `ufc-flow-img-${Date.now()}.png`
         link.href = dataUrl
         link.click()
         elementRef.current!.dataset.download = 'inactive'
@@ -41,7 +53,7 @@ export function useDownloadAsPNG() {
         setError(err)
         setIsLoading(false)
       })
-  }, [])
+  }
 
   return { elementRef, downloadPNG, isLoading, error }
 }

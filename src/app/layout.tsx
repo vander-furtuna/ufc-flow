@@ -3,6 +3,7 @@ import './globals.css'
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import localFont from 'next/font/local'
+import { DM_Mono } from 'next/font/google'
 
 import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/sonner'
@@ -39,6 +40,13 @@ const poppins = localFont({
 const clashDisplay = localFont({
   src: '../assets/fonts/clash-display/ClashDisplay-Variable.woff2',
   variable: '--font-clash-display',
+})
+
+const dmMono = DM_Mono({
+  subsets: ['latin'],
+  weight: ['300', '400', '500'],
+  variable: '--font-dm-mono',
+  display: 'swap',
 })
 
 export const viewport: Viewport = {
@@ -140,7 +148,7 @@ export default function RootLayout({
       </head>
 
       <body
-        className={`${clashDisplay.variable} ${poppins.variable} bg-background max-h-full min-h-screen font-sans antialiased`}
+        className={`${clashDisplay.variable} ${poppins.variable} ${dmMono.variable} bg-background max-h-full min-h-screen font-sans antialiased`}
       >
         <AppProvider>
           <ThemeProvider
