@@ -127,7 +127,6 @@ export function ScheduleProvider({ children }: { children: React.ReactNode }) {
   const scheduleClasses = currentSchedule?.classes || []
 
   const addClassToSchedule = (section: ClassSection) => {
-    console.log('Adding class to schedule:', section)
     const conflicts = checkTimeConflict(section, scheduleClasses)
     if (conflicts.length > 0) {
       alert(
@@ -230,8 +229,6 @@ export function ScheduleProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     init()
   }, [init])
-
-  console.log('Schedules:', schedules)
 
   const value = {
     schedules,
