@@ -27,22 +27,26 @@ export function ModeToggle() {
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
-        className="border-border bg-slate-100/50 backdrop-blur-md dark:bg-slate-800/50"
+        className="border-border bg-accent/50 p-0 backdrop-blur-md"
       >
-        <DropdownMenuLabel>Tema</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => setTheme('light')}>
-          <Sun className="mr-2 size-5" />
-          <span>Claro</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme('dark')}>
-          <Moon className="mr-2 size-5" />
-          <span>Escuro</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme('system')}>
-          <SunMoon className="mr-2 size-5" />
-          Auto
-        </DropdownMenuItem>
+        <DropdownMenuLabel className="bg-accent font-clash text-base">
+          Tema
+        </DropdownMenuLabel>
+        <DropdownMenuSeparator className="m-0 p-0" />
+        <div className="flex flex-col gap-1 px-1 py-2">
+          <DropdownMenuItem onClick={() => setTheme('light')}>
+            <Sun className="mr-2 size-5" />
+            <span>Claro</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme('dark')}>
+            <Moon className="mr-2 size-5" />
+            <span>Escuro</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme('system')}>
+            <SunMoon className="mr-2 size-5" />
+            Auto
+          </DropdownMenuItem>
+        </div>
       </DropdownMenuContent>
     </DropdownMenu>
   )
