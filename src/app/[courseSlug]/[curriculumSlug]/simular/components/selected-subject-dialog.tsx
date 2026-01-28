@@ -20,12 +20,14 @@ import { cn } from '@/lib/utils'
 type SelectedSubjectDialogProps = ComponentProps<typeof Dialog> & {
   subject: Subject
   scheduleInfo: SubjectGroup
+  missingPreRequisites?: string[]
 }
 
 export function SelectedSubjectDialog({
   children,
   subject,
   scheduleInfo,
+  missingPreRequisites = [],
   ...props
 }: SelectedSubjectDialogProps) {
   const { addClassToSchedule, scheduleClasses } = useSchedule()
@@ -49,6 +51,15 @@ export function SelectedSubjectDialog({
         </DialogHeader>
 
         <div className="flex flex-col gap-2 px-3 pb-4 sm:px-5">
+          {missingPreRequisites.length > 0 && (
+            <div className="flex w-full items-center gap-2 rounded-md border border-amber-300 bg-amber-500/20 px-4 py-3 text-amber-700 dark:border-amber-400/50 dark:bg-amber-400/20 dark:text-amber-300">
+              <AlertCircle className="size-5 shrink-0" />
+              <span className="text-sm">
+                Esta disciplina possui pré-requisitos não completos. Falta:{' '}
+                {missingPreRequisites.join(', ')}
+              </span>
+            </div>
+          )}
           {scheduleInfo?.classes.map((classItem) => {
             const conflicts = checkTimeConflict(classItem, scheduleClasses)
             const hasConflict = conflicts.length > 0

@@ -115,7 +115,7 @@ function SubjectItem({
       {...props}
       id={cardId}
       className={cn(
-        'bg-accent/70 border-border/50 group hover:border-border text-foreground/90 hover:bg-accent/90 relative flex w-full cursor-pointer items-start justify-between gap-2 overflow-hidden rounded-md border px-3 py-3 transition-all duration-300 aria-disabled:opacity-70',
+        'bg-accent/70 border-border/50 group hover:border-border text-foreground/90 hover:bg-accent/90 relative flex w-full cursor-pointer items-start justify-between gap-2 overflow-hidden rounded-md border px-3 py-3 transition-all duration-300 aria-disabled:opacity-80',
         isCompleted &&
           'border-emerald-300 bg-emerald-300/20 hover:border-emerald-400 hover:bg-emerald-300/30 dark:border-emerald-400/50 dark:bg-emerald-400/30 hover:dark:border-emerald-400 hover:dark:bg-emerald-400/40',
         isScheduled &&
@@ -124,7 +124,6 @@ function SubjectItem({
           scheduledClass?.color &&
           cardContainerVariants({ color: scheduledClass.color }),
       )}
-      aria-disabled={isLocked}
     >
       <Glow
         colors={glowColor}
@@ -134,11 +133,15 @@ function SubjectItem({
         style={{ background: subjectColor }}
         className="absolute top-0 left-0 z-10 h-full w-1"
       />
-      <SelectedSubjectDialog subject={subject} scheduleInfo={scheduleInfo!}>
+      <SelectedSubjectDialog
+        subject={subject}
+        scheduleInfo={scheduleInfo!}
+        missingPreRequisites={missingPreRequisites}
+      >
         <button
           className="flex h-full w-full flex-col items-start justify-between gap-1"
           type="button"
-          disabled={isLocked || !hasClasses || isScheduled || isCompleted}
+          disabled={!hasClasses || isScheduled || isCompleted}
         >
           <div className="relative z-10 flex items-center justify-start gap-2">
             <span className="text-foreground/90 font-mono text-xs">
@@ -211,8 +214,12 @@ export function SubjectsSidebar({
 
     const subjects = selectedCurriculum?.subjects.filter((subject) => {
       const normalizedName = normalizeWords(subject.name.toLowerCase())
+      const normalizedCode = normalizeWords(subject.code.toLowerCase())
 
-      return normalizedName.includes(normalizedQueryLower)
+      return (
+        normalizedName.includes(normalizedQueryLower) ||
+        normalizedCode.includes(normalizedQueryLower)
+      )
     })
 
     subjects?.forEach((sub) => {
@@ -292,7 +299,7 @@ export function SubjectsSidebar({
             <input
               type="text"
               className="h-full w-full bg-transparent text-sm outline-none"
-              placeholder="Pesquisar disciplina..."
+              placeholder="Pesquisar por nome ou código..."
               value={searchFilter}
               onChange={(e) => setSearchFilter(e.target.value)}
             />
