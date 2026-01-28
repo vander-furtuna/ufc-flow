@@ -3,6 +3,7 @@
 import {
   Bolt,
   BrushCleaning,
+  CalendarDays,
   ListFilter,
   RotateCcw,
   Search,
@@ -15,6 +16,8 @@ import { Glow } from './glow'
 import { Filters } from './filter/filters'
 import { Tools } from './tools/tools'
 import { useTools } from '@/contexts/tools'
+import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 
 type ToolBarProps = {
   children: ReactNode
@@ -34,6 +37,8 @@ function ToolBar({ children }: ToolBarProps) {
 }
 
 export function SearchBar() {
+  const pathname = usePathname()
+
   const { resetTools } = useTools()
   const { isFiltersActive, clearAllFilters, queryFilter, changeQueryFilter } =
     useFilter()
@@ -115,7 +120,7 @@ export function SearchBar() {
                   ? 'active'
                   : 'default'
               }
-              className="text-muted-foreground data-[state=active]:text-accent-foreground size-6"
+              className="text-accent-foreground/80 data-[state=active]:text-accent-foreground size-6"
             />
           </button>
 
@@ -125,14 +130,20 @@ export function SearchBar() {
             colors="#22d3ee"
           />
         </div>
-
-        <button
-          className="border-border bg-accent/70 group/tools relative flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-full border shadow-lg backdrop-blur-md transition-all"
-          onClick={() => handleSelectMode('config')}
-          data-state={optionsMode === 'config' ? 'active' : 'default'}
-        >
-          <Bolt className="text-muted-foreground group-data-[state=active]/tools:text-accent-foreground size-6 transition-all duration-300 group-data-[state=active]/tools:rotate-30" />
-        </button>
+        <div className="border-border bg-accent/70 flex w-fit shrink-0 items-center justify-center overflow-hidden rounded-full border shadow-lg backdrop-blur-md">
+          <button
+            className="group/tools relative flex h-12 shrink-0 items-center justify-center pr-2 pl-3 transition-all"
+            onClick={() => handleSelectMode('config')}
+            data-state={optionsMode === 'config' ? 'active' : 'default'}
+          >
+            <Bolt className="text-accent-foreground/80 group-data-[state=active]/tools:text-accent-foreground size-6 transition-all duration-300 group-data-[state=active]/tools:rotate-30" />
+          </button>
+          <Link href={`${pathname}/simular`}>
+            <button className="relative flex h-12 shrink-0 items-center justify-center pr-3 pl-2 transition-all">
+              <CalendarDays className="text-accent-foreground/80 size-6 transition-all duration-300" />
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   )

@@ -79,6 +79,13 @@ export const TOUR_STEPS: TourStep[] = [
       'Para baixar a agenda atual, clique no botão de download. Você poderá salvar sua simulação como uma imagem PNG para consultar quando quiser.',
     position: 'bottom',
   },
+  {
+    targetId: 'tour-return',
+    title: 'Voltar à Página do Curso',
+    content:
+      'Para voltar à página do curso, clique no logo do UFC Flow. Isso permitirá que você navegue facilmente entre a simulação e as informações do curso.',
+    position: 'bottom',
+  },
 ]
 
 export function TutorialOverlay({
@@ -245,7 +252,7 @@ export function TutorialOverlay({
 
       {/* Tooltip Card */}
       <div
-        className="animate-in fade-in slide-in-from-bottom-4 bg-background/60 flex w-[calc(100vw-32px)] max-w-87.5 flex-col space-y-4 overflow-hidden rounded-lg border shadow-2xl backdrop-blur-lg duration-300 md:w-87.5"
+        className="animate-in fade-in slide-in-from-bottom-4 bg-background dark:bg-background/60 flex w-[calc(100vw-32px)] max-w-87.5 flex-col space-y-4 overflow-hidden rounded-lg border shadow-2xl backdrop-blur-lg duration-300 md:w-87.5"
         style={getTooltipStyle()}
       >
         <div className="bg-accent/90 flex items-center justify-between px-4 py-3">

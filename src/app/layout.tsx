@@ -92,7 +92,7 @@ export const metadata: Metadata = {
     description:
       'Explore as disciplinas de seu curso na Universidade Federal do Ceará com UFC Flow',
     images: [
-      { url: 'https://flow.ufc.br/banner.png', width: 1440, height: 1024 },
+      { url: 'https://flow.ufc.br/banner.jpg', width: 1440, height: 1024 },
     ],
     siteName: 'UFC Flow',
     url: 'https://flow.ufc.br',
@@ -104,7 +104,7 @@ export const metadata: Metadata = {
     title: 'UFC Flow | Explore as disciplinas de seu curso',
     description:
       'Explore as disciplinas de seu curso na Universidade Federal do Ceará com UFC Flow',
-    images: ['https://flow.ufc.br/banner.png'],
+    images: ['https://flow.ufc.br/banner.jpg'],
   },
   robots: 'index, follow',
 }
