@@ -15,6 +15,7 @@ import {
   getTutorialShown,
   setTutorialShown,
 } from '@/storage/local-storage/tutorial'
+import Link from 'next/link'
 
 export default function SimulationPage({
   params,
@@ -90,7 +91,9 @@ export default function SimulationPage({
           />
         )}
         <header className="bg-accent/30 border-border/50 flex h-18 w-full shrink-0 items-center justify-between rounded-lg border px-3 py-4 sm:px-4">
-          <Logo className="h-full" isResponsive />
+          <Link href="/" aria-label="Home">
+            <Logo className="h-10" isResponsive id="tour-return" />
+          </Link>
           <div className="flex items-center gap-2">
             <div className="rounded-full border border-emerald-300/50 bg-emerald-500/20 px-2 py-0.5 text-center font-medium text-emerald-700 dark:bg-emerald-400/20 dark:text-emerald-300">
               <span className="text-xs">
