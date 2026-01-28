@@ -42,10 +42,6 @@ export default function SimulationPage({
 
   const { elementRef, downloadPNG } = useDownloadAsPNG()
 
-  const firstSubjectElement = document.getElementById(
-    'tour-subject-card',
-  ) as HTMLDivElement
-
   useEffect(() => {
     if (!selectedCurriculum && !selectedCourse) {
       handleSelectCurriculum({
@@ -73,6 +69,10 @@ export default function SimulationPage({
     setTourStep(0)
     setTutorialShown()
     setWasTutorialShown(true)
+
+    const firstSubjectElement = document.getElementById(
+      'tour-subject-card',
+    ) as HTMLDivElement
 
     if (firstSubjectElement) {
       firstSubjectElement.scrollIntoView({
