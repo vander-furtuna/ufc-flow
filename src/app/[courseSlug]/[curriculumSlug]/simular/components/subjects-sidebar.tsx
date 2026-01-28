@@ -177,7 +177,6 @@ function SubjectItem({
           id={checkId}
           onCheckedChange={() => toggleCompletedSubject(subject.code)}
           checked={isCompleted}
-          disabled={!isCompleted && isLocked}
         />
         {isScheduled && (
           <button
