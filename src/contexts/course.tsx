@@ -135,6 +135,7 @@ export function CourseProvider({
       setSelectedCurriculum(curriculum ?? null)
       setSelectedSubjects(curriculum ? curriculum.subjects : [])
       setSelectedSubject(null)
+      setIsCourseLoading(false)
     },
     [courses],
   )
