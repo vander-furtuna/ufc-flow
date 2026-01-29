@@ -35,11 +35,14 @@ const poppins = localFont({
   ],
   variable: '--font-poppins',
   display: 'swap',
+  preload: false,
 })
 
 const clashDisplay = localFont({
   src: '../assets/fonts/clash-display/ClashDisplay-Variable.woff2',
   variable: '--font-clash-display',
+  display: 'swap',
+  preload: false,
 })
 
 const dmMono = DM_Mono({
@@ -47,6 +50,7 @@ const dmMono = DM_Mono({
   weight: ['300', '400', '500'],
   variable: '--font-dm-mono',
   display: 'swap',
+  preload: false,
 })
 
 export const viewport: Viewport = {

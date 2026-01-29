@@ -30,7 +30,7 @@
     "domhandler": "^5.0.3",
     "fetch-cookie": "^3.2.0",
     "got": "^14.6.6",
-    "html-to-image": "^1.11.13",
+    "html-to-image": "1.11.11",
     "idb": "^8.0.3",
     "lucide-react": "^0.563.0",
     "motion": "^12.29.0",

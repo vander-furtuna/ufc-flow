@@ -14,7 +14,7 @@ export function useDownloadAsPNG({
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<Error | null>(null)
 
-  const downloadPNG = (fileName: string) => {
+  const downloadPNG = async (fileName: string) => {
     if (elementRef.current === null) {
       setError(new Error('Elemento de referência não encontrado.'))
       return
@@ -50,6 +50,7 @@ export function useDownloadAsPNG({
         setIsLoading(false)
       })
       .catch((err) => {
+        console.error('Erro ao baixar como PNG:', err)
         setError(err)
         setIsLoading(false)
       })
