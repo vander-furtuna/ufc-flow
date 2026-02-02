@@ -14,7 +14,7 @@ import { normalizeWords } from '@/utils/normalize-words'
 
 // Configuração do banco
 const DB_NAME = 'UFCFlowDB'
-const DB_VERSION = 4 // Incrementado para incluir academic_calendar
+const DB_VERSION = 5 // Incrementado para incluir academic_calendar
 const STORE_NAME = 'schedules'
 const STORE_USER_AGENDAS = 'user_schedules'
 const STORE_USER_PREFERENCES = 'user_preferences'
