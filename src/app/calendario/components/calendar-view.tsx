@@ -6,11 +6,25 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import CalendarDayDialog from './calendar-day-dialog'
 
+const getUtcParts = (isoDateString: string) => {
+  const d = new Date(isoDateString)
+  return {
+    year: d.getUTCFullYear(),
+    month: d.getUTCMonth(),
+    day: d.getUTCDate(),
+  }
+}
+
+const toUtcIsoDate = (year: number, monthIndex: number, day: number) => {
+  return new Date(Date.UTC(year, monthIndex, day)).toISOString()
+}
+
 export function CalendarView() {
   const { events } = useCalendar()
 
   const [currentDate, setCurrentDate] = useState(new Date())
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null)
+  const [selectedDay, setSelectedDay] = useState<number | null>(null)
+  const [selectedDateIso, setSelectedDateIso] = useState<string>('')
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const daysOfWeek = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb']
@@ -38,23 +52,21 @@ export function CalendarView() {
   const monthEvents = useMemo(() => {
     return events.filter(
       (e) =>
-        new Date(e.date).getMonth() === currentDate.getMonth() &&
-        new Date(e.date).getFullYear() === currentDate.getFullYear(),
+        getUtcParts(e.date).month === currentDate.getMonth() &&
+        getUtcParts(e.date).year === currentDate.getFullYear(),
     )
   }, [events, currentDate])
 
   const handleDayClick = (day: number) => {
-    const clickedDate = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth(),
-      day,
+    setSelectedDay(day)
+    setSelectedDateIso(
+      toUtcIsoDate(currentDate.getFullYear(), currentDate.getMonth(), day),
     )
-    setSelectedDate(clickedDate)
     setIsModalOpen(true)
   }
 
   const getEventsForDay = (day: number) => {
-    return monthEvents.filter((e) => new Date(e.date).getDate() === day)
+    return monthEvents.filter((e) => getUtcParts(e.date).day === day)
   }
 
   const renderCalendarDays = () => {
@@ -190,8 +202,8 @@ export function CalendarView() {
       </div>
 
       <CalendarDayDialog
-        events={selectedDate ? getEventsForDay(selectedDate.getDate()) : []}
-        date={selectedDate ? selectedDate.toISOString() : ''}
+        events={selectedDay ? getEventsForDay(selectedDay) : []}
+        date={selectedDateIso}
         open={isModalOpen}
         onOpenChange={setIsModalOpen}
       />

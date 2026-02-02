@@ -25,12 +25,15 @@ export default function CalendarDayDialog({
   events,
   ...props
 }: CalendarDayDialogProps) {
-  const formatedDate = new Date(date).toLocaleDateString('pt-BR', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  })
+  const formatedDate = date
+    ? new Date(date).toLocaleDateString('pt-BR', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        timeZone: 'UTC',
+      })
+    : ''
 
   return (
     <Dialog {...props}>

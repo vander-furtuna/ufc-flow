@@ -29,8 +29,12 @@ export function CalendarProvider({ children }: { children: React.ReactNode }) {
   const events = monthGroups?.flatMap((group) => group.events) ?? []
 
   const upcomingEvents = useMemo(() => {
-    const today = new Date()
-    today.setHours(0, 0, 0, 0)
+    const now = new Date()
+    const todayUtcMs = Date.UTC(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate(),
+    )
 
     const events = monthGroups?.flatMap((group) => group.events)
 
@@ -40,9 +44,9 @@ export function CalendarProvider({ children }: { children: React.ReactNode }) {
       .filter((event) => {
         // Para eventos de intervalo, pegamos apenas o início para não repetir na sidebar
         if (event.isRange && !event.isRangeStart) return false
-        return new Date(event.date) >= today
+        return Date.parse(event.date) >= todayUtcMs
       })
-      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+      .sort((a, b) => Date.parse(a.date) - Date.parse(b.date))
       .slice(0, 3)
   }, [monthGroups])
 

@@ -168,6 +168,7 @@ export function ListView({ search, showImportantEvents }: ListViewProps) {
                         {new Date(event.date).toLocaleDateString('pt-BR', {
                           day: '2-digit',
                           month: 'short',
+                          timeZone: 'UTC',
                         })}
                       </span>
                       {event.isRange && (
