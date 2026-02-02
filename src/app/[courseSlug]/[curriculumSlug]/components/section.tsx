@@ -56,7 +56,7 @@ export function CurriculumSection({ params }: CurriculumProps) {
 
   return (
     <>
-      <section className="@container flex h-full min-h-dvh w-full max-w-5xl flex-col items-center justify-start gap-12 pt-12 pb-24">
+      <section className="@container flex h-full min-h-dvh w-full max-w-5xl flex-col items-center justify-start gap-8 pt-12 pb-24">
         <Header />
         <CurriculumHeader />
         {isCourseLoading ? <SubjectDiagramSkeleton /> : <SubjectDiagram />}

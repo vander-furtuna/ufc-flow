@@ -3,7 +3,7 @@
 import {
   Bolt,
   BrushCleaning,
-  CalendarDays,
+  CalendarClock,
   ListFilter,
   RotateCcw,
   Search,
@@ -140,7 +140,7 @@ export function SearchBar() {
           </button>
           <Link href={`${pathname}/simular`}>
             <button className="relative flex h-12 shrink-0 items-center justify-center pr-3 pl-2 transition-all">
-              <CalendarDays className="text-accent-foreground/80 size-6 transition-all duration-300" />
+              <CalendarClock className="text-accent-foreground/80 size-6 transition-all duration-300" />
             </button>
           </Link>
         </div>

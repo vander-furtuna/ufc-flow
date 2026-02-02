@@ -3,15 +3,24 @@ import { IDBPDatabase, openDB } from 'idb'
 import { useCallback } from 'react'
 
 import { getClassesInformationsService } from '@/services/scrapping/get-classes-informations'
+// Supondo que você tenha um serviço para o calendário (exemplo)
+// Caso seja um fetch direto, você pode adaptar dentro do useCalendarManager
 import type { StorageClass, SubjectGroup } from '@/types/class'
 import type { Schedule } from '@/types/schedule'
+// Importe o tipo MonthGroup definido anteriormente
+import type { MonthGroup } from '@/types/calendar'
+import { getCalendarService } from '@/services/scrapping/get-calendar-service'
+import { normalizeWords } from '@/utils/normalize-words'
 
 // Configuração do banco
 const DB_NAME = 'UFCFlowDB'
-const DB_VERSION = 3 // Incrementado para incluir courseId
+const DB_VERSION = 4 // Incrementado para incluir academic_calendar
 const STORE_NAME = 'schedules'
 const STORE_USER_AGENDAS = 'user_schedules'
 const STORE_USER_PREFERENCES = 'user_preferences'
+const STORE_CALENDAR = 'academic_calendar' // Nova Store
+
+const importantTerms = ['matricula', 'ira']
 
 // Chave primária composta: courseId-year-semester
 const generateKey = (courseId: string, year: number, semester: number) =>
@@ -66,6 +75,12 @@ class IndexedDBStorage {
 
         if (!db.objectStoreNames.contains(STORE_USER_PREFERENCES)) {
           db.createObjectStore(STORE_USER_PREFERENCES, { keyPath: 'key' })
+        }
+
+        // --- Nova Store de Calendário (Versão 4) ---
+        if (!db.objectStoreNames.contains(STORE_CALENDAR)) {
+          // A chave será o ano (ex: 2026)
+          db.createObjectStore(STORE_CALENDAR, { keyPath: 'year' })
         }
       },
     })
@@ -274,6 +289,27 @@ class IndexedDBStorage {
     const course = scheduleData.classGroup.find((c) => c.code === courseCode)
     return course || null
   }
+
+  // --- NOVAS FUNÇÕES DO CALENDÁRIO ---
+
+  async saveCalendar(year: number, data: MonthGroup[]): Promise<void> {
+    await this.init()
+    if (!this.db) throw new Error('Database not initialized')
+
+    await this.db.put(STORE_CALENDAR, {
+      year,
+      data,
+      updatedAt: new Date().toISOString(),
+    })
+  }
+
+  async getCalendar(year: number): Promise<MonthGroup[] | null> {
+    await this.init()
+    if (!this.db) throw new Error('Database not initialized')
+
+    const record = await this.db.get(STORE_CALENDAR, year)
+    return record?.data || null
+  }
 }
 
 // Instância singleton
@@ -429,6 +465,24 @@ export const useScheduleStorage = () => {
     [],
   )
 
+  // --- HOOKS DE ACESSO DIRETO AO CALENDÁRIO ---
+  const saveCalendar = useCallback(async (year: number, data: MonthGroup[]) => {
+    try {
+      await storage.saveCalendar(year, data)
+    } catch (error) {
+      console.error('Erro ao salvar calendário:', error)
+    }
+  }, [])
+
+  const getCalendar = useCallback(async (year: number) => {
+    try {
+      return await storage.getCalendar(year)
+    } catch (error) {
+      console.error('Erro ao buscar calendário:', error)
+      return null
+    }
+  }, [])
+
   return {
     saveScheduleData,
     getScheduleData,
@@ -440,6 +494,8 @@ export const useScheduleStorage = () => {
     removeAllCourseData,
     clearAllData,
     getLastUpdateTime,
+    saveCalendar,
+    getCalendar,
   }
 }
 
@@ -636,6 +692,71 @@ export function useScheduleManager() {
     refreshCourseData,
     needsUpdate,
     hasScheduleData,
+  }
+}
+
+// --- NOVO HOOK GERENCIADOR DO CALENDÁRIO ---
+export function useCalendarManager() {
+  const { getCalendar, saveCalendar } = useScheduleStorage()
+
+  const fetchCalendar = useCallback(
+    async (year: number, forceRefresh: boolean = false) => {
+      try {
+        // 1. Tenta buscar do IndexedDB
+        if (!forceRefresh) {
+          const cached = await getCalendar(year)
+          if (cached) {
+            const transformedCached = cached.map((monthGroup) => {
+              // Ordena os eventos dentro do mês por data
+              const transformedEvents = monthGroup.events.map((event) => {
+                const normalizedDescription = normalizeWords(event.description)
+                const isImportant = importantTerms.some((term) =>
+                  normalizedDescription.includes(term),
+                )
+                return { ...event, isImportant }
+              })
+              return { ...monthGroup, events: transformedEvents }
+            })
+
+            return transformedCached
+          }
+        }
+
+        // 2. Se não existir ou for refresh forçado, chama a API
+        // Substitua pela chamada real do seu serviço/fetch
+        const data = await getCalendarService({ year })
+
+        // 3. Salva no banco
+        await saveCalendar(year, data)
+
+        const transformedData = data.map((monthGroup) => {
+          // Ordena os eventos dentro do mês por data
+          const transformedEvents = monthGroup.events.map((event) => {
+            const normalizedDescription = normalizeWords(event.description)
+            const isImportant = importantTerms.some((term) =>
+              normalizedDescription.includes(term),
+            )
+            return { ...event, isImportant }
+          })
+          return { ...monthGroup, events: transformedEvents }
+        })
+
+        return transformedData
+      } catch (error) {
+        console.error('Erro ao buscar calendário:', error)
+
+        // Em caso de falha na API, tenta retornar o cache antigo se existir
+        const cached = await getCalendar(year)
+        if (cached) return cached
+
+        throw error
+      }
+    },
+    [getCalendar, saveCalendar],
+  )
+
+  return {
+    fetchCalendar,
   }
 }
 

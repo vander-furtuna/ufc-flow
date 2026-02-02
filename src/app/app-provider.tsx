@@ -9,6 +9,7 @@ import { FilterProvider } from '@/contexts/filter'
 import { queryClient } from '@/lib/query-client'
 import { ToolsProvider } from '@/contexts/tools'
 import { ScheduleProvider } from '@/contexts/schedule'
+import { CalendarProvider } from '@/contexts/calendar'
 
 export function AppProvider({ children }: { children: ReactNode }) {
   return (
@@ -17,7 +18,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
         <FilterProvider>
           <CourseProvider>
             <ClassProvider>
-              <ScheduleProvider>{children}</ScheduleProvider>
+              <CalendarProvider>
+                <ScheduleProvider>{children}</ScheduleProvider>
+              </CalendarProvider>
             </ClassProvider>
           </CourseProvider>
         </FilterProvider>
