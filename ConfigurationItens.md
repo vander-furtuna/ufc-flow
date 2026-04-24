@@ -8,7 +8,7 @@ Versão: 1.0.0
 
 Repositório: https://github.com/vander-furtuna/ufc-flow
 
-Branch: feat/management
+Branch: master
 
 Commit ID: 47aa401
 
@@ -26,7 +26,7 @@ Versão: 1.0.0
 
 Repositório: https://github.com/vander-furtuna/ufc-flow
 
-Branch: feat/management
+Branch: master
 
 Commit ID: 47aa401
 
@@ -44,7 +44,7 @@ Versão: 1.0.0
 
 Repositório: https://github.com/vander-furtuna/ufc-flow
 
-Branch: feat/management
+Branch: master
 
 Commit ID: 47aa401
 
@@ -62,7 +62,7 @@ Versão: 1.0.0
 
 Repositório: https://github.com/vander-furtuna/ufc-flow
 
-Branch: feat/management
+Branch: master
 
 Commit ID: 47aa401
 
@@ -80,7 +80,7 @@ Versão: 1.0.0
 
 Repositório: https://github.com/vander-furtuna/ufc-flow
 
-Branch: feat/management
+Branch: master
 
 Commit ID: 47aa401
 
@@ -98,7 +98,7 @@ Versão: 1.0.0
 
 Repositório: https://github.com/vander-furtuna/ufc-flow
 
-Branch: feat/management
+Branch: master
 
 Commit ID: 47aa401
 
@@ -116,7 +116,7 @@ Versão: 1.0.0
 
 Repositório: https://github.com/vander-furtuna/ufc-flow
 
-Branch: feat/management
+Branch: master
 
 Commit ID: 47aa401
 
@@ -134,7 +134,7 @@ Versão: 1.0.0
 
 Repositório: https://github.com/vander-furtuna/ufc-flow
 
-Branch: feat/management
+Branch: master
 
 Commit ID: 47aa401
 
@@ -152,7 +152,7 @@ Versão: 1.0.0
 
 Repositório: https://github.com/vander-furtuna/ufc-flow
 
-Branch: feat/management
+Branch: master
 
 Commit ID: 47aa401
 
@@ -170,7 +170,7 @@ Versão: 1.0.0
 
 Repositório: https://github.com/vander-furtuna/ufc-flow
 
-Branch: feat/management
+Branch: master
 
 Commit ID: 47aa401
 
@@ -188,7 +188,7 @@ Versão: 1.0.0
 
 Repositório: https://github.com/vander-furtuna/ufc-flow
 
-Branch: feat/management
+Branch: master
 
 Commit ID: 47aa401
 
@@ -206,7 +206,7 @@ Versão: 1.0.0
 
 Repositório: https://github.com/vander-furtuna/ufc-flow
 
-Branch: feat/management
+Branch: master
 
 Commit ID: 47aa401
 
@@ -224,7 +224,7 @@ Versão: 1.0.0
 
 Repositório: https://github.com/vander-furtuna/ufc-flow
 
-Branch: feat/management
+Branch: master
 
 Commit ID: 47aa401
 
@@ -242,7 +242,7 @@ Versão: 1.0.0
 
 Repositório: https://github.com/vander-furtuna/ufc-flow
 
-Branch: feat/management
+Branch: master
 
 Commit ID: 47aa401
 
@@ -260,7 +260,7 @@ Versão: 1.0.0
 
 Repositório: https://github.com/vander-furtuna/ufc-flow
 
-Branch: feat/management
+Branch: master
 
 Commit ID: 47aa401
 
@@ -278,7 +278,7 @@ Versão: 1.0.0
 
 Repositório: https://github.com/vander-furtuna/ufc-flow
 
-Branch: feat/management
+Branch: master
 
 Commit ID: 47aa401
 
@@ -296,7 +296,7 @@ Versão: 1.0.0
 
 Repositório: https://github.com/vander-furtuna/ufc-flow
 
-Branch: feat/management
+Branch: master
 
 Commit ID: 47aa401
 
@@ -314,7 +314,7 @@ Versão: 1.0.0
 
 Repositório: https://github.com/vander-furtuna/ufc-flow
 
-Branch: feat/management
+Branch: master
 
 Commit ID: 47aa401
 
@@ -332,7 +332,7 @@ Versão: 1.0.0
 
 Repositório: https://github.com/vander-furtuna/ufc-flow
 
-Branch: feat/management
+Branch: master
 
 Commit ID: 47aa401
 
@@ -350,7 +350,7 @@ Versão: 1.0.0
 
 Repositório: https://github.com/vander-furtuna/ufc-flow
 
-Branch: feat/management
+Branch: master
 
 Commit ID: 47aa401
 
@@ -368,7 +368,7 @@ Versão: 1.0.0
 
 Repositório: https://github.com/vander-furtuna/ufc-flow
 
-Branch: feat/management
+Branch: master
 
 Commit ID: 47aa401
 
