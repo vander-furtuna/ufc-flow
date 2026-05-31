@@ -1,14 +1,14 @@
 @import 'tailwindcss';
-@import "tw-animate-css";
+@import 'tw-animate-css';
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
   :root {
-    --radius: 0.625rem;
+    --radius: 1rem;
     --background: oklch(1 0 0);
     --foreground: oklch(0.129 0.042 264.695);
-    --card: oklch(1 0 0);
+    --card: oklch(96.8% 0.007 247.896);
     --card-foreground: oklch(0.129 0.042 264.695);
     --popover: oklch(1 0 0);
     --popover-foreground: oklch(0.129 0.042 264.695);
@@ -42,9 +42,9 @@
   }
 
   .dark {
-    --background: oklch(0.129 0.042 264.695);
+    --background: oklch(12.9% 0.042 264.695);
     --foreground: oklch(0.984 0.003 247.858);
-    --card: oklch(0.208 0.042 265.755);
+    --card: oklch(27.9% 0.041 260.031);
     --card-foreground: oklch(0.984 0.003 247.858);
     --popover: oklch(0.208 0.042 265.755);
     --popover-foreground: oklch(0.984 0.003 247.858);
@@ -101,7 +101,7 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-poppins);
+  --font-sans: var(--font-geist);
   --font-space: var(--font-space-grotesk);
   --font-clash: var(--font-clash-display);
   --font-mono: var(--font-dm-mono), monospace;
@@ -142,7 +142,7 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
-  --ease-smooth: cubic-bezier(0.075, 0.82, 0.165, 1);
+  --ease-smooth: cubic-bezier(0.32, 0.72, 0, 1);
 
   --animate-border: border 4s linear infinite;
   --animate-slow-spin: slow-spin 3s linear infinite;
@@ -179,6 +179,7 @@
   color utility to any element that depends on these defaults.
 */
 
+
 @property --border-angle {
   inherits: false;
   initial-value: 0deg;
@@ -204,7 +205,9 @@
 
 @utility transparent-mask-left {
   mask-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgb(0, 0, 0) 100%);
-  -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgb(0, 0, 0) 100%);
+  -webkit-mask-image: linear-gradient(to right,
+      rgba(0, 0, 0, 0),
+      rgb(0, 0, 0) 100%);
 }
 
 @utility calendar-scrollbar {
@@ -224,6 +227,6 @@
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background-color: var(--color-accent  );
+    background-color: var(--color-accent);
   }
 }

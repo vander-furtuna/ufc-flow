@@ -3,7 +3,7 @@ import './globals.css'
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import localFont from 'next/font/local'
-import { DM_Mono } from 'next/font/google'
+import { DM_Mono, Geist, Outfit } from 'next/font/google'
 
 import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/sonner'
@@ -49,6 +49,22 @@ const dmMono = DM_Mono({
   subsets: ['latin'],
   weight: ['300', '400', '500'],
   variable: '--font-dm-mono',
+  display: 'swap',
+  preload: false,
+})
+
+const outfit = Outfit({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-outfit',
+  display: 'swap',
+  preload: false,
+})
+
+const geist = Geist({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-geist',
   display: 'swap',
   preload: false,
 })
@@ -132,7 +148,7 @@ export default function RootLayout({
           sizes="32x32"
           href="/favicon-32x32.png"
         />
-        <link rel="stylesheet" href="" />
+
         <link
           rel="icon"
           type="image/png"
@@ -153,7 +169,7 @@ export default function RootLayout({
       </head>
 
       <body
-        className={`${clashDisplay.variable} ${poppins.variable} ${dmMono.variable} bg-background max-h-full min-h-screen font-sans antialiased`}
+        className={`${clashDisplay.variable} ${poppins.variable} ${dmMono.variable} ${outfit.variable} ${geist.variable} bg-background max-h-full min-h-dvh font-sans antialiased`}
       >
         <AppProvider>
           <ThemeProvider
@@ -162,7 +178,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <main className="flex min-h-screen w-full flex-col items-center justify-start">
+            <main className="flex min-h-dvh w-full flex-col items-center justify-start">
               {children}
             </main>
             <Toaster />

@@ -17,7 +17,7 @@ export function SemesterTitle({
   return (
     <div className={cn('flex items-center gap-6', className)} {...props}>
       <Line />
-      <strong className="font-clash text-foreground/90 text-xl text-nowrap">
+      <strong className="font-clash text-foreground/90 text-2xl text-nowrap">
         {children}
       </strong>
       <Line />
