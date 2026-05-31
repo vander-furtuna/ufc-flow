@@ -49,6 +49,19 @@ export function ToolsProvider({ children }: Readonly<{ children: ReactNode }>) {
   return <toolsContext.Provider value={value}>{children}</toolsContext.Provider>
 }
 
+export function groupByAlias(groupBy: GroupBy) {
+  switch (groupBy) {
+    case 'semester':
+      return 'Semestre'
+    case 'branch':
+      return 'Vertente'
+    case 'duration':
+      return 'Duração'
+    default:
+      return ''
+  }
+}
+
 export function useTools() {
   const context = useContext(toolsContext)
 

@@ -17,10 +17,20 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from 'react'
 import { toast } from 'sonner'
 import { useCourse } from './course'
+import { useClass } from './class'
+
+const DEFAULT_YEAR = process.env.NEXT_PUBLIC_CURRENT_YEAR
+  ? parseInt(process.env.NEXT_PUBLIC_CURRENT_YEAR)
+  : new Date().getFullYear()
+
+const DEFAULT_SEMESTER = process.env.NEXT_PUBLIC_CURRENT_SEMESTER
+  ? parseInt(process.env.NEXT_PUBLIC_CURRENT_SEMESTER)
+  : 2
 
 const DISCIPLINE_COLORS: ScheduledClassColor[] = [
   'red',
@@ -56,11 +66,21 @@ export const ScheduleContext = createContext<ScheduleContextData>(
 
 export function ScheduleProvider({ children }: { children: React.ReactNode }) {
   const { selectedCurriculum } = useCourse()
+  const { currentYear, currentSemester } = useClass()
 
-  const [schedules, setSchedules] = useState<Schedule[]>([])
+  const [allSchedules, setAllSchedules] = useState<Schedule[]>([])
   const [currentSchedule, setCurrentSchedule] = useState<Schedule | null>(null)
   const [completedSubjects, setCompletedSubjects] = useState<string[]>([])
   const [isScheduleLoading, setIsScheduleLoading] = useState<boolean>(true)
+
+  const activeYear = currentYear ?? DEFAULT_YEAR
+  const activeSemester = currentSemester ?? DEFAULT_SEMESTER
+
+  const schedules = useMemo(() => {
+    return allSchedules.filter(
+      (s) => s.year === activeYear && s.semester === activeSemester,
+    )
+  }, [allSchedules, activeYear, activeSemester])
 
   const toggleCompletedSubject = async (subjectCode: string) => {
     const isNowCompleted = !completedSubjects.includes(subjectCode)
@@ -89,20 +109,21 @@ export function ScheduleProvider({ children }: { children: React.ReactNode }) {
     await saveCompletedSubjects(newSubjects)
   }
 
-  const createSchedule = async (
-    name: string = `Agenda ${schedules.length + 1}`,
-  ) => {
+  const createSchedule = async (name?: string) => {
+    const scheduleName = name || `Agenda ${schedules.length + 1}`
     const newSchedule: Schedule = {
       id: crypto.randomUUID(),
-      name,
+      name: scheduleName,
       courseId: selectedCurriculum?.id || 'unknown',
+      year: activeYear,
+      semester: activeSemester,
       createdAt: Date.now(),
       updatedAt: Date.now(),
       classes: [],
     }
 
     await saveSchedule(newSchedule)
-    setSchedules((prev) => [...prev, newSchedule])
+    setAllSchedules((prev) => [...prev, newSchedule])
     setCurrentSchedule(newSchedule)
   }
 
@@ -117,7 +138,7 @@ export function ScheduleProvider({ children }: { children: React.ReactNode }) {
       classes: newClassses,
       updatedAt: Date.now(),
     }
-    setSchedules((prev) =>
+    setAllSchedules((prev) =>
       prev.map((s) => (s.id === updatedSchedule.id ? updatedSchedule : s)),
     )
     setCurrentSchedule(updatedSchedule)
@@ -164,11 +185,14 @@ export function ScheduleProvider({ children }: { children: React.ReactNode }) {
     }
 
     await dbDeleteSchedule(id)
-    const remaining = schedules.filter((s) => s.id !== id)
-    setSchedules(remaining)
+    const remainingAll = allSchedules.filter((s) => s.id !== id)
+    setAllSchedules(remainingAll)
 
     if (currentSchedule?.id === id) {
-      setCurrentSchedule(remaining[0])
+      const remainingFiltered = remainingAll.filter(
+        (s) => s.year === activeYear && s.semester === activeSemester,
+      )
+      setCurrentSchedule(remainingFiltered[0] || null)
     }
   }
 
@@ -193,12 +217,24 @@ export function ScheduleProvider({ children }: { children: React.ReactNode }) {
         return
       }
 
-      const savedSchedules = await getSchedulesByCourse(selectedCurriculum?.id)
+      const savedSchedules = await getSchedulesByCourse(selectedCurriculum.id)
 
-      if (savedSchedules.length === 0) {
+      const normalizedSchedules = savedSchedules.map((s) => ({
+        ...s,
+        year: s.year ?? DEFAULT_YEAR,
+        semester: s.semester ?? DEFAULT_SEMESTER,
+      }))
+
+      const filtered = normalizedSchedules.filter(
+        (s) => s.year === activeYear && s.semester === activeSemester,
+      )
+
+      if (filtered.length === 0) {
         const defaultSchedule: Schedule = {
-          id: 'default',
+          id: crypto.randomUUID(),
           courseId: selectedCurriculum.id,
+          year: activeYear,
+          semester: activeSemester,
           name: 'Meu Cronograma',
           createdAt: Date.now(),
           updatedAt: Date.now(),
@@ -206,14 +242,14 @@ export function ScheduleProvider({ children }: { children: React.ReactNode }) {
         }
 
         await saveSchedule(defaultSchedule)
-        setSchedules([defaultSchedule])
+        setAllSchedules([...normalizedSchedules, defaultSchedule])
         setCurrentSchedule(defaultSchedule)
       } else {
-        const sortedSchedules = savedSchedules.sort(
+        const sortedSchedules = filtered.sort(
           (a, b) => a.updatedAt - b.updatedAt,
         )
 
-        setSchedules(sortedSchedules)
+        setAllSchedules(normalizedSchedules)
         setCurrentSchedule((prev) => {
           const stillExists = sortedSchedules.find((s) => s.id === prev?.id)
           return stillExists ? prev : sortedSchedules[0]
@@ -224,7 +260,7 @@ export function ScheduleProvider({ children }: { children: React.ReactNode }) {
     } finally {
       setIsScheduleLoading(false)
     }
-  }, [selectedCurriculum])
+  }, [selectedCurriculum, activeYear, activeSemester])
 
   useEffect(() => {
     init()

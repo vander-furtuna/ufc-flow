@@ -94,8 +94,7 @@ export function Sidebar() {
           'Código da disciplina copiado para a área de transferência',
         )
       },
-      (err) => {
-        console.error('Failed to copy the text to clipboard', err)
+      () => {
         toast.error('Não foi possível copiar o código da disciplina')
       },
     )

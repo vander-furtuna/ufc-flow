@@ -4,9 +4,7 @@ import { useClass } from '@/contexts/class'
 import SelectSemesterDialog from './dialogs/select-semester-dialog'
 import { Logo } from './logo'
 import { ModeToggle } from './theme-toggle'
-import { CalendarDays, CalendarFold } from 'lucide-react'
-import { Button } from './ui/button'
-import Link from 'next/link'
+import { CalendarFold } from 'lucide-react'
 
 export function Header() {
   const { currentSemester, currentYear, isClassLoading } = useClass()
@@ -35,11 +33,6 @@ export function Header() {
         </div>
 
         <ModeToggle />
-        <Link href="/calendario">
-          <Button variant="ghost" size="icon">
-            <CalendarDays className="text-muted-foreground size-5 transition-all duration-300" />
-          </Button>
-        </Link>
       </div>
     </header>
   )
