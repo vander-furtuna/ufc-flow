@@ -1,4 +1,3 @@
-import { useCourse } from '@/contexts/course'
 import { useSchedule } from '@/contexts/schedule'
 import { useMediaQuery } from '@/hooks/use-media-query'
 import { dayToColIndex } from '@/utils/day-to-col'
@@ -54,7 +53,6 @@ type CalendarProps = ComponentProps<'div'>
 export function Calendar({ ref, ...props }: CalendarProps) {
   const isMobile = useMediaQuery('(max-width: 768px)')
   const { scheduleClasses } = useSchedule()
-  const { selectedCurriculum } = useCourse()
 
   return (
     <section
