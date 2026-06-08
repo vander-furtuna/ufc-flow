@@ -1,0 +1,48 @@
+name: CI Pipeline - UFC Flow
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build-and-lint:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+        
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          
+      - name: Instalar pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+          run_install: false
+          
+      - name: Obter diretório de cache do pnpm
+        id: pnpm-cache
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+          
+      - name: Configurar cache do pnpm
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+            
+      - name: Instalar dependências
+        run: pnpm install
+        
+      - name: Executar Linter
+        run: pnpm lint
+        
+      - name: Compilar Projeto (Build)
+        run: pnpm build
