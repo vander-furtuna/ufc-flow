@@ -43,6 +43,9 @@ jobs:
       - name: Check Linting
         run: bun run lint
 
+      - name: Generate Types (Next.js)
+        run: bun x next typegen
+
       - name: Check Types (TypeScript)
         run: bun x tsc --noEmit
 
