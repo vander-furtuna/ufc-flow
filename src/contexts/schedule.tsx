@@ -263,6 +263,7 @@ export function ScheduleProvider({ children }: { children: React.ReactNode }) {
   }, [selectedCurriculum, activeYear, activeSemester])
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     init()
   }, [init])
 

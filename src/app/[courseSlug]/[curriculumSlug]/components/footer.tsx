@@ -28,7 +28,9 @@ export function Footer() {
         <div className="flex items-center gap-3">
           <VanderLogo className="h-12 w-fit" />
           <div className="bg-muted h-6 w-0.5" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={ufcLogo.src} alt="UFC Logo" className="h-10 w-fit" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={ecLogo.src} alt="EC Logo" className="h-8 w-fit" />
         </div>
         <div>

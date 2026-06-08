@@ -115,6 +115,7 @@ export function ClassProvider({ children }: { children: ReactNode }) {
   }, [refreshScheduleData, currentYear, currentSemester, selectedCourse])
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     handleFetchScheduleData(
       selectedCourse?.id ?? '',
       currentYear,
