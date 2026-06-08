@@ -1,12 +1,15 @@
 'use client'
 
-import { useMemo } from 'react'
+import { useMemo, type ComponentProps } from 'react'
 import { useHorizontalScrollWithOverlay } from '@/hooks/use-horizontal-scroll-with-overlay'
 import { GroupByPopup } from './popups/group-by'
 import { AvailabilityPopup } from './popups/availability'
 import { SemesterTool } from './popups/semester'
+import { cn } from '@/lib/utils'
 
-export function Tools() {
+type ToolsProps = ComponentProps<'div'>
+
+export function Tools({ className, ...rest }: ToolsProps) {
   const { scrollRef, showLeftShadow, showRightShadow } =
     useHorizontalScrollWithOverlay<HTMLDivElement>()
 
@@ -16,11 +19,15 @@ export function Tools() {
 
   return (
     <div
-      className="no-scrollbar relative z-100 flex w-full items-center gap-1.5 overflow-x-auto"
+      className={cn(
+        'no-scrollbar relative z-100 flex w-full items-center gap-1.5 overflow-x-auto',
+        className,
+      )}
       ref={scrollRef}
       style={{
         maskImage,
       }}
+      {...rest}
     >
       <SemesterTool />
       <GroupByPopup />
