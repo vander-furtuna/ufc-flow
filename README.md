@@ -8,17 +8,6 @@
 
 <p align="center">Acompanhe seu fluxo acadêmico de forma interativa, simule sua grade e visualize seus pré-requisitos na UFC.</p>
 
-<p align="center">
-  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/vander-furtuna/ufc-flow?color=%2322d3ee">
-  
-  <a href="https://github.com/vander-furtuna/ufc-flow/commits/master">
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/vander-furtuna/ufc-flow?color=%234ade80">
-  </a>
-
-  <a href="https://github.com/vander-furtuna/ufc-flow/issues">
-    <img alt="Repository issues" src="https://img.shields.io/github/issues/vander-furtuna/ufc-flow?color=%23fbbf24">
-  </a>
-</p>
 
 ## ✅ Sobre o projeto
 
