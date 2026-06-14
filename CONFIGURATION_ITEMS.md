@@ -126,9 +126,16 @@
   - **Branch padrão**: `master`
   - **Tags**: `v1.0.0`
 
+- **ID**: IC-022
+  - **Descrição**: Plano de Gerenciamento de Configuração de Software contendo processos, papéis, ferramentas e diretrizes do projeto (PLANO_GERENCIAMENTO_CONFIGURACAO.md).
+  - **Repositório**: [GitHub](https://github.com/vander-furtuna/ufc-flow)
+  - **Branch padrão**: `master`
+  - **Tags**: `v1.1.3`
+
 ## Controle de Mudanças via Git
 
 - **Marcação de Versões**:
   ```bash
   git tag -a v1.0.0 -m "Release: Versão inicial dos itens de configuração mapeados"
   git push origin --tags
+  ```
