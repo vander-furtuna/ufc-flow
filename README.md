@@ -27,7 +27,6 @@ Tecnologias utilizadas no desenvolvimento da plataforma:
     <img align="center" alt="React.js icon" title="React.js" height="56" width="56" src="https://user-images.githubusercontent.com/101757815/218615819-bd5190f0-5501-4cb2-bffc-86f0b2d2039e.svg">
     <img align="center" alt="Next.js icon" title="Next.js" height="56" width="56" src="https://user-images.githubusercontent.com/101757815/218617171-46ee14bb-7a75-4068-b174-afd57d835c72.svg">
     <img align="center" alt="Tailwind CSS Icon" title="Tailwind CSS" height="56" width="56" src="https://github.com/user-attachments/assets/92dee76c-e17a-4b13-8d5e-ef2e3fc470a5">
-    <img align="center" alt="Bun Icon" title="Bun" height="56" width="56" src="https://user-images.githubusercontent.com/101757815/222129598-be9ca609-b13c-4cf2-83b6-5d636a0fb401.svg">
   </div>
 </div>
 
