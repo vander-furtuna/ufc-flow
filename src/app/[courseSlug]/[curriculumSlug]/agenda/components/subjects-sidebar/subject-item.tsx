@@ -3,7 +3,7 @@
 import { FilterCheckbox } from '@/components/filter-checkbox'
 import { Glow } from '@/components/glow'
 import { useSchedule } from '@/contexts/schedule'
-import { COLORS } from '@/data/colors'
+import { getGlowColor } from '@/utils/get-glow-color'
 import { cn } from '@/lib/utils'
 import type { Subject } from '@/types/course'
 import { capitalizeWords } from '@/utils/capitalize-words'
@@ -68,14 +68,7 @@ export function SubjectItem({
 
   const subjectColor = getSubjectStyle(colors, subject.nature, 180)
 
-  const glowColor =
-    subject?.nature === 'OBRIGATÓRIA'
-      ? COLORS.COMPULSORY
-      : subject?.nature === 'OPTATIVA'
-        ? colors && colors.length > 0
-          ? colors
-          : COLORS.OPTIONAL
-        : ''
+  const glowColor = getGlowColor(subject?.nature, colors)
 
   const missingPreRequisites = checkPrerequisites(subject, completedSubjects)
 

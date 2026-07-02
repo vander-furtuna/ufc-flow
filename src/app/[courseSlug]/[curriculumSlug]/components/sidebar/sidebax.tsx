@@ -16,7 +16,7 @@ import { toast } from 'sonner'
 import { Glow } from '@/components/glow'
 import { useCourse } from '@/contexts/course'
 import { useFilter } from '@/contexts/filter'
-import { COLORS } from '@/data/colors'
+import { getGlowColor } from '@/utils/get-glow-color'
 import { useDownloadAsPNG } from '@/hooks/use-download-as-png'
 import { capitalizeWords } from '@/utils/capitalize-words'
 
@@ -53,14 +53,7 @@ export function Sidebar() {
       ) // Filtra apenas as branchs com ids presentes em branchsIds
       .map((branch) => branch.color) ?? []
 
-  const glowColor =
-    selectedSubject?.nature === 'OBRIGATÓRIA'
-      ? COLORS.COMPULSORY
-      : selectedSubject?.nature === 'OPTATIVA'
-        ? colors && colors.length > 0
-          ? colors
-          : COLORS.OPTIONAL
-        : ''
+  const glowColor = getGlowColor(selectedSubject?.nature, colors)
 
   const getBranchs =
     selectedCurriculum && selectedSubject

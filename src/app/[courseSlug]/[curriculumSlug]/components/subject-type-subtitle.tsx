@@ -1,9 +1,10 @@
 'use client'
 
 import { useCourse } from '@/contexts/course'
-import { COLORS } from '@/data/colors'
+import { NATURE_CONFIG } from '@/data/colors'
 import { getGradientColor } from '@/utils/get-gradient-color'
 import { useHorizontalScrollWithOverlay } from '@/hooks/use-horizontal-scroll-with-overlay'
+import { useMemo } from 'react'
 
 export function SubjectTypeSubtitle() {
   const { selectedCurriculum } = useCourse()
@@ -11,30 +12,35 @@ export function SubjectTypeSubtitle() {
   const { scrollRef, showLeftShadow, showRightShadow } =
     useHorizontalScrollWithOverlay<HTMLDivElement>()
 
+  // Only show natures that are actually present in the curriculum
+  const activeNatures = useMemo(() => {
+    if (!selectedCurriculum) return []
+    const presentNatures = new Set(
+      selectedCurriculum.subjects.map((s) => s.nature),
+    )
+    return NATURE_CONFIG.filter((n) => presentNatures.has(n.value))
+  }, [selectedCurriculum])
+
   return (
     <div className="relative w-full">
       <div
         className="no-scrollbar relative flex w-full gap-2 overflow-x-auto"
         ref={scrollRef}
       >
-        <div className="bg-accent border-border flex shrink-0 items-center justify-center gap-1 rounded-full border px-2.5 py-1.5">
+        {activeNatures.map((nature) => (
           <div
-            className="size-3 rounded-full"
-            style={{
-              background: getGradientColor(COLORS.COMPULSORY),
-            }}
-          />
-          <span className="text-xs font-medium">Obrigatória</span>
-        </div>
-        <div className="bg-accent border-border flex shrink-0 items-center justify-center gap-1 rounded-full border px-2.5 py-1.5">
-          <div
-            className="size-3 rounded-full"
-            style={{
-              background: getGradientColor(COLORS.OPTIONAL),
-            }}
-          />
-          <span className="text-xs font-medium">Optativa Livre</span>
-        </div>
+            key={nature.value}
+            className="bg-accent border-border flex shrink-0 items-center justify-center gap-1 rounded-full border px-2.5 py-1.5"
+          >
+            <div
+              className="size-3 rounded-full"
+              style={{
+                background: getGradientColor(nature.color),
+              }}
+            />
+            <span className="text-xs font-medium">{nature.label}</span>
+          </div>
+        ))}
         {selectedCurriculum?.branchs.map((branch) => (
           <div
             key={branch.id}
