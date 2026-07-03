@@ -4,7 +4,7 @@ export const COURSES_DATA: Course[] = [
   {
     id: '657484',
     name: 'Engenharia de Computação',
-    slug: 'engenharia-de-computacao',
+    slug: 'engenharia-de-computacao-ufc-sobral',
     icon: 'cpu',
     color: '#22d3ee',
     isActive: true,
@@ -2378,7 +2378,7 @@ export const COURSES_DATA: Course[] = [
   {
     id: '657485',
     name: 'Engenharia Elétrica',
-    slug: 'engenharia-eletrica',
+    slug: 'engenharia-eletrica-ufc-sobral',
     icon: 'zap',
     color: '#fcd34d',
     isActive: true,
@@ -4345,7 +4345,7 @@ export const COURSES_DATA: Course[] = [
   {
     id: '657487',
     name: 'Psicologia',
-    slug: 'psicologia',
+    slug: 'psicologia-ufc-sobral',
     icon: 'brain',
     color: '#9333ea',
     isActive: false,
