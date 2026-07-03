@@ -90,5 +90,7 @@ export type Course = {
   slug: string
   name: string
   icon: IconName
+  color?: string
+  isActive?: boolean
   curriculumStructures: CurriculumStructure[]
 }

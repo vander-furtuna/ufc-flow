@@ -5,6 +5,7 @@ import { NATURE_CONFIG } from '@/data/colors'
 import { getGradientColor } from '@/utils/get-gradient-color'
 import { useHorizontalScrollWithOverlay } from '@/hooks/use-horizontal-scroll-with-overlay'
 import { useMemo } from 'react'
+import { capitalizeWords } from '@/utils/capitalize-words'
 
 export function SubjectTypeSubtitle() {
   const { selectedCurriculum } = useCourse()
@@ -52,7 +53,9 @@ export function SubjectTypeSubtitle() {
                 background: getGradientColor(branch.color),
               }}
             />
-            <span className="text-xs font-medium">{branch.name}</span>
+            <span className="text-xs font-medium">
+              {capitalizeWords(branch.name)}
+            </span>
           </div>
         ))}
       </div>

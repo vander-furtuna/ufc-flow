@@ -12,14 +12,14 @@ export default function Home() {
         <article className="flex w-full flex-col items-center gap-6">
           <div className="flex w-full items-center gap-6">
             <Line />
-            <h1 className="font-clash text-foreground text-3xl font-semibold text-nowrap uppercase">
+            <h1 className="font-clash text-foreground text-2xl font-semibold text-nowrap uppercase md:text-3xl">
               Escolha um curso
             </h1>
             <Line />
           </div>
 
           <div className="grid w-full grid-flow-row grid-cols-1 gap-4 lg:grid-cols-2">
-            {COURSES_DATA.map((course) => (
+            {COURSES_DATA.filter((course) => course?.isActive).map((course) => (
               <CourseLink
                 icon={course.icon}
                 key={course.id}
