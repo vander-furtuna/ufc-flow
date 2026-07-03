@@ -29,7 +29,7 @@ export default function SimulationPage({
   const { handleSelectCurriculum, selectedCourse, selectedCurriculum } =
     useCourse()
 
-  const { currentSchedule, completedSubjects } = useSchedule()
+  const { currentSchedule } = useSchedule()
 
   const { elementRef, downloadPNG } = useDownloadAsPNG()
 

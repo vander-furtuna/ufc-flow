@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/popover'
 import { useCourse } from '@/contexts/course'
 import { useFilter } from '@/contexts/filter'
+import { NATURE_CONFIG } from '@/data/colors'
 
 import { ClearButton } from './clear-button'
 import { PopupTrigger } from './popup-trigger'
@@ -66,44 +67,30 @@ export function BranchPopup() {
           Tipo / Vertente
         </strong>
         <div className="flex w-fit flex-col justify-center gap-x-8 gap-y-4">
-          <fieldset className="flex items-center justify-start gap-2 rounded-md">
-            <FilterCheckbox
-              value="OBRIGATÓRIA"
-              checked={natureFilter.includes('OBRIGATÓRIA')}
-              onCheckedChange={handleCheckNature}
-            />
-            <div
-              className="bg h-2 w-4 rounded-full"
-              style={{
-                background: `linear-gradient(90deg, ${saturate(0.8, lighten(0.15, '#f97316'))}, #f97316)`,
-              }}
-            />
-            <label
-              htmlFor="compulsory"
-              className="text-center text-sm text-nowrap"
+          {NATURE_CONFIG.map((nature) => (
+            <fieldset
+              key={nature.value}
+              className="flex items-center justify-start gap-2 rounded-md"
             >
-              Obrigatória
-            </label>
-          </fieldset>
-          <fieldset className="flex items-center justify-start gap-2 rounded-md">
-            <FilterCheckbox
-              value="OPTATIVA"
-              checked={natureFilter.includes('OPTATIVA')}
-              onCheckedChange={handleCheckNature}
-            />
-            <div
-              className="bg h-2 w-4 rounded-full"
-              style={{
-                background: `linear-gradient(90deg, ${saturate(0.8, lighten(0.15, '#7c3aed'))}, #7c3aed)`,
-              }}
-            />
-            <label
-              htmlFor="optional"
-              className="text-center text-sm text-nowrap"
-            >
-              Optativa
-            </label>
-          </fieldset>
+              <FilterCheckbox
+                value={nature.value}
+                checked={natureFilter.includes(nature.value)}
+                onCheckedChange={handleCheckNature}
+              />
+              <div
+                className="bg h-2 w-4 rounded-full"
+                style={{
+                  background: `linear-gradient(90deg, ${saturate(0.8, lighten(0.15, nature.color))}, ${nature.color})`,
+                }}
+              />
+              <label
+                htmlFor={`${nature.value}-nature`}
+                className="text-center text-sm text-nowrap"
+              >
+                {nature.label}
+              </label>
+            </fieldset>
+          ))}
           <div className="h-px w-full bg-slate-200 dark:bg-slate-700" />
           {selectedCurriculum?.branchs.map((branch) => (
             <fieldset

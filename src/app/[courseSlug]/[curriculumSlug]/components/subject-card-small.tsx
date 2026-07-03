@@ -68,7 +68,7 @@ export function SubjectCardSmall({
       onClick={handleClickSubject}
       data-selected={selectedStatus}
     >
-      <span className="text-accent-foreground text-[0.6875rem] font-medium drop-shadow-sm">
+      <span className="text-accent-foreground line-clamp-3 text-[0.6875rem] font-medium drop-shadow-sm">
         {name}
       </span>
 

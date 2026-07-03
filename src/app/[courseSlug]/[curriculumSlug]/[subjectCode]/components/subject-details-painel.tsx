@@ -4,8 +4,8 @@ import { Pill } from '../../components/sidebar/pill'
 import { capitalizeWords } from '@/utils/capitalize-words'
 import { cn } from '@/lib/utils'
 import { useCallback, useState } from 'react'
-import { COLORS } from '@/data/colors'
 import type { Branch, Subject } from '@/types/course'
+import { getGlowColor } from '@/utils/get-glow-color'
 import { toast } from 'sonner'
 
 type SubjectDetailsPainelProps = {
@@ -28,14 +28,7 @@ export function SubjectDetailsPainel({
       .filter((currentBranch) => subject?.branch.includes(currentBranch.id)) // Filtra apenas as branchs com ids presentes em branchsIds
       .map((branch) => branch.color) ?? []
 
-  const glowColor =
-    subject?.nature === 'OBRIGATÓRIA'
-      ? COLORS.COMPULSORY
-      : subject?.nature === 'OPTATIVA'
-        ? colors && colors.length > 0
-          ? colors
-          : COLORS.OPTIONAL
-        : ''
+  const glowColor = getGlowColor(subject?.nature, colors)
 
   const copyToClipboard = useCallback((text: string) => {
     navigator.clipboard.writeText(text).then(

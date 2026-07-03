@@ -7,7 +7,6 @@ import { useFilter } from '@/contexts/filter'
 import { AnimatePresence, motion } from 'motion/react'
 import { Glow } from './glow'
 import { Filters } from './filter/filters'
-import { useTools } from '@/contexts/tools'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { navItems } from '@/config/nav-items'
@@ -31,8 +30,6 @@ function ToolBar({ children }: ToolBarProps) {
 
 export function SearchBar() {
   const pathname = usePathname()
-
-  const { resetTools } = useTools()
   const { isFiltersActive, clearAllFilters, queryFilter, changeQueryFilter } =
     useFilter()
 

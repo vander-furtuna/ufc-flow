@@ -16,7 +16,7 @@ import { toast } from 'sonner'
 import { Glow } from '@/components/glow'
 import { useCourse } from '@/contexts/course'
 import { useFilter } from '@/contexts/filter'
-import { COLORS } from '@/data/colors'
+import { getGlowColor } from '@/utils/get-glow-color'
 import { useDownloadAsPNG } from '@/hooks/use-download-as-png'
 import { capitalizeWords } from '@/utils/capitalize-words'
 
@@ -53,14 +53,7 @@ export function Sidebar() {
       ) // Filtra apenas as branchs com ids presentes em branchsIds
       .map((branch) => branch.color) ?? []
 
-  const glowColor =
-    selectedSubject?.nature === 'OBRIGATÓRIA'
-      ? COLORS.COMPULSORY
-      : selectedSubject?.nature === 'OPTATIVA'
-        ? colors && colors.length > 0
-          ? colors
-          : COLORS.OPTIONAL
-        : ''
+  const glowColor = getGlowColor(selectedSubject?.nature, colors)
 
   const getBranchs =
     selectedCurriculum && selectedSubject
@@ -120,7 +113,7 @@ export function Sidebar() {
             colors={glowColor}
             className="absolute -top-80 left-1/2 z-10 size-128 -translate-x-1/2 blur-[100px]"
           />
-          <div className="center relative z-20 h-44 w-full px-8">
+          <div className="center relative z-20 min-h-32 w-full px-8 pt-10 pb-4">
             <button
               className="center hover:bg-foreground/20 absolute top-3 right-3 size-8 rounded-md transition-colors"
               onClick={handleUnselectSubject}
@@ -132,7 +125,9 @@ export function Sidebar() {
                 {selectedSubject.name}
               </strong>
             )}
-            <div className="absolute bottom-2 flex w-fit gap-1">
+          </div>
+          <div className="center relative z-20 flex flex-col gap-2">
+            <div className="flex w-fit gap-1">
               {selectedSubject?.code && (
                 <button
                   className="center flex w-fit gap-2 rounded-full bg-slate-50/40 px-2 py-1 font-semibold text-slate-800 transition-all duration-300 dark:bg-slate-900/10 dark:text-slate-100 dark:hover:bg-slate-900/20"
@@ -164,8 +159,6 @@ export function Sidebar() {
                 </button>
               )}
             </div>
-          </div>
-          <div className="relative z-20 flex flex-col gap-2">
             {selectedSubject && (
               <div className="center gap-1">
                 <Pill
