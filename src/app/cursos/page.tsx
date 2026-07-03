@@ -9,7 +9,7 @@ export default function Home() {
       <section className="flex w-full max-w-4xl flex-col gap-12">
         <Header />
 
-        <article className="flex w-full flex-col items-center gap-6">
+        <article className="flex w-full flex-col items-center gap-8">
           <div className="flex w-full items-center gap-6">
             <Line />
             <h1 className="font-clash text-foreground text-2xl font-semibold text-nowrap uppercase md:text-3xl">
