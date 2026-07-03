@@ -18,7 +18,7 @@ export function SubjectViewBase({
   className,
   ...props
 }: SubjectViewBaseProps) {
-  const { availability } = useTools()
+  const { availability, highlightUnavailable } = useTools()
   const { currentClassGroup } = useClass()
 
   const mappedSubjects = useMemo(() => {
@@ -40,16 +40,18 @@ export function SubjectViewBase({
           }
         }
 
+        const isUnavailable =
+          currentClassGroup &&
+          !subjectClass &&
+          subject.type === 'DISCIPLINA'
+
         return {
           ...subject,
-          isActive:
-            Boolean(subjectClass) ||
-            !currentClassGroup ||
-            subject.type !== 'DISCIPLINA',
+          isActive: !isUnavailable || !highlightUnavailable,
         }
       })
       .filter((subject) => subject !== null)
-  }, [subjects, availability, currentClassGroup])
+  }, [subjects, availability, currentClassGroup, highlightUnavailable])
 
   return mappedSubjects && mappedSubjects.length > 0 ? (
     <div className={cn('flex w-full flex-col gap-4', className)} {...props}>

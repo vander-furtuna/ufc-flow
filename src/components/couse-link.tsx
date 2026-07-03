@@ -39,7 +39,7 @@ export function CourseLink({ course, slug, icon, ...props }: CourseLinkProps) {
     >
       <Glow
         className="absolute -left-12 z-0 size-24 opacity-0 blur-xl transition-all duration-500 group-hover/link:-left-8 group-hover/link:opacity-100"
-        colors="#22d3ee"
+        colors={course.color ?? '#22d3ee'}
       />
 
       <div className="z-20 flex items-center gap-4">
@@ -47,10 +47,13 @@ export function CourseLink({ course, slug, icon, ...props }: CourseLinkProps) {
           name={icon}
           className="text-muted-foreground group-hover/link:text-foreground/90 size-8 transition-all"
         />
-        <div className="flex flex-col justify-center">
-          <strong className="font-medium">{course.name}</strong>
-          <div className="flex gap-2">
+        <div className="flex flex-col items-start justify-center">
+          <strong className="font-clash text-left text-lg leading-tight font-medium">
+            {course.name}
+          </strong>
+          <div className="flex gap-1 text-left text-sm">
             <span>{course.curriculumStructures[0].period}</span>
+            <span>|</span>
             <span>{course.curriculumStructures[0].city}</span>
           </div>
         </div>

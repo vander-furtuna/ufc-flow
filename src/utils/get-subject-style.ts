@@ -1,4 +1,5 @@
-import { COLORS } from '@/data/colors'
+import { COLORS, NATURE_COLORS } from '@/data/colors'
+import type { Nature } from '@/types/course'
 import { getGradientColor } from './get-gradient-color'
 
 export function getSubjectStyle(
@@ -15,6 +16,11 @@ export function getSubjectStyle(
       return `linear-gradient(${degree}deg, ${colors.join(',')})`
     } else if (colors && colors?.length === 0) {
       return getGradientColor(COLORS.OPTIONAL, degree)
+    }
+  } else if (nature) {
+    const color = NATURE_COLORS[nature as Nature]
+    if (color) {
+      return getGradientColor(color, degree)
     }
   }
   return ''

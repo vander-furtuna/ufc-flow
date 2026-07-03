@@ -6,6 +6,8 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import { Checkbox } from '@/components/ui/checkbox'
+import { Separator } from '@/components/ui/separator'
 import { useTools } from '@/contexts/tools'
 import type { Availability } from '@/types/tools'
 import { Check } from 'lucide-react'
@@ -17,7 +19,12 @@ const options = [
 ]
 
 export function AvailabilityPopup() {
-  const { selectAvailability, availability } = useTools()
+  const {
+    selectAvailability,
+    availability,
+    highlightUnavailable,
+    setHighlightUnavailable,
+  } = useTools()
 
   const handleSelectAvailability = (value: Availability) => {
     selectAvailability(value)
@@ -49,6 +56,19 @@ export function AvailabilityPopup() {
             </div>
           ))}
         </RadioGroup>
+
+        <Separator className="bg-border" />
+
+        <div className="flex items-center gap-3">
+          <Checkbox
+            id="highlight-unavailable"
+            checked={highlightUnavailable}
+            onCheckedChange={(checked) => setHighlightUnavailable(checked === true)}
+          />
+          <Label htmlFor="highlight-unavailable" className="cursor-pointer text-sm font-normal">
+            Destacar disciplinas indisponíveis
+          </Label>
+        </div>
       </PopoverContent>
     </Popover>
   )
