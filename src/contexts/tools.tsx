@@ -23,7 +23,8 @@ const toolsContext = createContext<ToolsContextType>({} as ToolsContextType)
 export function ToolsProvider({ children }: Readonly<{ children: ReactNode }>) {
   const [groupBy, setGroupBy] = useState<GroupBy>('semester')
   const [availability, setAvailability] = useState<Availability>('all')
-  const [highlightUnavailable, setHighlightUnavailable] = useState<boolean>(false)
+  const [highlightUnavailable, setHighlightUnavailable] =
+    useState<boolean>(false)
 
   const selectGroupBy = useCallback((value: GroupBy) => {
     setGroupBy(value)
