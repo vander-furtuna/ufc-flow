@@ -160,7 +160,7 @@ export function Sidebar() {
               )}
             </div>
             {selectedSubject && (
-              <div className="center gap-1">
+              <div className="center flex-wrap gap-1">
                 <Pill
                   Icon={<Pin strokeWidth={2} className="size-4" />}
                   label={capitalizeWords(selectedSubject.nature)}

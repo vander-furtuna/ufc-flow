@@ -66,6 +66,7 @@ export type CurriculumStructure = {
   period: string
   slug: string
   city: string
+  isCurrent?: boolean
   minTotalHours: number
   maxTotalHours?: number
   mandatoryHours?: number

@@ -63,9 +63,14 @@ export function AvailabilityPopup() {
           <Checkbox
             id="highlight-unavailable"
             checked={highlightUnavailable}
-            onCheckedChange={(checked) => setHighlightUnavailable(checked === true)}
+            onCheckedChange={(checked) =>
+              setHighlightUnavailable(checked === true)
+            }
           />
-          <Label htmlFor="highlight-unavailable" className="cursor-pointer text-sm font-normal">
+          <Label
+            htmlFor="highlight-unavailable"
+            className="cursor-pointer text-sm font-normal"
+          >
             Destacar disciplinas indisponíveis
           </Label>
         </div>
