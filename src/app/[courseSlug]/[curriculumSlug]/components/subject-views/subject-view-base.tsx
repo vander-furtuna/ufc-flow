@@ -41,9 +41,7 @@ export function SubjectViewBase({
         }
 
         const isUnavailable =
-          currentClassGroup &&
-          !subjectClass &&
-          subject.type === 'DISCIPLINA'
+          currentClassGroup && !subjectClass && subject.type === 'DISCIPLINA'
 
         return {
           ...subject,

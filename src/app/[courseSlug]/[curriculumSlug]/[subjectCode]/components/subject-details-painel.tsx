@@ -81,7 +81,7 @@ export function SubjectDetailsPainel({
       )}
 
       {isInfoPanelOpen && (
-        <div className="center mt-1 gap-1">
+        <div className="center mt-1 flex-wrap gap-1">
           <Pill
             Icon={<Pin strokeWidth={2} className="size-4" />}
             label={capitalizeWords(subject.nature)}
