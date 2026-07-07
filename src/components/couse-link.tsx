@@ -35,7 +35,12 @@ export function CourseLink({ course, icon, ...props }: CourseLinkProps) {
   const hasOneStructure = course.curriculumStructures.length === 1
 
   return (
-    <div className="bg-accent/60 flex w-full flex-col rounded-md transition-all">
+    <div
+      className={cn(
+        'flex w-full flex-col rounded-md transition-all',
+        isOpen && 'bg-accent/60',
+      )}
+    >
       <button
         key={course.id}
         type="button"
@@ -46,7 +51,7 @@ export function CourseLink({ course, icon, ...props }: CourseLinkProps) {
               )
             : setIsOpen(!isOpen)
         }
-        className="bg-accent border-border group/link relative flex h-20 cursor-pointer items-center justify-between overflow-hidden rounded-md border px-4"
+        className="bg-accent border-border group/link relative flex h-24 cursor-pointer items-center justify-between overflow-hidden rounded-md border px-4"
         {...props}
       >
         <Glow
@@ -69,14 +74,14 @@ export function CourseLink({ course, icon, ...props }: CourseLinkProps) {
             <strong className="font-clash text-left text-xl leading-tight font-medium">
               {course.name}
             </strong>
-            <div className="flex gap-1 text-left text-sm">
+            <div className="flex gap-0.5 text-left text-sm">
               {hasOneStructure && (
-                <span className="flex items-center gap-1 rounded-full border px-2 py-0.5">
+                <span className="bg-background/30 border-border/50 flex items-center gap-1 rounded-full border px-2 py-0.5">
                   <Hourglass className="size-4" />
                   {course.curriculumStructures[0].period}
                 </span>
               )}
-              <span className="flex items-center gap-1 rounded-full border px-2 py-0.5">
+              <span className="border-border/50 bg-background/30 flex items-center gap-1 rounded-full border px-2 py-0.5">
                 <MapPin className="size-4" />
                 {course.curriculumStructures[0].city}
               </span>
