@@ -12,6 +12,7 @@ import { getSubjectStyle } from '@/utils/get-subject-style'
 import { AlertCircle, CalendarIcon, TrashIcon } from 'lucide-react'
 import { SelectedSubjectDialog } from '../selected-subject-dialog'
 import { useClass } from '@/contexts/class'
+import { useCourse } from '@/contexts/course'
 import { cva } from 'class-variance-authority'
 import * as React from 'react'
 
@@ -65,12 +66,18 @@ export function SubjectItem({
     isClassLoading,
     currentClassGroup,
   } = useClass()
+  const { selectedCurriculum } = useCourse()
 
   const subjectColor = getSubjectStyle(colors, subject.nature, 180)
 
   const glowColor = getGlowColor(subject?.nature, colors)
 
-  const missingPreRequisites = checkPrerequisites(subject, completedSubjects)
+  const allSubjects = selectedCurriculum?.subjects || []
+  const missingPreRequisites = checkPrerequisites(
+    subject,
+    completedSubjects,
+    allSubjects,
+  )
 
   const isCompleted = completedSubjects.includes(subject.code)
   const isLocked = missingPreRequisites.length > 0
