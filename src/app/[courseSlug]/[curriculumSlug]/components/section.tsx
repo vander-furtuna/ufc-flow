@@ -5,6 +5,8 @@ import { useCallback, useEffect } from 'react'
 import { CurriculumHeader } from '@/components/curriculum-header'
 import { Header } from '@/components/header'
 import { useCourse } from '@/contexts/course'
+import { useFilter } from '@/contexts/filter'
+import { useTools } from '@/contexts/tools'
 
 import { Footer } from './footer'
 import { Sidebar } from './sidebar/sidebax'
@@ -28,6 +30,9 @@ export function CurriculumSection({ params }: CurriculumProps) {
     selectCurriculumBySlug,
     isCourseLoading,
   } = useCourse()
+
+  const { isFiltersLoaded } = useFilter()
+  const { isToolsLoaded } = useTools()
 
   const handleGetSelectedCurriculumBySlug = useCallback(() => {
     // Garante que o curso selecionado sempre corresponde ao slug da URL
@@ -59,7 +64,11 @@ export function CurriculumSection({ params }: CurriculumProps) {
       <section className="@container flex h-full min-h-dvh w-full max-w-5xl flex-col items-center justify-start gap-8 pt-12 pb-24">
         <Header />
         <CurriculumHeader />
-        {isCourseLoading ? <SubjectDiagramSkeleton /> : <SubjectDiagram />}
+        {isCourseLoading || !isFiltersLoaded || !isToolsLoaded ? (
+          <SubjectDiagramSkeleton />
+        ) : (
+          <SubjectDiagram />
+        )}
         <Footer />
       </section>
       <Sidebar />

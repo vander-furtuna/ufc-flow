@@ -12,7 +12,7 @@ function getRandomColor(): LogoColor {
 }
 
 export function VanderLogo({ className, ...rest }: VanderLogoProps) {
-  const [currentColor, setCurrentColor] = useState(getRandomColor())
+  const [currentColor, setCurrentColor] = useState(LOGO_COLORS[2])
 
   const handleClick = useCallback(() => {
     setCurrentColor(getRandomColor())
