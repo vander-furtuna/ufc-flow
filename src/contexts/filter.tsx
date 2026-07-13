@@ -4,11 +4,15 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react'
 
 import { normalizeWords } from '@/utils/normalize-words'
+import { useParams } from 'next/navigation'
+import { getFilters, setFilters } from '@/storage/indexed-db'
 
 type Mode = 'add' | 'remove'
 
@@ -34,6 +38,7 @@ type FilterContextProps = {
 
   isFiltersActive: boolean
   clearAllFilters: () => void
+  isFiltersLoaded: boolean
 }
 
 const filterContext = createContext({} as FilterContextProps)
@@ -44,6 +49,92 @@ export function FilterProvider({ children }: { children: React.ReactNode }) {
   const [branchFilter, setBranchFilter] = useState<string[]>([])
   const [natureFilter, setNatureFilter] = useState<string[]>([])
   const [semesterFilter, setSemesterFilter] = useState<number[]>([])
+  const [isFiltersLoaded, setIsFiltersLoaded] = useState(false)
+  const [prevCourseSlug, setPrevCourseSlug] = useState<string | undefined>(
+    undefined,
+  )
+
+  const params = useParams()
+  const courseSlug =
+    typeof params?.courseSlug === 'string' ? params.courseSlug : undefined
+
+  if (courseSlug !== prevCourseSlug) {
+    setPrevCourseSlug(courseSlug)
+    setIsFiltersLoaded(!courseSlug)
+  }
+
+  useEffect(() => {
+    if (!courseSlug) {
+      return
+    }
+
+    let isMounted = true
+
+    getFilters(courseSlug)
+      .then((saved) => {
+        if (!isMounted) return
+
+        if (saved) {
+          setQueryFilter(saved.queryFilter ?? '')
+          setDurationFilter(saved.durationFilter ?? [])
+          setBranchFilter(saved.branchFilter ?? [])
+          setNatureFilter(saved.natureFilter ?? [])
+          setSemesterFilter(saved.semesterFilter ?? [])
+        } else {
+          setQueryFilter('')
+          setDurationFilter([])
+          setBranchFilter([])
+          setNatureFilter([])
+          setSemesterFilter([])
+        }
+        setIsFiltersLoaded(true)
+      })
+      .catch((err) => {
+        console.error('Failed to load filters', err)
+        if (isMounted) {
+          setIsFiltersLoaded(true)
+        }
+      })
+
+    return () => {
+      isMounted = false
+    }
+  }, [courseSlug])
+
+  const loadedCourseSlugRef = useRef<string | null>(null)
+
+  useEffect(() => {
+    if (isFiltersLoaded && courseSlug) {
+      loadedCourseSlugRef.current = courseSlug
+    } else if (!courseSlug) {
+      loadedCourseSlugRef.current = null
+    }
+  }, [isFiltersLoaded, courseSlug])
+
+  useEffect(() => {
+    if (!courseSlug || loadedCourseSlugRef.current !== courseSlug) {
+      return
+    }
+
+    const filters = {
+      queryFilter,
+      durationFilter,
+      branchFilter,
+      natureFilter,
+      semesterFilter,
+    }
+
+    setFilters(courseSlug, filters).catch((err) => {
+      console.error('Failed to save filters', err)
+    })
+  }, [
+    courseSlug,
+    queryFilter,
+    durationFilter,
+    branchFilter,
+    natureFilter,
+    semesterFilter,
+  ])
 
   const normalizedQueryFilter = useMemo(
     () => normalizeWords(queryFilter),
@@ -140,6 +231,7 @@ export function FilterProvider({ children }: { children: React.ReactNode }) {
 
       isFiltersActive,
       clearAllFilters,
+      isFiltersLoaded,
     }),
     [
       queryFilter,
@@ -163,6 +255,7 @@ export function FilterProvider({ children }: { children: React.ReactNode }) {
 
       isFiltersActive,
       clearAllFilters,
+      isFiltersLoaded,
     ],
   )
 
