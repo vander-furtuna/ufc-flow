@@ -48,7 +48,7 @@ export function SubjectCard({
       exit={{ scale: 0, opacity: 0 }}
       transition={{ duration: 0.15, delay: 0.03 * childIndex }}
       key={subject.code}
-      className="group ring-border center before:bg-card relative flex h-24 w-full max-w-50 shrink-0 cursor-pointer flex-col gap-1 rounded-lg bg-transparent px-4 text-center ring-1 transition-all duration-300 before:absolute before:-z-20 before:size-full before:rounded-lg before:content-[''] after:absolute after:right-0 after:-z-10 after:size-full after:rounded-lg after:bg-black after:opacity-0 after:transition-all after:duration-300 after:content-[''] hover:shadow-lg hover:ring-0 active:scale-95 data-[selected=selected]:shadow-lg data-[selected=selected]:ring-0 data-[state=inactive]:opacity-60 dark:ring-slate-700 dark:data-[selected=selected]:after:opacity-15"
+      className="group ring-border center before:bg-card relative flex h-24 w-full max-w-50 shrink-0 cursor-pointer flex-col gap-1 rounded-lg bg-transparent px-4 text-center ring-1 transition-all duration-300 before:absolute before:-z-20 before:size-full before:rounded-lg before:content-[''] after:absolute after:right-0 after:-z-10 after:size-full after:rounded-lg after:bg-black after:opacity-0 after:transition-all after:duration-300 after:content-[''] hover:shadow-lg hover:ring-0 active:scale-95 data-[selected=selected]:shadow-lg data-[selected=selected]:ring-0 data-[state=inactive]:opacity-60 dark:ring-slate-700 dark:hover:after:opacity-15 dark:data-[selected=selected]:after:opacity-15"
       onClick={handleClickSubject}
       data-selected={selectedStatus}
       data-state={isActive ? 'active' : 'inactive'}

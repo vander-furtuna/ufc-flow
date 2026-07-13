@@ -54,7 +54,7 @@ export function SubjectViewBase({
   return mappedSubjects && mappedSubjects.length > 0 ? (
     <div className={cn('flex w-full flex-col gap-4', className)} {...props}>
       <SemesterTitle className="uppercase">{title}</SemesterTitle>
-      <div className="grid w-full grid-flow-dense auto-rows-[100px] grid-cols-[repeat(auto-fit,minmax(9rem,1fr))] justify-items-center gap-4">
+      <div className="grid w-full grid-flow-dense auto-rows-25 grid-cols-[repeat(auto-fit,minmax(9rem,1fr))] justify-items-center gap-4">
         <AnimatePresence>
           {mappedSubjects.map((subject, index) => {
             if (!subject) {

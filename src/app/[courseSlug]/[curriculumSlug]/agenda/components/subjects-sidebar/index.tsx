@@ -36,7 +36,7 @@ function SubjectsSearchBar({ className, ...props }: ComponentProps<'input'>) {
   return (
     <div
       className={cn(
-        'bg-accent/70 border-border/50 hover:bg-accent/90 absolute bottom-6 left-1/2 z-1000 flex h-12 w-[calc(100%-4rem)] -translate-x-1/2 items-center rounded-full border px-4 backdrop-blur-md',
+        'bg-accent/70 border-border/50 hover:bg-accent/90 absolute bottom-6 left-1/2 z-400 flex h-12 w-[calc(100%-4rem)] -translate-x-1/2 items-center rounded-full border px-4 backdrop-blur-md',
         className,
       )}
     >
@@ -269,7 +269,7 @@ export function SubjectsSidebar({
     </div>
   ) : (
     <aside
-      className="calendar-scrollbar relative hidden min-h-0 flex-1 shrink-0 flex-col gap-8 overflow-y-auto px-6 pt-6 md:flex md:overflow-y-hidden"
+      className="calendar-scrollbar relative hidden min-h-0 flex-1 shrink-0 flex-col overflow-y-auto px-6 pt-6 md:flex md:overflow-y-hidden"
       id="tour-subject-list"
     >
       <header className="flex w-full shrink-0 items-center justify-between">
@@ -291,7 +291,7 @@ export function SubjectsSidebar({
           <ModeToggle />
         </div>
       </header>
-      <div className="border-border/50 flex w-full flex-col gap-3 border-b pb-3">
+      <div className="border-border/50 mt-8 flex w-full flex-col gap-3 border-b pb-3">
         <h2 className="text-foreground/90 font-clash text-3xl font-semibold">
           {selectedCourse?.name}
         </h2>
@@ -374,7 +374,7 @@ export function SubjectsSidebar({
           )}
         </div>
       </div>
-      <div className="no-scrollbar relative flex h-full flex-col gap-4 pb-20 md:overflow-y-auto">
+      <div className="no-scrollbar relative flex h-full flex-col gap-4 pt-8 pb-20 md:overflow-y-auto">
         {isClassLoading && (
           <div className="bg-background/60 absolute inset-0 z-50 flex items-center justify-center backdrop-blur-xs">
             <div className="flex flex-col items-center gap-2">
@@ -417,7 +417,7 @@ export function SubjectsSidebar({
         value={searchFilter}
         onChange={(e) => setSearchFilter(e.target.value)}
       />
-      <div className="to-background absolute bottom-0 left-1/2 z-999 h-12 w-full -translate-x-1/2 bg-linear-to-b from-transparent"></div>
+      <div className="to-background absolute bottom-0 left-1/2 z-300 h-12 w-full -translate-x-1/2 bg-linear-to-b from-transparent"></div>
     </aside>
   )
 }

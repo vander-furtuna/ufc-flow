@@ -62,11 +62,11 @@ export function SubjectDiagram() {
       </div>
 
       {filteredSubjects.length > 0 ? (
-        <>
+        <div className="flex w-full flex-col items-center justify-start gap-8">
           {groupBy === 'semester' && <SemesterView />}
           {groupBy === 'branch' && <BranchView />}
           {groupBy === 'duration' && <DurationView />}
-        </>
+        </div>
       ) : (
         <div className="center size-full">
           <NoResultCard />
