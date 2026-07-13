@@ -5,9 +5,9 @@ import {
   Copy,
   Download,
   Loader2,
+  Network,
   Pin,
   Tag,
-  Workflow,
   X,
 } from 'lucide-react'
 import { useCallback } from 'react'
@@ -121,7 +121,7 @@ export function Sidebar() {
               <X className="size-5 opacity-70" />
             </button>
             {selectedSubject?.name && (
-              <strong className="font-clash center w-full text-center text-lg font-semibold drop-shadow-lg dark:text-slate-50">
+              <strong className="font-clash center w-full text-center text-xl font-semibold drop-shadow-lg dark:text-slate-50">
                 {selectedSubject.name}
               </strong>
             )}
@@ -199,13 +199,13 @@ export function Sidebar() {
             </div>
           </div>
           {selectedSubject && (
-            <div className="mt-6 w-full px-4">
+            <div className="z-700 mt-6 w-full px-3">
               <button
-                className="bg-muted border-border flex w-full items-center justify-between rounded-md border px-2 py-1 decoration-0"
+                className="bg-muted border-border flex w-full items-center justify-between rounded-md border px-2 py-1.5 decoration-0"
                 onClick={handleGoToSubject}
               >
                 <div className="flex items-center gap-2">
-                  <Workflow className="text-foreground/80" />
+                  <Network className="text-foreground/80 size-4.5" />
                   <span className="text-sm">Visualização em árvore</span>
                 </div>
 
@@ -215,7 +215,7 @@ export function Sidebar() {
           )}
           {selectedSubject && <Details code={selectedSubject.code} />}
           {preRequisites.length > 0 && (
-            <div className="relative z-20 mt-8 flex flex-col gap-4 px-4">
+            <div className="relative z-20 mt-6 flex flex-col gap-4 px-4">
               <SectionTitle>Pré-requisitos</SectionTitle>
               <div className="grid w-full grid-flow-dense auto-rows-[88px] grid-cols-[repeat(auto-fit,minmax(8rem,1fr))] justify-items-center gap-2">
                 {preRequisites.map((preRequisite, index) => (
@@ -229,7 +229,7 @@ export function Sidebar() {
             </div>
           )}
           {unlockables.length > 0 && (
-            <div className="relative z-20 mt-8 flex flex-col gap-4 px-4">
+            <div className="relative z-20 mt-6 flex flex-col gap-4 px-4">
               <SectionTitle>Desbloqueia</SectionTitle>
               <div className="grid w-full grid-flow-dense auto-rows-[88px] grid-cols-[repeat(auto-fit,minmax(8rem,1fr))] justify-items-center gap-2">
                 {unlockables.map((unlockable, index) => (
