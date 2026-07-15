@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button'
 import { AlertTriangle } from 'lucide-react'
 
 type DestructiveDialogProps = ComponentProps<typeof Dialog> & {
+  children?: React.ReactElement
   title: string
   description: string
   confirmButtonText: string
@@ -35,7 +36,7 @@ export function DestructiveDialog({
 
   return (
     <Dialog {...props} open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-      <DialogTrigger asChild>{children}</DialogTrigger>
+      <DialogTrigger render={children} />
       <DialogContent className="gap-0 p-0">
         <DialogHeader className="border-border flex border-b p-5">
           <AlertTriangle className="text-destructive size-10" />

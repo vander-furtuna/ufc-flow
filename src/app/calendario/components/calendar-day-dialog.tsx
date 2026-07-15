@@ -82,11 +82,13 @@ export default function CalendarDayDialog({
         </div>
 
         <DialogFooter className="border-t px-6 py-4">
-          <DialogClose asChild>
-            <Button type="button" variant="outline">
-              Fechar
-            </Button>
-          </DialogClose>
+          <DialogClose
+            render={(props) => (
+              <Button type="button" variant="outline" {...props}>
+                Fechar
+              </Button>
+            )}
+          />
         </DialogFooter>
       </DialogContent>
     </Dialog>

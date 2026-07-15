@@ -55,13 +55,17 @@ export function BranchPopup() {
 
   return (
     <Popover>
-      <PopoverTrigger asChild className="group">
-        <PopupTrigger
-          icon={<Tag className="size-4" />}
-          label="Tipo"
-          isActive={isNatureAndBranchFilterActive}
-        />
-      </PopoverTrigger>
+      <PopoverTrigger
+        className="group"
+        render={(props) => (
+          <PopupTrigger
+            icon={<Tag className="size-4" />}
+            label="Tipo"
+            isActive={isNatureAndBranchFilterActive}
+            {...props}
+          />
+        )}
+      ></PopoverTrigger>
       <PopoverContent className="border-border flex w-fit flex-col gap-4 bg-slate-100/50 backdrop-blur-md dark:bg-slate-800/50">
         <strong className="text-center text-slate-600 dark:text-slate-100">
           Tipo / Vertente

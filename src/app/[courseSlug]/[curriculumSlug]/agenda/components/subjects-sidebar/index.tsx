@@ -89,7 +89,8 @@ export function SubjectsSidebar({
     return options
   }, [])
 
-  const handleSemesterChange = (value: string) => {
+  const handleSemesterChange = (value: string | null) => {
+    if (!value) return
     const [yearStr, semesterStr] = value.split('-')
     const year = parseInt(yearStr)
     const semester = parseInt(semesterStr)
@@ -136,6 +137,7 @@ export function SubjectsSidebar({
                 onValueChange={(value) =>
                   selectSchedule(schedules.find((s) => s.id === value)!)
                 }
+                items={schedules.map((s) => ({ value: s.id, label: s.name }))}
               >
                 <SelectTrigger className="ring-none w-full border-0 bg-transparent px-1 py-2 text-sm outline-none focus:ring-0">
                   <SelectValue placeholder="Agenda" className="text-sm" />
@@ -214,6 +216,7 @@ export function SubjectsSidebar({
               value={`${currentYear ?? 2026}-${currentSemester ?? 2}`}
               onValueChange={handleSemesterChange}
               disabled={isClassLoading}
+              items={semesterOptions}
             >
               <SelectTrigger className="bg-accent/40 border-border/70 h-9 w-full text-xs">
                 <SelectValue placeholder="Selecione o semestre" />
@@ -303,6 +306,7 @@ export function SubjectsSidebar({
             value={`${currentYear ?? 2026}-${currentSemester ?? 2}`}
             onValueChange={handleSemesterChange}
             disabled={isClassLoading}
+            items={semesterOptions}
           >
             <SelectTrigger className="bg-accent/40 border-border/70 h-9 w-full text-xs">
               <SelectValue placeholder="Selecione o semestre" />
@@ -328,6 +332,7 @@ export function SubjectsSidebar({
                   onValueChange={(value) =>
                     selectSchedule(schedules.find((s) => s.id === value)!)
                   }
+                  items={schedules.map((s) => ({ value: s.id, label: s.name }))}
                 >
                   <SelectTrigger className="ring-none w-full border-0 bg-transparent px-1 py-2 text-xs outline-none focus:ring-0">
                     <SelectValue placeholder="Agenda" className="text-xs" />

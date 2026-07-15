@@ -32,7 +32,7 @@ export function Footer() {
           <img src={ecLogo.src} alt="EC Logo" className="h-8 w-fit" />
         </div>
         <div>
-          <Button size="icon" variant="ghost" asChild>
+          <Button size="icon" variant="ghost">
             <a
               href="https://www.instagram.com/vander.furtuna/"
               target="_blank"
@@ -41,7 +41,7 @@ export function Footer() {
               <FaInstagram size={24} className="text-muted-foreground" />
             </a>
           </Button>
-          <Button size="icon" variant="ghost" asChild>
+          <Button size="icon" variant="ghost">
             <a
               href="https://github.com/vander-furtuna"
               target="_blank"

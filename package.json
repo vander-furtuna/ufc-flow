@@ -10,6 +10,7 @@
     "lint": "eslint --fix ."
   },
   "dependencies": {
+    "@base-ui/react": "^1.6.0",
     "@hookform/resolvers": "^5.4.0",
     "@radix-ui/react-checkbox": "^1.3.7",
     "@radix-ui/react-dialog": "^1.1.19",
@@ -33,6 +34,7 @@
     "got": "^14.6.6",
     "html-to-image": "1.11.11",
     "idb": "^8.0.3",
+    "ky": "^2.0.2",
     "lucide-react": "^0.563.0",
     "motion": "^12.42.2",
     "next": "16.2.6",
@@ -45,6 +47,7 @@
     "react-hook-form": "^7.81.0",
     "react-icons": "^5.7.0",
     "reactflow": "^11.11.4",
+    "shadcn": "^4.13.0",
     "sonner": "^2.0.7",
     "tailwind-merge": "^2.6.1",
     "tough-cookie": "^5.1.2",

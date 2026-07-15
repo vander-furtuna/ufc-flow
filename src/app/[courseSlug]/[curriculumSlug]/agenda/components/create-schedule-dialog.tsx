@@ -16,7 +16,9 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@/components/ui/button'
 
-type CreateScheduleDialogProps = ComponentProps<typeof Dialog>
+type CreateScheduleDialogProps = ComponentProps<typeof Dialog> & {
+  children?: React.ReactElement
+}
 
 const createScheduleFormSchema = z.object({
   name: z.string().min(3, 'O nome deve ter no mínimo 3 caracteres'),
@@ -47,7 +49,7 @@ export function CreateScheduleDialog({
 
   return (
     <Dialog {...props} open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-      <DialogTrigger asChild>{children}</DialogTrigger>
+      <DialogTrigger render={children} />
       <DialogContent className="z-500 gap-0 p-0">
         <DialogHeader className="border-border border-b p-5">
           <DialogTitle className="font-clash text-xl">

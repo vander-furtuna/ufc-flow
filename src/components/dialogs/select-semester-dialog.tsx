@@ -1,6 +1,6 @@
 'use client'
 
-import { type ReactNode, useCallback, useState } from 'react'
+import { type ReactElement, useCallback, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -19,7 +19,7 @@ import NumberSelector from '../number-selector'
 import YearSelector from '../year-selector'
 
 type SelectSemesterDialogProps = {
-  children?: ReactNode
+  children?: ReactElement
   currentSemester?: number
   currentYear?: number
 }
@@ -45,7 +45,7 @@ export default function SelectSemesterDialog({
 
   return (
     <Dialog>
-      <DialogTrigger asChild>{children}</DialogTrigger>
+      <DialogTrigger render={children} />
       <DialogContent className="z-1000 flex flex-col gap-0 overflow-y-visible p-0 sm:max-w-md [&>button:last-child]:top-3.5">
         <DialogHeader className="space-y-0 text-left">
           <DialogTitle className="border-b px-6 py-4 text-base">
@@ -76,15 +76,22 @@ export default function SelectSemesterDialog({
           />
         </div>
 
-        <DialogFooter className="border-t px-6 py-4">
-          <DialogClose asChild>
-            <Button type="button" variant="outline">
-              Cancelar
-            </Button>
-          </DialogClose>
-          <DialogClose asChild onClick={handleChangeSemester}>
-            <Button type="button">Alterar</Button>
-          </DialogClose>
+        <DialogFooter>
+          <DialogClose
+            render={(props) => (
+              <Button type="button" variant="outline" {...props}>
+                Cancelar
+              </Button>
+            )}
+          />
+          <DialogClose
+            onClick={handleChangeSemester}
+            render={(props) => (
+              <Button type="button" {...props}>
+                Alterar
+              </Button>
+            )}
+          />
         </DialogFooter>
       </DialogContent>
     </Dialog>

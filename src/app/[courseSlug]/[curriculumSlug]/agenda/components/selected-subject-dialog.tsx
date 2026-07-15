@@ -19,6 +19,7 @@ import { cn } from '@/lib/utils'
 import { useClass } from '@/contexts/class'
 
 type SelectedSubjectDialogProps = ComponentProps<typeof Dialog> & {
+  children?: React.ReactElement
   subject: Subject
   scheduleInfo?: SubjectGroup
   missingPreRequisites?: string[]
@@ -59,7 +60,7 @@ export function SelectedSubjectDialog({
 
   return (
     <Dialog {...props} open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-      <DialogTrigger asChild>{children}</DialogTrigger>
+      <DialogTrigger render={children} />
       <DialogContent className="z-800 p-0">
         <DialogHeader className="border-border border-b p-5">
           <DialogTitle className="font-clash text-xl">

@@ -25,9 +25,16 @@ export function GroupByPopup() {
 
   return (
     <Popover>
-      <PopoverTrigger asChild className="group">
-        <PopupTrigger icon={<Group className="size-4" />} label="Agrupar por" />
-      </PopoverTrigger>
+      <PopoverTrigger
+        className="group"
+        render={(props) => (
+          <PopupTrigger
+            icon={<Group className="size-4" />}
+            label="Agrupar por"
+            {...props}
+          />
+        )}
+      />
       <PopoverContent
         className="border-border bg-accent/50 flex w-fit flex-col gap-4 backdrop-blur-md"
         side="top"

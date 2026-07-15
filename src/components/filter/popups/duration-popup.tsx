@@ -36,13 +36,17 @@ export function DurationPopup() {
 
   return (
     <Popover>
-      <PopoverTrigger asChild className="group">
-        <PopupTrigger
-          icon={<Clock className="size-4" />}
-          label="Duração"
-          isActive={isDurationFilterActive}
-        />
-      </PopoverTrigger>
+      <PopoverTrigger
+        className="group"
+        render={(props) => (
+          <PopupTrigger
+            icon={<Clock className="size-4" />}
+            label="Duração"
+            isActive={isDurationFilterActive}
+            {...props}
+          />
+        )}
+      />
       <PopoverContent className="border-border flex w-44 flex-col gap-4 bg-slate-100/50 backdrop-blur-md dark:bg-slate-800/50">
         <strong className="text-center text-slate-600 dark:text-slate-100">
           Duração

@@ -39,13 +39,17 @@ export function SemesterPopup() {
 
   return (
     <Popover>
-      <PopoverTrigger asChild>
-        <PopupTrigger
-          icon={<Calendar className="size-4" />}
-          label="Semestre"
-          isActive={isSemesterFilterActive}
-        />
-      </PopoverTrigger>
+      <PopoverTrigger
+        render={(props) => (
+          <PopupTrigger
+            icon={<Calendar className="size-4" />}
+            label="Semestre"
+            isActive={isSemesterFilterActive}
+            {...props}
+          />
+        )}
+      />
+
       <PopoverContent className="border-border flex w-40 flex-col gap-4 bg-slate-100/50 backdrop-blur-md dark:bg-slate-800/50">
         <strong className="text-center text-slate-700 dark:text-slate-100">
           Semestres

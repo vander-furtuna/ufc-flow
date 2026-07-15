@@ -32,12 +32,16 @@ export function AvailabilityPopup() {
 
   return (
     <Popover>
-      <PopoverTrigger asChild className="group">
-        <PopupTrigger
-          icon={<Check className="size-4" />}
-          label="Disponibilidade"
-        />
-      </PopoverTrigger>
+      <PopoverTrigger
+        className="group"
+        render={(props) => (
+          <PopupTrigger
+            icon={<Check className="size-4" />}
+            label="Disponibilidade"
+            {...props}
+          />
+        )}
+      />
       <PopoverContent
         className="border-border bg-accent/50 flex w-fit flex-col gap-4 backdrop-blur-md"
         side="top"

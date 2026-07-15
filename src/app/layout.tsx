@@ -3,12 +3,15 @@ import './globals.css'
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import localFont from 'next/font/local'
-import { DM_Mono, Geist, Outfit } from 'next/font/google'
+import { DM_Mono, Geist, Outfit, Inter } from 'next/font/google'
 
 import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/sonner'
 
 import { AppProvider } from './app-provider'
+import { cn } from '@/lib/utils'
+
+const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 
 const poppins = localFont({
   src: [
@@ -135,7 +138,11 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="pt-br" suppressHydrationWarning>
+    <html
+      lang="pt-br"
+      suppressHydrationWarning
+      className={cn('font-sans', inter.variable)}
+    >
       <Analytics />
 
       <head>
