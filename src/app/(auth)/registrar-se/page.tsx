@@ -1,6 +1,6 @@
 import { Logo } from '@/components/logo'
 import { ModeToggle } from '@/components/theme-toggle'
-import { SignInForm } from '@/features/auth/components/forms/sign-in'
+import { SignUpForm } from '@/features/auth/components/forms/sign-up'
 
 export default function SignInPage() {
   return (
@@ -12,10 +12,12 @@ export default function SignInPage() {
       </div>
 
       <div>
-        <h1 className="font-clash text-4xl font-semibold">Entrar no Flow</h1>
+        <h1 className="font-clash text-4xl font-semibold">
+          Registre-se no Flow
+        </h1>
       </div>
 
-      <SignInForm />
+      <SignUpForm />
     </>
   )
 }
