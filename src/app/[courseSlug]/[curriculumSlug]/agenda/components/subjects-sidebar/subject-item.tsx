@@ -45,12 +45,14 @@ interface SubjectItemProps extends React.HTMLAttributes<HTMLDivElement> {
   index: number
   subject: Subject
   colors: string[]
+  isActive?: boolean
 }
 
 export function SubjectItem({
   subject,
   colors,
   index,
+  isActive = true,
   ...props
 }: SubjectItemProps) {
   const {
@@ -120,6 +122,7 @@ export function SubjectItem({
         isScheduled &&
           scheduledClass?.color &&
           cardContainerVariants({ color: scheduledClass.color }),
+        !isActive && 'opacity-60',
       )}
     >
       <Glow
