@@ -24,6 +24,8 @@ import { toast } from 'sonner'
 import { useCourse } from './course'
 import { useClass } from './class'
 
+import { v4 as uuidv4 } from 'uuid'
+
 const DEFAULT_YEAR = process.env.NEXT_PUBLIC_CURRENT_YEAR
   ? parseInt(process.env.NEXT_PUBLIC_CURRENT_YEAR)
   : new Date().getFullYear()
@@ -112,7 +114,7 @@ export function ScheduleProvider({ children }: { children: React.ReactNode }) {
   const createSchedule = async (name?: string) => {
     const scheduleName = name || `Agenda ${schedules.length + 1}`
     const newSchedule: Schedule = {
-      id: crypto.randomUUID(),
+      id: uuidv4(),
       name: scheduleName,
       courseId: selectedCurriculum?.id || 'unknown',
       year: activeYear,
@@ -231,7 +233,7 @@ export function ScheduleProvider({ children }: { children: React.ReactNode }) {
 
       if (filtered.length === 0) {
         const defaultSchedule: Schedule = {
-          id: crypto.randomUUID(),
+          id: uuidv4(),
           courseId: selectedCurriculum.id,
           year: activeYear,
           semester: activeSemester,
