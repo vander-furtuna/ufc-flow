@@ -27,7 +27,7 @@ export function Pill({ Icon, label, colors, isActive, ...rest }: PillProps) {
         />
       )}
       <figure className="z-10 shrink-0">{Icon}</figure>
-      <span className="font-clash z-10 min-w-0 truncate text-left text-sm font-[550]">
+      <span className="font-heading z-10 min-w-0 truncate text-left text-sm font-[550]">
         {capitalezedLabel}
       </span>
     </button>

@@ -24,7 +24,7 @@ export default function Home() {
         <article className="flex w-full flex-col items-center gap-4">
           <div className="flex w-full items-center gap-6">
             <Line />
-            <h1 className="font-clash text-foreground text-2xl font-semibold text-nowrap uppercase md:text-3xl">
+            <h1 className="font-heading text-foreground text-2xl font-semibold text-nowrap uppercase md:text-3xl">
               Escolha um curso
             </h1>
             <Line />

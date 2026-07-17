@@ -158,7 +158,7 @@ export function CalendarView() {
   return (
     <div className="bg-card border-border flex max-h-full flex-col overflow-hidden rounded-lg border transition-colors">
       <div className="bg-card border-border flex items-center justify-between border-b px-6 py-4">
-        <h2 className="text-card-foreground font-clash flex flex-col gap-x-1 text-2xl font-semibold capitalize sm:flex-row sm:items-center sm:text-3xl">
+        <h2 className="text-card-foreground font-heading flex flex-col gap-x-1 text-2xl font-semibold capitalize sm:flex-row sm:items-center sm:text-3xl">
           {currentDate.toLocaleDateString('pt-BR', { month: 'long' })}
           <span className="text-muted-foreground font-light">
             {currentDate.getFullYear()}

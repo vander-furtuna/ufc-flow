@@ -10,7 +10,7 @@ export default function NotFound() {
 
         <article className="flex w-full flex-col items-center justify-center gap-8">
           <div className="flex flex-col items-center justify-center">
-            <h1 className="font-clash text-foreground text-7xl font-semibold uppercase">
+            <h1 className="font-heading text-foreground text-7xl font-semibold uppercase">
               404
             </h1>
             <p className="text-muted-foreground text-center">

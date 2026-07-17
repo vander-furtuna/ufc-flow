@@ -185,9 +185,9 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <main className="flex min-h-dvh w-full flex-col items-center justify-start">
+            <div className="flex min-h-dvh w-full flex-col items-center justify-start">
               {children}
-            </main>
+            </div>
             <Toaster />
           </ThemeProvider>
         </AppProvider>

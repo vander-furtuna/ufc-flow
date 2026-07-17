@@ -31,7 +31,7 @@ export function SubjectDiagram() {
       >
         <div className="flex items-center gap-1">
           <List className="text-muted-foreground size-5" />
-          <strong className="font-clash text-xl font-medium">
+          <strong className="font-heading text-xl font-medium">
             {groupByAlias(groupBy)}
           </strong>
         </div>

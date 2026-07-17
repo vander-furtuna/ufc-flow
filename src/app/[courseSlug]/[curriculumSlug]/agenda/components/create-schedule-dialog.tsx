@@ -1,11 +1,11 @@
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
 } from '@/components/ui/dialog'
 import { useState, type ComponentProps } from 'react'
 import { useSchedule } from '@/contexts/schedule'
@@ -52,7 +52,7 @@ export function CreateScheduleDialog({
       <DialogTrigger render={children} />
       <DialogContent className="z-500 gap-0 p-0">
         <DialogHeader className="border-border border-b p-5">
-          <DialogTitle className="font-clash text-xl">
+          <DialogTitle className="font-heading text-xl">
             Criar nova agenda
           </DialogTitle>
           <DialogDescription>

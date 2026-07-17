@@ -1,11 +1,11 @@
 import { Button } from '@/components/ui/button'
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
 } from '@/components/ui/dialog'
 import type { ClassSection, SubjectGroup } from '@/types/class'
 import type { Subject } from '@/types/course'
@@ -63,7 +63,7 @@ export function SelectedSubjectDialog({
       <DialogTrigger render={children} />
       <DialogContent className="z-800 p-0">
         <DialogHeader className="border-border border-b p-5">
-          <DialogTitle className="font-clash text-xl">
+          <DialogTitle className="font-heading text-xl">
             {capitalizeWords(subject.name)}
           </DialogTitle>
           <DialogDescription>{subject.code}</DialogDescription>
@@ -103,7 +103,7 @@ export function SelectedSubjectDialog({
                     <div className="flex w-full flex-col items-start gap-2">
                       <div className="flex w-fit flex-col items-start">
                         <div className="flex">
-                          <strong className="font-clash text-lg font-semibold">
+                          <strong className="font-heading text-lg font-semibold">
                             Turma {classItem.sectionId}
                           </strong>
                           <span className="bg-accent/50 ml-4 flex items-center gap-1 rounded-md px-2 py-1 text-sm">

@@ -1,11 +1,11 @@
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
 } from '@/components/ui/dialog'
 import { useState, type ComponentProps } from 'react'
 import { Button } from '@/components/ui/button'
@@ -40,7 +40,7 @@ export function DestructiveDialog({
       <DialogContent className="gap-0 p-0">
         <DialogHeader className="border-border flex border-b p-5">
           <AlertTriangle className="text-destructive size-10" />
-          <DialogTitle className="font-clash text-destructive text-xl">
+          <DialogTitle className="font-heading text-destructive text-xl">
             {title}
           </DialogTitle>
         </DialogHeader>

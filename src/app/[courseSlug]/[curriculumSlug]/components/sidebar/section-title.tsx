@@ -28,7 +28,7 @@ export function SectionTitle({
       {...rest}
     >
       {['right', 'center'].includes(side) && <Line />}
-      <h2 className="text-md font-clash text-center font-semibold text-nowrap uppercase">
+      <h2 className="text-md font-heading text-center font-semibold text-nowrap uppercase">
         {children}
       </h2>
       {['center', 'left'].includes(side) && <Line />}

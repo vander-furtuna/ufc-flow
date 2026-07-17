@@ -54,7 +54,7 @@ export function ListView({ search, showImportantEvents }: ListViewProps) {
                 <div className="bg-primary text-primary-foreground rounded-md p-2 shadow-sm">
                   <CalendarDays className="h-5 w-5" />
                 </div>
-                <h2 className="text-foreground font-clash text-2xl font-semibold tracking-tight capitalize">
+                <h2 className="text-foreground font-heading text-2xl font-semibold tracking-tight capitalize">
                   {group.monthName}{' '}
                   <span className="text-muted-foreground font-normal">
                     {group.year}
@@ -81,7 +81,7 @@ export function ListView({ search, showImportantEvents }: ListViewProps) {
                         <div className="shrink-0 md:w-20">
                           <span
                             className={cn(
-                              'bg-primary/10 text-primary font-clash inline-flex min-w-12 items-center justify-center rounded-md px-3 py-1 text-sm font-semibold',
+                              'bg-primary/10 text-primary font-heading inline-flex min-w-12 items-center justify-center rounded-md px-3 py-1 text-sm font-semibold',
                               event.isImportant &&
                                 'bg-background/20 text-foreground',
                             )}

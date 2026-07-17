@@ -256,7 +256,7 @@ export function TutorialOverlay({
         style={getTooltipStyle()}
       >
         <div className="bg-accent/90 flex items-center justify-between px-4 py-3">
-          <h3 className="font-clash text-foreground text-lg leading-tight font-semibold">
+          <h3 className="font-heading text-foreground text-lg leading-tight font-semibold">
             {step.title}
           </h3>
           <button

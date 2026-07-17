@@ -2,13 +2,13 @@
 
 import { Button } from '@/components/ui/button'
 import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
 } from '@/components/ui/dialog'
 import { cn } from '@/lib/utils'
 import type { AcademicEvent } from '@/types/calendar'
@@ -42,7 +42,7 @@ export default function CalendarDayDialog({
           <div className="bg-foreground text-background flex items-center justify-center rounded-lg border p-2">
             <Calendar className="h-5 w-5" />
           </div>
-          <DialogTitle className="font-clash text-left! text-lg first-letter:uppercase">
+          <DialogTitle className="font-heading text-left! text-lg first-letter:uppercase">
             {formatedDate}
           </DialogTitle>
         </DialogHeader>

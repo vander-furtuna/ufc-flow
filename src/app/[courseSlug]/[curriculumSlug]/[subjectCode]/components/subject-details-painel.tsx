@@ -61,7 +61,7 @@ export function SubjectDetailsPainel({
       </button>
       <h2
         className={cn(
-          'font-clash center mt-3 w-full text-center text-lg font-semibold drop-shadow-lg dark:text-slate-50',
+          'font-heading center mt-3 w-full text-center text-lg font-semibold drop-shadow-lg dark:text-slate-50',
           isInfoPanelOpen ? '' : 'mt-0 text-base',
         )}
       >
@@ -73,7 +73,7 @@ export function SubjectDetailsPainel({
           className="center mt-2 flex w-fit gap-2 rounded-full bg-slate-50/40 px-2 py-1 font-semibold text-slate-800 transition-all duration-300 dark:bg-slate-900/10 dark:text-slate-100 dark:hover:bg-slate-900/20"
           onClick={() => copyToClipboard(subject.code)}
         >
-          <span className="font-clash text-sm">{subject.code}</span>
+          <span className="font-heading text-sm">{subject.code}</span>
           <figure className="size-4">
             <Copy strokeWidth={2.5} className="size-3" />
           </figure>

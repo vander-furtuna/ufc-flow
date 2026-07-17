@@ -21,7 +21,7 @@ export function SubjectDiagramSkeleton() {
               {Array.from({ length: 6 }, (_, i) => i + 1).map((element) => {
                 return (
                   <div
-                    className="font-clash ring-border center h-24 w-38 animate-pulse rounded-lg bg-slate-100 ring-1 dark:bg-slate-900"
+                    className="font-heading ring-border center h-24 w-38 animate-pulse rounded-lg bg-slate-100 ring-1 dark:bg-slate-900"
                     key={element}
                   />
                 )

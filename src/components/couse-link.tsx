@@ -71,7 +71,7 @@ export function CourseLink({ course, icon, ...props }: CourseLinkProps) {
             )}
           />
           <div className="flex flex-col items-start justify-center gap-1">
-            <strong className="font-clash text-left text-xl leading-tight font-medium">
+            <strong className="font-heading text-left text-xl leading-tight font-medium">
               {course.name}
             </strong>
             <div className="flex gap-0.5 text-left text-sm">
@@ -118,7 +118,7 @@ export function CourseLink({ course, icon, ...props }: CourseLinkProps) {
                     {structure.isCurrent && (
                       <Star className="text-foreground size-4" />
                     )}
-                    <strong className="font-clash text-left text-lg leading-tight font-medium">
+                    <strong className="font-heading text-left text-lg leading-tight font-medium">
                       {structure.period}
                     </strong>
                     <ChevronRight className="text-muted-foreground/70 group-hover/link:text-muted-foreground size-4 transition group-hover/link:translate-x-1" />

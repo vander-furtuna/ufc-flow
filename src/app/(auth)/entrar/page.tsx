@@ -12,7 +12,7 @@ export default function SignInPage() {
       </div>
 
       <div>
-        <h1 className="font-clash text-4xl font-semibold">Entrar no Flow</h1>
+        <h1 className="font-heading text-4xl font-semibold">Entrar no Flow</h1>
       </div>
 
       <SignInForm />

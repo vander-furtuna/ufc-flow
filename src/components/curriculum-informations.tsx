@@ -58,7 +58,7 @@ export function CurriculumInformations({
       <div className="flex w-full items-center gap-2">
         <div className="flex flex-col">
           <span className="text-xs font-medium uppercase">Curso:</span>
-          <strong className="font-clash text-accent-foreground text-3xl font-semibold">
+          <strong className="font-heading text-accent-foreground text-3xl font-semibold">
             {selectedCourse?.name}
           </strong>
         </div>

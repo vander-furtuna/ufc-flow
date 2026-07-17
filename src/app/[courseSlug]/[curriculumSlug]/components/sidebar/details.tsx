@@ -116,7 +116,7 @@ export function Details({ code }: DetailsProps) {
                 className="dark:bg-background/15 bg-background/70 border-border border-border/50 flex w-full flex-col gap-1.5 rounded-md border p-3"
               >
                 <div className="flex items-center justify-between">
-                  <strong className="text-foreground/90 font-clash text-sm font-semibold uppercase">
+                  <strong className="text-foreground/90 font-heading text-sm font-semibold uppercase">
                     Turma {classItem.sectionId}
                   </strong>
 

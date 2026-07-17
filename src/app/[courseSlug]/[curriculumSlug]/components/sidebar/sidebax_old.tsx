@@ -139,7 +139,7 @@ export function Sidebar() {
                 >
                   <X className="size-5 opacity-70" />
                 </button>
-                <strong className="font-clash center w-full text-center text-lg font-semibold drop-shadow-lg dark:text-slate-50">
+                <strong className="font-heading center w-full text-center text-lg font-semibold drop-shadow-lg dark:text-slate-50">
                   {selectedSubject.name}
                 </strong>
                 <div className="absolute bottom-2 flex w-fit gap-1">
@@ -147,7 +147,7 @@ export function Sidebar() {
                     className="center flex w-fit gap-2 rounded-full bg-slate-50/40 px-2 py-1 font-semibold text-slate-800 transition-all duration-300 dark:bg-slate-900/10 dark:text-slate-100 dark:hover:bg-slate-900/20"
                     onClick={() => copyToClipboard(selectedSubject.code)}
                   >
-                    <span className="font-clash text-sm">
+                    <span className="font-heading text-sm">
                       {selectedSubject.code}
                     </span>
                     <figure className="size-4">

@@ -205,7 +205,7 @@ export function SubjectsSidebar({
               </div>
             </div>
           )}
-          <h2 className="text-foreground/90 font-clash text-3xl font-semibold">
+          <h2 className="text-foreground/90 font-heading text-3xl font-semibold">
             {selectedCourse?.name}
           </h2>
           <div className="flex w-full shrink-0 flex-col gap-1">
@@ -234,7 +234,7 @@ export function SubjectsSidebar({
             ([sem, subjects]) => (
               <div key={sem} className="flex w-full flex-col gap-2">
                 <div className="relative flex w-full items-center gap-1.5">
-                  <h3 className="text-foreground/85 font-clash flex-1 text-lg font-semibold tracking-wider text-nowrap uppercase">
+                  <h3 className="text-foreground/85 font-heading flex-1 text-lg font-semibold tracking-wider text-nowrap uppercase">
                     {sem}º Período
                   </h3>
                   <Line />
@@ -295,7 +295,7 @@ export function SubjectsSidebar({
         </div>
       </header>
       <div className="border-border/50 mt-8 flex w-full flex-col gap-3 border-b pb-3">
-        <h2 className="text-foreground/90 font-clash text-3xl font-semibold">
+        <h2 className="text-foreground/90 font-heading text-3xl font-semibold">
           {selectedCourse?.name}
         </h2>
         <div className="flex w-full shrink-0 flex-col gap-1">
@@ -393,7 +393,7 @@ export function SubjectsSidebar({
         {(Object.entries(subjectsBySemester) as [string, Subject[]][]).map(
           ([sem, subjects]) => (
             <div key={sem} className="flex w-full flex-col gap-2">
-              <h3 className="text-foreground/85 font-clash text-lg font-semibold tracking-wider uppercase">
+              <h3 className="text-foreground/85 font-heading text-lg font-semibold tracking-wider uppercase">
                 {sem}º Período
               </h3>
               <div className="flex w-full flex-col gap-1.5">

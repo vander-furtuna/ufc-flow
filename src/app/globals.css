@@ -104,7 +104,7 @@
 @theme inline {
   --font-sans: var(--font-geist);
   --font-space: var(--font-space-grotesk);
-  --font-clash: var(--font-clash-display);
+  --font-heading: var(--font-clash-display);
   --font-mono: var(--font-dm-mono), monospace;
 
   --radius-sm: calc(var(--radius) - 4px);

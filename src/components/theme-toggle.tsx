@@ -31,7 +31,7 @@ export function ModeToggle() {
         align="end"
         className="border-border bg-accent/50 p-0 backdrop-blur-md"
       >
-        <DropdownMenuLabel className="bg-accent font-clash flex h-10 items-center px-3 text-base">
+        <DropdownMenuLabel className="bg-accent font-heading flex h-10 items-center px-3 text-base">
           Tema
         </DropdownMenuLabel>
         <DropdownMenuSeparator className="m-0 p-0" />
