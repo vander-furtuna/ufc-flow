@@ -7,9 +7,15 @@ import { AvailabilityPopup } from './popups/availability'
 import { SemesterTool } from './popups/semester'
 import { cn } from '@/lib/utils'
 
-type ToolsProps = ComponentProps<'div'>
+type ToolsProps = {
+  excludeSemester?: boolean
+} & ComponentProps<'div'>
 
-export function Tools({ className, ...rest }: ToolsProps) {
+export function Tools({
+  className,
+  excludeSemester = false,
+  ...rest
+}: ToolsProps) {
   const { scrollRef, showLeftShadow, showRightShadow } =
     useHorizontalScrollWithOverlay<HTMLDivElement>()
 
@@ -29,7 +35,7 @@ export function Tools({ className, ...rest }: ToolsProps) {
       }}
       {...rest}
     >
-      <SemesterTool />
+      {!excludeSemester && <SemesterTool />}
       <GroupByPopup />
       <AvailabilityPopup />
     </div>

@@ -36,7 +36,7 @@ export function DestructiveDialog({
   return (
     <Dialog {...props} open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="gap-0 p-0">
+      <DialogContent className="z-900 gap-0 p-0">
         <DialogHeader className="border-border flex border-b p-5">
           <AlertTriangle className="text-destructive size-10" />
           <DialogTitle className="font-clash text-destructive text-xl">
