@@ -19,6 +19,14 @@ const toUtcIsoDate = (year: number, monthIndex: number, day: number) => {
   return new Date(Date.UTC(year, monthIndex, day)).toISOString()
 }
 
+const getDaysInMonth = (date: Date) => {
+  return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
+}
+
+const getFirstDayOfMonth = (date: Date) => {
+  return new Date(date.getFullYear(), date.getMonth(), 1).getDay()
+}
+
 export function CalendarView() {
   const { events } = useCalendar()
 
@@ -28,14 +36,6 @@ export function CalendarView() {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const daysOfWeek = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb']
-
-  const getDaysInMonth = (date: Date) => {
-    return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
-  }
-
-  const getFirstDayOfMonth = (date: Date) => {
-    return new Date(date.getFullYear(), date.getMonth(), 1).getDay()
-  }
 
   const prevMonth = () => {
     setCurrentDate(

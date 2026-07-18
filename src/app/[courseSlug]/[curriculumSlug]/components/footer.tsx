@@ -8,11 +8,13 @@ import ecLogo from '@/assets/ec-logo.svg'
 import { ChevronUp } from 'lucide-react'
 import { VanderIcon } from '@/components/vander-icon'
 
-export function Footer() {
-  const scrollToTop = () => {
+const scrollToTop = () => {
+  if (typeof window !== 'undefined') {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
+}
 
+export function Footer() {
   return (
     <footer className="relative mt-auto flex w-full flex-col pb-0">
       <div className="flex w-full items-center justify-between pb-6">

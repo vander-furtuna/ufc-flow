@@ -8,18 +8,18 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { GraduationCap, ArrowRight, UserCheck, ShieldAlert } from 'lucide-react'
 
+const getInitials = (name: string) => {
+  const parts = name.trim().split(/\s+/)
+  if (parts.length === 0) return 'US'
+  if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase()
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
+}
+
 export default async function ProfilePage() {
   const user = await getCurrentUserAction()
 
   if (!user) {
     redirect('/entrar')
-  }
-
-  const getInitials = (name: string) => {
-    const parts = name.trim().split(/\s+/)
-    if (parts.length === 0) return 'US'
-    if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase()
-    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
   }
 
   const currentRole =
