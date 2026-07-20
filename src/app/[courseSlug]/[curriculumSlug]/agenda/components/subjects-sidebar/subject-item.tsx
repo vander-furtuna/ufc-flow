@@ -9,12 +9,26 @@ import type { Subject } from '@/types/course'
 import { capitalizeWords } from '@/utils/capitalize-words'
 import { checkPrerequisites } from '@/utils/check-prerequesites'
 import { getSubjectStyle } from '@/utils/get-subject-style'
-import { AlertCircle, CalendarIcon, TrashIcon } from 'lucide-react'
+import {
+  AlertCircle,
+  CalendarIcon,
+  Check,
+  Copy,
+  Tag,
+  TrashIcon,
+} from 'lucide-react'
 import { SelectedSubjectDialog } from '../selected-subject-dialog'
 import { useClass } from '@/contexts/class'
 import { useCourse } from '@/contexts/course'
 import { cva } from 'class-variance-authority'
 import * as React from 'react'
+import { useState } from 'react'
+import { toast } from 'sonner'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover'
 
 export const cardContainerVariants = cva('', {
   variants: {
@@ -55,6 +69,9 @@ export function SubjectItem({
   isActive = true,
   ...props
 }: SubjectItemProps) {
+  const [isCopied, setIsCopied] = useState(false)
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false)
+  const [isPinned, setIsPinned] = useState(false)
   const {
     completedSubjects,
     toggleCompletedSubject,
@@ -98,8 +115,6 @@ export function SubjectItem({
       ? getSubjectInformationByCode(subject.code)
       : null
 
-  const hasClasses = scheduleInfo?.classes && scheduleInfo.classes.length > 0
-
   const isScheduled = scheduleClasses.some(
     (scheduledClass) => scheduledClass.code === subject.code,
   )
@@ -138,15 +153,78 @@ export function SubjectItem({
         scheduleInfo={scheduleInfo!}
         missingPreRequisites={missingPreRequisites}
       >
-        <button
-          className="flex h-full w-full flex-col items-start justify-between gap-1"
-          type="button"
-          disabled={!hasClasses || isScheduled || isCompleted}
+        <div
+          className={cn(
+            'flex h-full w-full flex-col items-start justify-between gap-1 cursor-pointer',
+            (isScheduled || isCompleted) && 'pointer-events-none',
+          )}
         >
-          <div className="relative z-10 flex items-center justify-start gap-2">
-            <span className="text-foreground/90 font-mono text-xs">
-              {subject.code}
-            </span>
+          <div className="relative z-10 flex items-center justify-start gap-1">
+            <Popover
+              open={isPopoverOpen}
+              onOpenChange={(open) => {
+                if (!open) {
+                  setIsPinned(false)
+                  setIsPopoverOpen(false)
+                }
+              }}
+            >
+              <PopoverTrigger asChild>
+                <button
+                  type="button"
+                  onMouseEnter={() => setIsPopoverOpen(true)}
+                  onMouseLeave={() => {
+                    if (!isPinned) setIsPopoverOpen(false)
+                  }}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    e.preventDefault()
+                    setIsPinned((prev) => {
+                      const nextPinned = !prev
+                      setIsPopoverOpen(nextPinned)
+                      return nextPinned
+                    })
+                  }}
+                  className="text-muted-foreground/80 hover:text-foreground inline-flex shrink-0 cursor-pointer items-center justify-center rounded-xs p-0.5 transition-colors focus:outline-hidden"
+                >
+                  <Tag className="size-4" />
+                </button>
+              </PopoverTrigger>
+              <PopoverContent
+                side="top"
+                align="start"
+                sideOffset={4}
+                onMouseEnter={() => setIsPopoverOpen(true)}
+                onMouseLeave={() => {
+                  if (!isPinned) setIsPopoverOpen(false)
+                }}
+                className="bg-popover/95 border-border/80 text-popover-foreground flex w-auto items-center gap-2 px-2.5 py-1.5 shadow-md backdrop-blur-xs"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <span className="font-mono text-xs font-semibold select-all">
+                  {subject.code}
+                </span>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    e.preventDefault()
+                    navigator.clipboard.writeText(subject.code)
+                    setIsCopied(true)
+                    toast.success(`Código ${subject.code} copiado!`)
+                    setTimeout(() => setIsCopied(false), 2000)
+                  }}
+                  className="hover:bg-accent/80 text-muted-foreground hover:text-foreground flex items-center justify-center rounded-xs p-1 transition-colors"
+                  title="Copiar código"
+                >
+                  {isCopied ? (
+                    <Check className="size-3.5 text-emerald-500 dark:text-emerald-400" />
+                  ) : (
+                    <Copy className="size-3.5" />
+                  )}
+                </button>
+              </PopoverContent>
+            </Popover>
             <span className="text-foreground text-start text-sm">
               {capitalizeWords(subject.name)}
             </span>
@@ -155,13 +233,10 @@ export function SubjectItem({
             <div className="flex items-center gap-1 text-red-600 dark:text-red-400">
               <AlertCircle className="size-3" />
               <span className="text-xs">
-                Falta: {missingPreRequisites.join(', ')}
+                {missingPreRequisites.length === 1
+                  ? 'Falta 1 pré-requisito'
+                  : `Faltam ${missingPreRequisites.length} pré-requisitos`}
               </span>
-            </div>
-          )}
-          {!hasClasses && (
-            <div className="mt-1 text-xs text-amber-600 italic">
-              Sem horários cadastrados
             </div>
           )}
           {isScheduled && (
@@ -170,7 +245,7 @@ export function SubjectItem({
               <span>Agendado</span>
             </div>
           )}
-        </button>
+        </div>
       </SelectedSubjectDialog>
       <div className="flex h-full flex-col items-center justify-between gap-2">
         <FilterCheckbox

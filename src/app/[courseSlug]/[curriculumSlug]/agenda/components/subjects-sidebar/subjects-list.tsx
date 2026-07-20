@@ -4,9 +4,13 @@ import { SubjectItem } from './subject-item'
 import { useCourse } from '@/contexts/course'
 import { useTools } from '@/contexts/tools'
 import { useClass } from '@/contexts/class'
+import { useSchedule } from '@/contexts/schedule'
 import { NATURE_CONFIG } from '@/data/colors'
 import type { Subject } from '@/types/course'
 import { Line } from '@/components/title'
+import { Button } from '@/components/ui/button'
+import { CheckCheck } from 'lucide-react'
+import { cn } from '@/lib/utils'
 import { useMemo } from 'react'
 import { VisualSettings } from './visual-settings'
 
@@ -20,6 +24,7 @@ export function SubjectsList({ showLine = true }: { showLine?: boolean }) {
   const { filteredSubjects, selectedCurriculum } = useCourse()
   const { groupBy, availability, highlightUnavailable } = useTools()
   const { currentClassGroup } = useClass()
+  const { completedSubjects, toggleSubjectsCompleted } = useSchedule()
 
   const mappedSubjects = useMemo(() => {
     return filteredSubjects
@@ -137,37 +142,69 @@ export function SubjectsList({ showLine = true }: { showLine?: boolean }) {
     <>
       <VisualSettings />
 
-      {groups.map(({ key, title, subjects }) => (
-        <div key={key} className="flex w-full flex-col gap-2">
-          <div className="relative flex w-full items-center gap-3">
-            <h3
-              className={`text-foreground/85 font-clash text-xl font-semibold tracking-wider uppercase ${showLine ? 'flex-1 text-nowrap' : ''}`}
-            >
-              {title}
-            </h3>
-            {showLine && <Line />}
-          </div>
-          <div className="flex w-full flex-col gap-2">
-            {subjects.map((subject, index) => {
-              const colors = selectedCurriculum?.branchs
-                .filter((currentBranch) =>
-                  subject.branch.includes(currentBranch.id),
-                )
-                .map((branch) => branch.color)
+      {groups.map(({ key, title, subjects }) => {
+        const subjectCodes = subjects.map((s) => s.code)
+        const areAllCompleted =
+          subjectCodes.length > 0 &&
+          subjectCodes.every((code) => completedSubjects.includes(code))
 
-              return (
-                <SubjectItem
-                  subject={subject}
-                  key={subject.code}
-                  colors={colors || []}
-                  index={index}
-                  isActive={subject.isActive}
-                />
-              )
-            })}
+        return (
+          <div key={key} className="flex w-full flex-col gap-2">
+            <div className="relative flex w-full items-center gap-3">
+              <h3 className="text-foreground/85 font-clash text-xl font-semibold tracking-wider text-nowrap uppercase">
+                {title}
+              </h3>
+              {showLine && (
+                <div className="flex-1">
+                  <Line />
+                </div>
+              )}
+              {groupBy === 'semester' && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => toggleSubjectsCompleted(subjectCodes)}
+                  className={cn(
+                    'h-7 shrink-0 gap-1.5 px-2 text-xs font-medium transition-colors',
+                    areAllCompleted
+                      ? 'text-emerald-600 hover:bg-emerald-500/10 hover:text-emerald-700 dark:text-emerald-400 dark:hover:bg-emerald-400/10 dark:hover:text-emerald-300'
+                      : 'text-muted-foreground hover:text-foreground',
+                  )}
+                  title={
+                    areAllCompleted
+                      ? 'Desmarcar todas deste semestre'
+                      : 'Marcar todas deste semestre como concluídas'
+                  }
+                >
+                  <CheckCheck className="size-4" />
+                  <span className="hidden sm:inline">
+                    {areAllCompleted ? 'Concluído' : 'Concluir todas'}
+                  </span>
+                </Button>
+              )}
+            </div>
+            <div className="flex w-full flex-col gap-2">
+              {subjects.map((subject, index) => {
+                const colors = selectedCurriculum?.branchs
+                  .filter((currentBranch) =>
+                    subject.branch.includes(currentBranch.id),
+                  )
+                  .map((branch) => branch.color)
+
+                return (
+                  <SubjectItem
+                    subject={subject}
+                    key={subject.code}
+                    colors={colors || []}
+                    index={index}
+                    isActive={subject.isActive}
+                  />
+                )
+              })}
+            </div>
           </div>
-        </div>
-      ))}
+        )
+      })}
     </>
   )
 }
