@@ -6,15 +6,15 @@ O trabalho atual é a **v2**: API NestJS + PostgreSQL, contas de usuário, hist�
 
 ## Leia antes de qualquer tarefa da v2
 
-| Documento | Para quê |
-| --- | --- |
-| [docs/v2/README.md](docs/v2/README.md) | Índice e ordem de leitura |
-| [docs/v2/estado-atual.md](docs/v2/estado-atual.md) | O que já existe, o que está pela metade e divergências com a modelagem |
-| [docs/v2/modelagem.md](docs/v2/modelagem.md) | **Fonte de verdade**: decisões, tabelas, regras de domínio, endpoints |
-| [docs/v2/roadmap.md](docs/v2/roadmap.md) | Fases em ordem, entregas e critérios de aceite |
-| [docs/v2/telas.md](docs/v2/telas.md) | As 39 telas desenhadas (PNG + HTML), por fase |
-| [docs/v2/design-system.md](docs/v2/design-system.md) | Tokens, tipografia e como traduzir os mockups para Tailwind/shadcn |
-| [docs/v2/convencoes.md](docs/v2/convencoes.md) | Padrões de código, testes, commits, git flow e definição de pronto |
+| Documento                                            | Para quê                                                               |
+| ---------------------------------------------------- | ---------------------------------------------------------------------- |
+| [docs/v2/README.md](docs/v2/README.md)               | Índice e ordem de leitura                                              |
+| [docs/v2/estado-atual.md](docs/v2/estado-atual.md)   | O que já existe, o que está pela metade e divergências com a modelagem |
+| [docs/v2/modelagem.md](docs/v2/modelagem.md)         | **Fonte de verdade**: decisões, tabelas, regras de domínio, endpoints  |
+| [docs/v2/roadmap.md](docs/v2/roadmap.md)             | Fases em ordem, entregas e critérios de aceite                         |
+| [docs/v2/telas.md](docs/v2/telas.md)                 | As 39 telas desenhadas (PNG + HTML), por fase                          |
+| [docs/v2/design-system.md](docs/v2/design-system.md) | Tokens, tipografia e como traduzir os mockups para Tailwind/shadcn     |
+| [docs/v2/convencoes.md](docs/v2/convencoes.md)       | Padrões de código, testes, commits, git flow e definição de pronto     |
 
 Ao começar uma fase, leia a seção correspondente do roadmap, as seções da modelagem que ela cita e as telas listadas nela. Não invente regra de negócio: se algo não está na modelagem, pergunte ao usuário ou registre como pergunta em aberto.
 
@@ -74,18 +74,18 @@ pnpm --filter @ufc-flow/academic-core add -D vitest   # dependência num pacote
 
 Ficam em `.claude/skills/` (versionadas). Use a skill certa antes de começar o tipo de tarefa que ela cobre.
 
-| Skill | Use para |
-| --- | --- |
-| `regra-academica-tdd` | Qualquer regra acadêmica pura no `packages/academic-core`, com teste antes |
-| `modulo-api-hexagonal` | Rota, tabela, permissão ou módulo novo na API |
-| `implementar-tela` | Construir ou alterar uma tela do web a partir de `docs/v2/telas` |
-| `atualizar-modelagem` | Manter `docs/v2` em dia quando uma decisão muda ou uma fase termina |
-| `shadcn` | Adicionar e compor componentes shadcn. Rode o CLI a partir de `apps/web`, onde está o `components.json` |
-| `turborepo` | `turbo.json`, tarefas, cache e filtros. A skill lê a documentação embutida em `node_modules/turbo/docs` |
-| `vercel-react-best-practices` | Escrever e revisar código React/Next com foco em desempenho |
-| `vercel-composition-patterns` | Desenhar a API de componentes reutilizáveis |
-| `web-design-guidelines` | Revisar UI (acessibilidade, UX) antes de fechar uma tela |
-| `migrate-oxlint` | A migração ESLint → oxlint da fase 0 |
+| Skill                         | Use para                                                                                                |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `regra-academica-tdd`         | Qualquer regra acadêmica pura no `packages/academic-core`, com teste antes                              |
+| `modulo-api-hexagonal`        | Rota, tabela, permissão ou módulo novo na API                                                           |
+| `implementar-tela`            | Construir ou alterar uma tela do web a partir de `docs/v2/telas`                                        |
+| `atualizar-modelagem`         | Manter `docs/v2` em dia quando uma decisão muda ou uma fase termina                                     |
+| `shadcn`                      | Adicionar e compor componentes shadcn. Rode o CLI a partir de `apps/web`, onde está o `components.json` |
+| `turborepo`                   | `turbo.json`, tarefas, cache e filtros. A skill lê a documentação embutida em `node_modules/turbo/docs` |
+| `vercel-react-best-practices` | Escrever e revisar código React/Next com foco em desempenho                                             |
+| `vercel-composition-patterns` | Desenhar a API de componentes reutilizáveis                                                             |
+| `web-design-guidelines`       | Revisar UI (acessibilidade, UX) antes de fechar uma tela                                                |
+| `migrate-oxlint`              | A migração ESLint → oxlint da fase 0                                                                    |
 
 As skills públicas (as seis últimas) são instaladas com `scripts/instalar-skills.ps1` e registradas em `skills-lock.json`; para atualizar, use `npx skills update -p`. A skill `design-taste-frontend` em `.agents/skills/` é para landing pages e redesigns livres: **não** a use nas telas da v2, que já têm design definido.
 

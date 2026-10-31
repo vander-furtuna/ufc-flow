@@ -13,21 +13,21 @@ Tudo que um desenvolvedor (pessoa ou agente) precisa para continuar a v2 do UFC 
 
 ## Mapa rápido: funcionalidade → modelagem → telas → fase
 
-| Funcionalidade | Seção da modelagem | Telas | Fase |
-| --- | --- | --- | --- |
-| Regras puras (requisitos, horário, progresso) | Catálogo acadêmico; Vida acadêmica | — | 1 |
-| Formato de importação e contratos | Importação e edição de grades | — | 2 |
-| Extensão do SIGAA | Importação e edição de grades | `Ext-*` | 3 |
-| Contas, sessões, papéis, moderadores | Usuários, papéis e permissões | `Main`, `Mobile-Entrar` | 4 |
-| Catálogo no banco e editor de ECs | Catálogo acadêmico; Importação | `Admin-EC`, `Mobile-Admin-EC*`, `Ext-Envio-*` | 5 |
-| Turmas coletadas e agendas sincronizadas | Turmas e agendas | `Agenda-Notificacoes`, `Mobile-Agenda`, `*Importar-Agendas` | 6 |
-| Notificações | Notificações | `Agenda-Notificacoes`, `Mobile-Notificacoes` | 7 |
-| Upload de arquivos | Arquivos e imagens | — | 8 |
-| Histórico, horas e progresso | Vida acadêmica do aluno | `Minha-Area`, `Historico`, `Mobile-*Historico*`, `Mobile-Minha-Area`, `Mobile-Navegacao` | 9 |
-| Hub e página de links | Hub do curso; Página de links | `Hub`, `Links-*`, `Mobile-Hub`, `Mobile-Links*` | 10 |
-| Fórum e moderação | Fórum do curso | `Forum`, `*Forum*`, `*Admin-Moderacao` | 11 |
-| Avaliação de disciplinas | Avaliação de disciplinas | `Disciplina-Avaliacao`, `Mobile-Disciplina` | 12 |
-| LGPD e deploy | Usuários (LGPD); Lacunas e riscos | — | 13 |
+| Funcionalidade                                | Seção da modelagem                 | Telas                                                                                    | Fase |
+| --------------------------------------------- | ---------------------------------- | ---------------------------------------------------------------------------------------- | ---- |
+| Regras puras (requisitos, horário, progresso) | Catálogo acadêmico; Vida acadêmica | —                                                                                        | 1    |
+| Formato de importação e contratos             | Importação e edição de grades      | —                                                                                        | 2    |
+| Extensão do SIGAA                             | Importação e edição de grades      | `Ext-*`                                                                                  | 3    |
+| Contas, sessões, papéis, moderadores          | Usuários, papéis e permissões      | `Main`, `Mobile-Entrar`                                                                  | 4    |
+| Catálogo no banco e editor de ECs             | Catálogo acadêmico; Importação     | `Admin-EC`, `Mobile-Admin-EC*`, `Ext-Envio-*`                                            | 5    |
+| Turmas coletadas e agendas sincronizadas      | Turmas e agendas                   | `Agenda-Notificacoes`, `Mobile-Agenda`, `*Importar-Agendas`                              | 6    |
+| Notificações                                  | Notificações                       | `Agenda-Notificacoes`, `Mobile-Notificacoes`                                             | 7    |
+| Upload de arquivos                            | Arquivos e imagens                 | —                                                                                        | 8    |
+| Histórico, horas e progresso                  | Vida acadêmica do aluno            | `Minha-Area`, `Historico`, `Mobile-*Historico*`, `Mobile-Minha-Area`, `Mobile-Navegacao` | 9    |
+| Hub e página de links                         | Hub do curso; Página de links      | `Hub`, `Links-*`, `Mobile-Hub`, `Mobile-Links*`                                          | 10   |
+| Fórum e moderação                             | Fórum do curso                     | `Forum`, `*Forum*`, `*Admin-Moderacao`                                                   | 11   |
+| Avaliação de disciplinas                      | Avaliação de disciplinas           | `Disciplina-Avaliacao`, `Mobile-Disciplina`                                              | 12   |
+| LGPD e deploy                                 | Usuários (LGPD); Lacunas e riscos  | —                                                                                        | 13   |
 
 ## Origem destes documentos
 

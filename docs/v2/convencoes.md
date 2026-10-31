@@ -35,14 +35,14 @@
 
 ## Testes
 
-| Camada | Ferramenta | Regra |
-| --- | --- | --- |
-| `academic-core` e domínio da API | Vitest | Escreva o teste antes; cada linha das tabelas de regras da modelagem vira um caso |
-| Casos de uso | Vitest + repositórios em memória | Sem banco, sem Nest |
-| Repositórios Drizzle | Vitest + Testcontainers (PostgreSQL) | Um container por arquivo de teste, com as migrations aplicadas |
-| HTTP | supertest sobre o app Nest | Fluxo feliz e erros documentados no Swagger |
-| Web | Vitest + Testing Library | Componentes com lógica de estado (editor de expressão, formulários) |
-| Extensão | Vitest com fixtures HTML do SIGAA | O parser nunca é testado contra o SIGAA ao vivo |
+| Camada                           | Ferramenta                           | Regra                                                                             |
+| -------------------------------- | ------------------------------------ | --------------------------------------------------------------------------------- |
+| `academic-core` e domínio da API | Vitest                               | Escreva o teste antes; cada linha das tabelas de regras da modelagem vira um caso |
+| Casos de uso                     | Vitest + repositórios em memória     | Sem banco, sem Nest                                                               |
+| Repositórios Drizzle             | Vitest + Testcontainers (PostgreSQL) | Um container por arquivo de teste, com as migrations aplicadas                    |
+| HTTP                             | supertest sobre o app Nest           | Fluxo feliz e erros documentados no Swagger                                       |
+| Web                              | Vitest + Testing Library             | Componentes com lógica de estado (editor de expressão, formulários)               |
+| Extensão                         | Vitest com fixtures HTML do SIGAA    | O parser nunca é testado contra o SIGAA ao vivo                                   |
 
 Arquivos de teste ficam ao lado do código: `*.test.ts`. Fixtures em `__fixtures__/` no pacote.
 

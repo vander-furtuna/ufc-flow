@@ -29,14 +29,14 @@ export function ToggleButton({
       {...rest}
     >
       <div className="flex w-full flex-col items-start overflow-hidden">
-        <span className="text-foreground/80 text-xs">{label}</span>
-        <strong className="text-foreground w-full truncate text-left text-sm font-medium text-ellipsis">
+        <span className="text-xs text-foreground/80">{label}</span>
+        <strong className="w-full truncate text-left text-sm font-medium text-ellipsis text-foreground">
           {content}
         </strong>
       </div>
       <CaretUpDownIcon
         weight="bold"
-        className="text-muted-foreground size-4 shrink-0 opacity-35"
+        className="size-4 shrink-0 text-muted-foreground opacity-35"
       />
     </button>
   )

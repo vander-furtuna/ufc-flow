@@ -292,15 +292,15 @@ O Relato da Situação garante que a evolução das configurações e baselines 
 
 Para assegurar a consistência dos processos descritos, a equipe do UFC FLOW concorda em utilizar exclusivamente as seguintes ferramentas homologadas:
 
-| Ferramenta               | Categoria                        | Escopo de Uso                                                                     |
-| :----------------------- | :------------------------------- | :-------------------------------------------------------------------------------- |
-| **Git**                  | Sistema de Controle de Versão    | Gerenciamento de histórico, controle distribuído local e branches.                |
-| **GitHub**               | Plataforma de Hospedagem         | Hospedagem remota, controle de Pull Requests, gerenciamento de Issues e Actions.  |
-| **pnpm**                 | Gerenciador de Pacotes           | Resolução e instalação de dependências do monorepo via workspaces.                |
-| **Turborepo**            | Orquestração de Monorepo         | Execução de build, lint e typecheck por pacote, com cache de resultados.          |
-| **Next.js & TypeScript** | Framework de Aplicação           | Estrutura de código, tipagem estática e compilação do UFC FLOW.                   |
-| **ESLint & Prettier**    | Qualidade & Formatação           | Validação e formatação automática de padrões estéticos e regras de código.        |
-| **GitHub Actions**       | Integração Contínua (CI)         | Execução automatizada de pipeline de testes, lint e builds em servidores remotos. |
+| Ferramenta               | Categoria                     | Escopo de Uso                                                                     |
+| :----------------------- | :---------------------------- | :-------------------------------------------------------------------------------- |
+| **Git**                  | Sistema de Controle de Versão | Gerenciamento de histórico, controle distribuído local e branches.                |
+| **GitHub**               | Plataforma de Hospedagem      | Hospedagem remota, controle de Pull Requests, gerenciamento de Issues e Actions.  |
+| **pnpm**                 | Gerenciador de Pacotes        | Resolução e instalação de dependências do monorepo via workspaces.                |
+| **Turborepo**            | Orquestração de Monorepo      | Execução de build, lint e typecheck por pacote, com cache de resultados.          |
+| **Next.js & TypeScript** | Framework de Aplicação        | Estrutura de código, tipagem estática e compilação do UFC FLOW.                   |
+| **ESLint & Prettier**    | Qualidade & Formatação        | Validação e formatação automática de padrões estéticos e regras de código.        |
+| **GitHub Actions**       | Integração Contínua (CI)      | Execução automatizada de pipeline de testes, lint e builds em servidores remotos. |
 
 ---
 

@@ -81,29 +81,29 @@ export function Calendar({ ref, ...props }: CalendarProps) {
 
   return (
     <section
-      className="bg-background border-border/80 flex h-full flex-col overflow-hidden rounded-b-md border md:rounded-lg"
+      className="flex h-full flex-col overflow-hidden rounded-b-md border border-border/80 bg-background md:rounded-lg"
       id="tour-calendar"
     >
       <div
         {...props}
-        className="bg-background calendar-scrollbar relative grid flex-1 overflow-auto"
+        className="relative grid calendar-scrollbar flex-1 overflow-auto bg-background"
         ref={ref as React.RefObject<HTMLDivElement>}
         style={{
           gridTemplateColumns: `${isMobile ? '36px' : '60px'} repeat(5, minmax(${isMobile ? 60 : 160}px, 1fr))`,
           gridTemplateRows: `${HEADER_HEIGHT}px repeat(${hourSlots.length}, ${ROW_HEIGHT}px)`,
         }}
       >
-        <div className="bg-accent/70 border-border/80 sticky top-0 left-0 z-40 flex h-full items-center justify-center border-r border-b backdrop-blur-lg">
+        <div className="sticky top-0 left-0 z-40 flex h-full items-center justify-center border-r border-b border-border/80 bg-accent/70 backdrop-blur-lg">
           <ClockIcon weight="bold" className="size-5 text-gray-400" />
         </div>
 
         {(isMobile ? shortDays : days).map((d, i) => (
           <div
             key={d}
-            className="bg-accent/70 border-border/80 sticky top-0 z-30 flex items-center justify-center border-r border-b backdrop-blur-lg last:border-r-0"
+            className="sticky top-0 z-30 flex items-center justify-center border-r border-b border-border/80 bg-accent/70 backdrop-blur-lg last:border-r-0"
             style={{ gridRow: 1, gridColumn: i + 2 }}
           >
-            <span className="text-foreground/90 text-xs font-bold tracking-wide uppercase">
+            <span className="text-xs font-bold tracking-wide text-foreground/90 uppercase">
               {d}
             </span>
           </div>
@@ -112,7 +112,7 @@ export function Calendar({ ref, ...props }: CalendarProps) {
         {hourSlots.map((h, rowIdx) => (
           <Fragment key={h}>
             <div
-              className="bg-accent/70 border-border/70 text-foreground/80 sticky left-0 z-30 border-r border-b p-2 text-right text-xs backdrop-blur-[2px]"
+              className="sticky left-0 z-30 border-r border-b border-border/70 bg-accent/70 p-2 text-right text-xs text-foreground/80 backdrop-blur-[2px]"
               style={{ gridRow: rowIdx + 2, gridColumn: 1 }}
             >
               {isMobile ? `${h}h` : `${h}:00`}
@@ -120,7 +120,7 @@ export function Calendar({ ref, ...props }: CalendarProps) {
             {days.map((_, colIdx) => (
               <div
                 key={`cell-${rowIdx}-${colIdx}`}
-                className="bg-background border-border/70 border-r border-b last:border-r-0"
+                className="border-r border-b border-border/70 bg-background last:border-r-0"
                 style={{ gridRow: rowIdx + 2, gridColumn: colIdx + 2 }}
               />
             ))}

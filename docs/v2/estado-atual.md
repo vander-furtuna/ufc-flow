@@ -4,13 +4,13 @@ Retrato em 31/10/2026, no momento da migração do trabalho para o Claude Code. 
 
 ## Branches
 
-| Branch | Situação |
-| --- | --- |
-| `master` | Produção (deploy no Coolify). Contém o hotfix das agendas locais. `origin/HEAD` aponta para ela. |
-| `develop` | Integração. Sincronizada com `master` e com o hotfix. |
-| `feature/monorepo` | Monorepo pnpm + Turborepo, pnpm 11 e esta documentação. **Ainda sem `pnpm-lock.yaml` e sem PR.** |
-| `main` | Existe junto com `master`. A modelagem decide manter só `main` como produção; ainda não foi feito. |
-| `hotfix/schedule-course-key` | Já mesclada em `master` e `develop`; pode ser apagada. |
+| Branch                       | Situação                                                                                           |
+| ---------------------------- | -------------------------------------------------------------------------------------------------- |
+| `master`                     | Produção (deploy no Coolify). Contém o hotfix das agendas locais. `origin/HEAD` aponta para ela.   |
+| `develop`                    | Integração. Sincronizada com `master` e com o hotfix.                                              |
+| `feature/monorepo`           | Monorepo pnpm + Turborepo, pnpm 11 e esta documentação. **Ainda sem `pnpm-lock.yaml` e sem PR.**   |
+| `main`                       | Existe junto com `master`. A modelagem decide manter só `main` como produção; ainda não foi feito. |
+| `hotfix/schedule-course-key` | Já mesclada em `master` e `develop`; pode ser apagada.                                             |
 
 Nada do que está acima foi enviado ao GitHub (`git push origin master develop feature/monorepo` é responsabilidade do usuário). A branch `feat/users` foi descartada e apagada localmente; falta apagar no remoto (`git push origin --delete feat/users`).
 
@@ -42,13 +42,13 @@ Nada do que está acima foi enviado ao GitHub (`git push origin master develop f
 
 ## Divergências entre a modelagem e o repositório
 
-| Modelagem diz | Repositório hoje | O que vale |
-| --- | --- | --- |
-| `packages/eslint-config` e `packages/tsconfig` | `tsconfig.base.json` na raiz; sem pacote de lint | Raiz. Com o oxlint (D19), uma `.oxlintrc.json` na raiz substitui o pacote de ESLint. |
-| `docker/` com compose de desenvolvimento | Não existe | Criar na fase 0. |
-| `main` = produção; CI em PRs para `develop` e `main` | Produção em `master`; CI só em `master` | Seguir a modelagem quando a pendência 4 for feita. |
-| Caminho `src/data/courses.ts` | `apps/web/src/data/courses.ts` | O novo caminho. |
-| Extensão = Plasmo, "o atual sigaa-classes-scraping" | O repositório irmão usa Plasmo e tem trabalho não commitado | Migrar a cópia de trabalho para `apps/extension` (fase 3). |
+| Modelagem diz                                        | Repositório hoje                                            | O que vale                                                                           |
+| ---------------------------------------------------- | ----------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| `packages/eslint-config` e `packages/tsconfig`       | `tsconfig.base.json` na raiz; sem pacote de lint            | Raiz. Com o oxlint (D19), uma `.oxlintrc.json` na raiz substitui o pacote de ESLint. |
+| `docker/` com compose de desenvolvimento             | Não existe                                                  | Criar na fase 0.                                                                     |
+| `main` = produção; CI em PRs para `develop` e `main` | Produção em `master`; CI só em `master`                     | Seguir a modelagem quando a pendência 4 for feita.                                   |
+| Caminho `src/data/courses.ts`                        | `apps/web/src/data/courses.ts`                              | O novo caminho.                                                                      |
+| Extensão = Plasmo, "o atual sigaa-classes-scraping"  | O repositório irmão usa Plasmo e tem trabalho não commitado | Migrar a cópia de trabalho para `apps/extension` (fase 3).                           |
 
 ## Como o web funciona hoje (o que a v2 substitui)
 

@@ -15,7 +15,7 @@ export function Header() {
         <Logo className="h-12 w-auto sm:h-14" />
       </div>
       <div className="flex items-center gap-0.5">
-        <div className="bg-accent border-border flex items-center gap-2 rounded-full border px-2">
+        <div className="flex items-center gap-2 rounded-full border border-border bg-accent px-2">
           <SelectSemesterDialog
             currentSemester={currentSemester ?? 2}
             currentYear={currentYear ?? 2025}
@@ -26,7 +26,7 @@ export function Header() {
             >
               <CalendarBlankIcon
                 weight="bold"
-                className="text-muted-foreground group-data-[active=active]/filter:text-foreground z-10 size-4"
+                className="z-10 size-4 text-muted-foreground group-data-[active=active]/filter:text-foreground"
               />
               <span className="z-10 text-xs text-nowrap">
                 {currentYear}.{currentSemester}

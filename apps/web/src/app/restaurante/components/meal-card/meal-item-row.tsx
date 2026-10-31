@@ -6,8 +6,8 @@ export function MealItemRow({ item, variant = 'hero' }: MealItemRowProps) {
 
   if (isHero) {
     return (
-      <li className="bg-background/50 border-border/40 flex flex-col justify-between gap-1.5 rounded-lg border p-2.5 sm:flex-row sm:items-center">
-        <span className="text-foreground text-sm leading-snug font-medium">
+      <li className="flex flex-col justify-between gap-1.5 rounded-lg border border-border/40 bg-background/50 p-2.5 sm:flex-row sm:items-center">
+        <span className="text-sm leading-snug font-medium text-foreground">
           {item.name}
         </span>
 
@@ -20,8 +20,8 @@ export function MealItemRow({ item, variant = 'hero' }: MealItemRowProps) {
   }
 
   return (
-    <li className="border-border/30 flex items-center justify-between gap-2 border-b py-1 text-xs last:border-b-0">
-      <span className="text-foreground/90 text-sm font-medium">
+    <li className="flex items-center justify-between gap-2 border-b border-border/30 py-1 text-xs last:border-b-0">
+      <span className="text-sm font-medium text-foreground/90">
         {item.name}
       </span>
 

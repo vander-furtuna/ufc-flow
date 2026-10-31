@@ -6,7 +6,7 @@ export type SemesterTitleProps = {
 } & React.HTMLAttributes<HTMLDivElement>
 
 export function Line() {
-  return <div className="bg-foreground/10 h-0.5 w-full" />
+  return <div className="h-0.5 w-full bg-foreground/10" />
 }
 
 export function SemesterTitle({
@@ -17,7 +17,7 @@ export function SemesterTitle({
   return (
     <div className={cn('flex items-center gap-6', className)} {...props}>
       <Line />
-      <strong className="font-clash text-foreground/90 text-2xl text-nowrap">
+      <strong className="font-clash text-2xl text-nowrap text-foreground/90">
         {children}
       </strong>
       <Line />

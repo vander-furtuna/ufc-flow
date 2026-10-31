@@ -151,7 +151,7 @@ export function NavMenu({
               >
                 <motion.div className="flex cursor-pointer items-center gap-1">
                   <motion.div
-                    className="border-border bg-background/50 text-foreground/90 hover:text-foreground group/nav relative flex size-12 items-center justify-center gap-2 overflow-hidden rounded-full border px-3 shadow-xl backdrop-blur-md transition-colors"
+                    className="group/nav relative flex size-12 items-center justify-center gap-2 overflow-hidden rounded-full border border-border bg-background/50 px-3 text-foreground/90 shadow-xl backdrop-blur-md transition-colors hover:text-foreground"
                     initial={{ opacity: 0, x: -10, filter: 'blur(10px)' }}
                     animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
                     exit={{ opacity: 0, x: -10, filter: 'blur(10px)' }}
@@ -167,7 +167,7 @@ export function NavMenu({
                     />
                   </motion.div>
                   <motion.span
-                    className="bg-background/70 text-foreground rounded-full border px-2.5 py-1 text-xs font-medium text-nowrap shadow-xl backdrop-blur-md sm:text-sm"
+                    className="rounded-full border bg-background/70 px-2.5 py-1 text-xs font-medium text-nowrap text-foreground shadow-xl backdrop-blur-md sm:text-sm"
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -10 }}
@@ -186,10 +186,10 @@ export function NavMenu({
       </AnimatePresence>
 
       {/* Botão de Trigger Circular à Esquerda */}
-      <div className="border-border bg-accent/70 flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-full border shadow-lg backdrop-blur-md">
+      <div className="flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-full border border-border bg-accent/70 shadow-lg backdrop-blur-md">
         <button
           type="button"
-          className="text-foreground/90 relative flex size-12 shrink-0 cursor-pointer items-center justify-center transition-all"
+          className="relative flex size-12 shrink-0 cursor-pointer items-center justify-center text-foreground/90 transition-all"
           onClick={handleToggle}
           data-state={isOpen ? 'active' : 'default'}
           aria-label="Abrir menu de navegação"

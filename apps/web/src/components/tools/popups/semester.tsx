@@ -15,7 +15,7 @@ export function SemesterTool() {
   } = useClass()
 
   return (
-    <div className="bg-accent border-border flex items-center gap-2 rounded-full border px-2.5">
+    <div className="flex items-center gap-2 rounded-full border border-border bg-accent px-2.5">
       <SelectSemesterDialog
         currentSemester={currentSemester ?? 2}
         currentYear={currentYear ?? 2025}
@@ -26,14 +26,14 @@ export function SemesterTool() {
         >
           <CalendarBlankIcon
             weight="bold"
-            className="text-muted-foreground group-data-[active=active]/filter:text-foreground z-10 size-4"
+            className="z-10 size-4 text-muted-foreground group-data-[active=active]/filter:text-foreground"
           />
           <span className="z-10 text-xs text-nowrap">
             {currentYear}.{currentSemester}
           </span>
         </button>
       </SelectSemesterDialog>
-      <div className="bg-border h-4 w-px" />
+      <div className="h-4 w-px bg-border" />
       <button
         className="text-accent-foreground"
         onClick={handleRefreshSubjectInformations}
@@ -42,7 +42,7 @@ export function SemesterTool() {
         {isClassLoading ? (
           <CircleNotchIcon
             weight="bold"
-            className="text-muted-foreground size-4 animate-spin"
+            className="size-4 animate-spin text-muted-foreground"
           />
         ) : (
           <ArrowCounterClockwiseIcon weight="bold" className="size-4" />

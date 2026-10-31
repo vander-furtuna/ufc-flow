@@ -62,7 +62,7 @@ export function BranchPopup() {
           isActive={isNatureAndBranchFilterActive}
         />
       </PopoverTrigger>
-      <PopoverContent className="border-border flex w-fit flex-col gap-4 bg-slate-100/50 backdrop-blur-md dark:bg-slate-800/50">
+      <PopoverContent className="flex w-fit flex-col gap-4 border-border bg-slate-100/50 backdrop-blur-md dark:bg-slate-800/50">
         <strong className="text-center text-slate-600 dark:text-slate-100">
           Tipo / Vertente
         </strong>

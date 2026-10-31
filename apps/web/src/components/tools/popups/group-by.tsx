@@ -32,10 +32,10 @@ export function GroupByPopup() {
         />
       </PopoverTrigger>
       <PopoverContent
-        className="border-border bg-accent/50 flex w-fit flex-col gap-4 backdrop-blur-md"
+        className="flex w-fit flex-col gap-4 border-border bg-accent/50 backdrop-blur-md"
         side="top"
       >
-        <strong className="text-foreground text-center">Agrupar por</strong>
+        <strong className="text-center text-foreground">Agrupar por</strong>
 
         <RadioGroup
           defaultValue={groupBy}

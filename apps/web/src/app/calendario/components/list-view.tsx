@@ -108,26 +108,26 @@ export function ListView({ search, showImportantEvents }: ListViewProps) {
     <article className="relative flex min-h-0 w-full flex-1 flex-col-reverse gap-4 md:flex-row">
       <div
         ref={scrollContainerRef}
-        className="md:calendar-scrollbar h-full w-full max-w-4xl overflow-y-auto pb-16"
+        className="h-full w-full max-w-4xl overflow-y-auto pb-16 md:calendar-scrollbar"
       >
         {isLoading && (!monthGroups || monthGroups.length === 0) ? (
           <div className="w-full space-y-6">
             {Array.from({ length: 3 }).map((_, i) => (
               <div key={i} className="animate-pulse space-y-3">
                 <div className="flex items-center gap-3 py-3">
-                  <div className="bg-muted size-9 rounded-md" />
-                  <div className="bg-muted h-6 w-36 rounded-md" />
+                  <div className="size-9 rounded-md bg-muted" />
+                  <div className="h-6 w-36 rounded-md bg-muted" />
                 </div>
                 <div className="space-y-3">
                   {Array.from({ length: 3 }).map((_, j) => (
                     <div
                       key={j}
-                      className="bg-card/40 border-border/40 flex h-20 items-center rounded-lg border p-3"
+                      className="flex h-20 items-center rounded-lg border border-border/40 bg-card/40 p-3"
                     >
-                      <div className="bg-muted/70 h-8 w-16 rounded-md" />
+                      <div className="h-8 w-16 rounded-md bg-muted/70" />
                       <div className="ml-4 grow space-y-2">
-                        <div className="bg-muted/70 h-4 w-3/4 rounded-md" />
-                        <div className="bg-muted/50 h-3 w-1/2 rounded-md" />
+                        <div className="h-4 w-3/4 rounded-md bg-muted/70" />
+                        <div className="h-3 w-1/2 rounded-md bg-muted/50" />
                       </div>
                     </div>
                   ))}
@@ -144,24 +144,24 @@ export function ListView({ search, showImportantEvents }: ListViewProps) {
                 key={`${group.year}-${group.monthName}`}
                 ref={isCurrentMonth ? currentMonthRef : undefined}
                 id={isCurrentMonth ? 'current-month-section' : undefined}
-                className="animate-in fade-in slide-in-from-bottom-4 mb-6 duration-500"
+                className="mb-6 animate-in duration-500 fade-in slide-in-from-bottom-4"
                 style={{ animationDelay: `${idx * 100}ms` }}
               >
-                <div className="bg-background/70 border-border sticky top-0 z-30 mb-4 flex items-center justify-between border-b py-3 backdrop-blur">
+                <div className="sticky top-0 z-30 mb-4 flex items-center justify-between border-b border-border bg-background/70 py-3 backdrop-blur">
                   <div className="flex items-center gap-3">
-                    <div className="bg-primary text-primary-foreground rounded-md p-2 shadow-sm">
+                    <div className="rounded-md bg-primary p-2 text-primary-foreground shadow-sm">
                       <CalendarDotsIcon weight="bold" className="h-5 w-5" />
                     </div>
-                    <h2 className="text-foreground font-clash text-2xl font-semibold tracking-tight capitalize">
+                    <h2 className="font-clash text-2xl font-semibold tracking-tight text-foreground capitalize">
                       {group.monthName}{' '}
-                      <span className="text-muted-foreground font-normal">
+                      <span className="font-normal text-muted-foreground">
                         {group.year}
                       </span>
                     </h2>
                   </div>
 
                   {isCurrentMonth && (
-                    <span className="border-primary/30 bg-primary/10 text-primary rounded-full border px-2.5 py-0.5 text-xs font-semibold">
+                    <span className="rounded-full border border-primary/30 bg-primary/10 px-2.5 py-0.5 text-xs font-semibold text-primary">
                       Mês atual
                     </span>
                   )}
@@ -173,7 +173,7 @@ export function ListView({ search, showImportantEvents }: ListViewProps) {
                       <div
                         key={event.id}
                         className={cn(
-                          'group bg-card border-border hover:border-primary/30 relative overflow-hidden rounded-lg border p-3 shadow-sm transition-all duration-200 hover:shadow-md',
+                          'group relative overflow-hidden rounded-lg border border-border bg-card p-3 shadow-sm transition-all duration-200 hover:border-primary/30 hover:shadow-md',
                         )}
                       >
                         {event.isImportant && (
@@ -186,7 +186,7 @@ export function ListView({ search, showImportantEvents }: ListViewProps) {
                           <div className="shrink-0 md:w-20">
                             <span
                               className={cn(
-                                'bg-primary/10 text-primary font-clash inline-flex min-w-12 items-center justify-center rounded-md px-3 py-1 text-sm font-semibold',
+                                'inline-flex min-w-12 items-center justify-center rounded-md bg-primary/10 px-3 py-1 font-clash text-sm font-semibold text-primary',
                                 event.isImportant &&
                                   'bg-background/20 text-foreground',
                               )}
@@ -195,12 +195,12 @@ export function ListView({ search, showImportantEvents }: ListViewProps) {
                             </span>
                           </div>
                           <div className="grow">
-                            <p className="text-card-foreground group-hover:text-card-foreground text-sm leading-relaxed">
+                            <p className="text-sm leading-relaxed text-card-foreground group-hover:text-card-foreground">
                               {event.description}
                             </p>
                             <div className="flex flex-wrap gap-2">
                               {event.description.includes('(PG)') && (
-                                <span className="bg-accent border-border text-foreground/90 relative mt-2 inline-flex items-center overflow-hidden rounded-md border px-2 py-0.5 text-[10px] font-semibold tracking-wider shadow-2xs select-none">
+                                <span className="relative mt-2 inline-flex items-center overflow-hidden rounded-md border border-border bg-accent px-2 py-0.5 text-[10px] font-semibold tracking-wider text-foreground/90 shadow-2xs select-none">
                                   <Glow
                                     colors="#a855f7"
                                     className="pointer-events-none absolute -left-2 size-6 opacity-90 blur-xs"
@@ -211,7 +211,7 @@ export function ListView({ search, showImportantEvents }: ListViewProps) {
                                 </span>
                               )}
                               {event.description.includes('(EAD)') && (
-                                <span className="bg-accent border-border text-foreground/90 relative mt-2 inline-flex items-center overflow-hidden rounded-md border px-2 py-0.5 text-[10px] font-semibold tracking-wider shadow-2xs select-none">
+                                <span className="relative mt-2 inline-flex items-center overflow-hidden rounded-md border border-border bg-accent px-2 py-0.5 text-[10px] font-semibold tracking-wider text-foreground/90 shadow-2xs select-none">
                                   <Glow
                                     colors="#10b981"
                                     className="pointer-events-none absolute -left-2 size-6 opacity-90 blur-xs"
@@ -235,7 +235,7 @@ export function ListView({ search, showImportantEvents }: ListViewProps) {
               weight="bold"
               className="mx-auto mb-4 h-12 w-12 opacity-20"
             />
-            <p className="text-muted-foreground text-sm">
+            <p className="text-sm text-muted-foreground">
               Nenhum evento encontrado.
             </p>
           </div>
@@ -243,17 +243,17 @@ export function ListView({ search, showImportantEvents }: ListViewProps) {
       </div>
       <aside className="h-fit w-full shrink-0 lg:w-80">
         <div className="top-24 md:sticky">
-          <div className="bg-card border-border overflow-hidden rounded-lg border transition-colors">
-            <div className="bg-muted/50 border-border flex items-center justify-between gap-2 border-b px-3 py-3 md:px-5 md:py-4">
+          <div className="overflow-hidden rounded-lg border border-border bg-card transition-colors">
+            <div className="flex items-center justify-between gap-2 border-b border-border bg-muted/50 px-3 py-3 md:px-5 md:py-4">
               <div className="flex items-center gap-2">
-                <ClockIcon weight="bold" className="text-primary h-4 w-4" />
-                <h3 className="text-foreground text-sm font-bold tracking-wider uppercase">
+                <ClockIcon weight="bold" className="h-4 w-4 text-primary" />
+                <h3 className="text-sm font-bold tracking-wider text-foreground uppercase">
                   Próximos Eventos
                 </h3>
               </div>
 
               <button
-                className="text-primary text-xs font-medium underline transition-all hover:opacity-80 md:hidden"
+                className="text-xs font-medium text-primary underline transition-all hover:opacity-80 md:hidden"
                 onClick={() => setShowUpcomingEvents(!showUpcomingEvents)}
               >
                 <CaretUpIcon
@@ -276,9 +276,9 @@ export function ListView({ search, showImportantEvents }: ListViewProps) {
                 <div className="space-y-3 p-1">
                   {Array.from({ length: 3 }).map((_, i) => (
                     <div key={i} className="animate-pulse space-y-1.5 p-2">
-                      <div className="bg-muted h-4 w-16 rounded" />
-                      <div className="bg-muted/70 h-3 w-full rounded" />
-                      <div className="bg-muted/50 h-3 w-2/3 rounded" />
+                      <div className="h-4 w-16 rounded bg-muted" />
+                      <div className="h-3 w-full rounded bg-muted/70" />
+                      <div className="h-3 w-2/3 rounded bg-muted/50" />
                     </div>
                   ))}
                 </div>
@@ -286,12 +286,12 @@ export function ListView({ search, showImportantEvents }: ListViewProps) {
                 upcomingEvents.map((event, i) => (
                   <div
                     key={event.id}
-                    className={`hover:bg-muted/30 group rounded-lg p-2 py-3 transition-colors md:p-4 ${i !== upcomingEvents.length - 1 ? 'border-border/50 border-b' : ''}`}
+                    className={`group rounded-lg p-2 py-3 transition-colors hover:bg-muted/30 md:p-4 ${i !== upcomingEvents.length - 1 ? 'border-b border-border/50' : ''}`}
                   >
                     <div className="mb-1 flex items-center gap-2">
                       <span
                         className={cn(
-                          'text-primary bg-primary/10 rounded px-2 py-0.5 text-[10px] font-bold uppercase',
+                          'rounded bg-primary/10 px-2 py-0.5 text-[10px] font-bold text-primary uppercase',
                           event.isImportant && 'bg-compulsory text-background',
                         )}
                       >
@@ -302,19 +302,19 @@ export function ListView({ search, showImportantEvents }: ListViewProps) {
                         })}
                       </span>
                       {event.isRange && (
-                        <span className="text-muted-foreground text-[9px] font-medium italic">
+                        <span className="text-[9px] font-medium text-muted-foreground italic">
                           Início de período
                         </span>
                       )}
                     </div>
-                    <p className="text-card-foreground group-hover:text-foreground line-clamp-3 text-xs leading-snug">
+                    <p className="line-clamp-3 text-xs leading-snug text-card-foreground group-hover:text-foreground">
                       {event.description}
                     </p>
                   </div>
                 ))
               ) : (
                 <div className="p-8 text-center">
-                  <p className="text-muted-foreground text-xs">
+                  <p className="text-xs text-muted-foreground">
                     Nenhum evento futuro encontrado.
                   </p>
                 </div>

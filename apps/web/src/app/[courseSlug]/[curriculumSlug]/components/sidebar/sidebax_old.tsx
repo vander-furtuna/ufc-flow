@@ -125,7 +125,7 @@ export function Sidebar() {
             className="fixed h-dvh w-full shrink-0 py-8 sm:w-80"
           >
             <div
-              className="no-scrollbar group/container relative h-full w-full overflow-hidden overflow-x-hidden overflow-y-auto rounded-md border bg-slate-100/70 pb-16 backdrop-blur-md dark:bg-slate-900/90 dark:md:bg-slate-900"
+              className="group/container relative h-full w-full no-scrollbar overflow-hidden overflow-x-hidden overflow-y-auto rounded-md border bg-slate-100/70 pb-16 backdrop-blur-md dark:bg-slate-900/90 dark:md:bg-slate-900"
               ref={elementRef}
             >
               <Glow
@@ -134,12 +134,12 @@ export function Sidebar() {
               />
               <div className="center relative z-20 h-44 w-full px-8">
                 <button
-                  className="center hover:bg-foreground/20 absolute top-3 right-3 size-6 rounded-md transition-colors"
+                  className="center absolute top-3 right-3 size-6 rounded-md transition-colors hover:bg-foreground/20"
                   onClick={handleUnselectSubject}
                 >
                   <XIcon weight="bold" className="size-5 opacity-70" />
                 </button>
-                <strong className="font-clash center w-full text-center text-lg font-semibold drop-shadow-lg dark:text-slate-50">
+                <strong className="center w-full text-center font-clash text-lg font-semibold drop-shadow-lg dark:text-slate-50">
                   {selectedSubject.name}
                 </strong>
                 <div className="absolute bottom-2 flex w-fit gap-1">

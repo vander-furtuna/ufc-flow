@@ -24,11 +24,11 @@ export function SchedulePill({ time }: { time: ScheduleTime }) {
   return (
     <div
       key={time.id}
-      className="bg-accent/50 border-border flex h-7 w-fit shrink-0 items-center gap-1 rounded-full border px-2"
+      className="flex h-7 w-fit shrink-0 items-center gap-1 rounded-full border border-border bg-accent/50 px-2"
     >
       <span className="text-xs font-semibold">{time.day}</span>
 
-      <span className="text-foreground/95 text-xs font-normal">
+      <span className="text-xs font-normal text-foreground/95">
         {`${time.startTime}-${time.endTime}`}
       </span>
     </div>
@@ -45,10 +45,10 @@ function ScheduleSection({ times }: { times: ScheduleTime[] }) {
 
   return (
     <div className="flex w-full flex-col items-start justify-between gap-1">
-      <span className="text-foreground/80 text-xs">Horário:</span>
+      <span className="text-xs text-foreground/80">Horário:</span>
 
       <div
-        className="no-scrollbar relative flex w-full gap-1 overflow-x-auto text-sm font-semibold"
+        className="relative flex w-full no-scrollbar gap-1 overflow-x-auto text-sm font-semibold"
         ref={scrollRef}
         style={{ maskImage }}
       >
@@ -88,20 +88,20 @@ export function Details({ code }: DetailsProps) {
             currentYear={currentYear ?? undefined}
           >
             <button
-              className="bg-accent/50 border-border/50 hover:bg-accent/80 flex items-center gap-1 rounded-l-full border py-1 pr-1.5 pl-2.5 transition-colors disabled:opacity-70"
+              className="flex items-center gap-1 rounded-l-full border border-border/50 bg-accent/50 py-1 pr-1.5 pl-2.5 transition-colors hover:bg-accent/80 disabled:opacity-70"
               disabled={isClassLoading}
             >
               <span className="text-sm leading-tight font-medium">{`${currentYear}.${currentSemester}`}</span>
 
               <CaretUpDownIcon
                 weight="bold"
-                className="text-foreground/70 size-3.5"
+                className="size-3.5 text-foreground/70"
               />
             </button>
           </SelectSemesterDialog>
 
           <button
-            className="bg-accent/50 border-border/50 hover:bg-accent/80 flex items-center gap-1 rounded-r-full border py-1 pr-2 pl-1.5 disabled:opacity-70"
+            className="flex items-center gap-1 rounded-r-full border border-border/50 bg-accent/50 py-1 pr-2 pl-1.5 hover:bg-accent/80 disabled:opacity-70"
             disabled={isClassLoading}
             onClick={handleRefreshSubjectInformations}
           >
@@ -118,19 +118,19 @@ export function Details({ code }: DetailsProps) {
             {subjectInfo.classes.map((classItem) => (
               <div
                 key={classItem.id}
-                className="dark:bg-background/15 bg-background/70 border-border border-border/50 flex w-full flex-col gap-1.5 rounded-md border p-3"
+                className="flex w-full flex-col gap-1.5 rounded-md border border-border border-border/50 bg-background/70 p-3 dark:bg-background/15"
               >
                 <div className="flex items-center justify-between">
-                  <strong className="text-foreground/90 font-clash text-sm font-semibold uppercase">
+                  <strong className="font-clash text-sm font-semibold text-foreground/90 uppercase">
                     Turma {classItem.sectionId}
                   </strong>
 
                   <div className="flex items-center gap-0.5">
                     <UserIcon
                       weight="bold"
-                      className="text-muted-foreground inline size-4"
+                      className="inline size-4 text-muted-foreground"
                     />
-                    <span className="text-accent-foreground/80 text-xs font-medium">
+                    <span className="text-xs font-medium text-accent-foreground/80">
                       {classItem.reservedSeats}
                     </span>
                   </div>
@@ -139,7 +139,7 @@ export function Details({ code }: DetailsProps) {
                   {classItem.instructors &&
                     classItem.instructors.length > 0 && (
                       <>
-                        <span className="text-accent-foreground/80 text-xs">
+                        <span className="text-xs text-accent-foreground/80">
                           {classItem.instructors.length > 1
                             ? 'Professores:'
                             : 'Professor(a):'}
@@ -163,7 +163,7 @@ export function Details({ code }: DetailsProps) {
           </div>
         ) : (
           <div className="flex w-full flex-col items-center justify-center gap-2">
-            <span className="text-muted-foreground text-center text-sm font-medium">
+            <span className="text-center text-sm font-medium text-muted-foreground">
               Nenhuma turma encontrada para esta disciplina em {currentYear}.
               {currentSemester}
             </span>

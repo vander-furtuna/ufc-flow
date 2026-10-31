@@ -30,7 +30,7 @@ export function SubjectDiagram() {
         )}
       >
         <div className="flex items-center gap-1">
-          <ListIcon weight="bold" className="text-muted-foreground size-5" />
+          <ListIcon weight="bold" className="size-5 text-muted-foreground" />
           <strong className="font-clash text-xl font-medium">
             {groupByAlias(groupBy)}
           </strong>
@@ -56,7 +56,7 @@ export function SubjectDiagram() {
         >
           <GearSixIcon
             weight="bold"
-            className="data-[state=open]:text-foreground data-[state=closed]:text-foreground/80 size-5 transition-transform data-[state=open]:rotate-90"
+            className="size-5 transition-transform data-[state=closed]:text-foreground/80 data-[state=open]:rotate-90 data-[state=open]:text-foreground"
             data-state={isToolsOpen ? 'open' : 'closed'}
           />
         </Button>

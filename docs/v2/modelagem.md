@@ -32,38 +32,38 @@ A v2 do UFC Flow troca os dados estáticos do front (`src/data/courses.ts`) por 
 
 Cada linha é uma decisão já tomada e onde ela aparece na modelagem. Mudar uma decisão exige revisar a seção indicada.
 
-| # | Tema | Decisão | Consequência na modelagem |
-| --- | --- | --- | --- |
-| D1 | Turmas | O backend faz o scraping do SIGAA e guarda as turmas no Postgres | IDs estáveis; agenda referencia `class_sections.id` (seção Turmas e agendas) |
-| D2 | Agenda sem login | Anônimo usa IndexedDB; logado sincroniza; importação das agendas locais no primeiro login | `schedules.id` gerado no cliente (UUID) para importação idempotente |
-| D3 | EC vigente | Definida pela Pró-Reitoria de Graduação, nem sempre a mais recente | Flag explícita `is_current`, marcada manualmente, uma por curso |
-| D4 | EC publicada | Só muda o que não prejudica registros ligados a ela | Regra de edição "monotônica" + log de auditoria |
-| D5 | Equivalências | Globais | Ficam na disciplina (`subject_equivalences`), não na EC |
-| D6 | Fórum | Assíncrono, no modelo do X/Twitter | Mensagens com respostas encadeadas, curtidas, feed paginado por cursor |
-| D7 | Menções | Digitar `@` abre um popover de busca por nome ou código da disciplina | Token `@CÓDIGO` no texto + tabela de menções gravada na escrita + endpoint de busca |
-| D8 | Repositórios | Monorepo com web, API e extensão; course-maker absorvido pelo web | `apps/web`, `apps/api`, `apps/extension`, `packages/*` |
-| D9 | ORM | Drizzle | Schema em `apps/api/src/infrastructure/database/schema` |
-| D10 | RU e Calendário | Permanecem como estão | Fora do banco |
-| L1 | Situação da disciplina | Cursando, aprovado, reprovado, trancada, suprimida, aproveitada | Enum `record_status` + regras de nova tentativa |
-| L2 | EC do aluno | A matrícula aponta para a EC que o aluno segue | `student_enrollments.curriculum_id` |
-| L3 | Moderação | Usuário solicita, admin aprova | `moderator_requests` |
-| L4 | Vínculo institucional | E-mail `@alu.ufc.br` para avaliar e postar | Modelado, mas sem SMTP não há como verificar (ver Lacunas) |
-| L5 | Anonimato das avaliações | Só agregados, a partir de 5 respostas | Regra na leitura; `user_id` nunca exposto |
-| L6 | Horas complementares | Lançadas pelo aluno | `student_activity_records` + categorias por EC |
-| L7 | LGPD | Termos, privacidade, exclusão e exportação de dados | `user_consents`, rotina de exclusão com anonimização |
-| L8 | SMTP | Fora da v2 | Nada de verificação ou recuperação por e-mail |
-| L9 | Imagens | Armazenadas na VM | `files` + adaptador de disco local |
-| L10 | Moderação do fórum | Denúncias, ações de moderação e restrições | `message_reports`, `moderation_actions`, `user_course_restrictions` |
-| L11 | Backup | Nenhum na v2 | Risco aceito (ver Lacunas) |
-| D11 | Gerenciador de pacotes | pnpm + Turborepo | O front sai do bun: lockfile único, Dockerfile e CI com pnpm |
-| D12 | Vagas por curso | Uma turma atende vários cursos; reserved\_seats é a reserva de um curso dentro do total | class\_section\_offers, uma linha por turma e curso |
-| D13 | Agendas locais antigas | Curso inferido no front; hotfix passa a gravar os slugs | Importação sempre com course\_id explícito (seção Turmas e agendas) |
-| D14 | Branch feat/users | Descartada por completo | Nada dela é reaproveitado; a v2 parte do master atual |
-| D15 | Leitura do fórum | Só para usuários logados | Matriz de permissões |
-| D16 | Notificações | Só dentro da plataforma, já na v2 | Seção Notificações |
-| D17 | Documentação da API | Swagger em todas as rotas, com CI barrando rota sem documentação | Seção Monorepo e arquitetura |
-| D18 | Links do curso | Página própria no estilo Linktree, com tema, seções, destaque, agendamento e cliques anônimos | Seção Página de links; course\_links substituída por 6 tabelas |
-| D19 | Lint | oxlint no lugar do ESLint, com lint type-aware e plugin JS para as regras do React Compiler | Seção Monorepo e arquitetura; Prettier segue só como formatador |
+| #   | Tema                     | Decisão                                                                                       | Consequência na modelagem                                                           |
+| --- | ------------------------ | --------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| D1  | Turmas                   | O backend faz o scraping do SIGAA e guarda as turmas no Postgres                              | IDs estáveis; agenda referencia `class_sections.id` (seção Turmas e agendas)        |
+| D2  | Agenda sem login         | Anônimo usa IndexedDB; logado sincroniza; importação das agendas locais no primeiro login     | `schedules.id` gerado no cliente (UUID) para importação idempotente                 |
+| D3  | EC vigente               | Definida pela Pró-Reitoria de Graduação, nem sempre a mais recente                            | Flag explícita `is_current`, marcada manualmente, uma por curso                     |
+| D4  | EC publicada             | Só muda o que não prejudica registros ligados a ela                                           | Regra de edição "monotônica" + log de auditoria                                     |
+| D5  | Equivalências            | Globais                                                                                       | Ficam na disciplina (`subject_equivalences`), não na EC                             |
+| D6  | Fórum                    | Assíncrono, no modelo do X/Twitter                                                            | Mensagens com respostas encadeadas, curtidas, feed paginado por cursor              |
+| D7  | Menções                  | Digitar `@` abre um popover de busca por nome ou código da disciplina                         | Token `@CÓDIGO` no texto + tabela de menções gravada na escrita + endpoint de busca |
+| D8  | Repositórios             | Monorepo com web, API e extensão; course-maker absorvido pelo web                             | `apps/web`, `apps/api`, `apps/extension`, `packages/*`                              |
+| D9  | ORM                      | Drizzle                                                                                       | Schema em `apps/api/src/infrastructure/database/schema`                             |
+| D10 | RU e Calendário          | Permanecem como estão                                                                         | Fora do banco                                                                       |
+| L1  | Situação da disciplina   | Cursando, aprovado, reprovado, trancada, suprimida, aproveitada                               | Enum `record_status` + regras de nova tentativa                                     |
+| L2  | EC do aluno              | A matrícula aponta para a EC que o aluno segue                                                | `student_enrollments.curriculum_id`                                                 |
+| L3  | Moderação                | Usuário solicita, admin aprova                                                                | `moderator_requests`                                                                |
+| L4  | Vínculo institucional    | E-mail `@alu.ufc.br` para avaliar e postar                                                    | Modelado, mas sem SMTP não há como verificar (ver Lacunas)                          |
+| L5  | Anonimato das avaliações | Só agregados, a partir de 5 respostas                                                         | Regra na leitura; `user_id` nunca exposto                                           |
+| L6  | Horas complementares     | Lançadas pelo aluno                                                                           | `student_activity_records` + categorias por EC                                      |
+| L7  | LGPD                     | Termos, privacidade, exclusão e exportação de dados                                           | `user_consents`, rotina de exclusão com anonimização                                |
+| L8  | SMTP                     | Fora da v2                                                                                    | Nada de verificação ou recuperação por e-mail                                       |
+| L9  | Imagens                  | Armazenadas na VM                                                                             | `files` + adaptador de disco local                                                  |
+| L10 | Moderação do fórum       | Denúncias, ações de moderação e restrições                                                    | `message_reports`, `moderation_actions`, `user_course_restrictions`                 |
+| L11 | Backup                   | Nenhum na v2                                                                                  | Risco aceito (ver Lacunas)                                                          |
+| D11 | Gerenciador de pacotes   | pnpm + Turborepo                                                                              | O front sai do bun: lockfile único, Dockerfile e CI com pnpm                        |
+| D12 | Vagas por curso          | Uma turma atende vários cursos; reserved\_seats é a reserva de um curso dentro do total       | class\_section\_offers, uma linha por turma e curso                                 |
+| D13 | Agendas locais antigas   | Curso inferido no front; hotfix passa a gravar os slugs                                       | Importação sempre com course\_id explícito (seção Turmas e agendas)                 |
+| D14 | Branch feat/users        | Descartada por completo                                                                       | Nada dela é reaproveitado; a v2 parte do master atual                               |
+| D15 | Leitura do fórum         | Só para usuários logados                                                                      | Matriz de permissões                                                                |
+| D16 | Notificações             | Só dentro da plataforma, já na v2                                                             | Seção Notificações                                                                  |
+| D17 | Documentação da API      | Swagger em todas as rotas, com CI barrando rota sem documentação                              | Seção Monorepo e arquitetura                                                        |
+| D18 | Links do curso           | Página própria no estilo Linktree, com tema, seções, destaque, agendamento e cliques anônimos | Seção Página de links; course\_links substituída por 6 tabelas                      |
+| D19 | Lint                     | oxlint no lugar do ESLint, com lint type-aware e plugin JS para as regras do React Compiler   | Seção Monorepo e arquitetura; Prettier segue só como formatador                     |
 
 ## Monorepo e arquitetura
 
@@ -163,20 +163,20 @@ audit_logs(id, actor_id NULL, module, entity, entity_id, action, changes JSONB, 
 
 **Matriz de permissões**
 
-| Ação | Anônimo | Logado | Aluno do curso | Moderador do curso | Admin |
-| --- | --- | --- | --- | --- | --- |
-| Ver grade, turmas, hub, médias de avaliação | sim | sim | sim | sim | sim |
-| Agenda local (IndexedDB) | sim | sim | sim | sim | sim |
-| Agenda sincronizada, preferências | não | sim | sim | sim | sim |
-| Ler o fórum | não | sim | sim | sim | sim |
-| Postar, responder e curtir no fórum | não | não | sim | sim | sim |
-| Histórico e horas complementares (próprios) | não | não | sim | — | — |
-| Avaliar disciplina | não | não | se tiver concluído a disciplina | idem | idem |
-| Solicitar moderação | não | sim | sim | — | — |
-| Criar, editar e apagar posts do hub e editar a página de links | não | não | não | sim | sim |
-| Moderar o fórum | não | não | não | sim | sim |
-| Importar, editar e publicar EC; marcar vigente | não | não | não | sim | sim |
-| Criar curso, aprovar moderadores, gerir critérios e usuários | não | não | não | não | sim |
+| Ação                                                           | Anônimo | Logado | Aluno do curso                  | Moderador do curso | Admin |
+| -------------------------------------------------------------- | ------- | ------ | ------------------------------- | ------------------ | ----- |
+| Ver grade, turmas, hub, médias de avaliação                    | sim     | sim    | sim                             | sim                | sim   |
+| Agenda local (IndexedDB)                                       | sim     | sim    | sim                             | sim                | sim   |
+| Agenda sincronizada, preferências                              | não     | sim    | sim                             | sim                | sim   |
+| Ler o fórum                                                    | não     | sim    | sim                             | sim                | sim   |
+| Postar, responder e curtir no fórum                            | não     | não    | sim                             | sim                | sim   |
+| Histórico e horas complementares (próprios)                    | não     | não    | sim                             | —                  | —     |
+| Avaliar disciplina                                             | não     | não    | se tiver concluído a disciplina | idem               | idem  |
+| Solicitar moderação                                            | não     | sim    | sim                             | —                  | —     |
+| Criar, editar e apagar posts do hub e editar a página de links | não     | não    | não                             | sim                | sim   |
+| Moderar o fórum                                                | não     | não    | não                             | sim                | sim   |
+| Importar, editar e publicar EC; marcar vigente                 | não     | não    | não                             | sim                | sim   |
+| Criar curso, aprovar moderadores, gerir critérios e usuários   | não     | não    | não                             | não                | sim   |
 
 "Aluno do curso" = matrícula com `status = ACTIVE` naquele curso. As regras moram numa porta `AccessPolicy` do domínio (ex.: `canManageHub(user, courseId)`), testada sem banco.
 
@@ -240,22 +240,22 @@ type RequirementExpr =
 
 **Ciclo de vida e edição.** Uma EC nasce `DRAFT` (importada ou criada à mão) e é totalmente editável. Ao publicar, ela fica visível. A partir da primeira matrícula que a referencia, valem as regras abaixo; antes disso, nada pode ser prejudicado e tudo continua editável. Fora das regras, só uma nova EC resolve.
 
-| O quê | Depois da 1ª matrícula vinculada | Por quê |
-| --- | --- | --- |
-| EC: período, slug, cargas horárias exigidas | bloqueado | Mudam o cálculo de integralização e as URLs |
-| EC: `is_current` | livre | Decisão administrativa, não afeta registros |
-| Disciplina na EC: adicionar | livre | Não altera registros existentes |
-| Disciplina na EC: remover, trocar natureza | bloqueado | Registros deixariam de contar para o progresso |
-| Disciplina na EC: semestre ideal | livre | É só sugestão de exibição |
-| Disciplina na EC: pré e co-requisitos | livre, com auditoria | Corrige validações futuras, não registros |
-| Vertente: nome, descrição, cor | livre | Cosmético |
-| Vertente: criar | livre | Não afeta registros |
-| Vertente: remover, tipo, pai, mínimos | bloqueado | Muda o cálculo por vertente |
-| Disciplina ↔ vertente: adicionar | livre | Só acrescenta |
-| Disciplina ↔ vertente: remover, trocar natureza | bloqueado | Muda o cálculo por vertente |
-| Disciplina global: nome | livre | Correção de grafia |
-| Disciplina global: código, cargas, créditos | bloqueado se usada em EC publicada | Afetam progresso em todos os cursos |
-| Equivalências | só admin, com auditoria | São globais e afetam todos os cursos |
+| O quê                                           | Depois da 1ª matrícula vinculada   | Por quê                                        |
+| ----------------------------------------------- | ---------------------------------- | ---------------------------------------------- |
+| EC: período, slug, cargas horárias exigidas     | bloqueado                          | Mudam o cálculo de integralização e as URLs    |
+| EC: `is_current`                                | livre                              | Decisão administrativa, não afeta registros    |
+| Disciplina na EC: adicionar                     | livre                              | Não altera registros existentes                |
+| Disciplina na EC: remover, trocar natureza      | bloqueado                          | Registros deixariam de contar para o progresso |
+| Disciplina na EC: semestre ideal                | livre                              | É só sugestão de exibição                      |
+| Disciplina na EC: pré e co-requisitos           | livre, com auditoria               | Corrige validações futuras, não registros      |
+| Vertente: nome, descrição, cor                  | livre                              | Cosmético                                      |
+| Vertente: criar                                 | livre                              | Não afeta registros                            |
+| Vertente: remover, tipo, pai, mínimos           | bloqueado                          | Muda o cálculo por vertente                    |
+| Disciplina ↔ vertente: adicionar                | livre                              | Só acrescenta                                  |
+| Disciplina ↔ vertente: remover, trocar natureza | bloqueado                          | Muda o cálculo por vertente                    |
+| Disciplina global: nome                         | livre                              | Correção de grafia                             |
+| Disciplina global: código, cargas, créditos     | bloqueado se usada em EC publicada | Afetam progresso em todos os cursos            |
+| Equivalências                                   | só admin, com auditoria            | São globais e afetam todos os cursos           |
 
 Essas regras vivem no agregado `Curriculum` do domínio, com testes unitários para cada linha da tabela. Toda alteração em EC publicada grava em `audit_logs`.
 
@@ -350,16 +350,16 @@ student_activity_records(id, enrollment_id, kind[COMPLEMENTARY|EXTENSION], categ
 
 **Regras do histórico** (agregado `AcademicRecord`, uma instância por matrícula):
 
-| Regra | Detalhe |
-| --- | --- |
-| Uma tentativa em aberto por disciplina | No máximo um `CURSANDO` por disciplina na matrícula |
-| `CURSANDO` só no semestre vigente | Ao fim do semestre, o front pede ao aluno para fechar a situação |
-| Fechamento | `CURSANDO` → `APROVADO`, `REPROVADO`, `TRANCADA` ou `SUPRIMIDA` |
-| Nova tentativa | Só se todas as anteriores forem `REPROVADO`, `TRANCADA` ou `SUPRIMIDA`, e num semestre posterior à última |
-| Disciplina encerrada | Com `APROVADO` ou `APROVEITADA`, nenhuma nova tentativa é aceita |
-| `APROVEITADA` | Criada direto, sem passar por `CURSANDO`; pode apontar o registro de origem (`source_record_id`) ou descrever a origem (`origin_note`) |
-| Nota | Opcional em `APROVADO`, `REPROVADO` e `APROVEITADA` (0 a 10, duas casas); proibida nas demais |
-| Disciplina fora da EC | Aceita: conta como optativa livre, até `max_free_optative_hours` |
+| Regra                                  | Detalhe                                                                                                                                |
+| -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| Uma tentativa em aberto por disciplina | No máximo um `CURSANDO` por disciplina na matrícula                                                                                    |
+| `CURSANDO` só no semestre vigente      | Ao fim do semestre, o front pede ao aluno para fechar a situação                                                                       |
+| Fechamento                             | `CURSANDO` → `APROVADO`, `REPROVADO`, `TRANCADA` ou `SUPRIMIDA`                                                                        |
+| Nova tentativa                         | Só se todas as anteriores forem `REPROVADO`, `TRANCADA` ou `SUPRIMIDA`, e num semestre posterior à última                              |
+| Disciplina encerrada                   | Com `APROVADO` ou `APROVEITADA`, nenhuma nova tentativa é aceita                                                                       |
+| `APROVEITADA`                          | Criada direto, sem passar por `CURSANDO`; pode apontar o registro de origem (`source_record_id`) ou descrever a origem (`origin_note`) |
+| Nota                                   | Opcional em `APROVADO`, `REPROVADO` e `APROVEITADA` (0 a 10, duas casas); proibida nas demais                                          |
+| Disciplina fora da EC                  | Aceita: conta como optativa livre, até `max_free_optative_hours`                                                                       |
 
 **Troca de EC e transferência.**
 
@@ -410,15 +410,15 @@ files(id, owner_id NULL, course_id NULL,
       status[PENDING|ATTACHED], created_at, attached_at NULL, deleted_at NULL)
 ```
 
-| Finalidade | Visibilidade | Tipos aceitos | Usado em |
-| --- | --- | --- | --- |
-| `AVATAR` | pública | imagem | `users.avatar_file_id` |
-| `POST_COVER` | pública | imagem | `posts.cover_file_id` |
-| `POST_IMAGE` | pública | imagem | `post_images` (imagens no corpo do post) |
-| `CERTIFICATE` | privada (só o dono) | imagem ou PDF | `student_activity_records.certificate_file_id` |
-| LINK\_PAGE\_IMAGE | pública | imagem | course\_link\_pages.avatar\_file\_id e cover\_file\_id |
-| LINK\_THUMBNAIL | pública | imagem | course\_links.thumbnail\_file\_id |
-| LINK\_FILE | pública | PDF | course\_links.file\_id (links do tipo FILE) |
+| Finalidade        | Visibilidade        | Tipos aceitos | Usado em                                               |
+| ----------------- | ------------------- | ------------- | ------------------------------------------------------ |
+| `AVATAR`          | pública             | imagem        | `users.avatar_file_id`                                 |
+| `POST_COVER`      | pública             | imagem        | `posts.cover_file_id`                                  |
+| `POST_IMAGE`      | pública             | imagem        | `post_images` (imagens no corpo do post)               |
+| `CERTIFICATE`     | privada (só o dono) | imagem ou PDF | `student_activity_records.certificate_file_id`         |
+| LINK\_PAGE\_IMAGE | pública             | imagem        | course\_link\_pages.avatar\_file\_id e cover\_file\_id |
+| LINK\_THUMBNAIL   | pública             | imagem        | course\_links.thumbnail\_file\_id                      |
+| LINK\_FILE        | pública             | PDF           | course\_links.file\_id (links do tipo FILE)            |
 
 **Upload.**
 
@@ -447,13 +447,13 @@ post_images(post_id, file_id, position)                PK(post_id, file_id)
 
 ```
 
-| Tipo | Campos comuns obrigatórios | `attributes` (opcionais) |
-| --- | --- | --- |
-| `NEWS` notícia | — | — |
-| `EVENT` evento | `starts_at` | `modality` (presencial, online, híbrido), `registration_url`; usa `ends_at` e `location` |
-| `SCHOLARSHIP` bolsa | `deadline_at` | `amount_brl`, `vacancies`, `weekly_hours`, `sponsor`, `requirements` |
-| `EXTENSION_PROJECT` projeto de extensão | — | `coordinator`, `vacancies`, `contact` |
-| `CALL` edital | `deadline_at` | `number`, `issuer`, `document_url` |
+| Tipo                                    | Campos comuns obrigatórios | `attributes` (opcionais)                                                                 |
+| --------------------------------------- | -------------------------- | ---------------------------------------------------------------------------------------- |
+| `NEWS` notícia                          | —                          | —                                                                                        |
+| `EVENT` evento                          | `starts_at`                | `modality` (presencial, online, híbrido), `registration_url`; usa `ends_at` e `location` |
+| `SCHOLARSHIP` bolsa                     | `deadline_at`              | `amount_brl`, `vacancies`, `weekly_hours`, `sponsor`, `requirements`                     |
+| `EXTENSION_PROJECT` projeto de extensão | —                          | `coordinator`, `vacancies`, `contact`                                                    |
+| `CALL` edital                           | `deadline_at`              | `number`, `issuer`, `document_url`                                                       |
 
 - A validação por tipo é uma união discriminada em Zod no `packages/contracts`, usada pelo formulário do web e pela API.
 - Feed: `GET /courses/:course/hub?type=&cursor=`, com fixados primeiro e depois por `published_at` decrescente. Eventos aceitam o filtro "próximos"; bolsas e editais com prazo vencido aparecem como encerrados.
@@ -480,16 +480,16 @@ link_clicks_daily(link_id, day, source[PAGE|QR|HUB], clicks)           PK(link_i
 link_page_views_daily(course_id, day, source[PAGE|QR|HUB], views)      PK(course_id, day, source)
 ```
 
-| Personalização | Onde fica | Regra |
-| --- | --- | --- |
-| Ícone ou foto do curso, capa, bio | `course_link_pages` | Imagens pelo módulo de arquivos |
-| Tema, estilo e formato dos botões, fonte do título | `course_link_pages` | Só temas prontos, todos com contraste AA; os tokens ficam em `packages/contracts` |
-| Seções | `course_link_sections` | Ordenáveis e ocultáveis; link sem seção aparece no topo |
-| Ícone ou miniatura por link | `course_links.icon`, `thumbnail_file_id` | Miniatura tem prioridade sobre o ícone |
-| Destaque com brilho | `course_links.is_featured` | No máximo 1 por página, sempre no topo |
-| Selo “Novo” | `course_links.badge` | Marcado pelo moderador |
-| Aparecer só num período | `visible_from`, `visible_until` | Fora do período o link some sozinho; o editor mostra “programado” ou “expirado” |
-| Redes do curso | `course_social_links` | Fileira de ícones abaixo da bio |
+| Personalização                                     | Onde fica                                | Regra                                                                             |
+| -------------------------------------------------- | ---------------------------------------- | --------------------------------------------------------------------------------- |
+| Ícone ou foto do curso, capa, bio                  | `course_link_pages`                      | Imagens pelo módulo de arquivos                                                   |
+| Tema, estilo e formato dos botões, fonte do título | `course_link_pages`                      | Só temas prontos, todos com contraste AA; os tokens ficam em `packages/contracts` |
+| Seções                                             | `course_link_sections`                   | Ordenáveis e ocultáveis; link sem seção aparece no topo                           |
+| Ícone ou miniatura por link                        | `course_links.icon`, `thumbnail_file_id` | Miniatura tem prioridade sobre o ícone                                            |
+| Destaque com brilho                                | `course_links.is_featured`               | No máximo 1 por página, sempre no topo                                            |
+| Selo “Novo”                                        | `course_links.badge`                     | Marcado pelo moderador                                                            |
+| Aparecer só num período                            | `visible_from`, `visible_until`          | Fora do período o link some sozinho; o editor mostra “programado” ou “expirado”   |
+| Redes do curso                                     | `course_social_links`                    | Fileira de ícones abaixo da bio                                                   |
 
 - **Tipos de link:** endereço externo (`URL`), arquivo enviado, como um PDF de regulamento (`FILE`), tela do próprio Flow, como grade, fórum ou calendário (`INTERNAL`), e post do hub (`POST`). Um link de post some quando o post é arquivado.
 - **Leitura pública:** `GET /l/:slug` devolve só o que está publicado, visível e dentro do período, com cache curto (60 s). Página despublicada responde 404.
@@ -558,19 +558,19 @@ notifications(id, user_id, type, actor_id NULL, course_id NULL, entity_type, ent
 hub_reads(user_id, course_id, last_seen_at)                    PK(user_id, course_id)
 ```
 
-| Tipo | Quem recebe | Disparado por |
-| --- | --- | --- |
-| `FORUM_REPLY` | Autor da mensagem respondida | Nova resposta |
-| `FORUM_THREAD_REPLY` | Quem já respondeu na conversa | Nova resposta na mesma raiz |
-| `FORUM_LIKES` | Autor da mensagem | Curtidas, agrupadas por mensagem |
-| `MESSAGE_MODERATED` | Autor da mensagem | Ocultação, remoção ou restauração |
-| `USER_RESTRICTED` | Usuário silenciado ou banido | Nova restrição ou fim dela |
-| `MODERATOR_REQUEST_CREATED` | Todos os admins | Nova solicitação de moderação |
-| `MODERATOR_REQUEST_REVIEWED` | Solicitante | Aprovação ou rejeição |
-| `SCHEDULE_SECTION_CHANGED` | Donos de agendas com a turma | Coleta detecta mudança no `fingerprint` |
-| `SCHEDULE_SECTION_REMOVED` | Donos de agendas com a turma | Coleta marca `removed_at` |
-| `SCRAPE_FAILED` | Moderadores do curso e admins | Coleta termina em `FAILED` |
-| `IMPORT_PENDING` | Admins | Importação parada aguardando criação do curso |
+| Tipo                         | Quem recebe                   | Disparado por                                 |
+| ---------------------------- | ----------------------------- | --------------------------------------------- |
+| `FORUM_REPLY`                | Autor da mensagem respondida  | Nova resposta                                 |
+| `FORUM_THREAD_REPLY`         | Quem já respondeu na conversa | Nova resposta na mesma raiz                   |
+| `FORUM_LIKES`                | Autor da mensagem             | Curtidas, agrupadas por mensagem              |
+| `MESSAGE_MODERATED`          | Autor da mensagem             | Ocultação, remoção ou restauração             |
+| `USER_RESTRICTED`            | Usuário silenciado ou banido  | Nova restrição ou fim dela                    |
+| `MODERATOR_REQUEST_CREATED`  | Todos os admins               | Nova solicitação de moderação                 |
+| `MODERATOR_REQUEST_REVIEWED` | Solicitante                   | Aprovação ou rejeição                         |
+| `SCHEDULE_SECTION_CHANGED`   | Donos de agendas com a turma  | Coleta detecta mudança no `fingerprint`       |
+| `SCHEDULE_SECTION_REMOVED`   | Donos de agendas com a turma  | Coleta marca `removed_at`                     |
+| `SCRAPE_FAILED`              | Moderadores do curso e admins | Coleta termina em `FAILED`                    |
+| `IMPORT_PENDING`             | Admins                        | Importação parada aguardando criação do curso |
 
 - **Agrupamento:** notificações com o mesmo `group_key` ainda não lidas viram uma só (ex.: `likes:<message_id>` mostra "Ana e mais 4 curtiram"). O handler faz upsert, atualizando `data` e `updated_at`.
 - **Sem fan-out do hub:** um post novo não gera uma notificação por aluno. O badge de novidades do hub compara `posts.published_at` com `hub_reads.last_seen_at`.
@@ -602,16 +602,16 @@ curriculum_imports(id, course_id NULL, curriculum_id NULL, schema_version, sourc
 
 **Funções do course-maker que migram para o web** (rotas em `/admin`, protegidas pela matriz de permissões):
 
-| Função atual | No UFC Flow |
-| --- | --- |
-| Criar, editar e excluir curso | Admin: criar e editar; excluir só sem ECs publicadas |
-| Criar EC manualmente | Moderador ou admin, nasce `DRAFT` |
-| Importar EC de JSON e validar | Upload que chama o mesmo endpoint da extensão |
+| Função atual                                    | No UFC Flow                                           |
+| ----------------------------------------------- | ----------------------------------------------------- |
+| Criar, editar e excluir curso                   | Admin: criar e editar; excluir só sem ECs publicadas  |
+| Criar EC manualmente                            | Moderador ou admin, nasce `DRAFT`                     |
+| Importar EC de JSON e validar                   | Upload que chama o mesmo endpoint da extensão         |
 | Editar disciplina na EC (requisitos, vertentes) | Editor da EC, com editor visual de expressão `E`/`OU` |
-| Gerenciar vertentes | Editor da EC, com tipo, pai e mínimos |
-| Vincular vertentes em lote | Mantido: escolher a vertente e clicar nas disciplinas |
-| Exportar curso ou EC em JSON | `GET` de exportação no formato `CurriculumImportV1` |
-| Backup geral em JSON | Substituído pelo banco |
+| Gerenciar vertentes                             | Editor da EC, com tipo, pai e mínimos                 |
+| Vincular vertentes em lote                      | Mantido: escolher a vertente e clicar nas disciplinas |
+| Exportar curso ou EC em JSON                    | `GET` de exportação no formato `CurriculumImportV1`   |
+| Backup geral em JSON                            | Substituído pelo banco                                |
 
 **Migração dos dados atuais.** Um script de seed converte `src/data/courses.ts` (6 cursos, 9 ECs) em payloads de importação e passa pelo mesmo pipeline. Os pré-requisitos atuais são listas, então entram como `E` de todos os códigos. Essas ECs ficam marcadas para reimportação com a extensão corrigida.
 

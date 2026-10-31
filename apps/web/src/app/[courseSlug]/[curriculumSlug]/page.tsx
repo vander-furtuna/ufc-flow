@@ -15,7 +15,7 @@ export default async function Curriculum({ params }: CurriculumProps) {
     <main className="flex h-full min-h-dvh w-full items-start justify-center gap-4 overflow-hidden px-6 md:gap-12">
       <CurriculumSection params={loadedParams} />
       <FloatingBar />
-      <div className="to-background fixed bottom-0 z-49 h-12 w-full bg-linear-to-b from-transparent"></div>
+      <div className="fixed bottom-0 z-49 h-12 w-full bg-linear-to-b from-transparent to-background"></div>
     </main>
   )
 }

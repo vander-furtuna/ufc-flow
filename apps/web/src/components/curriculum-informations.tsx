@@ -30,7 +30,7 @@ function InfoPill({
   return (
     <button
       className={cn(
-        'bg-accent border-border flex size-fit cursor-pointer items-center gap-0.5 rounded-full border px-2 py-1 pl-1.5',
+        'flex size-fit cursor-pointer items-center gap-0.5 rounded-full border border-border bg-accent px-2 py-1 pl-1.5',
         className,
         postIcon && 'pr-1.5',
       )}
@@ -63,7 +63,7 @@ export function CurriculumInformations({
       <div className="flex w-full items-center gap-2">
         <div className="flex flex-col">
           <span className="text-xs font-medium uppercase">Curso:</span>
-          <strong className="font-clash text-accent-foreground text-3xl font-semibold">
+          <strong className="font-clash text-3xl font-semibold text-accent-foreground">
             {selectedCourse?.name}
           </strong>
         </div>
@@ -71,7 +71,7 @@ export function CurriculumInformations({
           <Button variant="ghost" size="icon">
             <CaretUpDownIcon
               weight="bold"
-              className="text-muted-foreground/70 size-5"
+              className="size-5 text-muted-foreground/70"
             />
           </Button>
         </Link>
@@ -84,7 +84,7 @@ export function CurriculumInformations({
             icon={
               <HourglassIcon
                 weight="bold"
-                className="text-accent-foreground/80 size-4"
+                className="size-4 text-accent-foreground/80"
               />
             }
           />
@@ -93,7 +93,7 @@ export function CurriculumInformations({
             icon={
               <MapPinIcon
                 weight="bold"
-                className="text-accent-foreground/80 size-4"
+                className="size-4 text-accent-foreground/80"
               />
             }
           />
@@ -102,13 +102,13 @@ export function CurriculumInformations({
             icon={
               <MapPinIcon
                 weight="bold"
-                className="text-accent-foreground/80 size-4"
+                className="size-4 text-accent-foreground/80"
               />
             }
             postIcon={
               <CaretDownIcon
                 weight="bold"
-                className="text-muted-foreground/70 size-4"
+                className="size-4 text-muted-foreground/70"
               />
             }
             onClick={() => setShowBranchs(!showBranchs)}

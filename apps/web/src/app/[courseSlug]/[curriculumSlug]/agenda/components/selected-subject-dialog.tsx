@@ -100,7 +100,7 @@ export function SelectedSubjectDialog({
     <Dialog {...props} open={isOpen} onOpenChange={setIsOpen}>
       {children && <DialogTrigger asChild>{children}</DialogTrigger>}
       <DialogContent className="z-800 p-0">
-        <DialogHeader className="border-border border-b p-5">
+        <DialogHeader className="border-b border-border p-5">
           <DialogTitle className="font-clash text-xl">
             {capitalizeWords(subject.name)}
           </DialogTitle>
@@ -110,8 +110,8 @@ export function SelectedSubjectDialog({
         <div className="flex flex-col gap-2 px-3 pb-4 sm:px-5">
           {isDataStale ? (
             <div className="flex flex-col items-center justify-center gap-2 py-8">
-              <div className="border-primary h-6 w-6 animate-spin rounded-full border-2 border-t-transparent"></div>
-              <span className="text-muted-foreground text-sm font-medium">
+              <div className="h-6 w-6 animate-spin rounded-full border-2 border-primary border-t-transparent"></div>
+              <span className="text-sm font-medium text-muted-foreground">
                 Carregando turmas...
               </span>
             </div>
@@ -161,8 +161,8 @@ export function SelectedSubjectDialog({
                 </div>
               )}
               {hasNoClasses && (
-                <div className="border-border/50 bg-accent/20 flex flex-col items-center justify-center gap-2 rounded-md border py-8 text-center">
-                  <p className="text-muted-foreground text-sm font-medium">
+                <div className="flex flex-col items-center justify-center gap-2 rounded-md border border-border/50 bg-accent/20 py-8 text-center">
+                  <p className="text-sm font-medium text-muted-foreground">
                     Não há turmas disponíveis esse semestre
                   </p>
                 </div>
@@ -179,7 +179,7 @@ export function SelectedSubjectDialog({
                 return (
                   <div
                     className={cn(
-                      'bg-accent/30 border-border/50 flex flex-col gap-4 rounded-md border px-4 py-4 sm:flex-row',
+                      'flex flex-col gap-4 rounded-md border border-border/50 bg-accent/30 px-4 py-4 sm:flex-row',
                       isCurrentClass &&
                         'border-emerald-500/50 bg-emerald-500/10 dark:border-emerald-400/50 dark:bg-emerald-400/10',
                       hasConflict &&
@@ -200,7 +200,7 @@ export function SelectedSubjectDialog({
                               Selecionada
                             </span>
                           )}
-                          <span className="bg-accent/50 flex items-center gap-1 rounded-md px-2 py-1 text-sm">
+                          <span className="flex items-center gap-1 rounded-md bg-accent/50 px-2 py-1 text-sm">
                             <UserIcon weight="bold" className="size-4" />{' '}
                             {classItem.reservedSeats}
                           </span>
@@ -209,7 +209,7 @@ export function SelectedSubjectDialog({
                           {classItem?.instructors?.map((instructor) => (
                             <p
                               key={instructor.siape}
-                              className="text-foreground/90 text-sm"
+                              className="text-sm text-foreground/90"
                             >
                               {capitalizeWords(instructor.name)}
                             </p>

@@ -8,7 +8,6 @@
 
 <p align="center">Acompanhe seu fluxo acadêmico de forma interativa, simule sua grade e visualize seus pré-requisitos na UFC.</p>
 
-
 ## ✅ Sobre o projeto
 
 O **UFC Flow** é uma plataforma web interativa desenvolvida para facilitar a visualização de fluxogramas e matrizes curriculares dos cursos da **Universidade Federal do Ceará (UFC)**. Ela auxilia os discentes a planejarem seu progresso acadêmico, entenderem a malha de pré-requisitos e correquisitos de forma intuitiva, além de simular e montar grades horárias para os semestres seguintes.
@@ -74,6 +73,7 @@ Ao rodar qualquer comando `pnpm` dentro do projeto, o Corepack baixa e usa autom
 > Sem Corepack, instale globalmente com `npm install -g pnpm`.
 
 Para conferir a instalação:
+
 ```bash
 pnpm --version
 ```
@@ -108,16 +108,19 @@ cd ufc-flow-front
 As variáveis do front-end ficam em `apps/web`. Copie o modelo [apps/web/.env.example](apps/web/.env.example) para criar o arquivo local `apps/web/.env.local`:
 
 #### 🐧 Linux:
+
 ```bash
 cp apps/web/.env.example apps/web/.env.local
 ```
 
 #### 🪟 Windows:
+
 ```powershell
 copy apps\web\.env.example apps\web\.env.local
 ```
 
 Abra o arquivo `apps/web/.env.local` e configure os valores necessários. Exemplo básico:
+
 ```env
 NEXT_PUBLIC_CURRENT_YEAR=2026
 NEXT_PUBLIC_CURRENT_SEMESTER=1
@@ -131,6 +134,7 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 ### 4. Instalar as dependências
 
 Na raiz do repositório:
+
 ```bash
 pnpm install
 ```
@@ -140,6 +144,7 @@ pnpm install
 ### 5. Execução em Modo de Desenvolvimento
 
 Para rodar o front-end com hot-reload (recarregamento automático):
+
 ```bash
 pnpm dev:web
 ```
@@ -186,7 +191,8 @@ O repositório possui fluxos de validação de qualidade de código automatizado
 
 ## 📄 Gerenciamento de Configuração & Controle de Mudanças
 
-Este projeto segue formalidades rígidas de GCS, documentadas no [PLANO_GERENCIAMENTO_CONFIGURACAO.md](PLANO_GERENCIAMENTO_CONFIGURACAO.md). 
+Este projeto segue formalidades rígidas de GCS, documentadas no [PLANO_GERENCIAMENTO_CONFIGURACAO.md](PLANO_GERENCIAMENTO_CONFIGURACAO.md).
+
 - **Commits**: Seguem a especificação de **Conventional Commits** (ex: `feat(agenda): adiciona popup de detalhes`).
 - **Branches**: Adota o GitFlow simplificado, onde toda mudança entra via Pull Request (PR) na branch `develop` antes de ser congelada e enviada para a branch `master` sob uma tag versionada.
 - **Itens de Configuração (ICs)**: Mapeados detalhadamente no documento [CONFIGURATION_ITEMS.md](CONFIGURATION_ITEMS.md).

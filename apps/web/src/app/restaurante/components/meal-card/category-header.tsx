@@ -22,14 +22,14 @@ export function CategoryHeader({
         {/* Caixa de ícone unificada com Glow */}
         <div
           className={cn(
-            'bg-accent relative flex shrink-0 items-center justify-center overflow-hidden shadow-xs',
+            'relative flex shrink-0 items-center justify-center overflow-hidden bg-accent shadow-xs',
             isHero ? 'size-10 rounded-lg' : 'size-9 rounded-md',
           )}
         >
           <Icon
             weight="bold"
             className={cn(
-              'text-foreground/90 relative z-10',
+              'relative z-10 text-foreground/90',
               isHero ? 'size-5.5' : 'size-5',
             )}
           />
@@ -43,11 +43,11 @@ export function CategoryHeader({
         </div>
 
         {isHero ? (
-          <h4 className="text-foreground text-sm font-semibold sm:text-base">
+          <h4 className="text-sm font-semibold text-foreground sm:text-base">
             {title}
           </h4>
         ) : (
-          <h5 className="text-foreground text-xs font-semibold sm:text-sm">
+          <h5 className="text-xs font-semibold text-foreground sm:text-sm">
             {title}
           </h5>
         )}

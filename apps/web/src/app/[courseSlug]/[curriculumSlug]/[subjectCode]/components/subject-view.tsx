@@ -238,7 +238,7 @@ export function SubjectView({
   }, [isPersistent])
 
   return (
-    <div className="bg-background relative h-dvh w-dvw transition-colors duration-300">
+    <div className="relative h-dvh w-dvw bg-background transition-colors duration-300">
       {/* Subject Info Panel */}
 
       <SubjectDetailsPainel

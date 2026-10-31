@@ -35,9 +35,9 @@ export function FlowLoading({ className, ...props }: FlowLoadingProps) {
 
       <g mask="url(#grid-logo-mask)">
         <foreignObject x="0" y="0" width="640" height="641">
-          <div className="bg-accent h-full w-full">
+          <div className="h-full w-full bg-accent">
             <div
-              className="animate-slow-spin h-full w-full"
+              className="h-full w-full animate-slow-spin"
               style={{
                 background: `conic-gradient(from 0deg, #22D3EE, #4ADE80, #FDC700)`,
                 filter: 'blur(100px)',

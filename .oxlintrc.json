@@ -1,12 +1,6 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": [
-    "typescript",
-    "react",
-    "nextjs",
-    "import",
-    "jsx-a11y"
-  ],
+  "plugins": ["typescript", "react", "nextjs", "import", "jsx-a11y"],
   "categories": {
     "correctness": "error"
   },
@@ -116,12 +110,8 @@
     "jsx-a11y/alt-text": [
       "warn",
       {
-        "elements": [
-          "img"
-        ],
-        "img": [
-          "Image"
-        ]
+        "elements": ["img"],
+        "img": ["Image"]
       }
     ],
     "jsx-a11y/aria-props": "warn",
@@ -157,12 +147,7 @@
   },
   "overrides": [
     {
-      "files": [
-        "**/*.ts",
-        "**/*.tsx",
-        "**/*.mts",
-        "**/*.cts"
-      ],
+      "files": ["**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts"],
       "rules": {
         "no-var": "error",
         "prefer-const": "error",

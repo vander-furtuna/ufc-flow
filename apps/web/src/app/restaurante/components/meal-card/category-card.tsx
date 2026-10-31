@@ -11,7 +11,7 @@ export function CategoryCard({ category, className }: CategoryCardProps) {
   return (
     <div
       className={cn(
-        'bg-card/40 border-border/60 hover:border-border/90 relative flex flex-col justify-between overflow-hidden rounded-xl border p-4 shadow-xs backdrop-blur-sm transition-all',
+        'relative flex flex-col justify-between overflow-hidden rounded-xl border border-border/60 bg-card/40 p-4 shadow-xs backdrop-blur-sm transition-all hover:border-border/90',
         className,
       )}
     >

@@ -66,7 +66,7 @@ export default function AcademicCalendarPage() {
                   : 'Atualizar calendário'
               }
               aria-label="Atualizar calendário"
-              className="bg-accent/40 border-border/60 hover:bg-accent hover:text-foreground text-muted-foreground flex items-center gap-1.5 rounded-lg border px-2.5 py-2 text-xs font-medium transition-colors disabled:opacity-50"
+              className="flex items-center gap-1.5 rounded-lg border border-border/60 bg-accent/40 px-2.5 py-2 text-xs font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground disabled:opacity-50"
             >
               <ArrowsClockwiseIcon
                 weight="bold"
@@ -110,7 +110,7 @@ export default function AcademicCalendarPage() {
                 <WarningCircleIcon
                   weight="bold"
                   data-state={showImportantEvents ? 'active' : 'default'}
-                  className="data-[state=active]:text-foreground size-5 sm:size-6"
+                  className="size-5 data-[state=active]:text-foreground sm:size-6"
                 />
               }
               onFilterClick={() => setShowImportantEvents(!showImportantEvents)}
@@ -118,7 +118,7 @@ export default function AcademicCalendarPage() {
             />
           </div>
         )}
-        <div className="to-background pointer-events-none fixed bottom-0 z-49 h-12 w-full bg-linear-to-b from-transparent" />
+        <div className="pointer-events-none fixed bottom-0 z-49 h-12 w-full bg-linear-to-b from-transparent to-background" />
       </div>
     </div>
   )

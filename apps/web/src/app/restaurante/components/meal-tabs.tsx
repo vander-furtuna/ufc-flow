@@ -54,7 +54,7 @@ export function MealTabs({
   ]
 
   return (
-    <div className="bg-muted/70 border-border/50 flex w-full max-w-md items-center justify-between rounded-xl border p-1 backdrop-blur-sm">
+    <div className="flex w-full max-w-md items-center justify-between rounded-xl border border-border/50 bg-muted/70 p-1 backdrop-blur-sm">
       {tabs.map((tab) => {
         const Icon = tab.icon
         const isActive = activeMeal === tab.type
@@ -67,8 +67,8 @@ export function MealTabs({
             className={cn(
               'relative flex flex-1 items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-xs font-medium transition-all duration-200 select-none sm:text-sm',
               isActive
-                ? 'bg-background text-foreground font-semibold shadow-xs'
-                : 'text-muted-foreground hover:text-foreground hover:bg-background/40',
+                ? 'bg-background font-semibold text-foreground shadow-xs'
+                : 'text-muted-foreground hover:bg-background/40 hover:text-foreground',
               !tab.available && 'opacity-50',
             )}
           >

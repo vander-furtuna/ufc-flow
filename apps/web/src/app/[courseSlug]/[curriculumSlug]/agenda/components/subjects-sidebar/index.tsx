@@ -31,13 +31,13 @@ export function SubjectsSidebar({
 
   return isMobile ? (
     <div className="absolute bottom-0 z-500 flex h-fit max-h-dvh w-full flex-col items-center justify-end transition-all">
-      <div className="bg-card/70 flex w-full items-center gap-2 rounded-t-md border px-3 py-3 backdrop-blur-md">
+      <div className="flex w-full items-center gap-2 rounded-t-md border bg-card/70 px-3 py-3 backdrop-blur-md">
         <Link href="/" aria-label="Home">
           <Logo className="h-9" iconOnly />
         </Link>
         <ScheduleControls onDownloadSchedule={onDownloadSchedule} isMobile />
         <button
-          className="bg-accent text-foreground/90 hover:bg-accent/80 group/mobile-menu relative flex size-10 shrink-0 items-center justify-center rounded-full border transition-all"
+          className="group/mobile-menu relative flex size-10 shrink-0 items-center justify-center rounded-full border bg-accent text-foreground/90 transition-all hover:bg-accent/80"
           data-state={isMobileMenuExpanded ? 'expanded' : 'collapsed'}
           onClick={() => setIsMobileMenuExpanded(!isMobileMenuExpanded)}
         >
@@ -48,33 +48,33 @@ export function SubjectsSidebar({
         </button>
       </div>
       <div
-        className="bg-background/70 relative flex h-0 w-full flex-col gap-4 overflow-y-auto py-0 backdrop-blur-md transition-all duration-300 data-[state=expanded]:h-[75dvh]"
+        className="relative flex h-0 w-full flex-col gap-4 overflow-y-auto bg-background/70 py-0 backdrop-blur-md transition-all duration-300 data-[state=expanded]:h-[75dvh]"
         data-state={isMobileMenuExpanded ? 'expanded' : 'collapsed'}
       >
-        <div className="no-scrollbar relative flex size-full flex-col gap-4 overflow-y-auto px-4 py-4 pb-20">
+        <div className="relative flex size-full no-scrollbar flex-col gap-4 overflow-y-auto px-4 py-4 pb-20">
           {isClassLoading && (
-            <div className="bg-background/60 absolute inset-0 z-50 flex items-center justify-center backdrop-blur-xs">
+            <div className="absolute inset-0 z-50 flex items-center justify-center bg-background/60 backdrop-blur-xs">
               <div className="flex flex-col items-center gap-2">
-                <div className="border-primary h-6 w-6 animate-spin rounded-full border-2 border-t-transparent"></div>
-                <span className="text-muted-foreground animate-pulse text-xs font-semibold">
+                <div className="h-6 w-6 animate-spin rounded-full border-2 border-primary border-t-transparent"></div>
+                <span className="animate-pulse text-xs font-semibold text-muted-foreground">
                   Carregando turmas...
                 </span>
               </div>
             </div>
           )}
-          <h2 className="text-foreground/90 font-clash text-3xl font-semibold">
+          <h2 className="font-clash text-3xl font-semibold text-foreground/90">
             {selectedCourse?.name}
           </h2>
           <SemesterSelector />
           <SubjectsList showLine />
           <SubjectsSearchBar className="fixed" />
-          <div className="to-background fixed bottom-0 left-1/2 z-400 h-12 w-full -translate-x-1/2 bg-linear-to-b from-transparent"></div>
+          <div className="fixed bottom-0 left-1/2 z-400 h-12 w-full -translate-x-1/2 bg-linear-to-b from-transparent to-background"></div>
         </div>
       </div>
     </div>
   ) : (
     <aside
-      className="calendar-scrollbar relative hidden min-h-0 flex-1 shrink-0 flex-col overflow-y-auto px-6 pt-6 md:flex md:overflow-y-hidden"
+      className="relative hidden calendar-scrollbar min-h-0 flex-1 shrink-0 flex-col overflow-y-auto px-6 pt-6 md:flex md:overflow-y-hidden"
       id="tour-subject-list"
     >
       <header className="flex w-full shrink-0 items-center justify-between">
@@ -93,14 +93,14 @@ export function SubjectsSidebar({
             )}
             <QuestionIcon
               weight="bold"
-              className="text-muted-foreground size-5"
+              className="size-5 text-muted-foreground"
             />
           </Button>
           <ModeToggle />
         </div>
       </header>
-      <div className="border-border/50 mt-8 flex w-full flex-col gap-3 border-b pb-3">
-        <h2 className="text-foreground/90 font-clash text-3xl font-semibold">
+      <div className="mt-8 flex w-full flex-col gap-3 border-b border-border/50 pb-3">
+        <h2 className="font-clash text-3xl font-semibold text-foreground/90">
           {selectedCourse?.name}
         </h2>
         <SemesterSelector />
@@ -109,12 +109,12 @@ export function SubjectsSidebar({
           <ScheduleControls onDownloadSchedule={onDownloadSchedule} />
         </div>
       </div>
-      <div className="no-scrollbar relative flex h-full flex-col gap-4 pb-20 md:overflow-y-auto">
+      <div className="relative flex h-full no-scrollbar flex-col gap-4 pb-20 md:overflow-y-auto">
         {isClassLoading && (
-          <div className="bg-background/60 absolute inset-0 z-50 flex items-center justify-center backdrop-blur-xs">
+          <div className="absolute inset-0 z-50 flex items-center justify-center bg-background/60 backdrop-blur-xs">
             <div className="flex flex-col items-center gap-2">
-              <div className="border-primary h-6 w-6 animate-spin rounded-full border-2 border-t-transparent"></div>
-              <span className="text-muted-foreground animate-pulse text-xs font-semibold">
+              <div className="h-6 w-6 animate-spin rounded-full border-2 border-primary border-t-transparent"></div>
+              <span className="animate-pulse text-xs font-semibold text-muted-foreground">
                 Carregando turmas...
               </span>
             </div>
@@ -123,7 +123,7 @@ export function SubjectsSidebar({
         <SubjectsList />
       </div>
       <SubjectsSearchBar />
-      <div className="to-background absolute bottom-0 left-1/2 z-300 h-12 w-full -translate-x-1/2 bg-linear-to-b from-transparent"></div>
+      <div className="absolute bottom-0 left-1/2 z-300 h-12 w-full -translate-x-1/2 bg-linear-to-b from-transparent to-background"></div>
     </aside>
   )
 }

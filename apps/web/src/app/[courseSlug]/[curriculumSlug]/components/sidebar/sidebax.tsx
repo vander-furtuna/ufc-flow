@@ -106,7 +106,7 @@ export function Sidebar() {
     >
       <div className="fixed h-dvh w-full shrink-0 transition-all duration-300 ease-in-out group-data-[state=closed]/sidebar:w-0 md:w-80 md:py-8">
         <div
-          className="no-scrollbar group/container relative h-full w-full overflow-hidden overflow-x-hidden overflow-y-auto rounded-md border bg-slate-100/70 pb-16 backdrop-blur-md dark:bg-slate-900/90 dark:md:bg-slate-900"
+          className="group/container relative h-full w-full no-scrollbar overflow-hidden overflow-x-hidden overflow-y-auto rounded-md border bg-slate-100/70 pb-16 backdrop-blur-md dark:bg-slate-900/90 dark:md:bg-slate-900"
           ref={elementRef}
         >
           <Glow
@@ -115,13 +115,13 @@ export function Sidebar() {
           />
           <div className="center relative z-20 min-h-32 w-full px-8 pt-10 pb-4">
             <button
-              className="center hover:bg-foreground/20 absolute top-3 right-3 size-8 rounded-md transition-colors"
+              className="center absolute top-3 right-3 size-8 rounded-md transition-colors hover:bg-foreground/20"
               onClick={handleUnselectSubject}
             >
               <XIcon weight="bold" className="size-5 opacity-70" />
             </button>
             {selectedSubject?.name && (
-              <strong className="font-clash center w-full text-center text-xl font-semibold drop-shadow-lg dark:text-slate-50">
+              <strong className="center w-full text-center font-clash text-xl font-semibold drop-shadow-lg dark:text-slate-50">
                 {selectedSubject.name}
               </strong>
             )}
@@ -204,20 +204,20 @@ export function Sidebar() {
           {selectedSubject && (
             <div className="z-700 mt-6 w-full px-3">
               <button
-                className="bg-muted border-border flex w-full items-center justify-between rounded-md border px-2 py-1.5 decoration-0"
+                className="flex w-full items-center justify-between rounded-md border border-border bg-muted px-2 py-1.5 decoration-0"
                 onClick={handleGoToSubject}
               >
                 <div className="flex items-center gap-2">
                   <TreeStructureIcon
                     weight="bold"
-                    className="text-foreground/80 size-4.5"
+                    className="size-4.5 text-foreground/80"
                   />
                   <span className="text-sm">Visualização em árvore</span>
                 </div>
 
                 <CaretRightIcon
                   weight="bold"
-                  className="text-foreground/70 size-4"
+                  className="size-4 text-foreground/70"
                 />
               </button>
             </div>

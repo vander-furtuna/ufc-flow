@@ -57,8 +57,8 @@ function MealBlock({
 
   if (isEmptyMeal) {
     return (
-      <div className="bg-muted/20 border-border/40 flex flex-col items-center justify-center rounded-xl border p-4 text-center">
-        <p className="text-muted-foreground text-xs italic">
+      <div className="flex flex-col items-center justify-center rounded-xl border border-border/40 bg-muted/20 p-4 text-center">
+        <p className="text-xs text-muted-foreground italic">
           Sem {title.toLowerCase()} cadastrado
         </p>
       </div>
@@ -67,8 +67,8 @@ function MealBlock({
 
   if (isFilteredEmpty) {
     return (
-      <div className="bg-muted/20 border-border/40 flex flex-col items-center justify-center rounded-xl border p-4 text-center">
-        <p className="text-muted-foreground text-xs italic">
+      <div className="flex flex-col items-center justify-center rounded-xl border border-border/40 bg-muted/20 p-4 text-center">
+        <p className="text-xs text-muted-foreground italic">
           Nenhum item compatível com os filtros
         </p>
       </div>
@@ -78,9 +78,9 @@ function MealBlock({
   return (
     <div className="flex w-full flex-col gap-3">
       {showMealTitle && (
-        <div className="border-border/50 flex items-center gap-1.5 border-b pb-1.5">
-          <Icon weight="bold" className="text-primary size-3.5 shrink-0" />
-          <span className="text-foreground text-xs font-semibold tracking-wider uppercase">
+        <div className="flex items-center gap-1.5 border-b border-border/50 pb-1.5">
+          <Icon weight="bold" className="size-3.5 shrink-0 text-primary" />
+          <span className="text-xs font-semibold tracking-wider text-foreground uppercase">
             {title}
           </span>
         </div>
@@ -96,7 +96,7 @@ function MealBlock({
             return (
               <div
                 key={cat.category}
-                className="bg-accent/40 border-border/60 relative overflow-hidden rounded-xl border p-2 shadow-2xs"
+                className="relative overflow-hidden rounded-xl border border-border/60 bg-accent/40 p-2 shadow-2xs"
               >
                 {meta.glowColor && (
                   <Glow
@@ -110,7 +110,7 @@ function MealBlock({
                     className="size-3.5 shrink-0"
                     style={{ color: meta.glowColor }}
                   />
-                  <span className="text-foreground/90 text-xs font-semibold">
+                  <span className="text-xs font-semibold text-foreground/90">
                     {cat.category}
                   </span>
                 </div>
@@ -119,9 +119,9 @@ function MealBlock({
                   {cat.items.map((item) => (
                     <li
                       key={item.id}
-                      className="bg-background/60 border-border/40 flex items-center justify-between gap-1.5 rounded-md border p-1.5 text-xs font-medium"
+                      className="flex items-center justify-between gap-1.5 rounded-md border border-border/40 bg-background/60 p-1.5 text-xs font-medium"
                     >
-                      <span className="text-foreground leading-snug">
+                      <span className="leading-snug text-foreground">
                         {item.name}
                       </span>
                       <div className="flex shrink-0 items-center gap-1 pt-0.5 empty:hidden">
@@ -143,16 +143,16 @@ function MealBlock({
 
       {/* Outras Categorias (Guarnição, Acompanhamentos, Salada, Sobremesa, etc.) */}
       {otherCategories.length > 0 && (
-        <div className="bg-background/40 border-border/50 flex flex-col gap-2 rounded-md border p-2.5">
+        <div className="flex flex-col gap-2 rounded-md border border-border/50 bg-background/40 p-2.5">
           {otherCategories.map((cat: MealCategory, idx) => (
             <div
               key={cat.category}
               className={cn(
                 'flex flex-col gap-1',
-                idx > 0 && 'border-border/30 border-t pt-1.5',
+                idx > 0 && 'border-t border-border/30 pt-1.5',
               )}
             >
-              <span className="text-muted-foreground text-[10px] font-semibold tracking-wider uppercase">
+              <span className="text-[10px] font-semibold tracking-wider text-muted-foreground uppercase">
                 {cat.category}
               </span>
               <ul className="flex flex-col gap-1">
@@ -161,7 +161,7 @@ function MealBlock({
                     key={item.id}
                     className="flex items-center justify-between gap-1.5 text-xs"
                   >
-                    <span className="text-foreground/90 font-medium">
+                    <span className="font-medium text-foreground/90">
                       {item.name}
                     </span>
                     <div className="flex shrink-0 items-center gap-1 empty:hidden">
@@ -199,19 +199,19 @@ export function WeekDayColumn({
   return (
     <div
       className={cn(
-        'bg-card/75 border-border/80 flex h-full w-full min-w-70 shrink-0 flex-col rounded-2xl border p-2.5 shadow-xs backdrop-blur-md transition-all sm:min-w-75 lg:min-w-0',
-        isToday && 'border-primary/50 ring-primary/20 shadow-md ring-2',
+        'flex h-full w-full min-w-70 shrink-0 flex-col rounded-2xl border border-border/80 bg-card/75 p-2.5 shadow-xs backdrop-blur-md transition-all sm:min-w-75 lg:min-w-0',
+        isToday && 'border-primary/50 shadow-md ring-2 ring-primary/20',
       )}
     >
       {/* Cabeçalho da Coluna do Dia */}
-      <div className="border-border/60 mb-3 flex items-center justify-between border-b pb-2.5">
+      <div className="mb-3 flex items-center justify-between border-b border-border/60 pb-2.5">
         <div className="flex flex-col">
           <div className="flex items-center gap-1.5">
-            <span className="text-foreground font-clash text-base font-semibold tracking-tight capitalize">
+            <span className="font-clash text-base font-semibold tracking-tight text-foreground capitalize">
               {cleanDayOfWeek}
             </span>
             {isToday && (
-              <span className="bg-accent border-border text-foreground/90 relative inline-flex items-center gap-1 overflow-hidden rounded-full border px-2 py-0.5 text-[9px] font-bold tracking-wider uppercase select-none">
+              <span className="relative inline-flex items-center gap-1 overflow-hidden rounded-full border border-border bg-accent px-2 py-0.5 text-[9px] font-bold tracking-wider text-foreground/90 uppercase select-none">
                 <Glow
                   colors="#22d3ee"
                   className="pointer-events-none absolute -left-2 size-5 opacity-90 blur-xs"
@@ -220,7 +220,7 @@ export function WeekDayColumn({
               </span>
             )}
           </div>
-          <span className="text-muted-foreground text-xs font-medium">
+          <span className="text-xs font-medium text-muted-foreground">
             {dateFormatted}
           </span>
         </div>
@@ -229,7 +229,7 @@ export function WeekDayColumn({
         <button
           type="button"
           onClick={() => onSelectDay(day.date)}
-          className="text-muted-foreground hover:text-foreground hover:bg-accent/80 flex items-center gap-1 rounded-lg border border-transparent p-1.5 text-xs font-medium transition-all active:scale-95"
+          className="flex items-center gap-1 rounded-lg border border-transparent p-1.5 text-xs font-medium text-muted-foreground transition-all hover:bg-accent/80 hover:text-foreground active:scale-95"
           title={`Ver cardápio completo de ${cleanDayOfWeek} (${dateFormatted})`}
           aria-label={`Ver cardápio detalhado de ${cleanDayOfWeek}`}
         >
@@ -241,15 +241,15 @@ export function WeekDayColumn({
       {/* Conteúdo das Refeições do Dia */}
       <div className="flex flex-1 flex-col gap-3">
         {day.isClosedOrEmpty ? (
-          <div className="bg-muted/20 border-border/40 flex flex-1 flex-col items-center justify-center rounded-xl border p-6 text-center">
+          <div className="flex flex-1 flex-col items-center justify-center rounded-xl border border-border/40 bg-muted/20 p-6 text-center">
             <CalendarXIcon
               weight="bold"
-              className="text-muted-foreground/60 mb-2 size-7"
+              className="mb-2 size-7 text-muted-foreground/60"
             />
-            <p className="text-foreground/80 text-xs font-medium">
+            <p className="text-xs font-medium text-foreground/80">
               {day.emptyMessage || 'Restaurante Fechado'}
             </p>
-            <p className="text-muted-foreground mt-0.5 text-[11px]">
+            <p className="mt-0.5 text-[11px] text-muted-foreground">
               Sem expediente ou cardápio não publicado.
             </p>
           </div>

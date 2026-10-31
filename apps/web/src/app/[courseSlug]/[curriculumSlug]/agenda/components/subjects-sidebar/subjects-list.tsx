@@ -151,7 +151,7 @@ export function SubjectsList({ showLine = true }: { showLine?: boolean }) {
         return (
           <div key={key} className="flex w-full flex-col gap-2">
             <div className="relative flex w-full items-center gap-3">
-              <h3 className="text-foreground/85 font-clash text-xl font-semibold tracking-wider text-nowrap uppercase">
+              <h3 className="font-clash text-xl font-semibold tracking-wider text-nowrap text-foreground/85 uppercase">
                 {title}
               </h3>
               {showLine && (

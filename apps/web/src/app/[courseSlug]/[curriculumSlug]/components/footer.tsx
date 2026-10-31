@@ -17,17 +17,17 @@ export function Footer() {
     <footer className="relative mt-auto flex w-full flex-col pb-0">
       <div className="flex w-full items-center justify-between pb-6">
         <div className="flex flex-col gap-4">
-          <Logo className="text-muted-foreground h-12 w-fit" />
+          <Logo className="h-12 w-fit text-muted-foreground" />
         </div>
 
         <Button size="icon" variant="outline" onClick={scrollToTop}>
-          <CaretUpIcon weight="bold" className="text-foreground/80 size-5" />
+          <CaretUpIcon weight="bold" className="size-5 text-foreground/80" />
         </Button>
       </div>
       <div className="flex w-full items-center justify-between border-t pt-4">
         <div className="flex items-center gap-3">
           <VanderLogo className="h-12 w-fit" />
-          <div className="bg-muted h-6 w-0.5" />
+          <div className="h-6 w-0.5 bg-muted" />
           <img src={ufcLogo.src} alt="UFC Logo" className="h-10 w-fit" />
           <img src={ecLogo.src} alt="EC Logo" className="h-8 w-fit" />
         </div>

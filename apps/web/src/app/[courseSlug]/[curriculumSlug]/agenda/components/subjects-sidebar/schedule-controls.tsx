@@ -29,7 +29,7 @@ export function ScheduleControls({
 
   return (
     <div
-      className="bg-accent/80 border-border/70 hover:bg-accent/90 flex h-10 w-full items-center rounded-lg border p-0 px-2 transition-colors"
+      className="flex h-10 w-full items-center rounded-lg border border-border/70 bg-accent/80 p-0 px-2 transition-colors hover:bg-accent/90"
       id="tour-agenda-controls"
     >
       <div className="relative w-full">
@@ -54,10 +54,10 @@ export function ScheduleControls({
         </Select>
       </div>
 
-      <div className="bg-foreground/20 mx-1 h-4 w-px" />
+      <div className="mx-1 h-4 w-px bg-foreground/20" />
 
       <CreateScheduleDialog>
-        <button className="hover:bg-foreground/10 text-foreground/90 rounded-md p-1.5 transition-all">
+        <button className="rounded-md p-1.5 text-foreground/90 transition-all hover:bg-foreground/10">
           <PlusIcon weight="bold" className={iconSize} />
         </button>
       </CreateScheduleDialog>
@@ -70,13 +70,13 @@ export function ScheduleControls({
         <button
           type="button"
           id="tour-agenda-delete"
-          className="text-foreground/90 rounded-md p-1.5 transition-all hover:bg-red-600/10 hover:text-red-500 focus:bg-red-600/10 active:bg-red-600/20"
+          className="rounded-md p-1.5 text-foreground/90 transition-all hover:bg-red-600/10 hover:text-red-500 focus:bg-red-600/10 active:bg-red-600/20"
         >
           <TrashIcon weight="bold" className={iconSize} />
         </button>
       </DestructiveDialog>
       <button
-        className="text-foreground/90 rounded-md p-1.5 transition-all hover:bg-purple-600/10 hover:text-purple-500 focus:bg-purple-600/10 active:bg-purple-600/20"
+        className="rounded-md p-1.5 text-foreground/90 transition-all hover:bg-purple-600/10 hover:text-purple-500 focus:bg-purple-600/10 active:bg-purple-600/20"
         onClick={() => onDownloadSchedule?.()}
         id="tour-agenda-download"
       >

@@ -12,7 +12,7 @@ export function HeroCategoryCard({ category, className }: CategoryCardProps) {
   return (
     <div
       className={cn(
-        'bg-card/85 border-border/80 hover:border-border relative flex flex-col justify-between overflow-hidden rounded-2xl border p-4 backdrop-blur-md transition-all md:p-5',
+        'relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card/85 p-4 backdrop-blur-md transition-all hover:border-border md:p-5',
         className,
       )}
     >
