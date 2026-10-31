@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Editor da página de links</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Clash Display';src:url('../assets/clash-display-variable.woff2') format('woff2');font-weight:200 700;font-display:swap}
+body{margin:0;background:#f8fafc}
+a{color:#1d293d}a:hover{color:#020618}
+input::placeholder{color:#62748e}
+</style>
+</helmet>
+<div style="min-height: 100vh; font-family: 'Geist', system-ui, sans-serif; color: #020618; background: #f8fafc;">
+<div style="max-width: 1280px; margin: 0 auto; box-sizing: border-box; padding: 28px 24px 48px; display: flex; flex-direction: column; gap: 20px;">
+
+  <header style="display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <a href="Hub.dc.html" aria-label="Voltar ao hub" style="width: 40px; height: 40px; border-radius: 12px; border: 1px solid #e2e8f0; background: #ffffff; display: flex; align-items: center; justify-content: center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></a>
+      <div style="display: flex; flex-direction: column;">
+        <span style="font-size: 12px; color: #45556c;">Eng. de Computação · Hub</span>
+        <div style="display: flex; align-items: center; gap: 10px;"><h1 style="margin: 0; font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 26px;">Página de links</h1><span style="height: 24px; display: inline-flex; align-items: center; gap: 6px; padding: 0 10px; border-radius: 999px; background: #dcfce7; color: #15803d; font-size: 12px; font-weight: 600;"><span style="width: 6px; height: 6px; border-radius: 999px; background: #16a34a;"></span>Publicada</span></div>
+      </div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <span style="height: 40px; display: inline-flex; align-items: center; gap: 8px; padding: 0 6px 0 14px; border-radius: 12px; border: 1px solid #e2e8f0; background: #ffffff; font-family: 'Geist Mono', monospace; font-size: 12px;">flow.ufc.br/l/eng-computacao-sobral<button style="height: 30px; padding: 0 10px; border: 0; border-radius: 8px; background: #f1f5f9; font: inherit; font-family: 'Geist', sans-serif; font-size: 12px; font-weight: 600;">Copiar</button></span>
+      <a href="Links-Pagina.dc.html" style="height: 40px; display: inline-flex; align-items: center; gap: 6px; padding: 0 14px; border-radius: 12px; background: #0f172b; color: #f8fafc; font-size: 14px; font-weight: 600; text-decoration: none;">Ver página<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a>
+    </div>
+  </header>
+
+  <div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start;">
+    <section style="flex: 999 1 620px; min-width: 0; display: flex; flex-direction: column; gap: 16px;">
+      <div role="tablist" aria-label="Editor" style="align-self: flex-start; display: flex; gap: 4px; padding: 4px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px;">
+        <sc-for list="{{tabs}}" as="t" hint-placeholder-count="3"><button role="tab" aria-selected="{{t.on}}" onClick="{{t.pick}}" style="{{t.style}}">{{t.label}}</button></sc-for>
+      </div>
+
+      <sc-if value="{{isLinks}}" hint-placeholder-val="{{true}}">
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button style="height: 40px; display: inline-flex; align-items: center; gap: 6px; padding: 0 14px; border: 0; border-radius: 12px; background: #0f172b; color: #f8fafc; font: inherit; font-size: 14px; font-weight: 600;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg>Link</button>
+            <button style="height: 40px; padding: 0 14px; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff; font: inherit; font-size: 14px; font-weight: 500;">+ Seção</button>
+            <button style="height: 40px; padding: 0 14px; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff; font: inherit; font-size: 14px; font-weight: 500;">+ Rede social</button>
+            <button style="height: 40px; padding: 0 14px; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff; font: inherit; font-size: 14px; font-weight: 500;">+ Post do hub</button>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 8px; padding: 0 4px; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; color: #45556c;"><svg width="14" height="14" viewBox="0 0 24 24" fill="#94a3b8" aria-hidden="true"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg>DESTAQUE</div>
+          <article style="padding: 16px; border: 2px solid #22d3ee; border-radius: 18px; background: #ffffff; display: flex; flex-direction: column; gap: 14px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#94a3b8" aria-hidden="true"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg>
+              <span style="width: 44px; height: 44px; border-radius: 12px; background: #fff7ed; color: #ea580c; display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></span>
+              <span style="flex: 1; display: flex; flex-direction: column;"><b style="font-size: 15px; font-weight: 600;">Inscrições para monitoria 2026.2</b><span style="font-size: 12px; color: #45556c;">412 cliques em 7 dias</span></span>
+              <button role="switch" aria-checked="true" aria-label="Visível" style="width: 44px; height: 26px; border: 0; border-radius: 999px; background: #0f172b; position: relative;"><span style="position: absolute; top: 3px; left: 21px; width: 20px; height: 20px; border-radius: 999px; background: #ffffff;"></span></button>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px;">
+              <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 500;">Título<input value="Inscrições para monitoria 2026.2" style="height: 40px; padding: 0 12px; border: 1px solid #e2e8f0; border-radius: 10px; font: inherit; font-size: 14px;"></label>
+              <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 500;">Link<input value="https://si3.ufc.br/…/edital-12-2026" style="height: 40px; padding: 0 12px; border: 1px solid #e2e8f0; border-radius: 10px; font: inherit; font-family: 'Geist Mono', monospace; font-size: 12px;"></label>
+              <label style="grid-column: 1 / -1; display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 500;">Descrição curta<input value="Edital nº 12/2026 · até 14/11" style="height: 40px; padding: 0 12px; border: 1px solid #e2e8f0; border-radius: 10px; font: inherit; font-size: 14px;"></label>
+            </div>
+            <fieldset style="margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 8px;">
+              <legend style="padding: 0; margin-bottom: 8px; font-size: 13px; font-weight: 500;">Imagem do link</legend>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+                <button aria-pressed="true" aria-label="Ícone: megafone" style="width: 40px; height: 40px; border: 2px solid #0f172b; border-radius: 10px; background: #fff7ed; color: #ea580c;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"/></svg></button>
+                <button aria-label="Ícone: capelo" style="width: 40px; height: 40px; border: 1px solid #e2e8f0; border-radius: 10px; background: #ffffff;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#45556c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5Z"/></svg></button>
+                <button aria-label="Ícone: calendário" style="width: 40px; height: 40px; border: 1px solid #e2e8f0; border-radius: 10px; background: #ffffff;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#45556c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/></svg></button>
+                <button aria-label="Ícone: documento" style="width: 40px; height: 40px; border: 1px solid #e2e8f0; border-radius: 10px; background: #ffffff;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#45556c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/></svg></button>
+                <button aria-label="Ícone: pessoas" style="width: 40px; height: 40px; border: 1px solid #e2e8f0; border-radius: 10px; background: #ffffff;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#45556c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="7" r="4"/><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/></svg></button>
+                <button aria-label="Mais ícones" style="height: 40px; padding: 0 12px; border: 1px solid #e2e8f0; border-radius: 10px; background: #ffffff; font: inherit; font-size: 13px;">Mais ícones</button>
+                <span style="width: 1px; height: 28px; background: #e2e8f0;"></span>
+                <button style="height: 40px; display: inline-flex; align-items: center; gap: 6px; padding: 0 12px; border: 1px dashed #94a3b8; border-radius: 10px; background: #ffffff; font: inherit; font-size: 13px; font-weight: 500;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>Enviar miniatura</button>
+              </div>
+            </fieldset>
+            <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px;">
+              <label style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 13px; font-weight: 500;"><input type="checkbox" checked style="width: 18px; height: 18px; accent-color: #0f172b;">Destacar com brilho</label>
+              <label style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 13px; font-weight: 500;"><input type="checkbox" checked style="width: 18px; height: 18px; accent-color: #0f172b;">Selo “Novo”</label>
+              <label style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 13px; font-weight: 500;"><input type="checkbox" style="width: 18px; height: 18px; accent-color: #0f172b;">Abrir na mesma aba</label>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px; border-radius: 12px; background: #f8fafc; font-size: 13px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#45556c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              <span style="font-weight: 500;">Mostrar de</span><input value="30/10/2026" aria-label="Início" style="width: 110px; height: 34px; padding: 0 10px; border: 1px solid #e2e8f0; border-radius: 8px; font: inherit; font-size: 13px;"><span style="font-weight: 500;">até</span><input value="14/11/2026" aria-label="Fim" style="width: 110px; height: 34px; padding: 0 10px; border: 1px solid #e2e8f0; border-radius: 8px; font: inherit; font-size: 13px;"><span style="color: #45556c;">Depois disso o link some sozinho.</span>
+            </div>
+          </article>
+
+          <div style="display: flex; align-items: center; gap: 8px; padding: 6px 4px 0; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; color: #45556c;">ACADÊMICO <span style="font-weight: 400; letter-spacing: 0;">· 4 links</span></div>
+          <sc-for list="{{rows}}" as="r" hint-placeholder-count="4">
+            <div style="{{r.style}}">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#94a3b8" aria-hidden="true"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg>
+              <span style="width: 36px; height: 36px; border-radius: 10px; background: #ecfeff; color: #0891b2; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700;">{{r.initial}}</span>
+              <span style="flex: 1; display: flex; flex-direction: column; min-width: 0;"><b style="font-size: 14px; font-weight: 600;">{{r.title}}</b><span style="font-size: 12px; color: #45556c;">{{r.meta}}</span></span>
+              <span style="font-size: 12px; color: #45556c;">{{r.clicks}}</span>
+              <button aria-label="Editar link" style="width: 36px; height: 36px; border: 0; border-radius: 10px; background: transparent; color: #45556c;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>
+            </div>
+          </sc-for>
+          <div style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; border: 1px dashed #cbd5e1; border-radius: 14px; background: #ffffff; opacity: 0.7;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#45556c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68M6.61 6.61A13.53 13.53 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61M2 2l20 20"/></svg>
+            <span style="flex: 1; font-size: 14px;">Seleção da Empresa Júnior</span><span style="font-size: 12px; color: #45556c;">oculto · Comunidade</span>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{isLook}}" hint-placeholder-val="{{false}}">
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <section style="padding: 18px; border: 1px solid #e2e8f0; border-radius: 18px; background: #ffffff; display: flex; flex-direction: column; gap: 14px;">
+            <h2 style="margin: 0; font-size: 15px; font-weight: 600;">Perfil</h2>
+            <div style="display: flex; gap: 12px; align-items: center;">
+              <span style="width: 64px; height: 64px; border-radius: 18px; background: #ecfeff; color: #0891b2; display: flex; align-items: center; justify-content: center;"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/></svg></span>
+              <div style="display: flex; flex-direction: column; gap: 6px;"><button style="height: 36px; padding: 0 12px; border: 1px solid #e2e8f0; border-radius: 10px; background: #ffffff; font: inherit; font-size: 13px; font-weight: 500;">Trocar ícone ou foto</button><button style="height: 36px; padding: 0 12px; border: 1px solid #e2e8f0; border-radius: 10px; background: #ffffff; font: inherit; font-size: 13px; font-weight: 500;">Enviar imagem de capa</button></div>
+            </div>
+            <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 500;">Bio<input value="UFC · Campus Sobral · links oficiais do curso" style="height: 40px; padding: 0 12px; border: 1px solid #e2e8f0; border-radius: 10px; font: inherit; font-size: 14px;"></label>
+          </section>
+
+          <section style="padding: 18px; border: 1px solid #e2e8f0; border-radius: 18px; background: #ffffff; display: flex; flex-direction: column; gap: 12px;">
+            <h2 style="margin: 0; font-size: 15px; font-weight: 600;">Tema</h2>
+            <div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px;">
+              <sc-for list="{{themes}}" as="th" hint-placeholder-count="6">
+                <button aria-pressed="{{th.on}}" onClick="{{th.pick}}" style="{{th.style}}"><span style="{{th.swatch}}"></span><span style="font-size: 12px; font-weight: 500;">{{th.label}}</span></button>
+              </sc-for>
+            </div>
+          </section>
+
+          <section style="padding: 18px; border: 1px solid #e2e8f0; border-radius: 18px; background: #ffffff; display: flex; flex-direction: column; gap: 12px;">
+            <h2 style="margin: 0; font-size: 15px; font-weight: 600;">Botões</h2>
+            <div role="group" aria-label="Estilo" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px;">
+              <sc-for list="{{styles}}" as="s" hint-placeholder-count="3"><button aria-pressed="{{s.on}}" onClick="{{s.pick}}" style="{{s.style}}"><span style="{{s.sample}}"></span>{{s.label}}</button></sc-for>
+            </div>
+            <div role="group" aria-label="Formato" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px;">
+              <sc-for list="{{shapes}}" as="s" hint-placeholder-count="3"><button aria-pressed="{{s.on}}" onClick="{{s.pick}}" style="{{s.style}}"><span style="{{s.sample}}"></span>{{s.label}}</button></sc-for>
+            </div>
+          </section>
+
+          <section style="padding: 18px; border: 1px solid #e2e8f0; border-radius: 18px; background: #ffffff; display: flex; flex-direction: column; gap: 12px;">
+            <h2 style="margin: 0; font-size: 15px; font-weight: 600;">Fonte do título</h2>
+            <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px;">
+              <sc-for list="{{fonts}}" as="f" hint-placeholder-count="2"><button aria-pressed="{{f.on}}" onClick="{{f.pick}}" style="{{f.style}}">{{f.label}}</button></sc-for>
+            </div>
+          </section>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{isStats}}" hint-placeholder-val="{{false}}">
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;">
+            <div style="padding: 16px; border: 1px solid #e2e8f0; border-radius: 16px; background: #ffffff;"><span style="font-size: 12px; color: #45556c;">Visitas · 30 dias</span><b style="display: block; font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 28px;">2.418</b></div>
+            <div style="padding: 16px; border: 1px solid #e2e8f0; border-radius: 16px; background: #ffffff;"><span style="font-size: 12px; color: #45556c;">Cliques · 30 dias</span><b style="display: block; font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 28px;">3.904</b></div>
+            <div style="padding: 16px; border: 1px solid #e2e8f0; border-radius: 16px; background: #ffffff;"><span style="font-size: 12px; color: #45556c;">Pelo QR code</span><b style="display: block; font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 28px;">612</b></div>
+          </div>
+          <section style="padding: 18px; border: 1px solid #e2e8f0; border-radius: 18px; background: #ffffff; display: flex; flex-direction: column; gap: 12px;">
+            <h2 style="margin: 0; font-size: 15px; font-weight: 600;">Links mais clicados</h2>
+            <div style="display: grid; grid-template-columns: 220px 1fr 56px; gap: 10px; align-items: center; font-size: 13px;"><span>SIGAA</span><span style="height: 10px; border-radius: 999px; background: #22d3ee; width: 100%;"></span><b style="text-align: right;">1.204</b></div>
+            <div style="display: grid; grid-template-columns: 220px 1fr 56px; gap: 10px; align-items: center; font-size: 13px;"><span>Inscrições para monitoria</span><span style="height: 10px; border-radius: 999px; background: #22d3ee; width: 72%;"></span><b style="text-align: right;">868</b></div>
+            <div style="display: grid; grid-template-columns: 220px 1fr 56px; gap: 10px; align-items: center; font-size: 13px;"><span>Calendário acadêmico</span><span style="height: 10px; border-radius: 999px; background: #22d3ee; width: 51%;"></span><b style="text-align: right;">611</b></div>
+            <div style="display: grid; grid-template-columns: 220px 1fr 56px; gap: 10px; align-items: center; font-size: 13px;"><span>Coordenação do curso</span><span style="height: 10px; border-radius: 999px; background: #22d3ee; width: 33%;"></span><b style="text-align: right;">402</b></div>
+            <span style="font-size: 12px; color: #45556c;">Contagem anônima: o Flow não guarda quem clicou.</span>
+          </section>
+        </div>
+      </sc-if>
+    </section>
+
+    <aside aria-label="Pré-visualização no celular" style="flex: 1 1 360px; display: flex; flex-direction: column; align-items: center; gap: 10px;">
+      <span style="font-size: 12px; font-weight: 600; letter-spacing: 0.06em; color: #45556c;">PRÉ-VISUALIZAÇÃO</span>
+      <div style="width: 340px; height: 720px; box-sizing: border-box; border: 10px solid #0f172b; border-radius: 48px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(2,6,24,0.3);">
+        <div style="{{pvBg}}">
+          <div style="{{pvCover}}"></div>
+          <span style="{{pvAvatar}}"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M15 2v2M15 20v2M2 15h2M2 9h2M20 15h2M20 9h2M9 2v2M9 20v2"/></svg></span>
+          <b style="{{pvTitle}}">Engenharia de Computação</b>
+          <span style="{{pvBio}}">UFC · Campus Sobral · links oficiais do curso</span>
+          <div style="display: flex; gap: 8px; margin: 2px 0 6px;">
+            <span style="{{pvSocial}}"></span><span style="{{pvSocial}}"></span><span style="{{pvSocial}}"></span><span style="{{pvSocial}}"></span>
+          </div>
+          <span style="{{pvFeatured}}"><span style="width: 40px; height: 40px; flex-shrink: 0; border-radius: 10px; background: #fff7ed; display: flex; align-items: center; justify-content: center; color: #ea580c;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"/></svg></span><span style="flex: 1; text-align: left;">Inscrições para monitoria</span><span style="height: 18px; display: inline-flex; align-items: center; padding: 0 6px; border-radius: 999px; background: #f97316; color: #ffffff; font-size: 9px; font-weight: 700;">NOVO</span></span>
+          <span style="{{pvSection}}">ACADÊMICO</span>
+          <sc-for list="{{pvLinks}}" as="l" hint-placeholder-count="4"><span style="{{pvButton}}">{{l}}</span></sc-for>
+          <span style="{{pvSection}}">COMUNIDADE</span>
+          <span style="{{pvButton}}">Centro Acadêmico</span>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1100}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { tab: 'links', theme: 'ciano', btn: 'suave', shape: 'arredondado', font: 'clash' }; }
+  renderVals() {
+    const s = this.state;
+    const themes = {
+      ciano: { label: 'Ciano', bg: '#ecfeff', accent: '#0891b2', border: '#a5f3fc', ink: '#083344', soft: '#ffffff', cover: '#cffafe' },
+      laranja: { label: 'Laranja', bg: '#fff7ed', accent: '#ea580c', border: '#fed7aa', ink: '#7c2d12', soft: '#ffffff', cover: '#ffedd5' },
+      verde: { label: 'Verde', bg: '#f0fdf4', accent: '#16a34a', border: '#bbf7d0', ink: '#14532d', soft: '#ffffff', cover: '#dcfce7' },
+      violeta: { label: 'Violeta', bg: '#f5f3ff', accent: '#7c3aed', border: '#ddd6fe', ink: '#4c1d95', soft: '#ffffff', cover: '#ede9fe' },
+      branco: { label: 'Branco', bg: '#ffffff', accent: '#0f172b', border: '#e2e8f0', ink: '#020618', soft: '#f8fafc', cover: '#f1f5f9' },
+      escuro: { label: 'Escuro', bg: '#020618', accent: '#22d3ee', border: '#314158', ink: '#f8fafc', soft: '#1d293d', cover: '#1d293d' }
+    };
+    const t = themes[s.theme];
+    const radius = { reto: '6px', arredondado: '16px', pilula: '999px' }[s.shape];
+    let btn = 'width: 100%; box-sizing: border-box; min-height: 44px; display: flex; align-items: center; justify-content: center; padding: 0 14px; font-size: 13px; font-weight: 600; border-radius: ' + radius + '; ';
+    if (s.btn === 'preenchido') btn += 'background: ' + t.accent + '; color: ' + (s.theme === 'escuro' ? '#020618' : '#ffffff') + '; border: 0;';
+    else if (s.btn === 'contorno') btn += 'background: transparent; color: ' + t.ink + '; border: 2px solid ' + t.accent + ';';
+    else btn += 'background: ' + t.soft + '; color: ' + t.ink + '; border: 1px solid ' + t.border + ';';
+    const card = (on) => 'display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 12px 8px; border-radius: 14px; font: inherit; cursor: pointer; background: #ffffff; ' + (on ? 'border: 2px solid #0f172b;' : 'border: 1px solid #e2e8f0;');
+    const opt = (on) => 'height: 72px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; border-radius: 14px; font: inherit; font-size: 13px; font-weight: 500; cursor: pointer; background: #ffffff; ' + (on ? 'border: 2px solid #0f172b;' : 'border: 1px solid #e2e8f0;');
+    const tabDefs = [['links', 'Links'], ['look', 'Aparência'], ['stats', 'Estatísticas']];
+    const rows = [
+      { initial: 'S', title: 'SIGAA', meta: 'si3.ufc.br', clicks: '1.204 cliques' },
+      { initial: 'C', title: 'Coordenação do curso', meta: 'Com descrição', clicks: '402 cliques' },
+      { initial: 'C', title: 'Calendário acadêmico 2026', meta: 'Link interno do Flow', clicks: '611 cliques' },
+      { initial: 'R', title: 'Regulamento de atividades complementares', meta: 'Arquivo PDF · 380 KB', clicks: '187 cliques' }
+    ];
+    return {
+      tabs: tabDefs.map((d) => { const on = d[0] === s.tab; return { label: d[1], on: on, pick: () => this.setState({ tab: d[0] }), style: 'height: 36px; padding: 0 16px; border: 0; border-radius: 10px; font: inherit; font-size: 14px; font-weight: 600; ' + (on ? 'background: #0f172b; color: #f8fafc;' : 'background: transparent; color: #45556c;') }; }),
+      isLinks: s.tab === 'links', isLook: s.tab === 'look', isStats: s.tab === 'stats',
+      rows: rows.map((r) => Object.assign({}, r, { style: 'display: flex; align-items: center; gap: 12px; padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 14px; background: #ffffff;' })),
+      themes: Object.keys(themes).map((k) => { const th = themes[k]; const on = k === s.theme; return { label: th.label, on: on, pick: () => this.setState({ theme: k }), style: card(on), swatch: 'width: 40px; height: 40px; border-radius: 999px; background: ' + th.bg + '; border: 3px solid ' + th.accent + ';' }; }),
+      styles: [['preenchido', 'Preenchido'], ['contorno', 'Contorno'], ['suave', 'Suave']].map((d) => { const on = d[0] === s.btn; const sample = 'width: 72px; height: 16px; border-radius: 6px; ' + (d[0] === 'preenchido' ? 'background: #0f172b;' : d[0] === 'contorno' ? 'border: 2px solid #0f172b;' : 'background: #f1f5f9; border: 1px solid #cbd5e1;'); return { label: d[1], on: on, pick: () => this.setState({ btn: d[0] }), style: opt(on), sample: sample }; }),
+      shapes: [['reto', 'Reto', '3px'], ['arredondado', 'Arredondado', '8px'], ['pilula', 'Pílula', '999px']].map((d) => { const on = d[0] === s.shape; return { label: d[1], on: on, pick: () => this.setState({ shape: d[0] }), style: opt(on), sample: 'width: 72px; height: 16px; border: 2px solid #0f172b; border-radius: ' + d[2] + ';' }; }),
+      fonts: [['clash', 'Clash Display'], ['geist', 'Geist']].map((d) => { const on = d[0] === s.font; return { label: d[1], on: on, pick: () => this.setState({ font: d[0] }), style: 'height: 56px; border-radius: 14px; cursor: pointer; background: #ffffff; font-size: 18px; font-weight: 600; font-family: ' + (d[0] === 'clash' ? "'Clash Display', sans-serif" : "'Geist', sans-serif") + '; ' + (on ? 'border: 2px solid #0f172b;' : 'border: 1px solid #e2e8f0;') }; }),
+      pvBg: 'height: 100%; box-sizing: border-box; padding: 0 16px 16px; background: ' + t.bg + '; display: flex; flex-direction: column; align-items: center; gap: 8px; overflow: hidden;',
+      pvCover: 'width: calc(100% + 32px); height: 96px; flex-shrink: 0; background: ' + t.cover + ';',
+      pvAvatar: 'margin-top: -40px; width: 68px; height: 68px; flex-shrink: 0; border-radius: 20px; background: ' + (s.theme === 'escuro' ? '#1d293d' : '#ffffff') + '; border: 3px solid ' + t.bg + '; display: flex; align-items: center; justify-content: center; color: ' + t.accent + ';',
+      pvTitle: 'font-size: 19px; font-weight: 600; text-align: center; color: ' + t.ink + '; font-family: ' + (s.font === 'clash' ? "'Clash Display', 'Geist', sans-serif" : "'Geist', sans-serif") + ';',
+      pvBio: 'font-size: 11px; text-align: center; color: ' + t.ink + '; opacity: 0.8;',
+      pvSocial: 'width: 28px; height: 28px; border-radius: 999px; background: ' + t.soft + '; border: 1px solid ' + t.border + ';',
+      pvFeatured: 'width: 100%; box-sizing: border-box; display: flex; align-items: center; gap: 10px; padding: 8px 10px 8px 8px; border-radius: ' + (s.shape === 'pilula' ? '24px' : radius) + '; background: ' + (s.theme === 'escuro' ? '#1d293d' : '#ffffff') + '; border: 2px solid ' + t.accent + '; box-shadow: 0 0 0 4px ' + t.border + '; font-size: 13px; font-weight: 600; color: ' + t.ink + ';',
+      pvSection: 'align-self: flex-start; margin-top: 6px; font-size: 10px; font-weight: 600; letter-spacing: 0.08em; color: ' + t.ink + '; opacity: 0.75;',
+      pvButton: btn,
+      pvLinks: ['SIGAA', 'Coordenação do curso', 'Calendário acadêmico', 'Regulamento (PDF)']
+    };
+  }
+}
+</script>
+</body>
+</html>

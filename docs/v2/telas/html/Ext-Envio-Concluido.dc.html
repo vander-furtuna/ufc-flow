@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Extensão — rascunho criado</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Clash Display';src:url('../assets/clash-display-variable.woff2') format('woff2');font-weight:200 700;font-display:swap}
+body{margin:0;background:#4b5563}
+a{color:#1d293d}a:hover{color:#020618}
+</style>
+</helmet>
+<div style="width: 560px; height: 520px; box-sizing: border-box; padding: 32px; font-family: 'Geist', system-ui, sans-serif; color: #020618; background: rgba(2,6,24,0.55); display: flex; align-items: center; justify-content: center;">
+  <div role="dialog" aria-modal="true" aria-labelledby="ok-title" style="width: 100%; box-sizing: border-box; padding: 28px; border-radius: 24px; background: #ffffff; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4); display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center;">
+    <span style="width: 64px; height: 64px; border-radius: 999px; background: #dcfce7; color: #15803d; display: flex; align-items: center; justify-content: center;"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
+    <h2 id="ok-title" style="margin: 0; font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 24px; line-height: 30px;">Rascunho criado no Flow</h2>
+    <p style="margin: 0; font-size: 14px; line-height: 1.55; color: #45556c;">Engenharia de Computação · EC 2025.1 com 58 componentes. Ele aparece em Administração › Estruturas, pronto para revisar e publicar.</p>
+    <div style="width: 100%; display: flex; flex-direction: column; gap: 8px; padding: 12px; border-radius: 14px; background: #f8fafc; border: 1px solid #e2e8f0; text-align: left; font-size: 13px;">
+      <span style="display: flex; justify-content: space-between;"><span style="color: #45556c;">Pontos para revisar no editor</span><b style="font-weight: 600; color: #b45309;">2</b></span>
+      <span style="display: flex; justify-content: space-between;"><span style="color: #45556c;">Cópia do JSON enviada</span><b style="font-weight: 600;">guardada no Flow</b></span>
+    </div>
+    <div style="width: 100%; display: flex; gap: 8px;">
+      <button style="flex: 1; height: 44px; border: 1px solid #e2e8f0; border-radius: 14px; background: #ffffff; font: inherit; font-size: 14px; font-weight: 500;">Fechar</button>
+      <a href="#editor" style="flex: 1; height: 44px; display: flex; align-items: center; justify-content: center; gap: 6px; border-radius: 14px; background: #0f172b; color: #f8fafc; font-size: 14px; font-weight: 600; text-decoration: none;">Abrir no editor<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":560,"height":520}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Importar agendas locais</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Clash Display';src:url('../assets/clash-display-variable.woff2') format('woff2');font-weight:200 700;font-display:swap}
+body{margin:0;background:#ffffff}
+a{color:#1d293d}a:hover{color:#020618}
+</style>
+</helmet>
+<div style="width: 720px; height: 680px; box-sizing: border-box; padding: 40px; font-family: 'Geist', system-ui, sans-serif; color: #020618; background: rgba(2,6,24,0.45); display: flex; align-items: center; justify-content: center;">
+  <div role="dialog" aria-modal="true" aria-labelledby="imp-title" style="width: 100%; box-sizing: border-box; padding: 28px; border-radius: 24px; background: #ffffff; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2); display: flex; flex-direction: column; gap: 20px;">
+    <div style="display: flex; gap: 16px; align-items: flex-start;">
+      <span style="width: 48px; height: 48px; flex-shrink: 0; border-radius: 14px; background: #ecfeff; color: #0e7490; display: flex; align-items: center; justify-content: center;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/><path d="M12 12v6M9 15l3-3 3 3"/></svg></span>
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 6px;">
+        <h2 id="imp-title" style="margin: 0; font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 24px; line-height: 30px;">Encontramos 3 agendas neste navegador</h2>
+        <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #45556c;">Importe para a sua conta e acesse de qualquer dispositivo. As cópias locais continuam aqui até você apagá-las.</p>
+      </div>
+      <button aria-label="Fechar" style="width: 40px; height: 40px; border: 0; border-radius: 999px; background: transparent; color: #45556c;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <label style="{{row1}}">
+        <input type="checkbox" checked="{{c1}}" onChange="{{t1}}" style="width: 20px; height: 20px; margin: 2px 0 0; accent-color: #0f172b;">
+        <span style="flex: 1; display: flex; flex-direction: column; gap: 4px;">
+          <span style="display: flex; justify-content: space-between; gap: 12px;"><b style="font-size: 15px; font-weight: 600;">Meu cronograma</b><span style="font-size: 13px; color: #45556c;">2026.1 · 5 turmas</span></span>
+          <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #15803d;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Engenharia de Computação · todas as turmas encontradas</span>
+        </span>
+      </label>
+
+      <div style="{{row2}}">
+        <input id="a2" type="checkbox" checked="{{c2}}" onChange="{{t2}}" style="width: 20px; height: 20px; margin: 2px 0 0; accent-color: #0f172b;">
+        <span style="flex: 1; display: flex; flex-direction: column; gap: 8px;">
+          <label for="a2" style="display: flex; justify-content: space-between; gap: 12px;"><b style="font-size: 15px; font-weight: 600;">Plano B</b><span style="font-size: 13px; color: #45556c;">2026.1 · 4 turmas</span></label>
+          <span style="font-size: 13px; line-height: 1.5; color: #45556c;">A estrutura 2006.2 existe em 3 cursos. Pelas turmas da agenda, sugerimos:</span>
+          <label style="display: flex; flex-direction: column; gap: 4px;"><span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);">Curso da agenda Plano B</span>
+            <select style="height: 40px; padding: 0 10px; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff; font: inherit; font-size: 14px;"><option>Engenharia de Computação (4 de 4 turmas batem)</option><option>Engenharia Elétrica (1 de 4)</option><option>Psicologia (0 de 4)</option></select>
+          </label>
+        </span>
+      </div>
+
+      <label style="{{row3}}">
+        <input type="checkbox" checked="{{c3}}" onChange="{{t3}}" style="width: 20px; height: 20px; margin: 2px 0 0; accent-color: #0f172b;">
+        <span style="flex: 1; display: flex; flex-direction: column; gap: 4px;">
+          <span style="display: flex; justify-content: space-between; gap: 12px;"><b style="font-size: 15px; font-weight: 600;">Agenda 2025.2</b><span style="font-size: 13px; color: #45556c;">2025.2 · 6 turmas</span></span>
+          <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #b45309;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4M12 17h.01"/></svg>1 turma não existe mais no SIGAA e fica de fora</span>
+        </span>
+      </label>
+    </div>
+
+    <div style="display: flex; justify-content: flex-end; gap: 8px; padding-top: 4px;">
+      <button style="height: 44px; padding: 0 16px; border: 1px solid #e2e8f0; border-radius: 14px; background: #ffffff; font: inherit; font-size: 14px; font-weight: 500; color: #1d293d;">Agora não</button>
+      <button disabled="{{none}}" style="{{cta}}">{{ctaLabel}}</button>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":720,"height":680}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { a: true, b: true, c: false }; }
+  renderVals() {
+    const s = this.state;
+    const n = [s.a, s.b, s.c].filter(Boolean).length;
+    const row = (on) => 'display: flex; gap: 14px; align-items: flex-start; padding: 16px; border-radius: 16px; cursor: pointer; ' + (on ? 'border: 2px solid #0f172b; background: #f8fafc;' : 'border: 1px solid #e2e8f0; background: #ffffff;');
+    return {
+      c1: s.a, c2: s.b, c3: s.c,
+      t1: () => this.setState({ a: !s.a }),
+      t2: () => this.setState({ b: !s.b }),
+      t3: () => this.setState({ c: !s.c }),
+      row1: row(s.a), row2: row(s.b), row3: row(s.c),
+      none: n === 0,
+      ctaLabel: n === 0 ? 'Selecione uma agenda' : 'Importar ' + n + (n === 1 ? ' agenda' : ' agendas'),
+      cta: 'height: 44px; padding: 0 18px; border: 0; border-radius: 14px; font: inherit; font-size: 14px; font-weight: 600; ' + (n === 0 ? 'background: #e2e8f0; color: #62748e;' : 'background: #0f172b; color: #f8fafc;')
+    };
+  }
+}
+</script>
+</body>
+</html>

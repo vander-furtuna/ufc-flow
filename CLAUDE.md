@@ -1,0 +1,78 @@
+# UFC Flow — guia para agentes
+
+UFC Flow é uma plataforma para estudantes da Universidade Federal do Ceará: grade curricular interativa com pré-requisitos, turmas do semestre, simulador de agenda, cardápio do RU e calendário acadêmico. É o TCC de Vanderlei Furtuna. Em produção hoje é só o front (Next.js, dados estáticos em `apps/web/src/data/courses.ts`).
+
+O trabalho atual é a **v2**: API NestJS + PostgreSQL, contas de usuário, histórico acadêmico, agendas sincronizadas, hub do curso, página de links, fórum, avaliação de disciplinas, área administrativa de grades e uma extensão de navegador que extrai a estrutura curricular do SIGAA.
+
+## Leia antes de qualquer tarefa da v2
+
+| Documento | Para quê |
+| --- | --- |
+| [docs/v2/README.md](docs/v2/README.md) | Índice e ordem de leitura |
+| [docs/v2/estado-atual.md](docs/v2/estado-atual.md) | O que já existe, o que está pela metade e divergências com a modelagem |
+| [docs/v2/modelagem.md](docs/v2/modelagem.md) | **Fonte de verdade**: decisões, tabelas, regras de domínio, endpoints |
+| [docs/v2/roadmap.md](docs/v2/roadmap.md) | Fases em ordem, entregas e critérios de aceite |
+| [docs/v2/telas.md](docs/v2/telas.md) | As 39 telas desenhadas (PNG + HTML), por fase |
+| [docs/v2/design-system.md](docs/v2/design-system.md) | Tokens, tipografia e como traduzir os mockups para Tailwind/shadcn |
+| [docs/v2/convencoes.md](docs/v2/convencoes.md) | Padrões de código, testes, commits, git flow e definição de pronto |
+
+Ao começar uma fase, leia a seção correspondente do roadmap, as seções da modelagem que ela cita e as telas listadas nela. Não invente regra de negócio: se algo não está na modelagem, pergunte ao usuário ou registre como pergunta em aberto.
+
+## Estrutura do monorepo
+
+```
+apps/
+  web/              Next.js 16 + React 19 (o front atual, @ufc-flow/web)
+  api/              NestJS + Drizzle + PostgreSQL (@ufc-flow/api) — placeholder
+  extension/        extensão do SIGAA, Plasmo (@ufc-flow/extension) — placeholder
+packages/
+  contracts/        schemas Zod compartilhados (@ufc-flow/contracts) — placeholder
+  academic-core/    regras acadêmicas puras, sem framework (@ufc-flow/academic-core) — placeholder
+docs/v2/            documentação da v2 (este conjunto)
+```
+
+- Pacotes internos exportam o TypeScript direto (`"exports": {".": "./src/index.ts"}`), sem build próprio. Quem consome (web/api) transpila. Se a API precisar de JS compilado, adicione build com `tsup` naquele pacote e ajuste o `turbo.json`.
+- Versões compartilhadas (TypeScript, Zod, `@types/node`) ficam no `catalog` do `pnpm-workspace.yaml`; nos `package.json` use `"catalog:"`.
+- `tsconfig.base.json` na raiz é a base dos pacotes novos. O web tem seu próprio `tsconfig.json` (Next).
+
+## Comandos
+
+Gerenciador: **pnpm 11** (versão fixada em `packageManager`). Node 22+. O usuário desenvolve no **Windows** (PowerShell); prefira comandos que funcionem lá.
+
+```bash
+pnpm install                          # na raiz
+pnpm dev:web                          # front em http://localhost:3000
+pnpm build | pnpm lint | pnpm typecheck   # todos os pacotes, via Turborepo
+pnpm --filter @ufc-flow/web <script>  # um pacote específico
+pnpm --filter @ufc-flow/academic-core add -D vitest   # dependência num pacote
+```
+
+- Rode `pnpm typecheck`, `pnpm lint` e os testes do pacote afetado antes de dizer que uma tarefa está pronta.
+- Variáveis do web: `apps/web/.env.local` (modelo em `apps/web/.env.example`).
+- O CI (`.github/workflows/ci.yml`) roda install com `--frozen-lockfile`, lint, typecheck e build.
+
+## Regras do projeto
+
+- **Domínio primeiro, com testes.** Regras acadêmicas (requisitos, conflito de horário, progresso, termo `2026.1`, menções `@CÓDIGO`) vão em `packages/academic-core`, escritas com TDD (Vitest). Web e API importam de lá; nunca duplique essas regras.
+- **Contratos únicos.** DTOs, enums e o formato `CurriculumImportV1` vivem em `packages/contracts` (Zod 4). Validação da API, Swagger e formulários do web derivam do mesmo schema.
+- **API hexagonal por módulo** (`domain/`, `application/`, `infrastructure/`), com o rigor completo onde a modelagem pede (catalog, academic-record, planning, forum, identity). Detalhes em `docs/v2/modelagem.md` › Monorepo e arquitetura.
+- **Swagger obrigatório** em toda rota, com respostas de erro em Problem Details. Rota sem documentação quebra o CI.
+- **Não mexa no RU nem no Calendário Acadêmico** (`apps/web/src/app/restaurante`, `calendario`, `api/ru`, `api/calendar`): continuam como estão (decisão D10).
+- **Anônimo continua funcionando.** Grade, turmas e agenda local não podem passar a exigir login.
+- **Sem SMTP na v2.** Nada de envio de e-mail; recuperação de senha é por link gerado pelo admin.
+- **Idioma:** interface e documentação em português do Brasil; identificadores de código em inglês; mensagens de commit em inglês (Conventional Commits).
+- **Telas:** os mockups em `docs/v2/telas/html` usam estilos inline só por limitação da ferramenta de design. Implemente com os componentes e tokens do web (Tailwind v4 + shadcn), seguindo `docs/v2/design-system.md`.
+- Mudou uma decisão ou regra? Atualize `docs/v2/modelagem.md` no mesmo PR e acrescente a linha no Registro de decisões.
+
+## Git
+
+- Git flow: `feature/*` a partir de `develop`, com PR para `develop`; `hotfix/*` a partir da branch de produção (hoje `master`; a modelagem prevê migrar para `main`), mesclada nela e em `develop`. Nunca commite direto na branch de produção.
+- Conventional Commits: `feat(scope): ...`, `fix`, `chore`, `refactor`, `docs`, `test`.
+- Faça commit só quando o usuário pedir ou quando a tarefa combinada incluir isso. Não faça push sem pedido explícito.
+
+## Repositórios de origem (fora deste repo)
+
+Ficam ao lado deste, em `C:\Users\furtu\www\`:
+
+- `sigaa-classes-scraping/` — extensão Plasmo atual. **Tem trabalho não commitado** (`parser.ts`, `scraping.ts`, `content.tsx`, `components/Dashboard.tsx`, fontes em `assets/`): migre a partir da cópia de trabalho, não do histórico do git. Contém o bug que transforma todo `OU` dos requisitos em `E`.
+- `sigaa-course-maker/` — editor de grades (Vite + React). Suas funções viram a área `/admin` do web; não é migrado como app.

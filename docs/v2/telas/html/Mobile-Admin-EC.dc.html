@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Admin — Estrutura curricular (mobile)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Clash Display';src:url('../assets/clash-display-variable.woff2') format('woff2');font-weight:200 700;font-display:swap}
+body{margin:0;background:#ffffff}
+a{color:#1d293d}a:hover{color:#020618}
+</style>
+</helmet>
+<div style="width: 390px; height: 1640px; box-sizing: border-box; position: relative; overflow: hidden; font-family: 'Geist', system-ui, sans-serif; color: #020618; background: #f8fafc; display: flex; flex-direction: column;">
+
+  <header style="display: flex; align-items: center; gap: 8px; padding: 40px 12px 12px; background: #ffffff; border-bottom: 1px solid #e2e8f0;">
+    <button aria-label="Abrir menu da administração" style="width: 44px; height: 44px; border: 0; border-radius: 12px; background: transparent; color: #1d293d;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    <div style="flex: 1; display: flex; flex-direction: column; min-width: 0;"><span style="font-size: 12px; color: #45556c;">Administração · Eng. de Computação</span><span style="font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 17px;">Estruturas curriculares</span></div>
+    <img src="../assets/logo-ufc-flow-simbolo.svg" alt="UFC Flow" style="width: 32px; height: 32px;">
+  </header>
+
+  <div style="padding: 16px; display: flex; flex-direction: column; gap: 14px;">
+    <div style="display: flex; flex-direction: column; gap: 6px;">
+      <div style="display: flex; align-items: center; gap: 10px;"><h1 style="margin: 0; font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 24px;">Estrutura 2025.1</h1><span style="height: 24px; display: inline-flex; align-items: center; padding: 0 9px; border-radius: 999px; background: #fef3c7; color: #92400e; font-size: 12px; font-weight: 600;">Rascunho</span></div>
+      <span style="font-size: 13px; color: #45556c;">58 disciplinas · 3 vertentes · 3.776 h</span>
+    </div>
+    <div style="display: flex; gap: 8px;">
+      <button style="flex: 1; height: 48px; border: 0; border-radius: 14px; background: #0f172b; color: #f8fafc; font: inherit; font-size: 15px; font-weight: 600;">Revisar e publicar</button>
+      <button aria-label="Mais ações: diferenças, exportar JSON" style="width: 48px; height: 48px; border: 1px solid #e2e8f0; border-radius: 14px; background: #ffffff;"><svg width="18" height="18" viewBox="0 0 24 24" fill="#1d293d" aria-hidden="true"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg></button>
+    </div>
+
+    <section aria-labelledby="mconf" style="padding: 14px; border: 1px solid #fde68a; border-radius: 16px; background: #fffbeb; display: flex; flex-direction: column; gap: 10px;">
+      <h2 id="mconf" style="margin: 0; font-size: 14px; font-weight: 600; color: #78350f;">2 pontos para revisar</h2>
+      <div style="padding: 12px; border-radius: 12px; background: #ffffff; display: flex; flex-direction: column; gap: 10px; font-size: 14px; line-height: 1.45;">
+        <span><b style="font-family: 'Geist Mono', monospace; font-weight: 500;">SBL0074</b> · nome diferente no SIGAA: <i>“FÍSICA GERAL I (TEORIA)”</i></span>
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px;"><button style="height: 40px; border: 1px solid #e2e8f0; border-radius: 10px; background: #ffffff; font: inherit; font-size: 13px; font-weight: 500;">Manter catálogo</button><button style="height: 40px; border: 1px solid #e2e8f0; border-radius: 10px; background: #ffffff; font: inherit; font-size: 13px; font-weight: 500;">Usar do SIGAA</button></div>
+      </div>
+      <div style="padding: 12px; border-radius: 12px; background: #ffffff; display: flex; flex-direction: column; gap: 10px; font-size: 14px; line-height: 1.45;">
+        <span><b style="font-family: 'Geist Mono', monospace; font-weight: 500;">ECO0101</b> · requisito cita <b style="font-family: 'Geist Mono', monospace; font-weight: 500;">CEC0058</b>, fora do catálogo.</span>
+        <button style="height: 40px; border: 1px solid #e2e8f0; border-radius: 10px; background: #ffffff; font: inherit; font-size: 13px; font-weight: 500;">Ciente</button>
+      </div>
+    </section>
+
+    <div style="display: flex; flex-direction: column; gap: 10px; padding: 14px; border: 1px solid #a5f3fc; border-radius: 16px; background: #ecfeff; color: #164e63;">
+      <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600;"><span style="width: 12px; height: 12px; border-radius: 999px; background: #22d3ee;"></span>Vinculando à vertente Ciências de Computação</span>
+      <span style="font-size: 13px; line-height: 1.45;">Toque nas disciplinas para incluir ou tirar.</span>
+      <button style="height: 40px; border: 0; border-radius: 10px; background: #164e63; color: #ffffff; font: inherit; font-size: 14px; font-weight: 600;">Concluir vínculo</button>
+    </div>
+
+    <label style="height: 48px; display: flex; align-items: center; gap: 8px; padding: 0 14px; border: 1px solid #e2e8f0; border-radius: 14px; background: #ffffff; color: #62748e;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);">Buscar disciplina</span><input placeholder="Código ou nome" style="flex: 1; min-width: 0; border: 0; font: inherit; font-size: 16px; outline: none;"></label>
+
+    <span style="font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 15px;">7º PERÍODO</span>
+
+    <a href="#e" style="display: flex; flex-direction: column; gap: 8px; padding: 14px; border: 1px solid #a5f3fc; border-radius: 16px; background: #ecfeff; text-decoration: none; color: inherit;">
+      <span style="display: flex; justify-content: space-between; gap: 8px;"><b style="font-size: 15px; font-weight: 600;">Arquitetura de Computadores</b><span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #45556c;">ECO0042</span></span>
+      <span style="display: flex; gap: 6px; flex-wrap: wrap;"><span style="height: 24px; display: inline-flex; align-items: center; padding: 0 8px; border-radius: 999px; background: #fff7ed; color: #9a3412; font-size: 12px; font-weight: 600;">Obrigatória</span><span style="height: 24px; display: inline-flex; align-items: center; padding: 0 8px; border-radius: 999px; background: #cffafe; color: #164e63; font-size: 12px; font-weight: 600;">● Computação</span><span style="height: 24px; display: inline-flex; align-items: center; padding: 0 8px; font-size: 12px; color: #45556c;">64 h</span></span>
+      <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #1d293d;">Pré: ECO0034</span>
+    </a>
+    <a href="#e" style="display: flex; flex-direction: column; gap: 8px; padding: 14px; border: 1px solid #e2e8f0; border-radius: 16px; background: #ffffff; text-decoration: none; color: inherit;">
+      <span style="display: flex; justify-content: space-between; gap: 8px;"><b style="font-size: 15px; font-weight: 600;">Controle Digital</b><span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #45556c;">ECO0061</span></span>
+      <span style="display: flex; gap: 6px; flex-wrap: wrap;"><span style="height: 24px; display: inline-flex; align-items: center; padding: 0 8px; border-radius: 999px; background: #fdf4ff; color: #86198f; font-size: 12px; font-weight: 600;">Optativa</span><span style="height: 24px; display: inline-flex; align-items: center; padding: 0 8px; border-radius: 999px; background: #fef3c7; color: #78350f; font-size: 12px; font-weight: 600;">● Automação</span><span style="height: 24px; display: inline-flex; align-items: center; padding: 0 8px; font-size: 12px; color: #45556c;">64 h</span></span>
+      <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #1d293d;">Pré: ECO0028</span>
+    </a>
+    <a href="Mobile-Admin-EC-Editar.dc.html" style="display: flex; flex-direction: column; gap: 8px; padding: 14px; border: 2px solid #0e7490; border-radius: 16px; background: #ecfeff; text-decoration: none; color: inherit;">
+      <span style="display: flex; justify-content: space-between; gap: 8px;"><b style="font-size: 15px; font-weight: 600;">Inteligência Computacional</b><span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #45556c;">ECO0083</span></span>
+      <span style="display: flex; gap: 6px; flex-wrap: wrap;"><span style="height: 24px; display: inline-flex; align-items: center; padding: 0 8px; border-radius: 999px; background: #fdf4ff; color: #86198f; font-size: 12px; font-weight: 600;">Optativa</span><span style="height: 24px; display: inline-flex; align-items: center; padding: 0 8px; border-radius: 999px; background: #cffafe; color: #164e63; font-size: 12px; font-weight: 600;">● Computação</span><span style="height: 24px; display: inline-flex; align-items: center; padding: 0 8px; font-size: 12px; color: #45556c;">64 h</span></span>
+      <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #1d293d;">Pré: SBL0084 E (ECO0018 OU CEC0022)</span>
+    </a>
+    <a href="#e" style="display: flex; flex-direction: column; gap: 8px; padding: 14px; border: 1px solid #e2e8f0; border-radius: 16px; background: #ffffff; text-decoration: none; color: inherit;">
+      <span style="display: flex; justify-content: space-between; gap: 8px;"><b style="font-size: 15px; font-weight: 600;">Comunicações Digitais</b><span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #45556c;">ECO0071</span></span>
+      <span style="display: flex; gap: 6px; flex-wrap: wrap;"><span style="height: 24px; display: inline-flex; align-items: center; padding: 0 8px; border-radius: 999px; background: #fdf4ff; color: #86198f; font-size: 12px; font-weight: 600;">Optativa</span><span style="height: 24px; display: inline-flex; align-items: center; padding: 0 8px; border-radius: 999px; background: #dcfce7; color: #14532d; font-size: 12px; font-weight: 600;">● Telecom</span><span style="height: 24px; display: inline-flex; align-items: center; padding: 0 8px; font-size: 12px; color: #45556c;">64 h</span></span>
+      <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #1d293d;">Pré: ECO0028</span>
+    </a>
+    <a href="#e" style="display: flex; flex-direction: column; gap: 8px; padding: 14px; border: 1px solid #e2e8f0; border-radius: 16px; background: #ffffff; text-decoration: none; color: inherit;">
+      <span style="display: flex; justify-content: space-between; gap: 8px;"><b style="font-size: 15px; font-weight: 600;">Compiladores</b><span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #45556c;">ECO0101</span></span>
+      <span style="display: flex; gap: 6px; flex-wrap: wrap;"><span style="height: 24px; display: inline-flex; align-items: center; padding: 0 8px; border-radius: 999px; background: #fdf4ff; color: #86198f; font-size: 12px; font-weight: 600;">Optativa</span><span style="height: 24px; display: inline-flex; align-items: center; padding: 0 8px; font-size: 12px; color: #45556c;">sem vertente · 64 h</span></span>
+      <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #b45309;">Pré: CEC0058 ⚠ fora do catálogo</span>
+    </a>
+  </div>
+
+  <a href="#nova" aria-label="Adicionar disciplina" style="position: absolute; right: 20px; bottom: 28px; width: 56px; height: 56px; border-radius: 999px; background: #0f172b; color: #f8fafc; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg></a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1640}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

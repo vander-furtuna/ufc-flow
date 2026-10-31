@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Extensão — botão flutuante na página do SIGAA</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Clash Display';src:url('../assets/clash-display-variable.woff2') format('woff2');font-weight:200 700;font-display:swap}
+body{margin:0;background:#e5e7eb}
+a{color:#1d293d}a:hover{color:#020618}
+</style>
+</helmet>
+<div style="width: 1440px; height: 900px; box-sizing: border-box; position: relative; overflow: hidden; font-family: Arial, Helvetica, sans-serif; color: #374151; background: #e5e7eb;">
+
+  <div aria-label="Página do SIGAA (ilustração)" style="position: absolute; inset: 0; display: flex; flex-direction: column;">
+    <div style="height: 64px; background: #4b5563; display: flex; align-items: center; padding: 0 32px; gap: 16px; color: #f3f4f6; font-size: 13px;">
+      <span style="width: 120px; height: 24px; border-radius: 4px; background: #6b7280;"></span>
+      <span>Graduação › Currículos › Estrutura curricular</span>
+      <span style="margin-left: auto; font-size: 12px; opacity: 0.8;">Página do SIGAA (ilustração)</span>
+    </div>
+    <div style="width: 1000px; margin: 24px auto; padding: 24px; background: #ffffff; border: 1px solid #d1d5db; display: flex; flex-direction: column; gap: 16px;">
+      <span style="font-size: 16px; font-weight: 700; color: #1f2937;">Detalhes da estrutura curricular</span>
+      <div style="display: grid; grid-template-columns: 200px 1fr; gap: 6px 16px; font-size: 12px;">
+        <span style="text-align: right; font-weight: 700;">Código:</span><span>[código da estrutura]</span>
+        <span style="text-align: right; font-weight: 700;">Matriz curricular:</span><span>ENGENHARIA DE COMPUTAÇÃO - SOBRAL</span>
+        <span style="text-align: right; font-weight: 700;">Período letivo de entrada:</span><span>2025.1</span>
+        <span style="text-align: right; font-weight: 700;">Carga horária total mínima:</span><span>3776 h</span>
+      </div>
+      <div style="height: 22px; background: #d1d5db; font-size: 12px; font-weight: 700; display: flex; align-items: center; padding: 0 8px;">1º Nível</div>
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <span style="height: 14px; background: #f3f4f6;"></span><span style="height: 14px; background: #f9fafb;"></span><span style="height: 14px; background: #f3f4f6;"></span><span style="height: 14px; background: #f9fafb;"></span><span style="height: 14px; background: #f3f4f6;"></span><span style="height: 14px; background: #f9fafb;"></span>
+      </div>
+      <div style="height: 22px; background: #d1d5db; font-size: 12px; font-weight: 700; display: flex; align-items: center; padding: 0 8px;">2º Nível</div>
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <span style="height: 14px; background: #f3f4f6;"></span><span style="height: 14px; background: #f9fafb;"></span><span style="height: 14px; background: #f3f4f6;"></span><span style="height: 14px; background: #f9fafb;"></span><span style="height: 14px; background: #f3f4f6;"></span>
+      </div>
+      <div style="height: 22px; background: #d1d5db; font-size: 12px; font-weight: 700; display: flex; align-items: center; padding: 0 8px;">3º Nível</div>
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <span style="height: 14px; background: #f3f4f6;"></span><span style="height: 14px; background: #f9fafb;"></span><span style="height: 14px; background: #f3f4f6;"></span><span style="height: 14px; background: #f9fafb;"></span>
+      </div>
+      <div style="height: 22px; background: #d1d5db; font-size: 12px; font-weight: 700; display: flex; align-items: center; padding: 0 8px;">Optativas</div>
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <span style="height: 14px; background: #f3f4f6;"></span><span style="height: 14px; background: #f9fafb;"></span><span style="height: 14px; background: #f3f4f6;"></span>
+      </div>
+    </div>
+  </div>
+
+  <div style="position: absolute; right: 28px; bottom: 28px; width: 360px; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; font-family: 'Geist', system-ui, sans-serif; color: #020618;">
+    <div role="status" style="width: 100%; box-sizing: border-box; padding: 16px; border: 1px solid #e2e8f0; border-radius: 20px; background: #ffffff; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.12), 0 8px 10px -6px rgba(0,0,0,0.08); display: flex; flex-direction: column; gap: 12px;">
+      <div style="display: flex; align-items: flex-start; gap: 12px;">
+        <img src="../assets/logo-ufc-flow-simbolo.svg" alt="" style="width: 36px; height: 36px; flex-shrink: 0;">
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 2px;">
+          <b style="font-size: 14px; font-weight: 600;">Grade encontrada nesta página</b>
+          <span style="font-size: 13px; line-height: 1.45; color: #45556c;">Eng. de Computação · EC 2025.1 · 58 componentes · 3 vertentes</span>
+        </div>
+        <button aria-label="Dispensar" style="width: 32px; height: 32px; margin: -6px -6px 0 0; border: 0; border-radius: 8px; background: transparent; color: #45556c;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 12px; background: #fffbeb; font-size: 12px; line-height: 1.4; color: #78350f;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0;"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4M12 17h.01"/></svg>2 pontos para revisar antes de enviar</div>
+      <a href="Ext-Painel.dc.html" style="height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: #0f172b; color: #f8fafc; font-size: 14px; font-weight: 600; text-decoration: none;">Abrir painel</a>
+    </div>
+
+    <a href="Ext-Painel.dc.html" style="height: 48px; display: inline-flex; align-items: center; gap: 10px; padding: 0 18px 0 8px; border-radius: 999px; background: #0f172b; color: #f8fafc; font-size: 14px; font-weight: 600; text-decoration: none; box-shadow: 0 10px 15px -3px rgba(2,6,24,0.35);">
+      <span style="width: 32px; height: 32px; border-radius: 999px; background: #ffffff; display: flex; align-items: center; justify-content: center;"><img src="../assets/logo-ufc-flow-simbolo.svg" alt="" style="width: 22px; height: 22px;"></span>
+      Extrair grade
+      <span style="min-width: 20px; height: 20px; padding: 0 6px; box-sizing: border-box; border-radius: 999px; background: #f97316; color: #ffffff; font-size: 11px; font-weight: 700; line-height: 20px; text-align: center;">2</span>
+    </a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

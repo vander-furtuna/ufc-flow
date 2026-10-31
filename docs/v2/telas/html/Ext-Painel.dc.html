@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Extensão — painel da grade extraída</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Clash Display';src:url('../assets/clash-display-variable.woff2') format('woff2');font-weight:200 700;font-display:swap}
+body{margin:0;background:#4b5563}
+a{color:#1d293d}a:hover{color:#020618}
+input::placeholder{color:#62748e}
+</style>
+</helmet>
+<div style="width: 1440px; height: 900px; box-sizing: border-box; position: relative; overflow: hidden; padding: 24px; font-family: 'Geist', system-ui, sans-serif; color: #020618; background: rgba(2,6,24,0.55);">
+  <div role="dialog" aria-modal="true" aria-labelledby="p-title" style="width: 100%; height: 100%; box-sizing: border-box; border-radius: 24px; background: #ffffff; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4); display: flex; flex-direction: column; overflow: hidden;">
+
+    <header style="display: flex; align-items: center; gap: 16px; padding: 18px 24px; border-bottom: 1px solid #e2e8f0;">
+      <img src="../assets/logo-ufc-flow-simbolo.svg" alt="UFC Flow" style="width: 40px; height: 40px;">
+      <div style="display: flex; flex-direction: column; gap: 6px; min-width: 0;">
+        <h1 id="p-title" style="margin: 0; font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 22px; line-height: 26px;">Engenharia de Computação</h1>
+        <div style="display: flex; gap: 6px;">
+          <span style="height: 24px; display: inline-flex; align-items: center; padding: 0 9px; border-radius: 999px; background: #f1f5f9; border: 1px solid #e2e8f0; font-size: 12px; font-weight: 500;">EC 2025.1</span>
+          <span style="height: 24px; display: inline-flex; align-items: center; padding: 0 9px; border-radius: 999px; background: #f1f5f9; border: 1px solid #e2e8f0; font-size: 12px; font-weight: 500;">SOBRAL - CE</span>
+          <span style="height: 24px; display: inline-flex; align-items: center; padding: 0 9px; border-radius: 999px; background: #f1f5f9; border: 1px solid #e2e8f0; font-family: 'Geist Mono', monospace; font-size: 11px;">SIGAA 657484</span>
+        </div>
+      </div>
+      <nav aria-label="Seções do painel" style="margin-left: 24px; display: flex; gap: 4px; padding: 4px; background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 14px;">
+        <a href="#grade" aria-current="page" style="padding: 8px 14px; border-radius: 10px; background: #ffffff; box-shadow: 0 1px 2px rgba(2,6,24,0.08); font-size: 14px; font-weight: 600; text-decoration: none;">Grade</a>
+        <a href="#vertentes" style="padding: 8px 14px; border-radius: 10px; font-size: 14px; font-weight: 500; color: #45556c; text-decoration: none;">Vertentes · 3</a>
+        <a href="#regras" style="padding: 8px 14px; border-radius: 10px; font-size: 14px; font-weight: 500; color: #45556c; text-decoration: none;">Regras da EC</a>
+        <a href="Ext-Painel-Validacao.dc.html" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 10px; font-size: 14px; font-weight: 500; color: #45556c; text-decoration: none;">Revisar<span style="min-width: 18px; height: 18px; padding: 0 5px; box-sizing: border-box; border-radius: 999px; background: #fef3c7; color: #92400e; font-size: 11px; font-weight: 700; line-height: 18px; text-align: center;">2</span></a>
+      </nav>
+      <div style="margin-left: auto; display: flex; gap: 8px; align-items: center;">
+        <button style="height: 40px; display: inline-flex; align-items: center; gap: 6px; padding: 0 14px; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff; font: inherit; font-size: 14px; font-weight: 500;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Baixar JSON</button>
+        <a href="Ext-Painel-Validacao.dc.html" style="height: 40px; display: inline-flex; align-items: center; gap: 6px; padding: 0 16px; border-radius: 12px; background: #0f172b; color: #f8fafc; font-size: 14px; font-weight: 600; text-decoration: none;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>Enviar ao UFC Flow</a>
+        <button aria-label="Fechar painel" style="width: 40px; height: 40px; border: 0; border-radius: 12px; background: transparent; color: #45556c;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      </div>
+    </header>
+
+    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 24px; border-bottom: 1px solid #e2e8f0;">
+      <label style="width: 280px; height: 38px; display: flex; align-items: center; gap: 8px; padding: 0 12px; border: 1px solid #e2e8f0; border-radius: 12px; color: #62748e;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);">Buscar</span><input placeholder="Buscar por nome ou código" style="flex: 1; min-width: 0; border: 0; font: inherit; font-size: 14px; outline: none;"></label>
+      <div role="group" aria-label="Natureza" style="display: flex; gap: 6px;">
+        <button aria-pressed="true" style="height: 34px; padding: 0 12px; border-radius: 999px; border: 1px solid #0f172b; background: #0f172b; color: #f8fafc; font: inherit; font-size: 13px; font-weight: 500;">Todas · 58</button>
+        <button aria-pressed="false" style="height: 34px; display: inline-flex; align-items: center; gap: 6px; padding: 0 12px; border-radius: 999px; border: 1px solid #e2e8f0; background: #ffffff; font: inherit; font-size: 13px; font-weight: 500;"><span style="width: 8px; height: 8px; border-radius: 999px; background: #f97316;"></span>Obrigatórias · 37</button>
+        <button aria-pressed="false" style="height: 34px; display: inline-flex; align-items: center; gap: 6px; padding: 0 12px; border-radius: 999px; border: 1px solid #e2e8f0; background: #ffffff; font: inherit; font-size: 13px; font-weight: 500;"><span style="width: 8px; height: 8px; border-radius: 999px; background: #c026d3;"></span>Optativas · 21</button>
+      </div>
+      <label style="display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500;"><span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);">Vertente</span><select style="height: 34px; padding: 0 10px; border: 1px solid #e2e8f0; border-radius: 10px; background: #ffffff; font: inherit; font-size: 13px;"><option>Todas as vertentes</option></select></label>
+      <button role="switch" aria-checked="{{hl}}" onClick="{{toggle}}" style="margin-left: auto; height: 34px; display: inline-flex; align-items: center; gap: 8px; padding: 0 12px 0 6px; border: 1px solid #e2e8f0; border-radius: 999px; background: #ffffff; font: inherit; font-size: 13px; font-weight: 500;"><span style="{{switchTrack}}"><span style="{{switchKnob}}"></span></span>Destacar requisitos</button>
+    </div>
+
+    <div style="flex: 1; min-height: 0; display: flex;">
+      <div style="flex: 1; min-width: 0; overflow: hidden; padding: 20px 24px; display: flex; gap: 16px;">
+        <sc-for list="{{columns}}" as="col" hint-placeholder-count="5">
+          <section style="width: 196px; flex-shrink: 0; display: flex; flex-direction: column; gap: 10px;">
+            <div style="display: flex; align-items: baseline; justify-content: space-between; padding: 0 2px;"><h2 style="margin: 0; font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 16px;">{{col.title}}</h2><span style="font-size: 12px; color: #45556c;">{{col.hours}}</span></div>
+            <sc-for list="{{col.items}}" as="s" hint-placeholder-count="5">
+              <button style="{{s.style}}" aria-pressed="{{s.selected}}">
+                <span style="display: flex; justify-content: space-between; align-items: center; gap: 6px;"><span style="{{s.codeStyle}}">{{s.code}}</span><span style="{{s.tagStyle}}">{{s.tag}}</span></span>
+                <span style="font-size: 13px; font-weight: 500; line-height: 1.3; text-align: left;">{{s.name}}</span>
+                <span style="display: flex; justify-content: space-between; align-items: center;"><span style="{{s.barStyle}}"></span><span style="{{s.hoursStyle}}">{{s.ch}}</span></span>
+              </button>
+            </sc-for>
+          </section>
+        </sc-for>
+      </div>
+
+      <aside aria-labelledby="d-title" style="width: 380px; flex-shrink: 0; border-left: 1px solid #e2e8f0; background: #f8fafc; overflow: hidden; display: flex; flex-direction: column;">
+        <div style="padding: 20px; background: linear-gradient(180deg, rgba(255,159,93,0.55) 0%, rgba(248,250,252,0) 100%); display: flex; flex-direction: column; gap: 10px;">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #1d293d;">ECO0015</span>
+          <h2 id="d-title" style="margin: 0; font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 20px; line-height: 26px;">TÉCNICAS DE PROGRAMAÇÃO</h2>
+          <div style="display: flex; gap: 6px; flex-wrap: wrap;"><span style="height: 26px; display: inline-flex; align-items: center; padding: 0 10px; border-radius: 999px; background: rgba(255,255,255,0.8); font-size: 12px; font-weight: 600;">Obrigatória</span><span style="height: 26px; display: inline-flex; align-items: center; padding: 0 10px; border-radius: 999px; background: rgba(255,255,255,0.8); font-size: 12px; font-weight: 600;">2º período</span><span style="height: 26px; display: inline-flex; align-items: center; padding: 0 10px; border-radius: 999px; background: rgba(255,255,255,0.8); font-size: 12px; font-weight: 600;">Disciplina</span></div>
+        </div>
+        <div style="padding: 0 20px 20px; display: flex; flex-direction: column; gap: 18px;">
+          <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px;">
+            <div style="padding: 8px; border-radius: 12px; background: #ffffff; border: 1px solid #e2e8f0; text-align: center;"><b style="display: block; font-size: 15px;">32h</b><span style="font-size: 11px; color: #45556c;">Aula</span></div>
+            <div style="padding: 8px; border-radius: 12px; background: #ffffff; border: 1px solid #e2e8f0; text-align: center;"><b style="display: block; font-size: 15px;">32h</b><span style="font-size: 11px; color: #45556c;">Lab</span></div>
+            <div style="padding: 8px; border-radius: 12px; background: #ffffff; border: 1px solid #e2e8f0; text-align: center;"><b style="display: block; font-size: 15px;">0h</b><span style="font-size: 11px; color: #45556c;">EAD</span></div>
+            <div style="padding: 8px; border-radius: 12px; background: #ffffff; border: 1px solid #e2e8f0; text-align: center;"><b style="display: block; font-size: 15px;">0h</b><span style="font-size: 11px; color: #45556c;">Extensão</span></div>
+            <div style="padding: 8px; border-radius: 12px; background: #ffffff; border: 1px solid #e2e8f0; text-align: center;"><b style="display: block; font-size: 15px;">4</b><span style="font-size: 11px; color: #45556c;">Créditos</span></div>
+            <div style="padding: 8px; border-radius: 12px; background: #fff7ed; border: 1px solid #fed7aa; text-align: center;"><b style="display: block; font-size: 15px; color: #9a3412;">64h</b><span style="font-size: 11px; color: #9a3412;">Total</span></div>
+          </div>
+
+          <section style="display: flex; flex-direction: column; gap: 8px;">
+            <h3 style="margin: 0; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; color: #45556c;">PRÉ-REQUISITOS</h3>
+            <div style="padding: 10px; border-radius: 14px; border: 1px solid #a5f3fc; background: #ecfeff; display: flex; flex-direction: column; gap: 6px;">
+              <span style="font-size: 11px; font-weight: 700; color: #0e7490;">QUALQUER UMA (OU)</span>
+              <span style="display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 10px; background: #ffffff; font-size: 13px;"><b style="font-family: 'Geist Mono', monospace; font-weight: 500; font-size: 12px;">ECO0002</b>Programação Computacional</span>
+              <span style="display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 10px; background: #ffffff; font-size: 13px;"><b style="font-family: 'Geist Mono', monospace; font-weight: 500; font-size: 12px;">CEC0010</b><span style="color: #45556c;">fora desta estrutura</span></span>
+            </div>
+            <span style="font-size: 12px; color: #45556c;">No SIGAA: <code style="font-family: 'Geist Mono', monospace;">( ECO0002 OU CEC0010 )</code></span>
+          </section>
+
+          <section style="display: flex; flex-direction: column; gap: 8px;">
+            <h3 style="margin: 0; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; color: #45556c;">LIBERA</h3>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;"><span style="height: 30px; display: inline-flex; align-items: center; padding: 0 10px; border-radius: 10px; border: 1px solid #fdba74; background: #ffffff; font-size: 12px; font-weight: 500;">Estruturas de Dados</span><span style="height: 30px; display: inline-flex; align-items: center; padding: 0 10px; border-radius: 10px; border: 1px solid #fdba74; background: #ffffff; font-size: 12px; font-weight: 500;">Prog. Orientada a Objetos</span></div>
+          </section>
+
+          <section style="display: flex; flex-direction: column; gap: 8px;">
+            <h3 style="margin: 0; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; color: #45556c;">EQUIVALÊNCIAS</h3>
+            <span style="font-size: 13px;"><code style="font-family: 'Geist Mono', monospace; font-size: 12px;">EEL0015 OU CEC0035</code></span>
+          </section>
+          <section style="display: flex; flex-direction: column; gap: 6px;">
+            <h3 style="margin: 0; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; color: #45556c;">CO-REQUISITOS</h3>
+            <span style="font-size: 13px; color: #45556c;">Nenhum</span>
+          </section>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { hl: true }; }
+  renderVals() {
+    const hl = this.state.hl;
+    const sel = 'ECO0015';
+    const pre = ['ECO0002'];
+    const unl = ['ECO0018', 'ECO0019'];
+    const O = '#f97316', P = '#c026d3';
+    const data = [
+      { title: '1º PERÍODO', hours: '384 h', items: [['ECO0005', 'Introdução a Engenharia', O, '64h'], ['ECO0025', 'Matemática Discreta para Computação', O, '64h'], ['SBL0057', 'Cálculo Diferencial e Integral I', O, '64h'], ['SBL0074', 'Física Geral I', O, '64h'], ['ECO0002', 'Programação Computacional', O, '64h'], ['SBL0086', 'Química Geral', O, '64h']] },
+      { title: '2º PERÍODO', hours: '384 h', items: [['ECO0015', 'Técnicas de Programação', O, '64h'], ['SBL0066', 'Álgebra Linear', O, '64h'], ['SBL0056', 'Cálculo Diferencial e Integral II', O, '64h'], ['SBL0072', 'Desenho para Engenharia', O, '64h'], ['SBL0084', 'Cálculo Numérico', O, '64h']] },
+      { title: '3º PERÍODO', hours: '384 h', items: [['ECO0018', 'Estruturas de Dados', O, '64h'], ['ECO0019', 'Programação Orientada a Objetos', O, '64h'], ['SBL0058', 'Cálculo Diferencial e Integral III', O, '64h'], ['ECO0012', 'Circuitos Elétricos I', O, '64h'], ['SBL0081', 'Física Geral III', O, '64h']] },
+      { title: '4º PERÍODO', hours: '352 h', items: [['ECO0016', 'Circuitos Elétricos II', O, '64h'], ['ECO0021', 'Eletrônica Analógica', O, '96h'], ['ECO0028', 'Análise de Sinais e Sistemas', O, '64h'], ['ECO0023', 'Banco de Dados', O, '64h']] },
+      { title: '5º PERÍODO', hours: '320 h', items: [['ECO0036', 'Sistemas Operacionais', O, '64h'], ['ECO0034', 'Microprocessadores', O, '64h'], ['ECO0040', 'Redes de Computadores', O, '64h'], ['ECO0083', 'Inteligência Computacional', P, '64h']] }
+    ];
+    const card = (code, name, color, ch) => {
+      const isSel = code === sel, isPre = pre.indexOf(code) >= 0, isUnl = unl.indexOf(code) >= 0;
+      const dim = hl && !isSel && !isPre && !isUnl;
+      let style = 'width: 100%; box-sizing: border-box; padding: 10px 12px; border-radius: 14px; font: inherit; text-align: left; display: flex; flex-direction: column; gap: 6px; cursor: pointer; ';
+      if (isSel) style += 'border: 0; background: linear-gradient(135deg, #FF9F5D, #F97316); color: #ffffff; box-shadow: 0 10px 15px -3px rgba(249,115,22,0.3);';
+      else if (hl && isPre) style += 'border: 2px solid #06b6d4; background: #ecfeff; color: #020618;';
+      else if (hl && isUnl) style += 'border: 2px solid #fb923c; background: #fff7ed; color: #020618;';
+      else style += 'border: 1px solid #e2e8f0; background: #f1f5f9; color: #1d293d;' + (dim ? ' opacity: 0.4;' : '');
+      const tag = isSel ? 'selecionada' : (hl && isPre ? 'pré-requisito' : (hl && isUnl ? 'libera' : ''));
+      const tagColor = isSel ? '#ffffff' : (isPre ? '#0e7490' : '#9a3412');
+      return {
+        code: code, name: name, ch: ch, tag: tag, selected: isSel,
+        style: style,
+        codeStyle: "font-family: 'Geist Mono', monospace; font-size: 11px; " + (isSel ? 'color: rgba(255,255,255,0.85);' : 'color: #45556c;'),
+        tagStyle: 'font-size: 10px; font-weight: 700; letter-spacing: 0.02em; color: ' + tagColor + ';',
+        barStyle: 'width: 28px; height: 5px; border-radius: 999px; background: ' + (isSel ? 'rgba(255,255,255,0.85)' : color) + ';',
+        hoursStyle: 'font-size: 11px; ' + (isSel ? 'color: rgba(255,255,255,0.85);' : 'color: #45556c;')
+      };
+    };
+    return {
+      hl: hl,
+      toggle: () => this.setState({ hl: !hl }),
+      switchTrack: 'width: 32px; height: 20px; border-radius: 999px; position: relative; display: inline-block; background: ' + (hl ? '#0f172b' : '#cbd5e1') + ';',
+      switchKnob: 'position: absolute; top: 2px; left: ' + (hl ? '14px' : '2px') + '; width: 16px; height: 16px; border-radius: 999px; background: #ffffff;',
+      columns: data.map((c) => ({ title: c.title, hours: c.hours, items: c.items.map((i) => card(i[0], i[1], i[2], i[3])) }))
+    };
+  }
+}
+</script>
+</body>
+</html>

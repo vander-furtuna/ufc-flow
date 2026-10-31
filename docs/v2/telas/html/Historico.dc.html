@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Minha área — Histórico</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Clash Display';src:url('../assets/clash-display-variable.woff2') format('woff2');font-weight:200 700;font-display:swap}
+body{margin:0;background:#ffffff}
+a{color:#1d293d}a:hover{color:#020618}
+input::placeholder{color:#62748e}
+</style>
+</helmet>
+<div style="min-height: 100vh; font-family: 'Geist', system-ui, sans-serif; color: #020618; background: #ffffff;">
+<div style="max-width: 1180px; margin: 0 auto; box-sizing: border-box; padding: 40px 24px 120px; display: flex; flex-direction: column; gap: 32px;">
+
+  <header style="display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+    <a href="#inicio" aria-label="UFC Flow, início"><img src="../assets/logo-ufc-flow.svg" alt="UFC Flow" style="width: 172px; height: auto; display: block;"></a>
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <span style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 999px; background: #f1f5f9; border: 1px solid #e2e8f0; font-size: 13px; font-weight: 500; color: #1d293d;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>2026.1</span>
+      <button aria-label="Notificações, 3 não lidas" style="position: relative; width: 44px; height: 44px; border: 0; border-radius: 999px; background: transparent; color: #1d293d; display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span style="position: absolute; top: 8px; right: 8px; min-width: 16px; height: 16px; padding: 0 4px; box-sizing: border-box; border-radius: 999px; background: #f97316; color: #ffffff; font-size: 10px; font-weight: 700; line-height: 16px; text-align: center;">3</span></button>
+      <button aria-label="Alternar tema" style="width: 44px; height: 44px; border: 0; border-radius: 999px; background: transparent; color: #1d293d; display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></button>
+      <button aria-label="Menu da conta de Ana Souza" style="width: 44px; height: 44px; border: 0; border-radius: 999px; background: linear-gradient(135deg, #FF9F5D, #F97316); color: #ffffff; font: inherit; font-size: 14px; font-weight: 700;">AS</button>
+    </div>
+  </header>
+
+  <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+    <div style="display: flex; flex-direction: column; gap: 4px;">
+      <span style="font-size: 12px; font-weight: 500; letter-spacing: 0.04em; color: #45556c;">MINHA ÁREA · ENG. DE COMPUTAÇÃO · EC 2006.2</span>
+      <h1 style="margin: 0; font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 30px; line-height: 36px;">Histórico</h1>
+    </div>
+    <nav aria-label="Seções da minha área" style="display: flex; gap: 4px; padding: 4px; background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 14px; flex-wrap: wrap;">
+      <a href="Minha-Area.dc.html" style="padding: 8px 14px; border-radius: 10px; font-size: 14px; font-weight: 500; color: #45556c; text-decoration: none;">Progresso</a>
+      <a href="#historico" aria-current="page" style="padding: 8px 14px; border-radius: 10px; background: #ffffff; box-shadow: 0 1px 2px rgba(2,6,24,0.08); font-size: 14px; font-weight: 600; color: #020618; text-decoration: none;">Histórico</a>
+      <a href="#horas" style="padding: 8px 14px; border-radius: 10px; font-size: 14px; font-weight: 500; color: #45556c; text-decoration: none;">Horas complementares</a>
+      <a href="Agenda-Notificacoes.dc.html" style="padding: 8px 14px; border-radius: 10px; font-size: 14px; font-weight: 500; color: #45556c; text-decoration: none;">Agendas</a>
+      <a href="#avaliacoes" style="padding: 8px 14px; border-radius: 10px; font-size: 14px; font-weight: 500; color: #45556c; text-decoration: none;">Avaliações</a>
+    </nav>
+  </div>
+
+  <div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start;">
+
+    <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 16px;">
+      <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+        <button aria-pressed="true" style="height: 32px; padding: 0 12px; border-radius: 999px; border: 1px solid #0f172b; background: #0f172b; color: #f8fafc; font: inherit; font-size: 13px; font-weight: 500;">Todas · 34</button>
+        <button aria-pressed="false" style="height: 32px; padding: 0 12px; border-radius: 999px; border: 1px solid #e2e8f0; background: #ffffff; color: #1d293d; font: inherit; font-size: 13px; font-weight: 500;">Aprovado · 25</button>
+        <button aria-pressed="false" style="height: 32px; padding: 0 12px; border-radius: 999px; border: 1px solid #e2e8f0; background: #ffffff; color: #1d293d; font: inherit; font-size: 13px; font-weight: 500;">Cursando · 5</button>
+        <button aria-pressed="false" style="height: 32px; padding: 0 12px; border-radius: 999px; border: 1px solid #e2e8f0; background: #ffffff; color: #1d293d; font: inherit; font-size: 13px; font-weight: 500;">Reprovado · 1</button>
+        <button aria-pressed="false" style="height: 32px; padding: 0 12px; border-radius: 999px; border: 1px solid #e2e8f0; background: #ffffff; color: #1d293d; font: inherit; font-size: 13px; font-weight: 500;">Trancada · 1</button>
+        <button aria-pressed="false" style="height: 32px; padding: 0 12px; border-radius: 999px; border: 1px solid #e2e8f0; background: #ffffff; color: #1d293d; font: inherit; font-size: 13px; font-weight: 500;">Suprimida · 1</button>
+        <button aria-pressed="false" style="height: 32px; padding: 0 12px; border-radius: 999px; border: 1px solid #e2e8f0; background: #ffffff; color: #1d293d; font: inherit; font-size: 13px; font-weight: 500;">Aproveitada · 1</button>
+      </div>
+
+      <section aria-labelledby="t261" style="border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden;">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 20px; background: rgba(241,245,249,0.7); border-bottom: 1px solid #e2e8f0;">
+          <div style="display: flex; align-items: baseline; gap: 12px;"><h2 id="t261" style="margin: 0; font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 20px;">2026.1</h2><span style="font-size: 13px; color: #45556c;">5 disciplinas · 320 h · semestre vigente</span></div>
+          <button style="height: 32px; padding: 0 12px; border-radius: 10px; border: 1px solid #e2e8f0; background: #ffffff; font: inherit; font-size: 13px; font-weight: 500; color: #1d293d;">Fechar situação</button>
+        </div>
+        <div role="table" aria-label="Disciplinas de 2026.1" style="overflow-x: auto;">
+          <div role="row" style="display: grid; grid-template-columns: minmax(220px, 1fr) 64px 132px 64px 44px; gap: 12px; align-items: center; padding: 10px 20px; font-size: 12px; font-weight: 500; color: #45556c; border-bottom: 1px solid #e2e8f0;"><span role="columnheader">Disciplina</span><span role="columnheader">CH</span><span role="columnheader">Situação</span><span role="columnheader">Nota</span><span role="columnheader"><span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);">Ações</span></span></div>
+          <div role="row" style="display: grid; grid-template-columns: minmax(220px, 1fr) 64px 132px 64px 44px; gap: 12px; align-items: center; padding: 12px 20px; border-bottom: 1px solid #f1f5f9; font-size: 14px;"><span role="cell" style="display: flex; flex-direction: column; gap: 2px;"><b style="font-weight: 500;">Sistemas Operacionais</b><span style="font-size: 12px; color: #45556c;">ECO0036 · Obrigatória</span></span><span role="cell" style="color: #45556c;">64 h</span><span role="cell"><span style="display: inline-flex; height: 26px; align-items: center; padding: 0 10px; border-radius: 999px; background: #ecfeff; color: #0e7490; font-size: 12px; font-weight: 600;">Cursando</span></span><span role="cell" style="color: #45556c;">—</span><button aria-label="Editar Sistemas Operacionais" style="width: 36px; height: 36px; border: 0; border-radius: 10px; background: transparent; color: #45556c;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg></button></div>
+          <div role="row" style="display: grid; grid-template-columns: minmax(220px, 1fr) 64px 132px 64px 44px; gap: 12px; align-items: center; padding: 12px 20px; border-bottom: 1px solid #f1f5f9; font-size: 14px;"><span role="cell" style="display: flex; flex-direction: column; gap: 2px;"><b style="font-weight: 500;">Redes de Computadores</b><span style="font-size: 12px; color: #45556c;">ECO0040 · Obrigatória</span></span><span role="cell" style="color: #45556c;">64 h</span><span role="cell"><span style="display: inline-flex; height: 26px; align-items: center; padding: 0 10px; border-radius: 999px; background: #ecfeff; color: #0e7490; font-size: 12px; font-weight: 600;">Cursando</span></span><span role="cell" style="color: #45556c;">—</span><button aria-label="Editar Redes de Computadores" style="width: 36px; height: 36px; border: 0; border-radius: 10px; background: transparent; color: #45556c;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg></button></div>
+          <div role="row" style="display: grid; grid-template-columns: minmax(220px, 1fr) 64px 132px 64px 44px; gap: 12px; align-items: center; padding: 12px 20px; font-size: 14px;"><span role="cell" style="display: flex; flex-direction: column; gap: 2px;"><b style="font-weight: 500;">Análise de Sinais e Sistemas</b><span style="font-size: 12px; color: #45556c;">ECO0028 · Obrigatória</span></span><span role="cell" style="color: #45556c;">64 h</span><span role="cell"><span style="display: inline-flex; height: 26px; align-items: center; padding: 0 10px; border-radius: 999px; background: #ecfeff; color: #0e7490; font-size: 12px; font-weight: 600;">Cursando</span></span><span role="cell" style="color: #45556c;">—</span><button aria-label="Editar Análise de Sinais e Sistemas" style="width: 36px; height: 36px; border: 0; border-radius: 10px; background: transparent; color: #45556c;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg></button></div>
+        </div>
+        <a href="#mais-261" style="display: block; padding: 10px 20px; border-top: 1px solid #f1f5f9; font-size: 13px; color: #45556c;">Mostrar mais 2 disciplinas</a>
+      </section>
+
+      <section aria-labelledby="t252" style="border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden;">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 20px; background: rgba(241,245,249,0.7); border-bottom: 1px solid #e2e8f0;">
+          <div style="display: flex; align-items: baseline; gap: 12px;"><h2 id="t252" style="margin: 0; font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 20px;">2025.2</h2><span style="font-size: 13px; color: #45556c;">5 disciplinas · 3 aprovadas</span></div>
+          <span style="font-size: 13px; color: #45556c;">Média do semestre <b style="color: #020618;">8,3</b></span>
+        </div>
+        <div role="table" aria-label="Disciplinas de 2025.2" style="overflow-x: auto;">
+          <div role="row" style="display: grid; grid-template-columns: minmax(220px, 1fr) 64px 132px 64px 44px; gap: 12px; align-items: center; padding: 12px 20px; border-bottom: 1px solid #f1f5f9; font-size: 14px;"><span role="cell" style="display: flex; flex-direction: column; gap: 2px;"><b style="font-weight: 500;">Estruturas de Dados</b><span style="font-size: 12px; color: #45556c;">ECO0018 · Obrigatória</span></span><span role="cell" style="color: #45556c;">64 h</span><span role="cell"><span style="display: inline-flex; height: 26px; align-items: center; padding: 0 10px; border-radius: 999px; background: #f0fdf4; color: #15803d; font-size: 12px; font-weight: 600;">Aprovado</span></span><span role="cell" style="font-weight: 600;">9,2</span><button aria-label="Editar Estruturas de Dados" style="width: 36px; height: 36px; border: 0; border-radius: 10px; background: transparent; color: #45556c;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg></button></div>
+          <div role="row" style="display: grid; grid-template-columns: minmax(220px, 1fr) 64px 132px 64px 44px; gap: 12px; align-items: center; padding: 12px 20px; border-bottom: 1px solid #f1f5f9; font-size: 14px;"><span role="cell" style="display: flex; flex-direction: column; gap: 2px;"><b style="font-weight: 500;">Circuitos Elétricos II</b><span style="font-size: 12px; color: #45556c;">ECO0016 · Obrigatória</span></span><span role="cell" style="color: #45556c;">64 h</span><span role="cell"><span style="display: inline-flex; height: 26px; align-items: center; padding: 0 10px; border-radius: 999px; background: #f0fdf4; color: #15803d; font-size: 12px; font-weight: 600;">Aprovado</span></span><span role="cell" style="font-weight: 600;">7,8</span><button aria-label="Editar Circuitos Elétricos II" style="width: 36px; height: 36px; border: 0; border-radius: 10px; background: transparent; color: #45556c;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg></button></div>
+          <div role="row" style="display: grid; grid-template-columns: minmax(220px, 1fr) 64px 132px 64px 44px; gap: 12px; align-items: center; padding: 12px 20px; border-bottom: 1px solid #f1f5f9; font-size: 14px;"><span role="cell" style="display: flex; flex-direction: column; gap: 2px;"><b style="font-weight: 500;">Eletrônica Analógica</b><span style="font-size: 12px; color: #45556c;">ECO0021 · Obrigatória · nova tentativa disponível</span></span><span role="cell" style="color: #45556c;">96 h</span><span role="cell"><span style="display: inline-flex; height: 26px; align-items: center; padding: 0 10px; border-radius: 999px; background: #fef2f2; color: #b91c1c; font-size: 12px; font-weight: 600;">Reprovado</span></span><span role="cell" style="font-weight: 600;">4,1</span><button aria-label="Editar Eletrônica Analógica 2025.2" style="width: 36px; height: 36px; border: 0; border-radius: 10px; background: transparent; color: #45556c;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg></button></div>
+          <div role="row" style="display: grid; grid-template-columns: minmax(220px, 1fr) 64px 132px 64px 44px; gap: 12px; align-items: center; padding: 12px 20px; border-bottom: 1px solid #f1f5f9; font-size: 14px;"><span role="cell" style="display: flex; flex-direction: column; gap: 2px;"><b style="font-weight: 500;">Física Geral III</b><span style="font-size: 12px; color: #45556c;">SBL0081 · Obrigatória</span></span><span role="cell" style="color: #45556c;">64 h</span><span role="cell"><span style="display: inline-flex; height: 26px; align-items: center; padding: 0 10px; border-radius: 999px; background: #fffbeb; color: #b45309; font-size: 12px; font-weight: 600;">Trancada</span></span><span role="cell" style="color: #45556c;">—</span><button aria-label="Editar Física Geral III" style="width: 36px; height: 36px; border: 0; border-radius: 10px; background: transparent; color: #45556c;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg></button></div>
+          <div role="row" style="display: grid; grid-template-columns: minmax(220px, 1fr) 64px 132px 64px 44px; gap: 12px; align-items: center; padding: 12px 20px; font-size: 14px;"><span role="cell" style="display: flex; flex-direction: column; gap: 2px;"><b style="font-weight: 500;">Lógica Matemática</b><span style="font-size: 12px; color: #45556c;">ECO0044 · de Ciência da Computação (UECE, 2022.1)</span></span><span role="cell" style="color: #45556c;">64 h</span><span role="cell"><span style="display: inline-flex; height: 26px; align-items: center; padding: 0 10px; border-radius: 999px; background: #eef2ff; color: #4338ca; font-size: 12px; font-weight: 600;">Aproveitada</span></span><span role="cell" style="font-weight: 600;">8,0</span><button aria-label="Editar Lógica Matemática" style="width: 36px; height: 36px; border: 0; border-radius: 10px; background: transparent; color: #45556c;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg></button></div>
+        </div>
+      </section>
+
+      <section aria-labelledby="t251" style="border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden;">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 20px; background: rgba(241,245,249,0.7);">
+          <div style="display: flex; align-items: baseline; gap: 12px;"><h2 id="t251" style="margin: 0; font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 20px;">2025.1</h2><span style="font-size: 13px; color: #45556c;">6 disciplinas · 5 aprovadas · 1 suprimida</span></div>
+          <button aria-expanded="false" aria-label="Expandir 2025.1" style="width: 36px; height: 36px; border: 0; border-radius: 10px; background: transparent; color: #1d293d;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+        </div>
+      </section>
+      <section aria-label="Semestres anteriores" style="display: flex; flex-direction: column; gap: 8px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border: 1px solid #e2e8f0; border-radius: 16px; background: rgba(241,245,249,0.7);"><span style="font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 18px;">2024.2 <span style="font-family: 'Geist', sans-serif; font-weight: 400; font-size: 13px; color: #45556c; margin-left: 8px;">6 disciplinas · todas aprovadas</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></div>
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border: 1px solid #e2e8f0; border-radius: 16px; background: rgba(241,245,249,0.7);"><span style="font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 18px;">2024.1 <span style="font-family: 'Geist', sans-serif; font-weight: 400; font-size: 13px; color: #45556c; margin-left: 8px;">7 disciplinas · todas aprovadas</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></div>
+      </section>
+    </div>
+
+    <aside aria-labelledby="reg-title" style="flex: 1 1 340px; box-sizing: border-box; padding: 24px; border: 1px solid #e2e8f0; border-radius: 16px; background: #ffffff; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.06), 0 4px 6px -4px rgba(0,0,0,0.06); display: flex; flex-direction: column; gap: 20px;">
+      <div style="display: flex; flex-direction: column; gap: 4px;">
+        <h2 id="reg-title" style="margin: 0; font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 20px; line-height: 28px;">Registrar disciplina</h2>
+        <p style="margin: 0; font-size: 13px; color: #45556c;">Um registro por tentativa. O progresso é recalculado na hora.</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <label for="disc" style="font-size: 14px; font-weight: 500; color: #1d293d;">Disciplina</label>
+        <div style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 14px; background: #f8fafc;">
+          <span style="width: 4px; height: 32px; border-radius: 999px; background: #f97316;"></span>
+          <span style="flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0;"><input id="disc" value="Eletrônica Analógica" style="border: 0; padding: 0; background: transparent; font: inherit; font-size: 14px; font-weight: 500; color: #020618; outline: none;"><span style="font-size: 12px; color: #45556c;">ECO0021 · última tentativa: Reprovado em 2025.2</span></span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#45556c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <label for="sem" style="font-size: 14px; font-weight: 500; color: #1d293d;">Semestre</label>
+        <select id="sem" style="height: 44px; padding: 0 12px; border: 1px solid #e2e8f0; border-radius: 14px; background: #ffffff; font: inherit; font-size: 14px; color: #020618;"><option>2026.1 (vigente)</option><option>2025.2</option><option>2025.1</option></select>
+      </div>
+
+      <fieldset style="margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 8px;">
+        <legend style="padding: 0; margin-bottom: 8px; font-size: 14px; font-weight: 500; color: #1d293d;">Situação</legend>
+        <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px;">
+          <sc-for list="{{statuses}}" as="s" hint-placeholder-count="6">
+            <button type="button" aria-pressed="{{s.on}}" onClick="{{s.pick}}" style="{{s.style}}">{{s.label}}</button>
+          </sc-for>
+        </div>
+        <span style="font-size: 12px; color: #45556c;">{{statusHint}}</span>
+      </fieldset>
+
+      <sc-if value="{{showGrade}}" hint-placeholder-val="{{false}}">
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <label for="nota" style="font-size: 14px; font-weight: 500; color: #1d293d;">Nota final <span style="font-weight: 400; color: #45556c;">(opcional, 0 a 10)</span></label>
+          <input id="nota" inputmode="decimal" placeholder="Ex.: 7,5" style="height: 44px; box-sizing: border-box; padding: 0 12px; border: 1px solid #e2e8f0; border-radius: 14px; font: inherit; font-size: 14px;">
+        </div>
+      </sc-if>
+      <sc-if value="{{showOrigin}}" hint-placeholder-val="{{false}}">
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <label for="origem" style="font-size: 14px; font-weight: 500; color: #1d293d;">Origem do aproveitamento</label>
+          <input id="origem" placeholder="Ex.: Cálculo I — UECE, 2022.1" style="height: 44px; box-sizing: border-box; padding: 0 12px; border: 1px solid #e2e8f0; border-radius: 14px; font: inherit; font-size: 14px;">
+          <span style="font-size: 12px; color: #45556c;">Ou vincule a um registro de outra matrícula sua.</span>
+        </div>
+      </sc-if>
+
+      <div style="display: flex; gap: 8px;">
+        <button style="flex: 1; height: 44px; border: 0; border-radius: 14px; background: #0f172b; color: #f8fafc; font: inherit; font-size: 14px; font-weight: 600;">Salvar registro</button>
+        <button style="height: 44px; padding: 0 16px; border: 1px solid #e2e8f0; border-radius: 14px; background: #ffffff; font: inherit; font-size: 14px; font-weight: 500; color: #1d293d;">Cancelar</button>
+      </div>
+
+      <div style="padding: 14px; border-radius: 14px; background: #f1f5f9; display: flex; gap: 10px; font-size: 13px; line-height: 1.5; color: #45556c;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 1px;"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <span>Depois de Reprovado, Trancada ou Suprimida você pode cursar de novo num semestre posterior. Aprovado e Aproveitada encerram a disciplina.</span>
+      </div>
+    </aside>
+  </div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1140}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { status: 'CURSANDO' }; }
+  renderVals() {
+    const defs = [
+      { id: 'CURSANDO', label: 'Cursando', bg: '#ecfeff', fg: '#0e7490', bd: '#67e8f9' },
+      { id: 'APROVADO', label: 'Aprovado', bg: '#f0fdf4', fg: '#15803d', bd: '#86efac' },
+      { id: 'REPROVADO', label: 'Reprovado', bg: '#fef2f2', fg: '#b91c1c', bd: '#fca5a5' },
+      { id: 'TRANCADA', label: 'Trancada', bg: '#fffbeb', fg: '#b45309', bd: '#fcd34d' },
+      { id: 'SUPRIMIDA', label: 'Suprimida', bg: '#f1f5f9', fg: '#45556c', bd: '#cbd5e1' },
+      { id: 'APROVEITADA', label: 'Aproveitada', bg: '#eef2ff', fg: '#4338ca', bd: '#a5b4fc' }
+    ];
+    const cur = this.state.status;
+    const hints = {
+      CURSANDO: 'Só no semestre vigente. Ao fim dele, feche a situação.',
+      APROVADO: 'Encerra a disciplina. A nota é opcional.',
+      REPROVADO: 'Permite nova tentativa num semestre posterior.',
+      TRANCADA: 'Sem nota. Permite nova tentativa num semestre posterior.',
+      SUPRIMIDA: 'Sem nota. Permite nova tentativa num semestre posterior.',
+      APROVEITADA: 'Encerra a disciplina sem passar por Cursando.'
+    };
+    return {
+      statuses: defs.map((d) => {
+        const on = d.id === cur;
+        return {
+          label: d.label,
+          on: on,
+          pick: () => this.setState({ status: d.id }),
+          style: 'height: 40px; border-radius: 12px; font: inherit; font-size: 13px; font-weight: 600; ' +
+            (on ? 'background: ' + d.bg + '; color: ' + d.fg + '; border: 2px solid ' + d.bd + ';' : 'background: #ffffff; color: #45556c; border: 1px solid #e2e8f0;')
+        };
+      }),
+      statusHint: hints[cur],
+      showGrade: cur === 'APROVADO' || cur === 'REPROVADO' || cur === 'APROVEITADA',
+      showOrigin: cur === 'APROVEITADA'
+    };
+  }
+}
+</script>
+</body>
+</html>

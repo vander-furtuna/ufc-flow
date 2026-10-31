@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Hub do curso (mobile)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Clash Display';src:url('../assets/clash-display-variable.woff2') format('woff2');font-weight:200 700;font-display:swap}
+body{margin:0;background:#ffffff}
+a{color:#1d293d}a:hover{color:#020618}
+</style>
+</helmet>
+<div style="width: 390px; height: 2160px; box-sizing: border-box; position: relative; overflow: hidden; padding: 40px 20px 0; font-family: 'Geist', system-ui, sans-serif; color: #020618; background: #ffffff; display: flex; flex-direction: column; gap: 16px;">
+
+  <header style="display: flex; align-items: center; justify-content: space-between;">
+    <img src="../assets/logo-ufc-flow.svg" alt="UFC Flow" style="width: 140px; height: auto; display: block;">
+    <div style="display: flex; align-items: center; gap: 4px;">
+      <button aria-label="Notificações, 3 não lidas" style="position: relative; width: 44px; height: 44px; border: 0; border-radius: 999px; background: transparent; color: #1d293d; display: flex; align-items: center; justify-content: center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span style="position: absolute; top: 7px; right: 7px; min-width: 16px; height: 16px; padding: 0 4px; box-sizing: border-box; border-radius: 999px; background: #f97316; color: #ffffff; font-size: 10px; font-weight: 700; line-height: 16px; text-align: center;">3</span></button>
+      <button aria-label="Menu da conta de Ana Souza" style="width: 40px; height: 40px; border: 0; border-radius: 999px; background: linear-gradient(135deg, #FF9F5D, #F97316); color: #ffffff; font: inherit; font-size: 13px; font-weight: 700;">AS</button>
+    </div>
+  </header>
+
+  <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 8px;">
+    <span style="font-size: 13px; font-weight: 500;">CURSO:</span>
+    <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px;">
+      <h1 style="margin: 0; font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 28px; line-height: 34px;">Engenharia de Computação</h1>
+      <button aria-label="Trocar curso" style="width: 44px; height: 44px; flex-shrink: 0; border: 0; border-radius: 10px; background: transparent; color: #45556c;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 15 5 5 5-5M7 9l5-5 5 5"/></svg></button>
+    </div>
+    <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+      <span style="height: 30px; display: inline-flex; align-items: center; padding: 0 10px; border-radius: 999px; background: #f1f5f9; border: 1px solid #e2e8f0; font-size: 13px; font-weight: 500;">2006.2</span>
+      <span style="height: 30px; display: inline-flex; align-items: center; padding: 0 10px; border-radius: 999px; background: #f1f5f9; border: 1px solid #e2e8f0; font-size: 13px; font-weight: 500;">SOBRAL - CE</span>
+    </div>
+  </div>
+
+  <nav aria-label="Seções do curso" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; padding: 4px; background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 14px;">
+    <a href="#grade" style="height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 10px; font-size: 14px; font-weight: 500; color: #45556c; text-decoration: none;">Grade</a>
+    <a href="#hub" aria-current="page" style="height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: #ffffff; box-shadow: 0 1px 2px rgba(2,6,24,0.08); font-size: 14px; font-weight: 600; color: #020618; text-decoration: none;">Hub</a>
+    <a href="Mobile-Forum.dc.html" style="height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 10px; font-size: 14px; font-weight: 500; color: #45556c; text-decoration: none;">Fórum</a>
+  </nav>
+
+  <div role="group" aria-label="Filtrar por tipo" style="display: flex; gap: 8px; margin: 0 -20px; padding: 0 20px; overflow-x: auto; white-space: nowrap; scrollbar-width: none;">
+    <sc-for list="{{filters}}" as="f" hint-placeholder-count="6">
+      <button aria-pressed="{{f.on}}" onClick="{{f.pick}}" style="{{f.style}}">{{f.label}}</button>
+    </sc-for>
+  </div>
+
+  <sc-if value="{{showPinned}}" hint-placeholder-val="{{true}}">
+    <article style="border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden; background: rgba(241,245,249,0.7);">
+      <div style="height: 150px; background: #e2e8f0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: #45556c;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.09-3.09a2 2 0 0 0-2.82 0L6 21"/></svg><span style="font-size: 12px;">[Imagem de capa]</span></div>
+      <div style="padding: 16px; display: flex; flex-direction: column; gap: 10px;">
+        <div style="display: flex; align-items: center; gap: 8px;"><span style="display: inline-flex; height: 24px; align-items: center; padding: 0 10px; border-radius: 999px; background: #eef2ff; color: #4338ca; font-size: 12px; font-weight: 600;">Edital</span><span style="font-size: 12px; font-weight: 500; color: #45556c;">Fixado</span></div>
+        <h2 style="margin: 0; font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 20px; line-height: 26px;">Seleção de monitores para 2026.2</h2>
+        <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #45556c;">Vagas em Cálculo, Física e Programação. Inscrições pelo SIGAA.</p>
+        <div style="display: flex; gap: 6px; flex-wrap: wrap;"><span style="height: 26px; display: inline-flex; align-items: center; padding: 0 10px; border-radius: 999px; background: #ffffff; border: 1px solid #e2e8f0; font-size: 12px; font-weight: 500;">Prazo 14/11</span><span style="height: 26px; display: inline-flex; align-items: center; padding: 0 10px; border-radius: 999px; background: #ffffff; border: 1px solid #e2e8f0; font-size: 12px; font-weight: 500;">Edital nº 12/2026</span></div>
+      </div>
+    </article>
+  </sc-if>
+
+  <sc-for list="{{posts}}" as="p" hint-placeholder-count="4">
+    <article style="{{p.cardStyle}}">
+      <div style="display: flex; gap: 12px; align-items: flex-start;">
+        <sc-if value="{{p.hasDate}}" hint-placeholder-val="{{false}}">
+          <div style="width: 52px; flex-shrink: 0; border-radius: 12px; background: #ffffff; border: 1px solid #e2e8f0; display: flex; flex-direction: column; align-items: center; padding: 6px 0;"><span style="font-size: 10px; font-weight: 600; letter-spacing: 0.06em; color: #0e7490;">{{p.month}}</span><span style="font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 22px; line-height: 26px;">{{p.day}}</span></div>
+        </sc-if>
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 6px; min-width: 0;">
+          <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;"><span style="{{p.badgeStyle}}">{{p.typeLabel}}</span><span style="font-size: 12px; color: #45556c;">{{p.when}}</span></div>
+          <h3 style="margin: 0; font-size: 16px; line-height: 1.35; font-weight: 600;">{{p.title}}</h3>
+        </div>
+      </div>
+      <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #45556c;">{{p.summary}}</p>
+      <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+        <sc-for list="{{p.meta}}" as="m" hint-placeholder-count="2"><span style="height: 26px; display: inline-flex; align-items: center; padding: 0 10px; border-radius: 999px; background: #ffffff; border: 1px solid #e2e8f0; font-size: 12px; font-weight: 500;">{{m}}</span></sc-for>
+      </div>
+    </article>
+  </sc-for>
+  <sc-if value="{{isEmpty}}" hint-placeholder-val="{{false}}">
+    <p style="margin: 0; padding: 24px; text-align: center; border: 1px dashed #cbd5e1; border-radius: 16px; font-size: 14px; color: #45556c;">Nada publicado neste tipo por enquanto.</p>
+  </sc-if>
+
+  <section aria-labelledby="mlinks" style="padding: 16px; border: 1px solid #e2e8f0; border-radius: 16px; display: flex; flex-direction: column; gap: 2px;">
+    <h2 id="mlinks" style="margin: 0 0 8px; font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 17px;">Links importantes</h2>
+    <a href="#sigaa" style="height: 48px; display: flex; align-items: center; justify-content: space-between; font-size: 14px; font-weight: 500; text-decoration: none; border-bottom: 1px solid #f1f5f9;">SIGAA<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#45556c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a>
+    <a href="#coord" style="height: 48px; display: flex; align-items: center; justify-content: space-between; font-size: 14px; font-weight: 500; text-decoration: none; border-bottom: 1px solid #f1f5f9;">Coordenação do curso<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#45556c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a>
+    <a href="#ca" style="height: 48px; display: flex; align-items: center; justify-content: space-between; font-size: 14px; font-weight: 500; text-decoration: none; border-bottom: 1px solid #f1f5f9;">Centro Acadêmico<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#45556c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a>
+    <a href="Mobile-Links.dc.html" style="height: 44px; display: flex; align-items: center; font-size: 13px; font-weight: 600;">Abrir página de links →</a>
+  </section>
+
+  <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 120px; background: linear-gradient(180deg, rgba(255,255,255,0) 0%, #ffffff 55%);"></div>
+  <div style="position: absolute; left: 16px; right: 16px; bottom: 28px; display: flex; gap: 8px;">
+    <button aria-label="Abrir navegação" style="width: 48px; height: 48px; flex-shrink: 0; border: 1px solid #e2e8f0; border-radius: 999px; background: #ffffff; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#020618" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/></svg></button>
+    <label style="flex: 1; min-width: 0; height: 48px; display: flex; align-items: center; gap: 10px; padding: 0 16px; border: 1px solid #e2e8f0; border-radius: 999px; background: rgba(248,250,252,0.97); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); color: #62748e;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);">Pesquisar no hub</span><input type="search" placeholder="Pesquisar no hub" style="flex: 1; min-width: 0; border: 0; background: transparent; font: inherit; font-size: 16px; outline: none;"></label>
+    <a href="#novo-post" aria-label="Novo post (moderação)" style="width: 48px; height: 48px; flex-shrink: 0; border-radius: 999px; background: #0f172b; color: #f8fafc; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg></a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":2160}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { type: 'ALL' }; }
+  renderVals() {
+    const types = {
+      NEWS: { label: 'Notícia', bg: '#f1f5f9', fg: '#334155' },
+      EVENT: { label: 'Evento', bg: '#ecfeff', fg: '#0e7490' },
+      SCHOLARSHIP: { label: 'Bolsa', bg: '#f0fdf4', fg: '#15803d' },
+      EXTENSION_PROJECT: { label: 'Extensão', bg: '#fffbeb', fg: '#b45309' },
+      CALL: { label: 'Edital', bg: '#eef2ff', fg: '#4338ca' }
+    };
+    const all = [
+      { type: 'EVENT', title: 'Semana de Engenharia de Computação', summary: 'Palestras, minicursos e competição de robótica.', when: 'há 1 dia', month: 'NOV', day: '18', meta: ['18 a 22/11', 'Bloco didático'] },
+      { type: 'SCHOLARSHIP', title: 'Bolsa de iniciação científica em visão computacional', summary: 'Projeto no laboratório de processamento de imagens.', when: 'há 3 dias', meta: ['R$ 700/mês', '2 vagas', 'Prazo 07/11'] },
+      { type: 'NEWS', title: 'Laboratório de Sistemas Embarcados recebe novos kits', summary: 'Disponíveis para Microprocessadores e TCC a partir de dezembro.', when: 'há 5 dias', meta: ['Infraestrutura'] },
+      { type: 'EXTENSION_PROJECT', title: 'Programação nas escolas', summary: 'Lógica de programação para o ensino médio da rede pública.', when: 'há 1 semana', meta: ['6 vagas'] },
+      { type: 'CALL', title: 'Edital de iniciação científica 2026–2027', summary: 'Resultado final publicado.', when: 'encerrado em 20/10', meta: ['Encerrado'], closed: true }
+    ];
+    const cur = this.state.type;
+    const list = all.filter((p) => cur === 'ALL' || p.type === cur).map((p) => {
+      const t = types[p.type];
+      return Object.assign({}, p, {
+        typeLabel: t.label,
+        hasDate: !!p.day,
+        badgeStyle: 'display: inline-flex; height: 24px; align-items: center; padding: 0 10px; border-radius: 999px; background: ' + t.bg + '; color: ' + t.fg + '; font-size: 12px; font-weight: 600;',
+        cardStyle: 'box-sizing: border-box; padding: 16px; border: 1px solid #e2e8f0; border-radius: 16px; background: rgba(241,245,249,0.7); display: flex; flex-direction: column; gap: 10px;' + (p.closed ? ' opacity: 0.7;' : '')
+      });
+    });
+    const defs = [['ALL', 'Tudo'], ['NEWS', 'Notícias'], ['EVENT', 'Eventos'], ['SCHOLARSHIP', 'Bolsas'], ['EXTENSION_PROJECT', 'Extensão'], ['CALL', 'Editais']];
+    return {
+      filters: defs.map((d) => {
+        const on = d[0] === cur;
+        return { label: d[1], on: on, pick: () => this.setState({ type: d[0] }), style: 'flex-shrink: 0; height: 36px; padding: 0 14px; border-radius: 999px; font: inherit; font-size: 14px; font-weight: 500; ' + (on ? 'background: #0f172b; color: #f8fafc; border: 1px solid #0f172b;' : 'background: #ffffff; color: #1d293d; border: 1px solid #e2e8f0;') };
+      }),
+      posts: list,
+      isEmpty: list.length === 0,
+      showPinned: cur === 'ALL' || cur === 'CALL'
+    };
+  }
+}
+</script>
+</body>
+</html>

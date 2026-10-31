@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Histórico (mobile)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Clash Display';src:url('../assets/clash-display-variable.woff2') format('woff2');font-weight:200 700;font-display:swap}
+body{margin:0;background:#ffffff}
+a{color:#1d293d}a:hover{color:#020618}
+</style>
+</helmet>
+<div style="width: 390px; height: 1640px; box-sizing: border-box; position: relative; overflow: hidden; padding: 40px 20px 0; font-family: 'Geist', system-ui, sans-serif; color: #020618; background: #ffffff; display: flex; flex-direction: column; gap: 16px;">
+
+  <header style="display: flex; align-items: center; justify-content: space-between;">
+    <img src="../assets/logo-ufc-flow.svg" alt="UFC Flow" style="width: 140px; height: auto; display: block;">
+    <div style="display: flex; align-items: center; gap: 4px;">
+      <button aria-label="Notificações, 3 não lidas" style="position: relative; width: 44px; height: 44px; border: 0; border-radius: 999px; background: transparent; color: #1d293d; display: flex; align-items: center; justify-content: center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span style="position: absolute; top: 7px; right: 7px; min-width: 16px; height: 16px; padding: 0 4px; box-sizing: border-box; border-radius: 999px; background: #f97316; color: #ffffff; font-size: 10px; font-weight: 700; line-height: 16px; text-align: center;">3</span></button>
+      <button aria-label="Menu da conta de Ana Souza" style="width: 40px; height: 40px; border: 0; border-radius: 999px; background: linear-gradient(135deg, #FF9F5D, #F97316); color: #ffffff; font: inherit; font-size: 13px; font-weight: 700;">AS</button>
+    </div>
+  </header>
+
+  <div style="display: flex; flex-direction: column; gap: 2px; margin-top: 8px;">
+    <span style="font-size: 12px; font-weight: 500; letter-spacing: 0.04em; color: #45556c;">MINHA ÁREA · EC 2006.2</span>
+    <h1 style="margin: 0; font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 28px; line-height: 34px;">Histórico</h1>
+  </div>
+
+  <nav aria-label="Seções da minha área" style="display: flex; gap: 8px; margin: 0 -20px; padding: 0 20px 4px; overflow-x: auto; white-space: nowrap; scrollbar-width: none;">
+    <a href="Mobile-Minha-Area.dc.html" style="flex-shrink: 0; height: 40px; display: inline-flex; align-items: center; padding: 0 16px; border-radius: 999px; border: 1px solid #e2e8f0; color: #1d293d; font-size: 14px; font-weight: 500; text-decoration: none;">Progresso</a>
+    <a href="#historico" aria-current="page" style="flex-shrink: 0; height: 40px; display: inline-flex; align-items: center; padding: 0 16px; border-radius: 999px; background: #0f172b; color: #f8fafc; font-size: 14px; font-weight: 600; text-decoration: none;">Histórico</a>
+    <a href="#horas" style="flex-shrink: 0; height: 40px; display: inline-flex; align-items: center; padding: 0 16px; border-radius: 999px; border: 1px solid #e2e8f0; color: #1d293d; font-size: 14px; font-weight: 500; text-decoration: none;">Horas complementares</a>
+    <a href="Mobile-Agenda.dc.html" style="flex-shrink: 0; height: 40px; display: inline-flex; align-items: center; padding: 0 16px; border-radius: 999px; border: 1px solid #e2e8f0; color: #1d293d; font-size: 14px; font-weight: 500; text-decoration: none;">Agendas</a>
+  </nav>
+
+  <div role="group" aria-label="Filtrar por situação" style="display: flex; gap: 6px; margin: 0 -20px; padding: 0 20px; overflow-x: auto; white-space: nowrap; scrollbar-width: none;">
+    <button aria-pressed="true" style="flex-shrink: 0; height: 32px; padding: 0 12px; border-radius: 999px; border: 1px solid #cbd5e1; background: #f1f5f9; font: inherit; font-size: 13px; font-weight: 600;">Todas 34</button>
+    <button aria-pressed="false" style="flex-shrink: 0; height: 32px; padding: 0 12px; border-radius: 999px; border: 1px solid #e2e8f0; background: #ffffff; font: inherit; font-size: 13px; font-weight: 500; color: #15803d;">Aprovado 25</button>
+    <button aria-pressed="false" style="flex-shrink: 0; height: 32px; padding: 0 12px; border-radius: 999px; border: 1px solid #e2e8f0; background: #ffffff; font: inherit; font-size: 13px; font-weight: 500; color: #0e7490;">Cursando 5</button>
+    <button aria-pressed="false" style="flex-shrink: 0; height: 32px; padding: 0 12px; border-radius: 999px; border: 1px solid #e2e8f0; background: #ffffff; font: inherit; font-size: 13px; font-weight: 500; color: #b91c1c;">Reprovado 1</button>
+    <button aria-pressed="false" style="flex-shrink: 0; height: 32px; padding: 0 12px; border-radius: 999px; border: 1px solid #e2e8f0; background: #ffffff; font: inherit; font-size: 13px; font-weight: 500; color: #b45309;">Trancada 1</button>
+  </div>
+
+  <section aria-labelledby="mh261" style="border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden;">
+    <div style="display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: rgba(241,245,249,0.7); border-bottom: 1px solid #e2e8f0;">
+      <div style="display: flex; flex-direction: column;"><h2 id="mh261" style="margin: 0; font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 19px;">2026.1</h2><span style="font-size: 12px; color: #45556c;">5 disciplinas · semestre vigente</span></div>
+      <button style="height: 36px; padding: 0 12px; border: 1px solid #e2e8f0; border-radius: 10px; background: #ffffff; font: inherit; font-size: 13px; font-weight: 600;">Fechar</button>
+    </div>
+    <a href="Mobile-Historico-Registro.dc.html" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid #f1f5f9; text-decoration: none; color: inherit;"><span style="flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0;"><b style="font-size: 14px; font-weight: 500;">Sistemas Operacionais</b><span style="font-size: 12px; color: #45556c;">ECO0036 · 64 h</span></span><span style="height: 24px; display: inline-flex; align-items: center; padding: 0 9px; border-radius: 999px; background: #ecfeff; color: #0e7490; font-size: 12px; font-weight: 600;">Cursando</span></a>
+    <a href="Mobile-Historico-Registro.dc.html" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid #f1f5f9; text-decoration: none; color: inherit;"><span style="flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0;"><b style="font-size: 14px; font-weight: 500;">Redes de Computadores</b><span style="font-size: 12px; color: #45556c;">ECO0040 · 64 h</span></span><span style="height: 24px; display: inline-flex; align-items: center; padding: 0 9px; border-radius: 999px; background: #ecfeff; color: #0e7490; font-size: 12px; font-weight: 600;">Cursando</span></a>
+    <a href="Mobile-Historico-Registro.dc.html" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; text-decoration: none; color: inherit;"><span style="flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0;"><b style="font-size: 14px; font-weight: 500;">Análise de Sinais e Sistemas</b><span style="font-size: 12px; color: #45556c;">ECO0028 · 64 h</span></span><span style="height: 24px; display: inline-flex; align-items: center; padding: 0 9px; border-radius: 999px; background: #ecfeff; color: #0e7490; font-size: 12px; font-weight: 600;">Cursando</span></a>
+    <a href="#mais" style="display: block; padding: 12px 16px; border-top: 1px solid #f1f5f9; font-size: 13px; color: #45556c;">Mais 2 disciplinas</a>
+  </section>
+
+  <section aria-labelledby="mh252" style="border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden;">
+    <div style="display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: rgba(241,245,249,0.7); border-bottom: 1px solid #e2e8f0;">
+      <div style="display: flex; flex-direction: column;"><h2 id="mh252" style="margin: 0; font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 19px;">2025.2</h2><span style="font-size: 12px; color: #45556c;">5 disciplinas · média 8,3</span></div>
+    </div>
+    <a href="#e" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid #f1f5f9; text-decoration: none; color: inherit;"><span style="flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0;"><b style="font-size: 14px; font-weight: 500;">Estruturas de Dados</b><span style="font-size: 12px; color: #45556c;">ECO0018 · 64 h</span></span><span style="display: flex; flex-direction: column; align-items: flex-end; gap: 2px;"><span style="height: 24px; display: inline-flex; align-items: center; padding: 0 9px; border-radius: 999px; background: #f0fdf4; color: #15803d; font-size: 12px; font-weight: 600;">Aprovado</span><b style="font-size: 13px;">9,2</b></span></a>
+    <a href="#e" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid #f1f5f9; text-decoration: none; color: inherit;"><span style="flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0;"><b style="font-size: 14px; font-weight: 500;">Circuitos Elétricos II</b><span style="font-size: 12px; color: #45556c;">ECO0016 · 64 h</span></span><span style="display: flex; flex-direction: column; align-items: flex-end; gap: 2px;"><span style="height: 24px; display: inline-flex; align-items: center; padding: 0 9px; border-radius: 999px; background: #f0fdf4; color: #15803d; font-size: 12px; font-weight: 600;">Aprovado</span><b style="font-size: 13px;">7,8</b></span></a>
+    <a href="#e" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid #f1f5f9; text-decoration: none; color: inherit;"><span style="flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0;"><b style="font-size: 14px; font-weight: 500;">Eletrônica Analógica</b><span style="font-size: 12px; color: #45556c;">ECO0021 · nova tentativa disponível</span></span><span style="display: flex; flex-direction: column; align-items: flex-end; gap: 2px;"><span style="height: 24px; display: inline-flex; align-items: center; padding: 0 9px; border-radius: 999px; background: #fef2f2; color: #b91c1c; font-size: 12px; font-weight: 600;">Reprovado</span><b style="font-size: 13px;">4,1</b></span></a>
+    <a href="#e" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid #f1f5f9; text-decoration: none; color: inherit;"><span style="flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0;"><b style="font-size: 14px; font-weight: 500;">Física Geral III</b><span style="font-size: 12px; color: #45556c;">SBL0081 · 64 h</span></span><span style="height: 24px; display: inline-flex; align-items: center; padding: 0 9px; border-radius: 999px; background: #fffbeb; color: #b45309; font-size: 12px; font-weight: 600;">Trancada</span></a>
+    <a href="#e" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; text-decoration: none; color: inherit;"><span style="flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0;"><b style="font-size: 14px; font-weight: 500;">Lógica Matemática</b><span style="font-size: 12px; color: #45556c;">ECO0044 · de UECE, 2022.1</span></span><span style="display: flex; flex-direction: column; align-items: flex-end; gap: 2px;"><span style="height: 24px; display: inline-flex; align-items: center; padding: 0 9px; border-radius: 999px; background: #eef2ff; color: #4338ca; font-size: 12px; font-weight: 600;">Aproveitada</span><b style="font-size: 13px;">8,0</b></span></a>
+  </section>
+
+  <div style="display: flex; flex-direction: column; gap: 8px;">
+    <button aria-expanded="false" style="height: 56px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; border: 1px solid #e2e8f0; border-radius: 16px; background: rgba(241,245,249,0.7); font: inherit; text-align: left;"><span><b style="font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 17px;">2025.1</b> <span style="font-size: 12px; color: #45556c; margin-left: 6px;">6 disciplinas</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+    <button aria-expanded="false" style="height: 56px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; border: 1px solid #e2e8f0; border-radius: 16px; background: rgba(241,245,249,0.7); font: inherit; text-align: left;"><span><b style="font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 17px;">2024.2</b> <span style="font-size: 12px; color: #45556c; margin-left: 6px;">6 disciplinas</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+    <button aria-expanded="false" style="height: 56px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; border: 1px solid #e2e8f0; border-radius: 16px; background: rgba(241,245,249,0.7); font: inherit; text-align: left;"><span><b style="font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 17px;">2024.1</b> <span style="font-size: 12px; color: #45556c; margin-left: 6px;">7 disciplinas</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+  </div>
+
+  <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 120px; background: linear-gradient(180deg, rgba(255,255,255,0) 0%, #ffffff 55%);"></div>
+  <div style="position: absolute; left: 16px; right: 16px; bottom: 28px; display: flex; gap: 8px;">
+    <button aria-label="Abrir navegação" style="width: 48px; height: 48px; flex-shrink: 0; border: 1px solid #e2e8f0; border-radius: 999px; background: #ffffff; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#020618" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></button>
+    <a href="Mobile-Historico-Registro.dc.html" style="flex: 1; height: 48px; display: flex; align-items: center; justify-content: center; gap: 8px; border-radius: 999px; background: #0f172b; color: #f8fafc; font-size: 15px; font-weight: 600; text-decoration: none; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.15);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg>Registrar disciplina</a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1640}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
