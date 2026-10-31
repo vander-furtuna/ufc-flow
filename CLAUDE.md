@@ -70,6 +70,27 @@ pnpm --filter @ufc-flow/academic-core add -D vitest   # dependência num pacote
 - Conventional Commits: `feat(scope): ...`, `fix`, `chore`, `refactor`, `docs`, `test`.
 - Faça commit só quando o usuário pedir ou quando a tarefa combinada incluir isso. Não faça push sem pedido explícito.
 
+## Skills e comandos
+
+Ficam em `.claude/skills/` (versionadas). Use a skill certa antes de começar o tipo de tarefa que ela cobre.
+
+| Skill | Use para |
+| --- | --- |
+| `regra-academica-tdd` | Qualquer regra acadêmica pura no `packages/academic-core`, com teste antes |
+| `modulo-api-hexagonal` | Rota, tabela, permissão ou módulo novo na API |
+| `implementar-tela` | Construir ou alterar uma tela do web a partir de `docs/v2/telas` |
+| `atualizar-modelagem` | Manter `docs/v2` em dia quando uma decisão muda ou uma fase termina |
+| `shadcn` | Adicionar e compor componentes shadcn. Rode o CLI a partir de `apps/web`, onde está o `components.json` |
+| `turborepo` | `turbo.json`, tarefas, cache e filtros. A skill lê a documentação embutida em `node_modules/turbo/docs` |
+| `vercel-react-best-practices` | Escrever e revisar código React/Next com foco em desempenho |
+| `vercel-composition-patterns` | Desenhar a API de componentes reutilizáveis |
+| `web-design-guidelines` | Revisar UI (acessibilidade, UX) antes de fechar uma tela |
+| `migrate-oxlint` | A migração ESLint → oxlint da fase 0 |
+
+As skills públicas (as seis últimas) são instaladas com `scripts/instalar-skills.ps1` e registradas em `skills-lock.json`; para atualizar, use `npx skills update -p`. A skill `design-taste-frontend` em `.agents/skills/` é para landing pages e redesigns livres: **não** a use nas telas da v2, que já têm design definido.
+
+Comando: `/iniciar-fase <n>` prepara o trabalho de uma fase do roadmap (leitura, plano para aprovação e branch).
+
 ## Repositórios de origem (fora deste repo)
 
 Ficam ao lado deste, em `C:\Users\furtu\www\`:
