@@ -12,7 +12,7 @@ overrides:
   '@types/react': 19.3.0
   '@types/react-dom': 19.3.0
 
-# Pacotes autorizados a rodar scripts de instalação (pnpm 10 bloqueia por padrão)
-onlyBuiltDependencies:
-  - sharp
-  - unrs-resolver
+# Pacotes autorizados a rodar scripts de instalação (o pnpm bloqueia por padrão)
+allowBuilds:
+  sharp: true
+  unrs-resolver: true
