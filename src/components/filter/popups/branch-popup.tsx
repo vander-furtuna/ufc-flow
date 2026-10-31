@@ -1,4 +1,4 @@
-import { Tag } from 'lucide-react'
+import { TagIcon } from '@phosphor-icons/react'
 import { lighten, saturate } from 'polished'
 import { useCallback, useMemo } from 'react'
 
@@ -57,7 +57,7 @@ export function BranchPopup() {
     <Popover>
       <PopoverTrigger asChild className="group">
         <PopupTrigger
-          icon={<Tag className="size-4" />}
+          icon={<TagIcon weight="bold" className="size-4" />}
           label="Tipo"
           isActive={isNatureAndBranchFilterActive}
         />

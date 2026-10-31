@@ -5,7 +5,7 @@ import { VanderLogo } from '@/components/vander-logo'
 import { Logo } from '@/components/logo'
 import ufcLogo from '@/assets/ufc-logo.svg'
 import ecLogo from '@/assets/ec-logo.svg'
-import { ChevronUp } from 'lucide-react'
+import { CaretUpIcon } from '@phosphor-icons/react'
 import { VanderIcon } from '@/components/vander-icon'
 
 export function Footer() {
@@ -21,7 +21,7 @@ export function Footer() {
         </div>
 
         <Button size="icon" variant="outline" onClick={scrollToTop}>
-          <ChevronUp className="text-foreground/80 size-5" />
+          <CaretUpIcon weight="bold" className="text-foreground/80 size-5" />
         </Button>
       </div>
       <div className="flex w-full items-center justify-between border-t pt-4">

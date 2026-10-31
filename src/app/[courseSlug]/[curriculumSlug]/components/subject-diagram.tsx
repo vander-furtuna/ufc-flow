@@ -7,7 +7,7 @@ import { groupByAlias, useTools } from '@/contexts/tools'
 import { BranchView } from './subject-views/branch-view'
 import { DurationView } from './subject-views/duration-view'
 import { SemesterView } from './subject-views/semester-view'
-import { Bolt, List } from 'lucide-react'
+import { GearSixIcon, ListIcon } from '@phosphor-icons/react'
 import { Button } from '@/components/ui/button'
 import { Tools } from '@/components/tools/tools'
 import { useState } from 'react'
@@ -30,7 +30,7 @@ export function SubjectDiagram() {
         )}
       >
         <div className="flex items-center gap-1">
-          <List className="text-muted-foreground size-5" />
+          <ListIcon weight="bold" className="text-muted-foreground size-5" />
           <strong className="font-clash text-xl font-medium">
             {groupByAlias(groupBy)}
           </strong>
@@ -54,7 +54,8 @@ export function SubjectDiagram() {
           variant="ghost"
           onClick={() => setIsToolsOpen((p) => !p)}
         >
-          <Bolt
+          <GearSixIcon
+            weight="bold"
             className="data-[state=open]:text-foreground data-[state=closed]:text-foreground/80 size-5 transition-transform data-[state=open]:rotate-90"
             data-state={isToolsOpen ? 'open' : 'closed'}
           />

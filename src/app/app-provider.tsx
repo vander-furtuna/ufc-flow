@@ -11,20 +11,27 @@ import { ToolsProvider } from '@/contexts/tools'
 import { ScheduleProvider } from '@/contexts/schedule'
 import { CalendarProvider } from '@/contexts/calendar'
 
+import { IconContext } from '@phosphor-icons/react'
+import { TooltipProvider } from '@/components/ui/tooltip'
+
 export function AppProvider({ children }: { children: ReactNode }) {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ToolsProvider>
-        <FilterProvider>
-          <CourseProvider>
-            <ClassProvider>
-              <CalendarProvider>
-                <ScheduleProvider>{children}</ScheduleProvider>
-              </CalendarProvider>
-            </ClassProvider>
-          </CourseProvider>
-        </FilterProvider>
-      </ToolsProvider>
-    </QueryClientProvider>
+    <IconContext.Provider value={{ weight: 'bold' }}>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider delayDuration={150}>
+          <ToolsProvider>
+            <FilterProvider>
+              <CourseProvider>
+                <ClassProvider>
+                  <CalendarProvider>
+                    <ScheduleProvider>{children}</ScheduleProvider>
+                  </CalendarProvider>
+                </ClassProvider>
+              </CourseProvider>
+            </FilterProvider>
+          </ToolsProvider>
+        </TooltipProvider>
+      </QueryClientProvider>
+    </IconContext.Provider>
   )
 }

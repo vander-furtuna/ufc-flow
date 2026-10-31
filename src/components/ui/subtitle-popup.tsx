@@ -1,4 +1,6 @@
-import { Info } from 'lucide-react'
+'use client'
+
+import { InfoIcon } from '@phosphor-icons/react'
 import { lighten, saturate } from 'polished'
 
 import {
@@ -17,7 +19,7 @@ export function SubtitlePopup() {
     <Popover>
       <PopoverTrigger asChild className="group">
         <Button size="icon" variant="ghost">
-          <Info className="text-muted-foreground size-4" />
+          <InfoIcon weight="bold" className="text-muted-foreground size-4" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="border-border flex w-fit flex-col gap-4 bg-slate-100/50 backdrop-blur-md dark:bg-slate-800/50">

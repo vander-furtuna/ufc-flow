@@ -1,6 +1,6 @@
 import { Glow } from '@/components/glow'
 import { DEFAULT_COLORS } from '@/constants/default-colors'
-import { ChevronDown } from 'lucide-react'
+import { CaretDownIcon } from '@phosphor-icons/react'
 import { type ButtonHTMLAttributes, forwardRef, type JSX } from 'react'
 
 type PopupTriggerProps = ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -22,7 +22,10 @@ export const PopupTrigger = forwardRef<HTMLButtonElement, PopupTriggerProps>(
           {icon}
         </i>
         {label && <span className="z-10 text-xs">{label}</span>}
-        <ChevronDown className="text-muted-foreground z-10 size-3 transition-all group-data-[state=open]/filter:rotate-180" />
+        <CaretDownIcon
+          weight="bold"
+          className="text-muted-foreground z-10 size-3 transition-all group-data-[state=open]/filter:rotate-180"
+        />
 
         <Glow
           colors={DEFAULT_COLORS.FORTRESS}

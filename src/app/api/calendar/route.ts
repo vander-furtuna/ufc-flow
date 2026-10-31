@@ -129,8 +129,7 @@ export async function GET(req: Request): Promise<Response> {
   }
 
   // 2. Construção da URL Dinâmica
-  const CALENDAR_URL = `https://www.ufc.br/calendario-universitario/${yearToFetch}`
-
+  const CALENDAR_URL = `https://ufc2012.ufc.br/calendario-universitario/${yearToFetch}`
   const jar = new CookieJar()
   const fetchWithCookies = fetchCookie(fetch, jar)
 

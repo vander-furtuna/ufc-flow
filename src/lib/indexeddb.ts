@@ -11,14 +11,16 @@ import type { Schedule } from '@/types/schedule'
 import type { MonthGroup } from '@/types/calendar'
 import { getCalendarService } from '@/services/scrapping/get-calendar-service'
 import { normalizeWords } from '@/utils/normalize-words'
+import type { RUMenuDay, RUMenuWeek } from '@/types/ru'
 
 // Configuração do banco
 const DB_NAME = 'UFCFlowDB'
-const DB_VERSION = 5 // Incrementado para incluir academic_calendar
+const DB_VERSION = 6 // Incrementado para incluir ru_menus
 const STORE_NAME = 'schedules'
 const STORE_USER_AGENDAS = 'user_schedules'
 const STORE_USER_PREFERENCES = 'user_preferences'
-const STORE_CALENDAR = 'academic_calendar' // Nova Store
+const STORE_CALENDAR = 'academic_calendar'
+const STORE_RU = 'ru_menus' // Store de Cardápio do RU
 
 const importantTerms = ['matricula', 'ira']
 
@@ -82,6 +84,12 @@ class IndexedDBStorage {
           // A chave será o ano (ex: 2026)
           db.createObjectStore(STORE_CALENDAR, { keyPath: 'year' })
         }
+
+        // --- Nova Store de Cardápio do RU (Versão 6) ---
+        if (!db.objectStoreNames.contains(STORE_RU)) {
+          // A chave será id composta: campusId-date (ex: "9-2026-09-25")
+          db.createObjectStore(STORE_RU, { keyPath: 'id' })
+        }
       },
     })
   }
@@ -92,6 +100,12 @@ class IndexedDBStorage {
 
     // Usa o índice para buscar apenas agendas do curso específico
     return this.db.getAllFromIndex(STORE_USER_AGENDAS, 'courseId', courseId)
+  }
+
+  async getAllSchedules(): Promise<Schedule[]> {
+    await this.init()
+    if (!this.db) throw new Error('Database not initialized')
+    return this.db.getAll(STORE_USER_AGENDAS)
   }
 
   async saveSchedule(schedule: Schedule): Promise<void> {
@@ -310,15 +324,114 @@ class IndexedDBStorage {
     const record = await this.db.get(STORE_CALENDAR, year)
     return record?.data || null
   }
+
+  async getCalendarRecord(
+    year: number,
+  ): Promise<{ year: number; data: MonthGroup[]; updatedAt: string } | null> {
+    await this.init()
+    if (!this.db) throw new Error('Database not initialized')
+
+    const record = await this.db.get(STORE_CALENDAR, year)
+    return (
+      (record as { year: number; data: MonthGroup[]; updatedAt: string }) ||
+      null
+    )
+  }
+
+  async getCalendarLastUpdateTime(year: number): Promise<Date | null> {
+    const record = await this.getCalendarRecord(year)
+    return record?.updatedAt ? new Date(record.updatedAt) : null
+  }
+
+  async removeCalendar(year: number): Promise<void> {
+    await this.init()
+    if (!this.db) throw new Error('Database not initialized')
+    await this.db.delete(STORE_CALENDAR, year)
+  }
+
+  // --- FUNÇÕES DO CARDÁPIO DO RU ---
+
+  async saveRuMenu(menu: RUMenuDay): Promise<void> {
+    await this.init()
+    if (!this.db) throw new Error('Database not initialized')
+
+    await this.db.put(STORE_RU, {
+      ...menu,
+      updatedAt: new Date().toISOString(),
+    })
+  }
+
+  async getRuMenu(campusId: number, date: string): Promise<RUMenuDay | null> {
+    await this.init()
+    if (!this.db) throw new Error('Database not initialized')
+
+    const key = `${campusId}-${date}`
+    const record = await this.db.get(STORE_RU, key)
+    return (record as RUMenuDay) || null
+  }
+
+  async saveRuMenuWeek(week: RUMenuWeek): Promise<void> {
+    await this.init()
+    if (!this.db) throw new Error('Database not initialized')
+
+    const now = new Date().toISOString()
+    const tx = this.db.transaction(STORE_RU, 'readwrite')
+
+    // Salva o resumo da semana
+    await tx.store.put({
+      ...week,
+      updatedAt: now,
+    })
+
+    // Salva também cada dia da semana individualmente
+    for (const day of week.days) {
+      await tx.store.put({
+        ...day,
+        updatedAt: now,
+      })
+    }
+
+    await tx.done
+  }
+
+  async getRuMenuWeek(
+    campusId: number,
+    weekStartDate: string,
+  ): Promise<RUMenuWeek | null> {
+    await this.init()
+    if (!this.db) throw new Error('Database not initialized')
+
+    const key = `${campusId}-week-${weekStartDate}`
+    const record = await this.db.get(STORE_RU, key)
+    return (record as RUMenuWeek) || null
+  }
 }
 
 // Instância singleton
 const storage = new IndexedDBStorage()
 
+export const getRuMenu = (campusId: number, date: string) =>
+  storage.getRuMenu(campusId, date)
+export const saveRuMenu = (menu: RUMenuDay) => storage.saveRuMenu(menu)
+
+export const getRuMenuWeek = (campusId: number, weekStartDate: string) =>
+  storage.getRuMenuWeek(campusId, weekStartDate)
+export const saveRuMenuWeek = (week: RUMenuWeek) => storage.saveRuMenuWeek(week)
+
 export const getSchedulesByCourse = (courseId: string) =>
   storage.getSchedulesByCourse(courseId)
+export const getAllSchedules = () => storage.getAllSchedules()
 export const saveSchedule = (s: Schedule) => storage.saveSchedule(s)
 export const deleteSchedule = (id: string) => storage.deleteSchedule(id)
+export const getCalendar = (year: number) => storage.getCalendar(year)
+export const getCalendarRecord = (year: number) =>
+  storage.getCalendarRecord(year)
+export const getCalendarLastUpdateTime = (year: number) =>
+  storage.getCalendarLastUpdateTime(year)
+export const removeCalendar = (year: number) => storage.removeCalendar(year)
+export const saveCalendar = (year: number, data: MonthGroup[]) =>
+  storage.saveCalendar(year, data)
+
 export const getCompletedSubjects = () => storage.getCompletedSubjects()
 export const saveCompletedSubjects = (s: string[]) =>
   storage.saveCompletedSubjects(s)
@@ -483,6 +596,24 @@ export const useScheduleStorage = () => {
     }
   }, [])
 
+  const getCalendarRecord = useCallback(async (year: number) => {
+    try {
+      return await storage.getCalendarRecord(year)
+    } catch (error) {
+      console.error('Erro ao buscar registro do calendário:', error)
+      return null
+    }
+  }, [])
+
+  const getCalendarLastUpdateTime = useCallback(async (year: number) => {
+    try {
+      return await storage.getCalendarLastUpdateTime(year)
+    } catch (error) {
+      console.error('Erro ao buscar tempo de atualização do calendário:', error)
+      return null
+    }
+  }, [])
+
   return {
     saveScheduleData,
     getScheduleData,
@@ -496,6 +627,8 @@ export const useScheduleStorage = () => {
     getLastUpdateTime,
     saveCalendar,
     getCalendar,
+    getCalendarRecord,
+    getCalendarLastUpdateTime,
   }
 }
 
@@ -695,68 +828,108 @@ export function useScheduleManager() {
   }
 }
 
+// Quantidade padrão de dias para expiração do cache do calendário
+export const CALENDAR_CACHE_MAX_AGE_DAYS = 7
+
+// Verifica se o cache do calendário expirou com base na quantidade de dias
+export function isCalendarCacheExpired(
+  updatedAt: string | Date | null | undefined,
+  maxAgeDays: number = CALENDAR_CACHE_MAX_AGE_DAYS,
+): boolean {
+  if (!updatedAt) return true
+  const lastUpdate =
+    typeof updatedAt === 'string' ? new Date(updatedAt) : updatedAt
+  if (isNaN(lastUpdate.getTime())) return true
+
+  const now = new Date()
+  const diffInMs = now.getTime() - lastUpdate.getTime()
+  const diffInDays = diffInMs / (1000 * 60 * 60 * 24)
+
+  return diffInDays >= maxAgeDays
+}
+
+// Normaliza e anota eventos importantes do calendário
+export function formatCalendarEvents(data: MonthGroup[]): MonthGroup[] {
+  return data.map((monthGroup) => {
+    const transformedEvents = monthGroup.events.map((event) => {
+      const normalizedDescription = normalizeWords(event.description)
+      const isImportant = importantTerms.some((term) =>
+        normalizedDescription.includes(term),
+      )
+      return { ...event, isImportant }
+    })
+    return { ...monthGroup, events: transformedEvents }
+  })
+}
+
 // --- NOVO HOOK GERENCIADOR DO CALENDÁRIO ---
 export function useCalendarManager() {
-  const { getCalendar, saveCalendar } = useScheduleStorage()
+  const {
+    getCalendar,
+    getCalendarRecord,
+    getCalendarLastUpdateTime,
+    saveCalendar,
+  } = useScheduleStorage()
+
+  const checkNeedsUpdate = useCallback(
+    async (
+      year: number,
+      maxAgeDays: number = CALENDAR_CACHE_MAX_AGE_DAYS,
+    ): Promise<boolean> => {
+      const lastUpdate = await getCalendarLastUpdateTime(year)
+      return isCalendarCacheExpired(lastUpdate, maxAgeDays)
+    },
+    [getCalendarLastUpdateTime],
+  )
 
   const fetchCalendar = useCallback(
-    async (year: number, forceRefresh: boolean = false) => {
+    async (
+      year: number,
+      forceRefresh: boolean = false,
+      maxAgeDays: number = CALENDAR_CACHE_MAX_AGE_DAYS,
+    ) => {
       try {
-        // 1. Tenta buscar do IndexedDB
+        // 1. Tenta buscar do IndexedDB se não for forceRefresh
         if (!forceRefresh) {
-          const cached = await getCalendar(year)
-          if (cached) {
-            const transformedCached = cached.map((monthGroup) => {
-              // Ordena os eventos dentro do mês por data
-              const transformedEvents = monthGroup.events.map((event) => {
-                const normalizedDescription = normalizeWords(event.description)
-                const isImportant = importantTerms.some((term) =>
-                  normalizedDescription.includes(term),
-                )
-                return { ...event, isImportant }
-              })
-              return { ...monthGroup, events: transformedEvents }
-            })
+          const cachedRecord = await getCalendarRecord(year)
 
-            return transformedCached
+          if (cachedRecord) {
+            const isExpired = isCalendarCacheExpired(
+              cachedRecord.updatedAt,
+              maxAgeDays,
+            )
+
+            // Se o cache ainda for válido (diferença < 7 dias), utiliza ele
+            if (!isExpired) {
+              return formatCalendarEvents(cachedRecord.data)
+            }
           }
         }
 
-        // 2. Se não existir ou for refresh forçado, chama a API
-        // Substitua pela chamada real do seu serviço/fetch
+        // 2. Se não existir, for refresh forçado ou tiver passado a quantidade de dias especificada, busca da API
         const data = await getCalendarService({ year })
 
-        // 3. Salva no banco
+        // 3. Salva no banco atualizando a data da última atualização
         await saveCalendar(year, data)
 
-        const transformedData = data.map((monthGroup) => {
-          // Ordena os eventos dentro do mês por data
-          const transformedEvents = monthGroup.events.map((event) => {
-            const normalizedDescription = normalizeWords(event.description)
-            const isImportant = importantTerms.some((term) =>
-              normalizedDescription.includes(term),
-            )
-            return { ...event, isImportant }
-          })
-          return { ...monthGroup, events: transformedEvents }
-        })
-
-        return transformedData
+        return formatCalendarEvents(data)
       } catch (error) {
         console.error('Erro ao buscar calendário:', error)
 
-        // Em caso de falha na API, tenta retornar o cache antigo se existir
+        // Em caso de falha na API, tenta retornar o cache antigo se existir (mesmo expirado)
         const cached = await getCalendar(year)
-        if (cached) return cached
+        if (cached) return formatCalendarEvents(cached)
 
         throw error
       }
     },
-    [getCalendar, saveCalendar],
+    [getCalendarRecord, getCalendar, saveCalendar],
   )
 
   return {
     fetchCalendar,
+    getCalendarLastUpdateTime,
+    checkNeedsUpdate,
   }
 }
 

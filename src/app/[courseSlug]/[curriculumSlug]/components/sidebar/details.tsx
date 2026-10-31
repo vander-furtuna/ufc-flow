@@ -1,6 +1,10 @@
 'use client'
 
-import { ChevronsUpDown, RefreshCcw, User } from 'lucide-react'
+import {
+  ArrowCounterClockwiseIcon,
+  CaretUpDownIcon,
+  UserIcon,
+} from '@phosphor-icons/react'
 import { useMemo } from 'react'
 
 import SelectSemesterDialog from '@/components/dialogs/select-semester-dialog'
@@ -89,9 +93,9 @@ export function Details({ code }: DetailsProps) {
             >
               <span className="text-sm leading-tight font-medium">{`${currentYear}.${currentSemester}`}</span>
 
-              <ChevronsUpDown
+              <CaretUpDownIcon
+                weight="bold"
                 className="text-foreground/70 size-3.5"
-                strokeWidth={2}
               />
             </button>
           </SelectSemesterDialog>
@@ -101,7 +105,8 @@ export function Details({ code }: DetailsProps) {
             disabled={isClassLoading}
             onClick={handleRefreshSubjectInformations}
           >
-            <RefreshCcw
+            <ArrowCounterClockwiseIcon
+              weight="bold"
               className={cn('size-4', isClassLoading && 'animate-spin')}
             />
           </button>
@@ -121,7 +126,10 @@ export function Details({ code }: DetailsProps) {
                   </strong>
 
                   <div className="flex items-center gap-0.5">
-                    <User className="text-muted-foreground inline size-4" />
+                    <UserIcon
+                      weight="bold"
+                      className="text-muted-foreground inline size-4"
+                    />
                     <span className="text-accent-foreground/80 text-xs font-medium">
                       {classItem.reservedSeats}
                     </span>

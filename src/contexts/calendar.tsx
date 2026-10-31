@@ -2,14 +2,26 @@
 
 import { useCalendarManager } from '@/lib/indexeddb'
 import type { MonthGroup } from '@/types/calendar'
-import { useQuery } from '@tanstack/react-query'
-import { createContext, useContext, useMemo } from 'react'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
+import { usePathname } from 'next/navigation'
 import { useClass } from './class'
 
 export type CalendarContextType = {
   monthGroups: MonthGroup[] | null
   events: MonthGroup['events']
   upcomingEvents: MonthGroup['events']
+  isLoading: boolean
+  isFetching: boolean
+  lastUpdatedAt: Date | null
+  refetchCalendar: () => Promise<void>
 }
 
 export const CalendarContext = createContext<CalendarContextType>(
@@ -18,15 +30,56 @@ export const CalendarContext = createContext<CalendarContextType>(
 
 export function CalendarProvider({ children }: { children: React.ReactNode }) {
   const { currentYear } = useClass()
-  const { fetchCalendar } = useCalendarManager()
+  const { fetchCalendar, getCalendarLastUpdateTime } = useCalendarManager()
+  const pathname = usePathname()
+  const queryClient = useQueryClient()
 
-  const { data: monthGroups } = useQuery({
+  // O fetch e verificação só devem ser acionados quando o usuário estiver na página do calendário
+  const isCalendarPage = pathname?.startsWith('/calendario') ?? false
+  const [lastUpdatedAt, setLastUpdatedAt] = useState<Date | null>(null)
+
+  const updateLastUpdateTime = useCallback(async () => {
+    if (currentYear) {
+      const time = await getCalendarLastUpdateTime(currentYear)
+      setLastUpdatedAt(time)
+    }
+  }, [currentYear, getCalendarLastUpdateTime])
+
+  const {
+    data: monthGroups,
+    isLoading,
+    isFetching,
+  } = useQuery({
     queryKey: ['calendar', currentYear],
-    queryFn: async () => await fetchCalendar(currentYear!),
-    enabled: !!currentYear,
+    queryFn: async () => {
+      const data = await fetchCalendar(currentYear!)
+      await updateLastUpdateTime()
+      return data
+    },
+    enabled: !!currentYear && isCalendarPage,
+    refetchOnMount: 'always',
+    refetchOnWindowFocus: false,
+    staleTime: 0,
   })
 
-  const events = monthGroups?.flatMap((group) => group.events) ?? []
+  // Sincroniza a data da última atualização ao entrar na página do calendário
+  useEffect(() => {
+    if (isCalendarPage && currentYear) {
+      updateLastUpdateTime()
+    }
+  }, [isCalendarPage, currentYear, updateLastUpdateTime])
+
+  const refetchCalendar = useCallback(async () => {
+    if (!currentYear) return
+    const data = await fetchCalendar(currentYear, true)
+    queryClient.setQueryData(['calendar', currentYear], data)
+    await updateLastUpdateTime()
+  }, [currentYear, fetchCalendar, queryClient, updateLastUpdateTime])
+
+  const events = useMemo(
+    () => monthGroups?.flatMap((group) => group.events) ?? [],
+    [monthGroups],
+  )
 
   const upcomingEvents = useMemo(() => {
     const now = new Date()
@@ -36,11 +89,11 @@ export function CalendarProvider({ children }: { children: React.ReactNode }) {
       now.getDate(),
     )
 
-    const events = monthGroups?.flatMap((group) => group.events)
+    const allEvents = monthGroups?.flatMap((group) => group.events)
 
-    if (!events) return []
+    if (!allEvents) return []
 
-    return events
+    return allEvents
       .filter((event) => {
         // Para eventos de intervalo, pegamos apenas o início para não repetir na sidebar
         if (event.isRange && !event.isRangeStart) return false
@@ -50,11 +103,26 @@ export function CalendarProvider({ children }: { children: React.ReactNode }) {
       .slice(0, 3)
   }, [monthGroups])
 
-  const value = {
-    monthGroups: monthGroups ?? null,
-    events,
-    upcomingEvents,
-  }
+  const value = useMemo(
+    () => ({
+      monthGroups: monthGroups ?? null,
+      events,
+      upcomingEvents,
+      isLoading,
+      isFetching,
+      lastUpdatedAt,
+      refetchCalendar,
+    }),
+    [
+      monthGroups,
+      events,
+      upcomingEvents,
+      isLoading,
+      isFetching,
+      lastUpdatedAt,
+      refetchCalendar,
+    ],
+  )
 
   return (
     <CalendarContext.Provider value={value}>

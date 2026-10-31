@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/dialog'
 import { useState, type ComponentProps } from 'react'
 import { Button } from '@/components/ui/button'
-import { AlertTriangle } from 'lucide-react'
+import { WarningIcon } from '@phosphor-icons/react'
 
 type DestructiveDialogProps = ComponentProps<typeof Dialog> & {
   title: string
@@ -38,7 +38,7 @@ export function DestructiveDialog({
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="z-900 gap-0 p-0">
         <DialogHeader className="border-border flex border-b p-5">
-          <AlertTriangle className="text-destructive size-10" />
+          <WarningIcon weight="bold" className="text-destructive size-10" />
           <DialogTitle className="font-clash text-destructive text-xl">
             {title}
           </DialogTitle>

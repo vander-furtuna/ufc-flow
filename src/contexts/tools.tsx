@@ -31,7 +31,7 @@ export function ToolsProvider({ children }: Readonly<{ children: ReactNode }>) {
   const [groupBy, setGroupBy] = useState<GroupBy>('semester')
   const [availability, setAvailability] = useState<Availability>('all')
   const [highlightUnavailable, setHighlightUnavailable] =
-    useState<boolean>(false)
+    useState<boolean>(true)
   const [isToolsLoaded, setIsToolsLoaded] = useState(false)
   const [prevCourseSlug, setPrevCourseSlug] = useState<string | undefined>(
     undefined,
@@ -60,11 +60,11 @@ export function ToolsProvider({ children }: Readonly<{ children: ReactNode }>) {
         if (saved) {
           setGroupBy(saved.groupBy ?? 'semester')
           setAvailability(saved.availability ?? 'all')
-          setHighlightUnavailable(saved.highlightUnavailable ?? false)
+          setHighlightUnavailable(saved.highlightUnavailable ?? true)
         } else {
           setGroupBy('semester')
           setAvailability('all')
-          setHighlightUnavailable(false)
+          setHighlightUnavailable(true)
         }
         setIsToolsLoaded(true)
       })
@@ -117,7 +117,7 @@ export function ToolsProvider({ children }: Readonly<{ children: ReactNode }>) {
   const resetTools = useCallback(() => {
     setGroupBy('semester')
     setAvailability('all')
-    setHighlightUnavailable(false)
+    setHighlightUnavailable(true)
   }, [])
 
   const value = useMemo(

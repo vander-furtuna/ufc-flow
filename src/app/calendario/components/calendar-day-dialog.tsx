@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/dialog'
 import { cn } from '@/lib/utils'
 import type { AcademicEvent } from '@/types/calendar'
-import { Calendar } from 'lucide-react'
+import { CalendarBlankIcon } from '@phosphor-icons/react'
 import type { ComponentProps } from 'react'
 
 type CalendarDayDialogProps = {
@@ -40,7 +40,7 @@ export default function CalendarDayDialog({
       <DialogContent className="z-1000 flex flex-col gap-0 overflow-y-visible p-0 sm:max-w-md [&>button:last-child]:top-3.5">
         <DialogHeader className="bg-accent/50 flex flex-row items-center gap-2 space-y-0 p-5 pr-10!">
           <div className="bg-foreground text-background flex items-center justify-center rounded-lg border p-2">
-            <Calendar className="h-5 w-5" />
+            <CalendarBlankIcon weight="bold" className="h-5 w-5" />
           </div>
           <DialogTitle className="font-clash text-left! text-lg first-letter:uppercase">
             {formatedDate}
@@ -54,7 +54,10 @@ export default function CalendarDayDialog({
         <div className="no-scrollbar max-h-[60vh] overflow-y-auto p-5">
           {events.length === 0 ? (
             <div className="text-muted-foreground py-12 text-center">
-              <Calendar className="mx-auto mb-4 h-12 w-12 opacity-20" />
+              <CalendarBlankIcon
+                weight="bold"
+                className="mx-auto mb-4 h-12 w-12 opacity-20"
+              />
               <p>Nenhum evento registrado para este dia.</p>
             </div>
           ) : (

@@ -1,11 +1,28 @@
+'use client'
+
 import { useSchedule } from '@/contexts/schedule'
+import { useClass } from '@/contexts/class'
+import { useCourse } from '@/contexts/course'
 import { useMediaQuery } from '@/hooks/use-media-query'
 import { dayToColIndex } from '@/utils/day-to-col'
 import { timeToMinutes } from '@/utils/time-to-minutes'
 import { cva } from 'class-variance-authority'
-import { Clock } from 'lucide-react'
-import type { ComponentProps } from 'react'
+import {
+  ArrowsLeftRightIcon,
+  ClockIcon,
+  TrashIcon,
+} from '@phosphor-icons/react'
+import { useState, type ComponentProps } from 'react'
 import { Fragment } from 'react/jsx-runtime'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import { SelectedSubjectDialog } from './selected-subject-dialog'
+import type { Subject } from '@/types/course'
 
 const ROW_HEIGHT = 60
 const HEADER_HEIGHT = 40
@@ -52,7 +69,15 @@ type CalendarProps = ComponentProps<'div'>
 
 export function Calendar({ ref, ...props }: CalendarProps) {
   const isMobile = useMediaQuery('(max-width: 768px)')
-  const { scheduleClasses } = useSchedule()
+  const { scheduleClasses, removeClassFromSchedule } = useSchedule()
+  const { getSubjectInformationByCode } = useClass()
+  const { selectedCurriculum } = useCourse()
+
+  const [exchangeSubject, setExchangeSubject] = useState<Subject | null>(null)
+  const [isExchangeOpen, setIsExchangeOpen] = useState(false)
+  const [activeDropdownKey, setActiveDropdownKey] = useState<string | null>(
+    null,
+  )
 
   return (
     <section
@@ -69,7 +94,7 @@ export function Calendar({ ref, ...props }: CalendarProps) {
         }}
       >
         <div className="bg-accent/70 border-border/80 sticky top-0 left-0 z-40 flex h-full items-center justify-center border-r border-b backdrop-blur-lg">
-          <Clock className="size-5 text-gray-400" />
+          <ClockIcon weight="bold" className="size-5 text-gray-400" />
         </div>
 
         {(isMobile ? shortDays : days).map((d, i) => (
@@ -127,30 +152,100 @@ export function Calendar({ ref, ...props }: CalendarProps) {
                 const topPx = (startOffset / 60) * ROW_HEIGHT
                 const heightPx = (duration / 60) * ROW_HEIGHT
 
+                const info = getSubjectInformationByCode(slot.classInfo.code)
+                const availableClasses = info?.classes || []
+                const hasMultipleClasses = availableClasses.length > 1
+                const subjectObj =
+                  selectedCurriculum?.subjects.find(
+                    (s) => s.code === slot.classInfo.code,
+                  ) ||
+                  ({
+                    id: slot.classInfo.code,
+                    code: slot.classInfo.code,
+                    name: slot.classInfo.name,
+                    semester: 0,
+                    duration: 0,
+                    nature: 'OBRIGATÓRIA',
+                    type: 'DISCIPLINA',
+                    branch: [],
+                    prerequisites: [],
+                    equivalences: [],
+                    corequisites: [],
+                    slug: '',
+                  } as Subject)
+
+                const dropdownKey = `${slot.classInfo.code}-${slot.id}-${idx}`
+
                 return (
-                  <div
-                    key={`${slot.id}-${idx}`}
-                    className={cardContainerVariants({
-                      color: slot.classInfo.color,
-                    })}
-                    style={{
-                      top: `${topPx}px`,
-                      height: `${heightPx}px`,
+                  <DropdownMenu
+                    key={dropdownKey}
+                    open={activeDropdownKey === dropdownKey}
+                    onOpenChange={(open) => {
+                      setActiveDropdownKey(open ? dropdownKey : null)
                     }}
                   >
-                    <div className="leading-tight font-bold text-inherit">
-                      {slot.classInfo.name}
-                    </div>
-                    <div className="truncate text-[10px] text-inherit">
-                      {slot.classInfo.code} • Turma {slot.classInfo.sectionId}
-                    </div>
-                  </div>
+                    <DropdownMenuTrigger asChild>
+                      <div
+                        className={cardContainerVariants({
+                          color: slot.classInfo.color,
+                        })}
+                        style={{
+                          top: `${topPx}px`,
+                          height: `${heightPx}px`,
+                        }}
+                      >
+                        <div className="leading-tight font-bold text-inherit">
+                          {slot.classInfo.name}
+                        </div>
+                        <div className="truncate text-[10px] text-inherit">
+                          {slot.classInfo.code} • Turma{' '}
+                          {slot.classInfo.sectionId}
+                        </div>
+                      </div>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent
+                      align="center"
+                      className="z-900 min-w-36"
+                    >
+                      {hasMultipleClasses && (
+                        <DropdownMenuItem
+                          onSelect={() => {
+                            setExchangeSubject(subjectObj)
+                            setIsExchangeOpen(true)
+                          }}
+                          className="cursor-pointer gap-2"
+                        >
+                          <ArrowsLeftRightIcon
+                            weight="bold"
+                            className="size-4"
+                          />
+                          <span>Trocar turma</span>
+                        </DropdownMenuItem>
+                      )}
+                      {hasMultipleClasses && <DropdownMenuSeparator />}
+                      <DropdownMenuItem
+                        onSelect={() => removeClassFromSchedule(slot.classInfo)}
+                        className="cursor-pointer gap-2 text-red-600 focus:bg-red-500/10 focus:text-red-600 dark:text-red-400 dark:focus:bg-red-500/20 dark:focus:text-red-300"
+                      >
+                        <TrashIcon weight="bold" className="size-4" />
+                        <span>Deletar</span>
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 )
               })}
             </div>
           )
         })}
       </div>
+
+      {exchangeSubject && (
+        <SelectedSubjectDialog
+          open={isExchangeOpen}
+          onOpenChange={setIsExchangeOpen}
+          subject={exchangeSubject}
+        />
+      )}
     </section>
   )
 }

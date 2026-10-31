@@ -1,4 +1,4 @@
-import { Check } from 'lucide-react'
+import { CheckIcon } from '@phosphor-icons/react'
 import { type ComponentProps, forwardRef } from 'react'
 
 import { cn } from '@/lib/utils'
@@ -16,9 +16,9 @@ export const CheckboxBox = forwardRef<HTMLDivElement, CheckboxBoxProps>(
         )}
         {...rest}
       >
-        <Check
+        <CheckIcon
+          weight="bold"
           className="text-primary-foreground hidden size-4 group-has-checked:block"
-          strokeWidth={3}
         />
       </div>
     )

@@ -1,4 +1,9 @@
-import { ChevronDown, ChevronsUpDown, Hourglass, MapPin } from 'lucide-react'
+import {
+  CaretDownIcon,
+  CaretUpDownIcon,
+  HourglassIcon,
+  MapPinIcon,
+} from '@phosphor-icons/react'
 import { useState, type ComponentProps, type JSX } from 'react'
 
 import { useCourse } from '@/contexts/course'
@@ -64,7 +69,10 @@ export function CurriculumInformations({
         </div>
         <Link href="/cursos">
           <Button variant="ghost" size="icon">
-            <ChevronsUpDown className="text-muted-foreground/70 size-5" />
+            <CaretUpDownIcon
+              weight="bold"
+              className="text-muted-foreground/70 size-5"
+            />
           </Button>
         </Link>
       </div>
@@ -73,17 +81,35 @@ export function CurriculumInformations({
         <div className="flex gap-1">
           <InfoPill
             label={selectedCurriculum?.period}
-            icon={<Hourglass className="text-accent-foreground/80 size-4" />}
+            icon={
+              <HourglassIcon
+                weight="bold"
+                className="text-accent-foreground/80 size-4"
+              />
+            }
           />
           <InfoPill
             label={selectedCurriculum?.city}
-            icon={<MapPin className="text-accent-foreground/80 size-4" />}
+            icon={
+              <MapPinIcon
+                weight="bold"
+                className="text-accent-foreground/80 size-4"
+              />
+            }
           />
           <InfoPill
             label="Vertentes"
-            icon={<MapPin className="text-accent-foreground/80 size-4" />}
+            icon={
+              <MapPinIcon
+                weight="bold"
+                className="text-accent-foreground/80 size-4"
+              />
+            }
             postIcon={
-              <ChevronDown className="text-muted-foreground/70 size-4" />
+              <CaretDownIcon
+                weight="bold"
+                className="text-muted-foreground/70 size-4"
+              />
             }
             onClick={() => setShowBranchs(!showBranchs)}
           />

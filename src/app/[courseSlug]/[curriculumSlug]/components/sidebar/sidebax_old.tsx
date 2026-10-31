@@ -1,13 +1,13 @@
 import {
-  Calendar,
-  Clock,
-  Copy,
-  Download,
-  Loader2,
-  Pin,
-  Tag,
-  X,
-} from 'lucide-react'
+  CalendarBlankIcon,
+  CircleNotchIcon,
+  ClockIcon,
+  CopyIcon,
+  DownloadSimpleIcon,
+  PushPinIcon,
+  TagIcon,
+  XIcon,
+} from '@phosphor-icons/react'
 import { AnimatePresence, motion } from 'motion/react'
 import { useCallback, useMemo } from 'react'
 import { toast } from 'sonner'
@@ -137,7 +137,7 @@ export function Sidebar() {
                   className="center hover:bg-foreground/20 absolute top-3 right-3 size-6 rounded-md transition-colors"
                   onClick={handleUnselectSubject}
                 >
-                  <X className="size-5 opacity-70" />
+                  <XIcon weight="bold" className="size-5 opacity-70" />
                 </button>
                 <strong className="font-clash center w-full text-center text-lg font-semibold drop-shadow-lg dark:text-slate-50">
                   {selectedSubject.name}
@@ -151,7 +151,7 @@ export function Sidebar() {
                       {selectedSubject.code}
                     </span>
                     <figure className="size-4">
-                      <Copy strokeWidth={2.5} className="size-3" />
+                      <CopyIcon weight="bold" className="size-3" />
                     </figure>
                   </button>
                   <button
@@ -164,9 +164,12 @@ export function Sidebar() {
                     }
                   >
                     {isLoading ? (
-                      <Loader2 className="size-4 animate-spin" />
+                      <CircleNotchIcon
+                        weight="bold"
+                        className="size-4 animate-spin"
+                      />
                     ) : (
-                      <Download strokeWidth={2.5} className="size-4" />
+                      <DownloadSimpleIcon weight="bold" className="size-4" />
                     )}
                   </button>
                 </div>
@@ -174,14 +177,16 @@ export function Sidebar() {
               <div className="relative z-20 flex flex-col gap-2">
                 <div className="center gap-1">
                   <Pill
-                    Icon={<Pin strokeWidth={2} className="size-4" />}
+                    Icon={<PushPinIcon weight="bold" className="size-4" />}
                     label={capitalizeWords(selectedSubject.nature)}
                     colors={glowColor}
                     isActive={natureFilter.includes(selectedSubject.nature)}
                     onClick={() => setNatureFilter([selectedSubject.nature])}
                   />
                   <Pill
-                    Icon={<Calendar strokeWidth={2} className="size-4" />}
+                    Icon={
+                      <CalendarBlankIcon weight="bold" className="size-4" />
+                    }
                     label={`${selectedSubject.semester}º`}
                     colors={glowColor}
                     isActive={semesterFilter.includes(selectedSubject.semester)}
@@ -190,7 +195,7 @@ export function Sidebar() {
                     }
                   />
                   <Pill
-                    Icon={<Clock strokeWidth={2} className="size-4" />}
+                    Icon={<ClockIcon weight="bold" className="size-4" />}
                     label={`${selectedSubject.duration}h`}
                     colors={glowColor}
                     isActive={durationFilter.includes(selectedSubject.duration)}
@@ -203,7 +208,7 @@ export function Sidebar() {
                   {getBranchs.map((branch) => (
                     <Pill
                       key={branch.id}
-                      Icon={<Tag strokeWidth={2} className="size-4" />}
+                      Icon={<TagIcon weight="bold" className="size-4" />}
                       label={branch.name}
                       colors={glowColor}
                       isActive={branchFilter.includes(branch.id)}

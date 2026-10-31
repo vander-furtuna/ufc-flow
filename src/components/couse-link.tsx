@@ -1,18 +1,23 @@
 'use client'
 
 import { saveSlugToCookie } from '@/services/slug/save-slug'
-import type { Course } from '@/types/course'
-import { ChevronRight, Hourglass, MapPin, Star } from 'lucide-react'
+import type { Course, CourseIconName } from '@/types/course'
+import {
+  CaretRightIcon,
+  HourglassIcon,
+  MapPinIcon,
+  StarIcon,
+} from '@phosphor-icons/react'
 import { useCallback, useState, type ComponentProps } from 'react'
 import { useRouter } from 'next/navigation'
-import { DynamicIcon, type IconName } from 'lucide-react/dynamic'
+import { CourseDynamicIcon } from './course-dynamic-icon'
 import { AnimatePresence, motion } from 'motion/react'
 import { Glow } from './glow'
 import { cn } from '@/lib/utils'
 
 type CourseLinkProps = {
   course: Course
-  icon: IconName
+  icon: CourseIconName
 } & ComponentProps<'button'>
 
 export function CourseLink({ course, icon, ...props }: CourseLinkProps) {
@@ -63,8 +68,9 @@ export function CourseLink({ course, icon, ...props }: CourseLinkProps) {
         />
 
         <div className="z-20 flex items-center gap-4">
-          <DynamicIcon
+          <CourseDynamicIcon
             name={icon}
+            weight="bold"
             className={cn(
               'text-muted-foreground group-hover/link:text-foreground/90 size-8 transition-all',
               isOpen && 'text-foreground/90',
@@ -77,20 +83,22 @@ export function CourseLink({ course, icon, ...props }: CourseLinkProps) {
             <div className="flex gap-0.5 text-left text-sm">
               {hasOneStructure && (
                 <span className="bg-background/30 border-border/50 flex items-center gap-1 rounded-full border px-2 py-0.5">
-                  <Hourglass className="size-4" />
+                  <HourglassIcon weight="bold" className="size-4" />
                   {course.curriculumStructures[0].period}
                 </span>
               )}
               <span className="border-border/50 bg-background/30 flex items-center gap-1 rounded-full border px-2 py-0.5">
-                <MapPin className="size-4" />
+                <MapPinIcon weight="bold" className="size-4" />
                 {course.curriculumStructures[0].city}
               </span>
             </div>
           </div>
         </div>
-        <ChevronRight
+        <CaretRightIcon
+          weight="bold"
           className={cn(
-            'text-muted-foreground/70 group-hover/link:text-muted-foreground transition group-hover/link:translate-x-2',
+            'text-muted-foreground/70 group-hover/link:text-muted-foreground size-6 transition',
+            hasOneStructure && 'group-hover/link:translate-x-2',
             isOpen && 'rotate-90',
           )}
         />
@@ -116,12 +124,18 @@ export function CourseLink({ course, icon, ...props }: CourseLinkProps) {
                     className="bg-accent border-border group/link relative flex cursor-pointer items-center justify-between gap-1 overflow-hidden rounded-full border py-0.5 pr-1.5 pl-3"
                   >
                     {structure.isCurrent && (
-                      <Star className="text-foreground size-4" />
+                      <StarIcon
+                        weight="bold"
+                        className="text-foreground size-4"
+                      />
                     )}
                     <strong className="font-clash text-left text-lg leading-tight font-medium">
                       {structure.period}
                     </strong>
-                    <ChevronRight className="text-muted-foreground/70 group-hover/link:text-muted-foreground size-4 transition group-hover/link:translate-x-1" />
+                    <CaretRightIcon
+                      weight="bold"
+                      className="text-muted-foreground/70 group-hover/link:text-muted-foreground size-4 transition group-hover/link:translate-x-1"
+                    />
                   </button>
                 </li>
               ))}

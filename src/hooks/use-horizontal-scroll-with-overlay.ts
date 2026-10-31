@@ -1,10 +1,25 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
-import { useHorizontalScroll } from './use-horizontal-scroll'
+import {
+  useHorizontalScroll,
+  type HorizontalScrollOptions,
+} from './use-horizontal-scroll'
 
-export function useHorizontalScrollWithOverlay<T extends HTMLElement>() {
-  const scrollRefCallback = useHorizontalScroll<T>()
+export interface HorizontalScrollWithOverlayOptions extends HorizontalScrollOptions {
+  /**
+   * Distância mínima em pixels para ativar a visibilidade das sombras.
+   * Evita oscilações causadas por arredondamento de subpixels ou DPI scaling.
+   * @default 8
+   */
+  threshold?: number
+}
+
+export function useHorizontalScrollWithOverlay<T extends HTMLElement>(
+  options: HorizontalScrollWithOverlayOptions = {},
+) {
+  const { threshold = 8, ...scrollOptions } = options
+  const scrollRefCallback = useHorizontalScroll<T>(scrollOptions)
   const [element, setElement] = useState<T | null>(null)
 
   // Estados para controlar a visibilidade das sombras de gradiente
@@ -28,14 +43,14 @@ export function useHorizontalScrollWithOverlay<T extends HTMLElement>() {
       const hasHorizontalOverflow = element.scrollWidth > element.clientWidth
 
       if (hasHorizontalOverflow) {
-        // Mostra a sombra esquerda se o scroll passou do início (com tolerância de 2px)
-        setShowLeftShadow(element.scrollLeft > 2)
+        // Mostra a sombra esquerda se o scroll passou do início respeitando o threshold
+        setShowLeftShadow(element.scrollLeft > threshold)
 
-        // Mostra a sombra direita se a distância até o final for maior que 2px
+        // Mostra a sombra direita se a distância até o final for maior que o threshold
         const maxScrollLeft = element.scrollWidth - element.clientWidth
-        const isAtEnd = Math.abs(element.scrollLeft - maxScrollLeft) <= 2
+        const distanceToEnd = maxScrollLeft - element.scrollLeft
 
-        setShowRightShadow(!isAtEnd)
+        setShowRightShadow(distanceToEnd > threshold)
       } else {
         // Se não houver overflow, esconde ambas as sombras
         setShowLeftShadow(false)
@@ -43,22 +58,60 @@ export function useHorizontalScrollWithOverlay<T extends HTMLElement>() {
       }
     }
 
-    // Verifica o estado inicial assim que o componente é montado e sempre que os 'times' mudam
+    // Verifica o estado inicial assim que o componente é montado
     checkScroll()
 
-    // Adiciona um ouvinte para o evento de scroll no elemento
-    element.addEventListener('scroll', checkScroll)
+    // Adiciona ouvinte com { passive: true } para não impactar performance de rolagem
+    element.addEventListener('scroll', checkScroll, { passive: true })
 
-    // Usa um ResizeObserver para re-verificar caso o tamanho do container mude (ex: rotação da tela)
+    // Usa ResizeObserver para atualizar estado caso o container mude de tamanho
     const resizeObserver = new ResizeObserver(checkScroll)
     resizeObserver.observe(element)
 
-    // Função de limpeza para remover os ouvintes quando o componente for desmontado
+    // Função de limpeza
     return () => {
       element.removeEventListener('scroll', checkScroll)
       resizeObserver.unobserve(element)
     }
+  }, [element, threshold])
+
+  // Funções utilitárias de navegação programática
+  const scrollToNext = useCallback(
+    (amount?: number) => {
+      if (!element) return
+      const step = amount ?? element.clientWidth * 0.75
+      element.scrollBy({ left: step, behavior: 'smooth' })
+    },
+    [element],
+  )
+
+  const scrollToPrev = useCallback(
+    (amount?: number) => {
+      if (!element) return
+      const step = amount ?? element.clientWidth * 0.75
+      element.scrollBy({ left: -step, behavior: 'smooth' })
+    },
+    [element],
+  )
+
+  const scrollToStart = useCallback(() => {
+    if (!element) return
+    element.scrollTo({ left: 0, behavior: 'smooth' })
   }, [element])
 
-  return { scrollRef, showLeftShadow, showRightShadow }
+  const scrollToEnd = useCallback(() => {
+    if (!element) return
+    element.scrollTo({ left: element.scrollWidth, behavior: 'smooth' })
+  }, [element])
+
+  return {
+    scrollRef,
+    showLeftShadow,
+    showRightShadow,
+    element,
+    scrollToNext,
+    scrollToPrev,
+    scrollToStart,
+    scrollToEnd,
+  }
 }

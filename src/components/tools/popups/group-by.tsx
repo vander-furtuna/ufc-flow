@@ -8,7 +8,7 @@ import {
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { useTools } from '@/contexts/tools'
 import type { GroupBy } from '@/types/tools'
-import { Group } from 'lucide-react'
+import { SquaresFourIcon } from '@phosphor-icons/react'
 
 const options = [
   { value: 'semester', label: 'Semestre' },
@@ -26,7 +26,10 @@ export function GroupByPopup() {
   return (
     <Popover>
       <PopoverTrigger asChild className="group">
-        <PopupTrigger icon={<Group className="size-4" />} label="Agrupar por" />
+        <PopupTrigger
+          icon={<SquaresFourIcon weight="bold" className="size-4" />}
+          label="Agrupar por"
+        />
       </PopoverTrigger>
       <PopoverContent
         className="border-border bg-accent/50 flex w-fit flex-col gap-4 backdrop-blur-md"

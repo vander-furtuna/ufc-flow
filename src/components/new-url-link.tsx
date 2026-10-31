@@ -1,6 +1,6 @@
 'use client'
 
-import { ExternalLink } from 'lucide-react'
+import { ArrowSquareOutIcon } from '@phosphor-icons/react'
 import { type ComponentProps } from 'react'
 
 import { cn } from '@/lib/utils'
@@ -25,7 +25,10 @@ export function NewUrlLink({ className, ...rest }: NewUrlLinkProps) {
         </strong>
         <span className="text-xs">flow.ufc.br | Acesse aqui!</span>
       </div>
-      <ExternalLink className="text-muted-foreground size-4 shrink-0" />
+      <ArrowSquareOutIcon
+        weight="bold"
+        className="text-muted-foreground size-4 shrink-0"
+      />
     </a>
   )
 }

@@ -1,4 +1,4 @@
-import { ChevronsUpDown } from 'lucide-react'
+import { CaretUpDownIcon } from '@phosphor-icons/react'
 import { type ComponentProps, useCallback } from 'react'
 import { toast } from 'sonner'
 
@@ -34,7 +34,10 @@ export function ToggleButton({
           {content}
         </strong>
       </div>
-      <ChevronsUpDown className="text-muted-foreground size-4 shrink-0 opacity-35" />
+      <CaretUpDownIcon
+        weight="bold"
+        className="text-muted-foreground size-4 shrink-0 opacity-35"
+      />
     </button>
   )
 }

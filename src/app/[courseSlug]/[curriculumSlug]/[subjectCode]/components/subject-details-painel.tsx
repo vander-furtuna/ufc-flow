@@ -1,5 +1,12 @@
 import { Glow } from '@/components/glow'
-import { ArrowLeft, Calendar, ChevronUp, Clock, Copy, Pin } from 'lucide-react'
+import {
+  ArrowLeftIcon,
+  CalendarBlankIcon,
+  CaretUpIcon,
+  ClockIcon,
+  CopyIcon,
+  PushPinIcon,
+} from '@phosphor-icons/react'
 import { Pill } from '../../components/sidebar/pill'
 import { capitalizeWords } from '@/utils/capitalize-words'
 import { cn } from '@/lib/utils'
@@ -56,7 +63,7 @@ export function SubjectDetailsPainel({
         onClick={onBack}
         className="z-20 mr-auto flex cursor-pointer items-center text-sm"
       >
-        <ArrowLeft size={16} className="mr-1" />
+        <ArrowLeftIcon weight="bold" size={16} className="mr-1" />
         {isInfoPanelOpen && <span>Voltar para Semestres</span>}
       </button>
       <h2
@@ -75,7 +82,7 @@ export function SubjectDetailsPainel({
         >
           <span className="font-clash text-sm">{subject.code}</span>
           <figure className="size-4">
-            <Copy strokeWidth={2.5} className="size-3" />
+            <CopyIcon weight="bold" className="size-3" />
           </figure>
         </button>
       )}
@@ -83,17 +90,17 @@ export function SubjectDetailsPainel({
       {isInfoPanelOpen && (
         <div className="center mt-1 flex-wrap gap-1">
           <Pill
-            Icon={<Pin strokeWidth={2} className="size-4" />}
+            Icon={<PushPinIcon weight="bold" className="size-4" />}
             label={capitalizeWords(subject.nature)}
             colors={glowColor}
           />
           <Pill
-            Icon={<Calendar strokeWidth={2} className="size-4" />}
+            Icon={<CalendarBlankIcon weight="bold" className="size-4" />}
             label={`${subject.semester}º`}
             colors={glowColor}
           />
           <Pill
-            Icon={<Clock strokeWidth={2} className="size-4" />}
+            Icon={<ClockIcon weight="bold" className="size-4" />}
             label={`${subject.duration}h`}
             colors={glowColor}
           />
@@ -112,7 +119,8 @@ export function SubjectDetailsPainel({
         className={cn('bg-accent/30 mt-2 rounded-full px-2 py-0.5')}
         onClick={() => setIsInfoPanelOpen((prev) => !prev)}
       >
-        <ChevronUp
+        <CaretUpIcon
+          weight="bold"
           className={cn(
             'text-foreground/85 size-6 transition-transform duration-300',
             isInfoPanelOpen ? '' : 'rotate-180',

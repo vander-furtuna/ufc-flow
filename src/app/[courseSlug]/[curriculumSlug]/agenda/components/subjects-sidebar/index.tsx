@@ -2,7 +2,7 @@
 
 import { useCourse } from '@/contexts/course'
 import { useClass } from '@/contexts/class'
-import { ChevronUp, HelpCircle } from 'lucide-react'
+import { CaretUpIcon, QuestionIcon } from '@phosphor-icons/react'
 import { useState } from 'react'
 import Link from 'next/link'
 import { Logo } from '@/components/logo'
@@ -41,7 +41,10 @@ export function SubjectsSidebar({
           data-state={isMobileMenuExpanded ? 'expanded' : 'collapsed'}
           onClick={() => setIsMobileMenuExpanded(!isMobileMenuExpanded)}
         >
-          <ChevronUp className="size-5 transition-all group-data-[state=expanded]/mobile-menu:rotate-180" />
+          <CaretUpIcon
+            weight="bold"
+            className="size-5 transition-all group-data-[state=expanded]/mobile-menu:rotate-180"
+          />
         </button>
       </div>
       <div
@@ -88,7 +91,10 @@ export function SubjectsSidebar({
             {!wasTutorialShown && (
               <div className="absolute top-2 right-2 size-2 animate-pulse rounded-full bg-amber-500 dark:bg-yellow-400" />
             )}
-            <HelpCircle className="text-muted-foreground size-5" />
+            <QuestionIcon
+              weight="bold"
+              className="text-muted-foreground size-5"
+            />
           </Button>
           <ModeToggle />
         </div>

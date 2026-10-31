@@ -1,8 +1,10 @@
+'use client'
+
 import { Glow } from '@/components/glow'
 import { useCalendar } from '@/contexts/calendar'
 import { COLORS } from '@/data/colors'
 import { cn } from '@/lib/utils'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { CaretLeftIcon, CaretRightIcon } from '@phosphor-icons/react'
 import { useMemo, useState } from 'react'
 import CalendarDayDialog from './calendar-day-dialog'
 
@@ -20,7 +22,7 @@ const toUtcIsoDate = (year: number, monthIndex: number, day: number) => {
 }
 
 export function CalendarView() {
-  const { events } = useCalendar()
+  const { events, isLoading } = useCalendar()
 
   const [currentDate, setCurrentDate] = useState(new Date())
   const [selectedDay, setSelectedDay] = useState<number | null>(null)
@@ -169,7 +171,7 @@ export function CalendarView() {
             onClick={prevMonth}
             className="hover:bg-muted text-foreground border-border rounded-full border p-2 transition-colors"
           >
-            <ChevronLeft className="h-5 w-5" />
+            <CaretLeftIcon weight="bold" className="h-5 w-5" />
           </button>
           <button
             onClick={() => setCurrentDate(new Date())}
@@ -181,7 +183,7 @@ export function CalendarView() {
             onClick={nextMonth}
             className="hover:bg-muted text-foreground border-border rounded-full border p-2 transition-colors"
           >
-            <ChevronRight className="h-5 w-5" />
+            <CaretRightIcon weight="bold" className="h-5 w-5" />
           </button>
         </div>
       </div>
@@ -197,7 +199,12 @@ export function CalendarView() {
         ))}
       </div>
 
-      <div className="border-border no-scrollbar grid max-h-full auto-rows-[8rem] grid-cols-7 overflow-y-auto border-l">
+      <div
+        className={cn(
+          'border-border no-scrollbar grid max-h-full auto-rows-[8rem] grid-cols-7 overflow-y-auto border-l',
+          isLoading && events.length === 0 && 'animate-pulse opacity-60',
+        )}
+      >
         {renderCalendarDays()}
       </div>
 

@@ -4,7 +4,7 @@ import { useClass } from '@/contexts/class'
 import SelectSemesterDialog from './dialogs/select-semester-dialog'
 import { Logo } from './logo'
 import { ModeToggle } from './theme-toggle'
-import { CalendarFold } from 'lucide-react'
+import { CalendarBlankIcon } from '@phosphor-icons/react'
 
 export function Header() {
   const { currentSemester, currentYear, isClassLoading } = useClass()
@@ -24,7 +24,10 @@ export function Header() {
               className="group/filter relative flex shrink-0 cursor-pointer items-center justify-center gap-1.5 overflow-hidden rounded-full py-1.5"
               disabled={isClassLoading}
             >
-              <CalendarFold className="text-muted-foreground group-data-[active=active]/filter:text-foreground z-10 size-4" />
+              <CalendarBlankIcon
+                weight="bold"
+                className="text-muted-foreground group-data-[active=active]/filter:text-foreground z-10 size-4"
+              />
               <span className="z-10 text-xs text-nowrap">
                 {currentYear}.{currentSemester}
               </span>

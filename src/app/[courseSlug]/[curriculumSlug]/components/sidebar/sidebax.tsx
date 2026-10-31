@@ -1,15 +1,15 @@
 import {
-  Calendar,
-  ChevronRight,
-  Clock,
-  Copy,
-  Download,
-  Loader2,
-  Network,
-  Pin,
-  Tag,
-  X,
-} from 'lucide-react'
+  CalendarBlankIcon,
+  CaretRightIcon,
+  CircleNotchIcon,
+  ClockIcon,
+  CopyIcon,
+  DownloadSimpleIcon,
+  PushPinIcon,
+  TagIcon,
+  TreeStructureIcon,
+  XIcon,
+} from '@phosphor-icons/react'
 import { useCallback } from 'react'
 import { toast } from 'sonner'
 
@@ -118,7 +118,7 @@ export function Sidebar() {
               className="center hover:bg-foreground/20 absolute top-3 right-3 size-8 rounded-md transition-colors"
               onClick={handleUnselectSubject}
             >
-              <X className="size-5 opacity-70" />
+              <XIcon weight="bold" className="size-5 opacity-70" />
             </button>
             {selectedSubject?.name && (
               <strong className="font-clash center w-full text-center text-xl font-semibold drop-shadow-lg dark:text-slate-50">
@@ -137,7 +137,7 @@ export function Sidebar() {
                     {selectedSubject.code}
                   </span>
                   <figure className="size-4">
-                    <Copy strokeWidth={2.5} className="size-3" />
+                    <CopyIcon weight="bold" className="size-3" />
                   </figure>
                 </button>
               )}
@@ -152,9 +152,12 @@ export function Sidebar() {
                   }
                 >
                   {isLoading ? (
-                    <Loader2 className="size-4 animate-spin" />
+                    <CircleNotchIcon
+                      weight="bold"
+                      className="size-4 animate-spin"
+                    />
                   ) : (
-                    <Download strokeWidth={2.5} className="size-4" />
+                    <DownloadSimpleIcon weight="bold" className="size-4" />
                   )}
                 </button>
               )}
@@ -162,21 +165,21 @@ export function Sidebar() {
             {selectedSubject && (
               <div className="center flex-wrap gap-1">
                 <Pill
-                  Icon={<Pin strokeWidth={2} className="size-4" />}
+                  Icon={<PushPinIcon weight="bold" className="size-4" />}
                   label={capitalizeWords(selectedSubject.nature)}
                   colors={glowColor}
                   isActive={natureFilter.includes(selectedSubject.nature)}
                   onClick={() => setNatureFilter([selectedSubject.nature])}
                 />
                 <Pill
-                  Icon={<Calendar strokeWidth={2} className="size-4" />}
+                  Icon={<CalendarBlankIcon weight="bold" className="size-4" />}
                   label={`${selectedSubject.semester}º`}
                   colors={glowColor}
                   isActive={semesterFilter.includes(selectedSubject.semester)}
                   onClick={() => setSemesterFilter([selectedSubject.semester])}
                 />
                 <Pill
-                  Icon={<Clock strokeWidth={2} className="size-4" />}
+                  Icon={<ClockIcon weight="bold" className="size-4" />}
                   label={`${selectedSubject.duration}h`}
                   colors={glowColor}
                   isActive={durationFilter.includes(selectedSubject.duration)}
@@ -189,7 +192,7 @@ export function Sidebar() {
               {getBranchs.map((branch) => (
                 <Pill
                   key={branch.id}
-                  Icon={<Tag strokeWidth={2} className="size-4" />}
+                  Icon={<TagIcon weight="bold" className="size-4" />}
                   label={branch.name}
                   colors={glowColor}
                   isActive={branchFilter.includes(branch.id)}
@@ -205,11 +208,17 @@ export function Sidebar() {
                 onClick={handleGoToSubject}
               >
                 <div className="flex items-center gap-2">
-                  <Network className="text-foreground/80 size-4.5" />
+                  <TreeStructureIcon
+                    weight="bold"
+                    className="text-foreground/80 size-4.5"
+                  />
                   <span className="text-sm">Visualização em árvore</span>
                 </div>
 
-                <ChevronRight className="text-foreground/70 size-4" />
+                <CaretRightIcon
+                  weight="bold"
+                  className="text-foreground/70 size-4"
+                />
               </button>
             </div>
           )}

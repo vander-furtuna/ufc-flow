@@ -1,4 +1,5 @@
-import type { IconName } from 'lucide-react/dynamic'
+export type CourseIconName =
+  'cpu' | 'zap' | 'brain' | 'coins' | 'dollar-sign' | 'music' | (string & {})
 
 export type Nature =
   | 'OBRIGATÓRIA'
@@ -90,7 +91,7 @@ export type Course = {
   id: string
   slug: string
   name: string
-  icon: IconName
+  icon: CourseIconName
   color?: string
   isActive?: boolean
   curriculumStructures: CurriculumStructure[]

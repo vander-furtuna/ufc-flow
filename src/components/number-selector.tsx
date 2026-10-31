@@ -1,6 +1,6 @@
 'use client'
 
-import { ChevronDown, ChevronUp } from 'lucide-react'
+import { CaretDownIcon, CaretUpIcon } from '@phosphor-icons/react'
 import { AnimatePresence, motion } from 'motion/react'
 import type React from 'react'
 import { useCallback, useEffect, useRef, useState } from 'react'
@@ -185,7 +185,10 @@ export default function NumberSelector({
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
         >
-          <ChevronUp className="text-accent-foreground h-6 w-6" />
+          <CaretUpIcon
+            weight="bold"
+            className="text-accent-foreground h-6 w-6"
+          />
         </motion.button>
 
         {/* Container da roleta */}
@@ -256,7 +259,10 @@ export default function NumberSelector({
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
         >
-          <ChevronDown className="text-accent-foreground h-6 w-6" />
+          <CaretDownIcon
+            weight="bold"
+            className="text-accent-foreground h-6 w-6"
+          />
         </motion.button>
       </div>
 

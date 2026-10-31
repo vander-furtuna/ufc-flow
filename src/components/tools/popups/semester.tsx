@@ -1,6 +1,10 @@
 import SelectSemesterDialog from '@/components/dialogs/select-semester-dialog'
 import { useClass } from '@/contexts/class'
-import { CalendarFold, Loader2, RefreshCcw } from 'lucide-react'
+import {
+  ArrowCounterClockwiseIcon,
+  CalendarBlankIcon,
+  CircleNotchIcon,
+} from '@phosphor-icons/react'
 
 export function SemesterTool() {
   const {
@@ -20,7 +24,10 @@ export function SemesterTool() {
           className="group/filter relative flex shrink-0 cursor-pointer items-center justify-center gap-1.5 overflow-hidden rounded-full py-1.5"
           disabled={isClassLoading}
         >
-          <CalendarFold className="text-muted-foreground group-data-[active=active]/filter:text-foreground z-10 size-4" />
+          <CalendarBlankIcon
+            weight="bold"
+            className="text-muted-foreground group-data-[active=active]/filter:text-foreground z-10 size-4"
+          />
           <span className="z-10 text-xs text-nowrap">
             {currentYear}.{currentSemester}
           </span>
@@ -33,9 +40,12 @@ export function SemesterTool() {
         disabled={isClassLoading}
       >
         {isClassLoading ? (
-          <Loader2 className="text-muted-foreground size-4 animate-spin" />
+          <CircleNotchIcon
+            weight="bold"
+            className="text-muted-foreground size-4 animate-spin"
+          />
         ) : (
-          <RefreshCcw className="size-4" />
+          <ArrowCounterClockwiseIcon weight="bold" className="size-4" />
         )}
       </button>
     </div>

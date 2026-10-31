@@ -1,4 +1,4 @@
-import { BrushCleaning } from 'lucide-react'
+import { BroomIcon } from '@phosphor-icons/react'
 import type { ComponentProps } from 'react'
 
 import { Button } from '@/components/ui/button'
@@ -12,7 +12,7 @@ export function ClearButton({ ...props }: ClearButtonProps) {
       variant="outline"
       {...props}
     >
-      <BrushCleaning className="size-4" />
+      <BroomIcon weight="bold" className="size-4" />
     </Button>
   )
 }

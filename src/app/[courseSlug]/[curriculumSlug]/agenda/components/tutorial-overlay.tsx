@@ -1,4 +1,6 @@
-import { ArrowLeft, ArrowRight, X } from 'lucide-react'
+'use client'
+
+import { ArrowLeftIcon, ArrowRightIcon, XIcon } from '@phosphor-icons/react'
 import { useLayoutEffect, useState } from 'react'
 
 type MobileLayoutMode = 'balanced' | 'calendar-focus' | 'sidebar-focus'
@@ -263,7 +265,7 @@ export function TutorialOverlay({
             onClick={onClose}
             className="text-gray-400 transition-colors hover:text-gray-600 dark:hover:text-gray-200"
           >
-            <X size={16} />
+            <XIcon weight="bold" size={16} />
           </button>
         </div>
 
@@ -287,7 +289,7 @@ export function TutorialOverlay({
                 onClick={onPrev}
                 className="rounded-lg px-3 py-1.5 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-slate-800"
               >
-                <ArrowLeft size={16} />
+                <ArrowLeftIcon weight="bold" size={16} />
               </button>
             )}
             <button
@@ -295,7 +297,7 @@ export function TutorialOverlay({
               className="bg-primary text-primary-foreground flex items-center gap-1 rounded-md px-4 py-1.5 text-sm font-bold shadow-sm transition-colors"
             >
               {isLastStep ? 'Concluir' : 'Próximo'}
-              {!isLastStep && <ArrowRight size={16} />}
+              {!isLastStep && <ArrowRightIcon weight="bold" size={16} />}
             </button>
           </div>
         </div>

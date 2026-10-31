@@ -1,0 +1,13 @@
+.git
+.github
+node_modules
+.next
+.env*.local
+.prettierrc
+.vscode
+*.md
+!README.md
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+bun.report

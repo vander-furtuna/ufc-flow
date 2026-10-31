@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Bolt, List } from 'lucide-react'
+import { LightningIcon, ListIcon } from '@phosphor-icons/react'
 import { Button } from '@/components/ui/button'
 import { Tools } from '@/components/tools/tools'
 import { AnimatePresence, motion } from 'motion/react'
@@ -21,7 +21,7 @@ export function VisualSettings({ className }: { className?: string }) {
       )}
     >
       <div className="flex items-center gap-1">
-        <List className="text-muted-foreground size-5" />
+        <ListIcon weight="bold" className="text-muted-foreground size-5" />
         <strong className="font-clash text-lg font-medium">
           {groupByAlias(groupBy)}
         </strong>
@@ -46,7 +46,8 @@ export function VisualSettings({ className }: { className?: string }) {
         onClick={() => setIsToolsOpen((p) => !p)}
         className="size-8"
       >
-        <Bolt
+        <LightningIcon
+          weight="bold"
           className="data-[state=open]:text-foreground data-[state=closed]:text-foreground/80 size-5 transition-transform data-[state=open]:rotate-90"
           data-state={isToolsOpen ? 'open' : 'closed'}
         />

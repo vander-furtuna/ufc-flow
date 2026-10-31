@@ -1,4 +1,4 @@
-import { Calendar } from 'lucide-react'
+import { CalendarBlankIcon } from '@phosphor-icons/react'
 import { useCallback, useMemo } from 'react'
 
 import { FilterCheckbox } from '@/components/filter-checkbox'
@@ -41,7 +41,7 @@ export function SemesterPopup() {
     <Popover>
       <PopoverTrigger asChild>
         <PopupTrigger
-          icon={<Calendar className="size-4" />}
+          icon={<CalendarBlankIcon weight="bold" className="size-4" />}
           label="Semestre"
           isActive={isSemesterFilterActive}
         />

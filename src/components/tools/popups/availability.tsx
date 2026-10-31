@@ -10,7 +10,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Separator } from '@/components/ui/separator'
 import { useTools } from '@/contexts/tools'
 import type { Availability } from '@/types/tools'
-import { Check } from 'lucide-react'
+import { CheckIcon } from '@phosphor-icons/react'
 
 const options = [
   { value: 'all', label: 'Todas' },
@@ -34,7 +34,7 @@ export function AvailabilityPopup() {
     <Popover>
       <PopoverTrigger asChild className="group">
         <PopupTrigger
-          icon={<Check className="size-4" />}
+          icon={<CheckIcon weight="bold" className="size-4" />}
           label="Disponibilidade"
         />
       </PopoverTrigger>

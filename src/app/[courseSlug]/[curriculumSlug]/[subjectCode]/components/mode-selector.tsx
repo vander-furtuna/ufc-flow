@@ -1,4 +1,4 @@
-import { GitCommit, GitPullRequest } from 'lucide-react'
+import { GitCommitIcon, GitPullRequestIcon } from '@phosphor-icons/react'
 import type { ComponentProps } from 'react'
 
 type ModeSelectorProps = {
@@ -27,14 +27,14 @@ export function ModeSelector({ mode, setMode }: ModeSelectorProps) {
         onClick={() => setMode('direct')}
         isActive={mode === 'direct'}
       >
-        <GitCommit className="size-4 shrink-0" />
+        <GitCommitIcon weight="bold" className="size-4 shrink-0" />
         Direto
       </ChangeModeButton>
       <ChangeModeButton
         onClick={() => setMode('full')}
         isActive={mode === 'full'}
       >
-        <GitPullRequest className="size-4 shrink-0" />
+        <GitPullRequestIcon weight="bold" className="size-4 shrink-0" />
         Cadeia Completa
       </ChangeModeButton>
     </div>

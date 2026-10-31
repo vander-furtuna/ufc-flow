@@ -1,4 +1,4 @@
-import { Clock } from 'lucide-react'
+import { ClockIcon } from '@phosphor-icons/react'
 import { useCallback, useMemo } from 'react'
 
 import { FilterCheckbox } from '@/components/filter-checkbox'
@@ -38,7 +38,7 @@ export function DurationPopup() {
     <Popover>
       <PopoverTrigger asChild className="group">
         <PopupTrigger
-          icon={<Clock className="size-4" />}
+          icon={<ClockIcon weight="bold" className="size-4" />}
           label="Duração"
           isActive={isDurationFilterActive}
         />

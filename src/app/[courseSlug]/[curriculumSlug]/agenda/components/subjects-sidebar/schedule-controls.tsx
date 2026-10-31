@@ -1,6 +1,6 @@
 'use client'
 
-import { Download, Plus, Trash2 } from 'lucide-react'
+import { DownloadSimpleIcon, PlusIcon, TrashIcon } from '@phosphor-icons/react'
 import {
   Select,
   SelectContent,
@@ -58,7 +58,7 @@ export function ScheduleControls({
 
       <CreateScheduleDialog>
         <button className="hover:bg-foreground/10 text-foreground/90 rounded-md p-1.5 transition-all">
-          <Plus className={iconSize} />
+          <PlusIcon weight="bold" className={iconSize} />
         </button>
       </CreateScheduleDialog>
       <DestructiveDialog
@@ -72,7 +72,7 @@ export function ScheduleControls({
           id="tour-agenda-delete"
           className="text-foreground/90 rounded-md p-1.5 transition-all hover:bg-red-600/10 hover:text-red-500 focus:bg-red-600/10 active:bg-red-600/20"
         >
-          <Trash2 className={iconSize} />
+          <TrashIcon weight="bold" className={iconSize} />
         </button>
       </DestructiveDialog>
       <button
@@ -80,7 +80,7 @@ export function ScheduleControls({
         onClick={() => onDownloadSchedule?.()}
         id="tour-agenda-download"
       >
-        <Download className={iconSize} />
+        <DownloadSimpleIcon weight="bold" className={iconSize} />
       </button>
     </div>
   )
