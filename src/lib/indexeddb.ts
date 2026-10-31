@@ -102,6 +102,12 @@ class IndexedDBStorage {
     return this.db.getAllFromIndex(STORE_USER_AGENDAS, 'courseId', courseId)
   }
 
+  async getAllSchedules(): Promise<Schedule[]> {
+    await this.init()
+    if (!this.db) throw new Error('Database not initialized')
+    return this.db.getAll(STORE_USER_AGENDAS)
+  }
+
   async saveSchedule(schedule: Schedule): Promise<void> {
     await this.init()
     if (!this.db) throw new Error('Database not initialized')
@@ -414,6 +420,7 @@ export const saveRuMenuWeek = (week: RUMenuWeek) => storage.saveRuMenuWeek(week)
 
 export const getSchedulesByCourse = (courseId: string) =>
   storage.getSchedulesByCourse(courseId)
+export const getAllSchedules = () => storage.getAllSchedules()
 export const saveSchedule = (s: Schedule) => storage.saveSchedule(s)
 export const deleteSchedule = (id: string) => storage.deleteSchedule(id)
 export const getCalendar = (year: number) => storage.getCalendar(year)

@@ -1,5 +1,5 @@
 import {
-  getSchedulesByCourse,
+  getAllSchedules,
   saveCompletedSubjects,
   saveSchedule,
   deleteSchedule as dbDeleteSchedule,
@@ -12,6 +12,7 @@ import type {
 } from '@/types/class'
 import type { Schedule } from '@/types/schedule'
 import { checkTimeConflict } from '@/utils/check-time-conflict'
+import { resolveLegacyScheduleCourse } from '@/utils/resolve-schedule-course'
 import {
   createContext,
   useCallback,
@@ -68,7 +69,7 @@ export const ScheduleContext = createContext<ScheduleContextData>(
 )
 
 export function ScheduleProvider({ children }: { children: React.ReactNode }) {
-  const { selectedCurriculum } = useCourse()
+  const { courses, selectedCourse, selectedCurriculum } = useCourse()
   const { currentYear, currentSemester } = useClass()
 
   const [allSchedules, setAllSchedules] = useState<Schedule[]>([])
@@ -151,11 +152,18 @@ export function ScheduleProvider({ children }: { children: React.ReactNode }) {
   }
 
   const createSchedule = async (name?: string) => {
+    if (!selectedCourse || !selectedCurriculum) {
+      toast.error('Selecione um curso antes de criar uma agenda.')
+      return
+    }
+
     const scheduleName = name || `Agenda ${schedules.length + 1}`
     const newSchedule: Schedule = {
       id: uuidv4(),
       name: scheduleName,
-      courseId: selectedCurriculum?.id || 'unknown',
+      courseId: selectedCourse.id,
+      courseSlug: selectedCourse.slug,
+      curriculumSlug: selectedCurriculum.slug,
       year: activeYear,
       semester: activeSemester,
       createdAt: Date.now(),
@@ -259,12 +267,36 @@ export function ScheduleProvider({ children }: { children: React.ReactNode }) {
     try {
       setIsScheduleLoading(true)
 
-      if (!selectedCurriculum) {
+      if (!selectedCourse || !selectedCurriculum) {
         console.warn('No curriculum selected, skipping schedule init.')
         return
       }
 
-      const savedSchedules = await getSchedulesByCourse(selectedCurriculum.id)
+      // Agendas antigas não guardavam o curso, só o id da estrutura curricular
+      // (que se repete entre cursos). Atribui o curso e persiste.
+      const storedSchedules = await getAllSchedules()
+      const resolvedSchedules = await Promise.all(
+        storedSchedules.map(async (schedule) => {
+          if (schedule.courseSlug && schedule.curriculumSlug) return schedule
+
+          const key = resolveLegacyScheduleCourse(
+            schedule,
+            courses,
+            selectedCourse.slug,
+          )
+          if (!key) return schedule
+
+          const migrated = { ...schedule, ...key }
+          await saveSchedule(migrated)
+          return migrated
+        }),
+      )
+
+      const savedSchedules = resolvedSchedules.filter(
+        (s) =>
+          s.courseSlug === selectedCourse.slug &&
+          s.curriculumSlug === selectedCurriculum.slug,
+      )
 
       const normalizedSchedules = savedSchedules.map((s) => ({
         ...s,
@@ -279,7 +311,9 @@ export function ScheduleProvider({ children }: { children: React.ReactNode }) {
       if (filtered.length === 0) {
         const defaultSchedule: Schedule = {
           id: uuidv4(),
-          courseId: selectedCurriculum.id,
+          courseId: selectedCourse.id,
+          courseSlug: selectedCourse.slug,
+          curriculumSlug: selectedCurriculum.slug,
           year: activeYear,
           semester: activeSemester,
           name: 'Meu Cronograma',
@@ -307,7 +341,7 @@ export function ScheduleProvider({ children }: { children: React.ReactNode }) {
     } finally {
       setIsScheduleLoading(false)
     }
-  }, [selectedCurriculum, activeYear, activeSemester])
+  }, [courses, selectedCourse, selectedCurriculum, activeYear, activeSemester])
 
   useEffect(() => {
     init()
