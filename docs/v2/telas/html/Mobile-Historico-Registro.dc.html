@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Registrar disciplina (mobile)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Clash Display';src:url('../assets/clash-display-variable.woff2') format('woff2');font-weight:200 700;font-display:swap}
+body{margin:0;background:#ffffff}
+input::placeholder{color:#62748e}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; position: relative; overflow: hidden; font-family: 'Geist', system-ui, sans-serif; color: #020618; background: #ffffff;">
+  <div aria-hidden="true" style="position: absolute; inset: 0; padding: 40px 20px; display: flex; flex-direction: column; gap: 16px;">
+    <span style="font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 28px;">Histórico</span>
+    <span style="height: 160px; border-radius: 16px; background: #f1f5f9;"></span>
+    <span style="height: 220px; border-radius: 16px; background: #f1f5f9;"></span>
+  </div>
+  <div aria-hidden="true" style="position: absolute; inset: 0; background: rgba(2,6,24,0.45);"></div>
+
+  <div role="dialog" aria-modal="true" aria-labelledby="sh-title" style="position: absolute; left: 0; right: 0; bottom: 0; max-height: 92%; box-sizing: border-box; padding: 10px 20px 28px; border-radius: 24px 24px 0 0; background: #ffffff; display: flex; flex-direction: column; gap: 16px;">
+    <span aria-hidden="true" style="align-self: center; width: 40px; height: 5px; border-radius: 999px; background: #cbd5e1;"></span>
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+      <h2 id="sh-title" style="margin: 0; font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 22px;">Registrar disciplina</h2>
+      <button aria-label="Fechar" style="width: 44px; height: 44px; margin-right: -10px; border: 0; border-radius: 999px; background: transparent; color: #45556c;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 6px;">
+      <label for="md" style="font-size: 14px; font-weight: 500;">Disciplina</label>
+      <div style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 14px; background: #f8fafc;">
+        <span style="width: 4px; height: 32px; border-radius: 999px; background: #f97316;"></span>
+        <span style="flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0;"><input id="md" value="Eletrônica Analógica" style="border: 0; padding: 0; background: transparent; font: inherit; font-size: 16px; font-weight: 500; outline: none;"><span style="font-size: 12px; color: #45556c;">ECO0021 · última: Reprovado em 2025.2</span></span>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 6px;">
+      <label for="ms" style="font-size: 14px; font-weight: 500;">Semestre</label>
+      <select id="ms" style="height: 48px; padding: 0 12px; border: 1px solid #e2e8f0; border-radius: 14px; background: #ffffff; font: inherit; font-size: 16px;"><option>2026.1 (vigente)</option></select>
+    </div>
+
+    <fieldset style="margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 8px;">
+      <legend style="padding: 0; margin-bottom: 8px; font-size: 14px; font-weight: 500;">Situação</legend>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px;">
+        <sc-for list="{{statuses}}" as="s" hint-placeholder-count="6">
+          <button type="button" aria-pressed="{{s.on}}" onClick="{{s.pick}}" style="{{s.style}}">{{s.label}}</button>
+        </sc-for>
+      </div>
+      <span style="font-size: 12px; line-height: 1.45; color: #45556c;">{{statusHint}}</span>
+    </fieldset>
+
+    <sc-if value="{{showGrade}}" hint-placeholder-val="{{false}}">
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <label for="mn" style="font-size: 14px; font-weight: 500;">Nota final <span style="font-weight: 400; color: #45556c;">(opcional)</span></label>
+        <input id="mn" inputmode="decimal" placeholder="Ex.: 7,5" style="height: 48px; box-sizing: border-box; padding: 0 14px; border: 1px solid #e2e8f0; border-radius: 14px; font: inherit; font-size: 16px;">
+      </div>
+    </sc-if>
+    <sc-if value="{{showOrigin}}" hint-placeholder-val="{{false}}">
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <label for="mo" style="font-size: 14px; font-weight: 500;">Origem do aproveitamento</label>
+        <input id="mo" placeholder="Ex.: Cálculo I — UECE, 2022.1" style="height: 48px; box-sizing: border-box; padding: 0 14px; border: 1px solid #e2e8f0; border-radius: 14px; font: inherit; font-size: 16px;">
+      </div>
+    </sc-if>
+
+    <button style="height: 52px; margin-top: 4px; border: 0; border-radius: 14px; background: #0f172b; color: #f8fafc; font: inherit; font-size: 16px; font-weight: 600;">Salvar registro</button>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { status: 'CURSANDO' }; }
+  renderVals() {
+    const defs = [
+      { id: 'CURSANDO', label: 'Cursando', bg: '#ecfeff', fg: '#0e7490', bd: '#67e8f9' },
+      { id: 'APROVADO', label: 'Aprovado', bg: '#f0fdf4', fg: '#15803d', bd: '#86efac' },
+      { id: 'REPROVADO', label: 'Reprovado', bg: '#fef2f2', fg: '#b91c1c', bd: '#fca5a5' },
+      { id: 'TRANCADA', label: 'Trancada', bg: '#fffbeb', fg: '#b45309', bd: '#fcd34d' },
+      { id: 'SUPRIMIDA', label: 'Suprimida', bg: '#f1f5f9', fg: '#45556c', bd: '#cbd5e1' },
+      { id: 'APROVEITADA', label: 'Aproveitada', bg: '#eef2ff', fg: '#4338ca', bd: '#a5b4fc' }
+    ];
+    const hints = {
+      CURSANDO: 'Só no semestre vigente. Ao fim dele, feche a situação.',
+      APROVADO: 'Encerra a disciplina. A nota é opcional.',
+      REPROVADO: 'Permite nova tentativa num semestre posterior.',
+      TRANCADA: 'Sem nota. Permite nova tentativa num semestre posterior.',
+      SUPRIMIDA: 'Sem nota. Permite nova tentativa num semestre posterior.',
+      APROVEITADA: 'Encerra a disciplina sem passar por Cursando.'
+    };
+    const cur = this.state.status;
+    return {
+      statuses: defs.map((d) => {
+        const on = d.id === cur;
+        return { label: d.label, on: on, pick: () => this.setState({ status: d.id }), style: 'height: 44px; border-radius: 12px; font: inherit; font-size: 13px; font-weight: 600; ' + (on ? 'background: ' + d.bg + '; color: ' + d.fg + '; border: 2px solid ' + d.bd + ';' : 'background: #ffffff; color: #45556c; border: 1px solid #e2e8f0;') };
+      }),
+      statusHint: hints[cur],
+      showGrade: cur === 'APROVADO' || cur === 'REPROVADO' || cur === 'APROVEITADA',
+      showOrigin: cur === 'APROVEITADA'
+    };
+  }
+}
+</script>
+</body>
+</html>

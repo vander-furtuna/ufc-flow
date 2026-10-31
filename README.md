@@ -43,47 +43,40 @@ Tecnologias utilizadas no desenvolvimento da plataforma:
 
 ---
 
-## 🍞 Como instalar o Bun
+## 🗂️ Estrutura do monorepo
 
-O **Bun** é o runtime e gerenciador de pacotes padrão adotado no UFC Flow. Caso você ainda não o tenha instalado em sua máquina, siga as instruções abaixo:
+O UFC Flow é um monorepo gerenciado com **pnpm workspaces** e **Turborepo**:
 
-### 🐧 Linux & 🍎 macOS
-Você pode instalar o Bun executando o comando oficial de instalação em seu terminal:
-```bash
-curl -fsSL https://bun.sh/install | bash
+```text
+apps/
+  web/            # Front-end Next.js (aplicação atual)
+  api/            # API NestJS (em construção)
+  extension/      # Extensão que extrai a estrutura curricular do SIGAA (em construção)
+packages/
+  contracts/      # Schemas Zod e tipos compartilhados entre web, api e extensão
+  academic-core/  # Regras acadêmicas puras (pré-requisitos, equivalências, progresso)
 ```
-Após a conclusão, recarregue as configurações do terminal ou execute o comando abaixo para carregar as variáveis de ambiente:
+
+Versões de dependências compartilhadas (TypeScript, Zod, `@types/node`) ficam no `catalog` do [pnpm-workspace.yaml](pnpm-workspace.yaml) e são referenciadas com `"catalog:"` nos `package.json`.
+
+---
+
+## 📦 Como instalar o pnpm
+
+O **pnpm** é o gerenciador de pacotes adotado no UFC Flow, e a versão exata fica fixada no campo `packageManager` do [package.json](package.json). A forma recomendada de instalá-lo é pelo **Corepack**, que já vem com o Node.js:
+
 ```bash
-source ~/.bashrc # ou source ~/.zshrc se usar Zsh
+corepack enable
 ```
 
-### 🪟 Windows
-No Windows, você pode instalar o Bun de diferentes maneiras:
+Ao rodar qualquer comando `pnpm` dentro do projeto, o Corepack baixa e usa automaticamente a versão definida no repositório.
 
-1. **Via PowerShell (Recomendado)**:
-   Abra o terminal do PowerShell e execute o script oficial de instalação:
-   ```powershell
-   powershell -c "irm bun.sh/install.ps1 | iex"
-   ```
-2. **Via Winget**:
-   ```powershell
-   winget install Oven-Sh.Bun
-   ```
-3. **Via Scoop**:
-   ```powershell
-   scoop install bun
-   ```
-4. **Via Chocolatey**:
-   ```powershell
-   choco install bun
-   ```
+> Sem Corepack, instale globalmente com `npm install -g pnpm`.
 
-### 🔍 Verificando a Instalação
-Para confirmar que o Bun foi instalado corretamente, execute o comando:
+Para conferir a instalação:
 ```bash
-bun --version
+pnpm --version
 ```
-O console deve exibir a versão instalada (ex: `1.1.x` ou superior).
 
 ---
 
@@ -94,8 +87,8 @@ Siga as instruções abaixo para executar o projeto localmente.
 ### 1. Pré‑requisitos
 
 - **Git** instalado em sua máquina.
-- **Bun** instalado (veja a seção [Como instalar o Bun](#-como-instalar-o-bun) acima).
-- *Alternativa*: Se preferir rodar com **Node.js** (versão ≥ 18), certifique-se de ter o **pnpm** instalado globalmente (`npm install -g pnpm`).
+- **Node.js** 22 ou superior.
+- **pnpm** (veja a seção [Como instalar o pnpm](#-como-instalar-o-pnpm) acima).
 
 ---
 
@@ -104,45 +97,40 @@ Siga as instruções abaixo para executar o projeto localmente.
 Abra o seu terminal (Bash no Linux ou PowerShell/Git Bash no Windows) e execute:
 
 ```bash
-git clone https://github.com/vander-furtuna/ufc-flow.git
-cd ufc-flow
+git clone https://github.com/vander-furtuna/ufc-flow-front.git
+cd ufc-flow-front
 ```
 
 ---
 
 ### 3. Configurar as variáveis de ambiente
 
-Copie o modelo de variáveis de ambiente [.env.example](file:///c:/Users/furtu/www/react/ufc-flow/.env.example) para criar o seu arquivo local [.env.local](file:///c:/Users/furtu/www/react/ufc-flow/.env.local):
+As variáveis do front-end ficam em `apps/web`. Copie o modelo [apps/web/.env.example](apps/web/.env.example) para criar o arquivo local `apps/web/.env.local`:
 
 #### 🐧 Linux:
 ```bash
-cp .env.example .env.local
+cp apps/web/.env.example apps/web/.env.local
 ```
 
 #### 🪟 Windows:
 ```powershell
-copy .env.example .env.local
+copy apps\web\.env.example apps\web\.env.local
 ```
 
-Abra o arquivo [.env.local](file:///c:/Users/furtu/www/react/ufc-flow/.env.local) e configure os valores necessários. Exemplo básico:
+Abra o arquivo `apps/web/.env.local` e configure os valores necessários. Exemplo básico:
 ```env
 NEXT_PUBLIC_CURRENT_YEAR=2026
 NEXT_PUBLIC_CURRENT_SEMESTER=1
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 ```
 
-> 💡 **Nota**: O arquivo `.env.local` é ignorado pelo Git (conforme definido no [.gitignore](file:///c:/Users/furtu/www/react/ufc-flow/.gitignore)) para proteger suas credenciais e configurações locais.
+> 💡 **Nota**: O arquivo `.env.local` é ignorado pelo Git (conforme definido no [.gitignore](.gitignore)) para proteger suas credenciais e configurações locais.
 
 ---
 
 ### 4. Instalar as dependências
 
-#### 🐧 Linux e 🪟 Windows (com Bun - Recomendado):
-```bash
-bun install
-```
-
-#### 🐧 Linux e 🪟 Windows (com PNPM - Alternativo):
+Na raiz do repositório:
 ```bash
 pnpm install
 ```
@@ -151,17 +139,12 @@ pnpm install
 
 ### 5. Execução em Modo de Desenvolvimento
 
-Para rodar o servidor de desenvolvimento local com hot-reload (recarregamento automático):
-
-#### 🐧 Linux e 🪟 Windows (com Bun):
+Para rodar o front-end com hot-reload (recarregamento automático):
 ```bash
-bun run dev
+pnpm dev:web
 ```
 
-#### 🐧 Linux e 🪟 Windows (com PNPM):
-```bash
-pnpm dev
-```
+`pnpm dev` sobe todos os apps que tiverem script `dev`. Para rodar um comando em um pacote específico, use o filtro do pnpm, por exemplo `pnpm --filter @ufc-flow/web <script>`.
 
 Acesse [http://localhost:3000](http://localhost:3000) no seu navegador para visualizar o UFC Flow em funcionamento.
 
@@ -169,26 +152,13 @@ Acesse [http://localhost:3000](http://localhost:3000) no seu navegador para visu
 
 ### 6. Build e Execução em Produção
 
-Para gerar a build otimizada de produção e iniciar o servidor de alta performance:
-
-#### 🐧 Linux e 🪟 Windows (com Bun):
-1. Gerar a build estática otimizada:
-   ```bash
-   bun run build
-   ```
-2. Iniciar o servidor de produção:
-   ```bash
-   bun start
-   ```
-
-#### 🐧 Linux e 🪟 Windows (com PNPM):
-1. Gerar a build estática otimizada:
+1. Gerar a build otimizada de todos os pacotes:
    ```bash
    pnpm build
    ```
-2. Iniciar o servidor de produção:
+2. Iniciar o servidor de produção do front-end:
    ```bash
-   pnpm start
+   pnpm --filter @ufc-flow/web start
    ```
 
 Por padrão, a aplicação de produção estará disponível em [http://localhost:3000](http://localhost:3000).
@@ -197,32 +167,29 @@ Por padrão, a aplicação de produção estará disponível em [http://localhos
 
 ## 🛠️ Qualidade de Código & CI (Integração Contínua)
 
-O repositório possui fluxos de validação de qualidade de código automatizados via GitHub Actions (definidos em [.github/workflows/ci.yml](file:///c:/Users/furtu/www/react/ufc-flow/.github/workflows/ci.yml)). Antes de enviar qualquer alteração, é altamente recomendado rodar localmente os seguintes comandos para garantir a conformidade:
+O repositório possui fluxos de validação de qualidade de código automatizados via GitHub Actions (definidos em [.github/workflows/ci.yml](.github/workflows/ci.yml)). As tarefas são orquestradas pelo Turborepo, que roda cada uma em todos os pacotes e reaproveita resultados em cache. Antes de enviar qualquer alteração, é altamente recomendado rodar localmente:
 
 1. **Linting (Linter)**: Corrige e avisa sobre desvios nos padrões de estilo de código:
    ```bash
-   bun run lint
-   # ou pnpm lint
+   pnpm lint
    ```
-2. **Typecheck (TypeScript)**: Valida os tipos estáticos de toda a base de código:
+2. **Typecheck (TypeScript)**: Valida os tipos estáticos de todos os pacotes:
    ```bash
-   bun x tsc --noEmit
-   # ou pnpm tsc --noEmit
+   pnpm typecheck
    ```
 3. **Build local**: Verifica se o processo de compilação encerra com sucesso:
    ```bash
-   bun run build
-   # ou pnpm build
+   pnpm build
    ```
 
 ---
 
 ## 📄 Gerenciamento de Configuração & Controle de Mudanças
 
-Este projeto segue formalidades rígidas de GCS, documentadas no [PLANO_GERENCIAMENTO_CONFIGURACAO.md](file:///c:/Users/furtu/www/react/ufc-flow/PLANO_GERENCIAMENTO_CONFIGURACAO.md). 
+Este projeto segue formalidades rígidas de GCS, documentadas no [PLANO_GERENCIAMENTO_CONFIGURACAO.md](PLANO_GERENCIAMENTO_CONFIGURACAO.md). 
 - **Commits**: Seguem a especificação de **Conventional Commits** (ex: `feat(agenda): adiciona popup de detalhes`).
 - **Branches**: Adota o GitFlow simplificado, onde toda mudança entra via Pull Request (PR) na branch `develop` antes de ser congelada e enviada para a branch `master` sob uma tag versionada.
-- **Itens de Configuração (ICs)**: Mapeados detalhadamente no documento [CONFIGURATION_ITEMS.md](file:///c:/Users/furtu/www/react/ufc-flow/CONFIGURATION_ITEMS.md).
+- **Itens de Configuração (ICs)**: Mapeados detalhadamente no documento [CONFIGURATION_ITEMS.md](CONFIGURATION_ITEMS.md).
 
 ---
 

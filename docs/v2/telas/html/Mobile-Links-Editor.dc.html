@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Editar aparência dos links (mobile)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Clash Display';src:url('../assets/clash-display-variable.woff2') format('woff2');font-weight:200 700;font-display:swap}
+body{margin:0;background:#f8fafc}
+a{color:#1d293d}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; position: relative; overflow: hidden; font-family: 'Geist', system-ui, sans-serif; color: #020618; background: #f8fafc; display: flex; flex-direction: column;">
+
+  <header style="display: flex; align-items: center; gap: 8px; padding: 40px 12px 12px; background: #ffffff; border-bottom: 1px solid #e2e8f0;">
+    <a href="Mobile-Links.dc.html" aria-label="Voltar" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></a>
+    <h1 style="flex: 1; margin: 0; font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 18px;">Página de links</h1>
+    <button style="height: 40px; padding: 0 16px; border: 0; border-radius: 999px; background: #0f172b; color: #f8fafc; font: inherit; font-size: 14px; font-weight: 600;">Salvar</button>
+  </header>
+
+  <div style="padding: 12px 16px 0;">
+    <div role="tablist" aria-label="Editor" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; padding: 4px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px;">
+      <button role="tab" aria-selected="false" style="height: 38px; border: 0; border-radius: 10px; background: transparent; font: inherit; font-size: 13px; font-weight: 600; color: #45556c;">Links</button>
+      <button role="tab" aria-selected="true" style="height: 38px; border: 0; border-radius: 10px; background: #0f172b; color: #f8fafc; font: inherit; font-size: 13px; font-weight: 600;">Aparência</button>
+      <button role="tab" aria-selected="false" style="height: 38px; border: 0; border-radius: 10px; background: transparent; font: inherit; font-size: 13px; font-weight: 600; color: #45556c;">Estatísticas</button>
+    </div>
+  </div>
+
+  <div aria-label="Pré-visualização" style="margin: 12px 16px 0; height: 270px; border-radius: 22px; overflow: hidden; border: 1px solid #e2e8f0;">
+    <div style="{{pvBg}}">
+      <div style="{{pvCover}}"></div>
+      <span style="{{pvAvatar}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/></svg></span>
+      <b style="{{pvTitle}}">Engenharia de Computação</b>
+      <span style="{{pvFeatured}}">Inscrições para monitoria</span>
+      <span style="{{pvButton}}">SIGAA</span>
+      <span style="{{pvButton}}">Coordenação do curso</span>
+    </div>
+  </div>
+
+  <div style="flex: 1; overflow: hidden; padding: 16px; display: flex; flex-direction: column; gap: 16px;">
+    <section style="display: flex; flex-direction: column; gap: 10px;">
+      <h2 style="margin: 0; font-size: 13px; font-weight: 600;">Tema</h2>
+      <div style="display: flex; gap: 10px; margin: 0 -16px; padding: 0 16px; overflow-x: auto; scrollbar-width: none;">
+        <sc-for list="{{themes}}" as="th" hint-placeholder-count="6">
+          <button aria-pressed="{{th.on}}" aria-label="{{th.label}}" onClick="{{th.pick}}" style="{{th.style}}"><span style="{{th.swatch}}"></span><span style="font-size: 11px; font-weight: 500;">{{th.label}}</span></button>
+        </sc-for>
+      </div>
+    </section>
+    <section style="display: flex; flex-direction: column; gap: 10px;">
+      <h2 style="margin: 0; font-size: 13px; font-weight: 600;">Botões</h2>
+      <div role="group" aria-label="Estilo dos botões" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px;">
+        <sc-for list="{{styles}}" as="s" hint-placeholder-count="3"><button aria-pressed="{{s.on}}" onClick="{{s.pick}}" style="{{s.style}}">{{s.label}}</button></sc-for>
+      </div>
+      <div role="group" aria-label="Formato dos botões" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px;">
+        <sc-for list="{{shapes}}" as="s" hint-placeholder-count="3"><button aria-pressed="{{s.on}}" onClick="{{s.pick}}" style="{{s.style}}">{{s.label}}</button></sc-for>
+      </div>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { theme: 'ciano', btn: 'suave', shape: 'arredondado' }; }
+  renderVals() {
+    const s = this.state;
+    const themes = {
+      ciano: { label: 'Ciano', bg: '#ecfeff', accent: '#0891b2', border: '#a5f3fc', ink: '#083344', soft: '#ffffff', cover: '#cffafe' },
+      laranja: { label: 'Laranja', bg: '#fff7ed', accent: '#ea580c', border: '#fed7aa', ink: '#7c2d12', soft: '#ffffff', cover: '#ffedd5' },
+      verde: { label: 'Verde', bg: '#f0fdf4', accent: '#16a34a', border: '#bbf7d0', ink: '#14532d', soft: '#ffffff', cover: '#dcfce7' },
+      violeta: { label: 'Violeta', bg: '#f5f3ff', accent: '#7c3aed', border: '#ddd6fe', ink: '#4c1d95', soft: '#ffffff', cover: '#ede9fe' },
+      branco: { label: 'Branco', bg: '#ffffff', accent: '#0f172b', border: '#e2e8f0', ink: '#020618', soft: '#f8fafc', cover: '#f1f5f9' },
+      escuro: { label: 'Escuro', bg: '#020618', accent: '#22d3ee', border: '#314158', ink: '#f8fafc', soft: '#1d293d', cover: '#1d293d' }
+    };
+    const t = themes[s.theme];
+    const radius = { reto: '6px', arredondado: '14px', pilula: '999px' }[s.shape];
+    let btn = 'width: 100%; box-sizing: border-box; min-height: 34px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; border-radius: ' + radius + '; ';
+    if (s.btn === 'preenchido') btn += 'background: ' + t.accent + '; color: ' + (s.theme === 'escuro' ? '#020618' : '#ffffff') + '; border: 0;';
+    else if (s.btn === 'contorno') btn += 'background: transparent; color: ' + t.ink + '; border: 2px solid ' + t.accent + ';';
+    else btn += 'background: ' + t.soft + '; color: ' + t.ink + '; border: 1px solid ' + t.border + ';';
+    const opt = (on) => 'height: 44px; border-radius: 12px; font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #ffffff; color: #1d293d; ' + (on ? 'border: 2px solid #0f172b;' : 'border: 1px solid #e2e8f0;');
+    return {
+      themes: Object.keys(themes).map((k) => { const th = themes[k]; const on = k === s.theme; return { label: th.label, on: on, pick: () => this.setState({ theme: k }), style: 'flex-shrink: 0; width: 64px; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 8px 4px; border-radius: 14px; font: inherit; background: #ffffff; cursor: pointer; ' + (on ? 'border: 2px solid #0f172b;' : 'border: 1px solid #e2e8f0;'), swatch: 'width: 34px; height: 34px; border-radius: 999px; background: ' + th.bg + '; border: 3px solid ' + th.accent + ';' }; }),
+      styles: [['preenchido', 'Preenchido'], ['contorno', 'Contorno'], ['suave', 'Suave']].map((d) => { const on = d[0] === s.btn; return { label: d[1], on: on, pick: () => this.setState({ btn: d[0] }), style: opt(on) }; }),
+      shapes: [['reto', 'Reto'], ['arredondado', 'Arredondado'], ['pilula', 'Pílula']].map((d) => { const on = d[0] === s.shape; return { label: d[1], on: on, pick: () => this.setState({ shape: d[0] }), style: opt(on) }; }),
+      pvBg: 'height: 100%; box-sizing: border-box; padding: 0 20px; background: ' + t.bg + '; display: flex; flex-direction: column; align-items: center; gap: 8px;',
+      pvCover: 'width: calc(100% + 40px); height: 64px; flex-shrink: 0; background: ' + t.cover + ';',
+      pvAvatar: 'margin-top: -28px; width: 52px; height: 52px; flex-shrink: 0; border-radius: 16px; background: ' + (s.theme === 'escuro' ? '#1d293d' : '#ffffff') + '; border: 3px solid ' + t.bg + '; display: flex; align-items: center; justify-content: center; color: ' + t.accent + ';',
+      pvTitle: "font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 16px; color: " + t.ink + ';',
+      pvFeatured: 'width: 100%; box-sizing: border-box; min-height: 34px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; border-radius: ' + radius + '; background: ' + (s.theme === 'escuro' ? '#1d293d' : '#ffffff') + '; color: ' + t.ink + '; border: 2px solid ' + t.accent + '; box-shadow: 0 0 0 3px ' + t.border + ';',
+      pvButton: btn
+    };
+  }
+}
+</script>
+</body>
+</html>

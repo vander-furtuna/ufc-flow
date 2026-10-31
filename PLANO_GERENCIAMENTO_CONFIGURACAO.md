@@ -43,7 +43,8 @@ Este plano aplica-se a todas as ramificações de código, documentações, dado
 - **PR (Pull Request)**: Mecanismo de colaboração no Git para submissão de alterações que passarão por validação e revisão de código.
 - **CI (Integração Contínua)**: Processo automatizado de build e validação de código a cada alteração submetida ao repositório.
 - **SemVer (Semantic Versioning)**: Padrão de numeração de versão (MAJOR.MINOR.PATCH) baseado no impacto das alterações no sistema.
-- **Bun**: Runtime e gerenciador de pacotes rápido para JavaScript/TypeScript.
+- **pnpm**: Gerenciador de pacotes para JavaScript/TypeScript com suporte nativo a workspaces (monorepo).
+- **Turborepo**: Orquestrador de tarefas do monorepo, que executa build, lint e typecheck por pacote com cache.
 
 ### 2.4 Referências
 
@@ -184,8 +185,9 @@ gitGraph
    - Para refatorações: `refactor/nome-curto`
 3. **Desenvolvimento e Validação Local**: O código é alterado e o desenvolvedor deve executar localmente o build e validações:
    ```bash
-   bun run lint
-   bun run build
+   pnpm lint
+   pnpm typecheck
+   pnpm build
    ```
 4. **Submissão de Pull Request**: A alteração é enviada ao GitHub criando um PR direcionado ao ramo `develop`.
 5. **Integração Contínua**: O pipeline automático no GitHub Actions roda testes e builds estáticos.
@@ -217,14 +219,13 @@ O projeto conta com um fluxo automatizado de integração definido em `.github/w
 O fluxo de CI executa as seguintes etapas estruturadas na nuvem:
 
 1. **Ambiente**: Máquina virtual Ubuntu de última geração.
-2. **Setup do Runtime**: Configuração do runtime **Bun** em sua versão estável mais recente.
-3. **Mecanismo de Cache**: Recupera o cache de dependências do Bun com base na hash do arquivo `bun.lock` (IC-010). Isso acelera o tempo de execução.
-4. **Instalação Estrita**: Roda o comando `bun install --frozen-lockfile` para proibir atualizações não controladas de dependências durante o build da CI.
-5. **Análise Estática (Linting)**: Executa o analisador de código estático `bun run lint` (ESLint) para barrar violações de padrões de desenvolvimento.
+2. **Setup do Runtime**: Configuração do **Node.js 22** e do **pnpm** na versão fixada no campo `packageManager` do `package.json` raiz.
+3. **Mecanismo de Cache**: Recupera o cache da store do pnpm com base na hash do arquivo `pnpm-lock.yaml` (IC-010). Isso acelera o tempo de execução.
+4. **Instalação Estrita**: Roda o comando `pnpm install --frozen-lockfile` para proibir atualizações não controladas de dependências durante o build da CI.
+5. **Análise Estática (Linting)**: Executa `pnpm lint`, que roda o ESLint em todos os pacotes via Turborepo, para barrar violações de padrões de desenvolvimento.
 6. **Compilação e Tipagem**:
-   - Executa `bun x next typegen` para assegurar que os tipos das rotas dinâmicas do Next.js estejam atualizados.
-   - Roda `bun x tsc --noEmit` para verificar se existem falhas de tipagem no TypeScript.
-7. **Build de Produção**: Roda o empacotamento completo `bun run build` para garantir que a baseline compila perfeitamente sem falhas silenciosas.
+   - Executa `pnpm typecheck`, que em cada pacote roda `tsc --noEmit`; no front-end, antes disso, `next typegen` atualiza os tipos das rotas dinâmicas do Next.js.
+7. **Build de Produção**: Roda o empacotamento completo `pnpm build` para garantir que a baseline compila perfeitamente sem falhas silenciosas.
 
 Caso qualquer uma das etapas falhe, o build é classificado como quebrado e a mesclagem é bloqueada até que o desenvolvedor submeta as correções necessárias.
 
@@ -245,8 +246,8 @@ O UFC FLOW adota estritamente o Versionamento Semântico no formato `X.Y.Z`:
 1. O ramo `develop` é congelado quando atinge o conjunto de features planejado para a release.
 2. É criada uma branch de lançamento: `release/vX.Y.Z`.
 3. O Gerente de GCS realiza os seguintes passos locais:
-   - Atualiza a versão no campo `"version"` do `package.json`.
-   - Gera o build de produção local e atualiza o arquivo `bun.lock` se necessário.
+   - Atualiza a versão no campo `"version"` do `apps/web/package.json` (e dos demais pacotes alterados).
+   - Gera o build de produção local e atualiza o arquivo `pnpm-lock.yaml` se necessário.
    - Comita as mudanças de infraestrutura: `chore(release): prepara versao vX.Y.Z`.
 4. A branch de release é mesclada em `master` e em `develop`.
 5. Uma tag do Git é gerada no commit mesclado na `master`:
@@ -295,7 +296,8 @@ Para assegurar a consistência dos processos descritos, a equipe do UFC FLOW con
 | :----------------------- | :------------------------------- | :-------------------------------------------------------------------------------- |
 | **Git**                  | Sistema de Controle de Versão    | Gerenciamento de histórico, controle distribuído local e branches.                |
 | **GitHub**               | Plataforma de Hospedagem         | Hospedagem remota, controle de Pull Requests, gerenciamento de Issues e Actions.  |
-| **Bun**                  | Gerenciador de Pacotes e Runtime | Resolução, instalação e empacotamento rápido de dependências locais.              |
+| **pnpm**                 | Gerenciador de Pacotes           | Resolução e instalação de dependências do monorepo via workspaces.                |
+| **Turborepo**            | Orquestração de Monorepo         | Execução de build, lint e typecheck por pacote, com cache de resultados.          |
 | **Next.js & TypeScript** | Framework de Aplicação           | Estrutura de código, tipagem estática e compilação do UFC FLOW.                   |
 | **ESLint & Prettier**    | Qualidade & Formatação           | Validação e formatação automática de padrões estéticos e regras de código.        |
 | **GitHub Actions**       | Integração Contínua (CI)         | Execução automatizada de pipeline de testes, lint e builds em servidores remotos. |
@@ -323,4 +325,4 @@ Na eventualidade de indisponibilidade da plataforma GitHub:
 
 - O desenvolvimento local deve continuar normalmente nas branches de funcionalidade.
 - A troca de patches de código entre desenvolvedores pode ser feita através da geração de patches do Git (`git format-patch`) ou repositórios locais intermediários compartilhados via rede local.
-- O pipeline de CI/CD deve ser rodado manualmente em uma máquina local de desenvolvimento usando os scripts `bun install --frozen-lockfile`, `bun run lint` e `bun run build` antes de qualquer liberação emergencial.
+- O pipeline de CI/CD deve ser rodado manualmente em uma máquina local de desenvolvimento usando os scripts `pnpm install --frozen-lockfile`, `pnpm lint`, `pnpm typecheck` e `pnpm build` antes de qualquer liberação emergencial.

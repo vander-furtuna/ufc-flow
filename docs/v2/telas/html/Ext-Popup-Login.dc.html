@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Extensão — entrar</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Clash Display';src:url('../assets/clash-display-variable.woff2') format('woff2');font-weight:200 700;font-display:swap}
+body{margin:0;background:#ffffff}
+a{color:#1d293d}a:hover{color:#020618}
+input::placeholder{color:#62748e}
+</style>
+</helmet>
+<div style="width: 360px; height: 560px; box-sizing: border-box; padding: 20px; font-family: 'Geist', system-ui, sans-serif; color: #020618; background: #ffffff; display: flex; flex-direction: column; gap: 18px;">
+
+  <header style="display: flex; align-items: center; gap: 6px;">
+    <a href="Ext-Popup-Inicio.dc.html" aria-label="Voltar" style="width: 36px; height: 36px; margin-left: -8px; display: flex; align-items: center; justify-content: center; color: #1d293d;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></a>
+    <img src="../assets/logo-ufc-flow-simbolo.svg" alt="" style="width: 28px; height: 28px;">
+    <b style="font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 16px;">UFC Flow</b>
+  </header>
+
+  <div style="display: flex; flex-direction: column; gap: 6px;">
+    <h1 style="margin: 0; font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 22px; line-height: 28px;">Entre com sua conta do Flow</h1>
+    <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #45556c;">Só moderadores e administradores enviam grades. Sem conta, você ainda pode baixar o JSON.</p>
+  </div>
+
+  <form style="margin: 0; display: flex; flex-direction: column; gap: 14px;">
+    <div style="display: flex; flex-direction: column; gap: 6px;">
+      <label for="xe" style="font-size: 13px; font-weight: 500;">E-mail</label>
+      <input id="xe" type="email" placeholder="voce@alu.ufc.br" style="height: 44px; box-sizing: border-box; padding: 0 14px; border: 1px solid #e2e8f0; border-radius: 12px; font: inherit; font-size: 14px;">
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 6px;">
+      <label for="xs" style="font-size: 13px; font-weight: 500;">Senha</label>
+      <input id="xs" type="password" value="••••••••••" style="height: 44px; box-sizing: border-box; padding: 0 14px; border: 1px solid #e2e8f0; border-radius: 12px; font: inherit; font-size: 14px;">
+    </div>
+    <button type="submit" style="height: 44px; border: 0; border-radius: 14px; background: #0f172b; color: #f8fafc; font: inherit; font-size: 14px; font-weight: 600;">Entrar</button>
+  </form>
+
+  <div style="display: flex; gap: 10px; padding: 12px 14px; border-radius: 14px; background: #f1f5f9; font-size: 12px; line-height: 1.5; color: #45556c;">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 1px;"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    <span>A sessão fica guardada só nesta extensão. Seu login do SIGAA nunca é lido nem enviado.</span>
+  </div>
+
+  <a href="#criar" style="margin-top: auto; text-align: center; font-size: 13px; color: #45556c;">Não tem conta? Crie em flow.ufc.br</a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":360,"height":560}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

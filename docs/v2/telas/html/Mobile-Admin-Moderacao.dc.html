@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Admin — Moderação (mobile)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Clash Display';src:url('../assets/clash-display-variable.woff2') format('woff2');font-weight:200 700;font-display:swap}
+body{margin:0;background:#ffffff}
+textarea::placeholder{color:#62748e}
+</style>
+</helmet>
+<div style="width: 390px; height: 1500px; box-sizing: border-box; position: relative; overflow: hidden; font-family: 'Geist', system-ui, sans-serif; color: #020618; background: #f8fafc; display: flex; flex-direction: column;">
+
+  <header style="display: flex; align-items: center; gap: 8px; padding: 40px 12px 12px; background: #ffffff; border-bottom: 1px solid #e2e8f0;">
+    <button aria-label="Abrir menu da administração" style="width: 44px; height: 44px; border: 0; border-radius: 12px; background: transparent; color: #1d293d;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    <div style="flex: 1; display: flex; flex-direction: column;"><span style="font-size: 12px; color: #45556c;">Administração · todos os cursos</span><h1 style="margin: 0; font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 18px;">Moderação</h1></div>
+    <img src="../assets/logo-ufc-flow-simbolo.svg" alt="UFC Flow" style="width: 32px; height: 32px;">
+  </header>
+
+  <div style="padding: 16px; display: flex; flex-direction: column; gap: 14px;">
+    <div role="alert" style="padding: 14px; border: 1px solid #fecaca; border-radius: 16px; background: #fef2f2; display: flex; flex-direction: column; gap: 10px; font-size: 14px; line-height: 1.45; color: #7f1d1d;">
+      <span><b style="font-weight: 600;">Coleta de turmas de Psicologia falhou</b> às 14:00. As outras 5 terminaram bem.</span>
+      <button style="height: 40px; border: 1px solid #fecaca; border-radius: 10px; background: #ffffff; font: inherit; font-size: 14px; font-weight: 600; color: #7f1d1d;">Tentar de novo</button>
+    </div>
+
+    <div role="tablist" aria-label="Filas de moderação" style="display: flex; gap: 8px; margin: 0 -16px; padding: 0 16px; overflow-x: auto; white-space: nowrap; scrollbar-width: none;">
+      <sc-for list="{{tabs}}" as="t" hint-placeholder-count="3">
+        <button role="tab" aria-selected="{{t.on}}" onClick="{{t.pick}}" style="{{t.style}}">{{t.label}}</button>
+      </sc-for>
+    </div>
+
+    <sc-if value="{{isReports}}" hint-placeholder-val="{{true}}">
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <article style="border: 1px solid #e2e8f0; border-radius: 16px; background: #ffffff; overflow: hidden;">
+          <div style="display: flex; flex-direction: column; gap: 6px; padding: 12px 16px; background: #f8fafc; border-bottom: 1px solid #e2e8f0;">
+            <span style="align-self: flex-start; height: 24px; display: inline-flex; align-items: center; padding: 0 9px; border-radius: 999px; background: #fef3c7; color: #92400e; font-size: 12px; font-weight: 600;">Oculta automaticamente</span>
+            <span style="font-size: 12px; color: #45556c;">Eng. de Computação · 3 denúncias · 40 min</span>
+          </div>
+          <div style="padding: 16px; display: flex; flex-direction: column; gap: 12px;">
+            <span style="font-size: 14px;"><b style="font-weight: 600;">Rafael Torres</b> <span style="color: #45556c;">escreveu:</span></span>
+            <blockquote style="margin: 0; padding: 12px; border-radius: 12px; background: #f1f5f9; font-size: 14px; line-height: 1.5;">Quem quiser falar com a monitora de Cálculo, o número dela é [telefone ocultado] e ela mora perto do campus.</blockquote>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;"><span style="height: 26px; display: inline-flex; align-items: center; padding: 0 10px; border-radius: 999px; border: 1px solid #e2e8f0; font-size: 12px; font-weight: 500;">Dados pessoais · 2</span><span style="height: 26px; display: inline-flex; align-items: center; padding: 0 10px; border-radius: 999px; border: 1px solid #e2e8f0; font-size: 12px; font-weight: 500;">Assédio · 1</span></div>
+            <button style="height: 48px; border: 0; border-radius: 12px; background: #b91c1c; color: #ffffff; font: inherit; font-size: 15px; font-weight: 600;">Remover mensagem</button>
+            <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px;">
+              <button style="height: 44px; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff; font: inherit; font-size: 14px; font-weight: 500;">Restaurar</button>
+              <button style="height: 44px; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff; font: inherit; font-size: 14px; font-weight: 500;">Descartar</button>
+            </div>
+            <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: #45556c;">Silenciar o autor<select style="height: 44px; padding: 0 10px; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff; font: inherit; font-size: 15px; color: #020618;"><option>Não silenciar</option><option>7 dias</option><option>30 dias</option><option>Sem prazo</option></select></label>
+          </div>
+        </article>
+
+        <article style="border: 1px solid #e2e8f0; border-radius: 16px; background: #ffffff; overflow: hidden;">
+          <div style="display: flex; flex-direction: column; gap: 6px; padding: 12px 16px; background: #f8fafc; border-bottom: 1px solid #e2e8f0;">
+            <span style="align-self: flex-start; height: 24px; display: inline-flex; align-items: center; padding: 0 9px; border-radius: 999px; background: #e2e8f0; color: #334155; font-size: 12px; font-weight: 600;">Visível</span>
+            <span style="font-size: 12px; color: #45556c;">Engenharia Elétrica · 1 denúncia · 3 h</span>
+          </div>
+          <div style="padding: 16px; display: flex; flex-direction: column; gap: 12px;">
+            <span style="font-size: 14px;"><b style="font-weight: 600;">Lucas Pereira</b> <span style="color: #45556c;">escreveu:</span></span>
+            <blockquote style="margin: 0; padding: 12px; border-radius: 12px; background: #f1f5f9; font-size: 14px; line-height: 1.5;">Vendo calculadora HP 50g usada, chama no privado.</blockquote>
+            <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px;">
+              <button style="height: 44px; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff; font: inherit; font-size: 14px; font-weight: 500;">Ocultar</button>
+              <button style="height: 44px; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff; font: inherit; font-size: 14px; font-weight: 500;">Descartar</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{isRequests}}" hint-placeholder-val="{{false}}">
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <article style="padding: 16px; border: 1px solid #e2e8f0; border-radius: 16px; background: #ffffff; display: flex; flex-direction: column; gap: 12px;">
+          <div style="display: flex; align-items: center; gap: 10px;"><span aria-hidden="true" style="width: 40px; height: 40px; border-radius: 999px; background: #ede9fe; color: #5b21b6; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center;">PN</span><span style="flex: 1; display: flex; flex-direction: column; min-width: 0;"><b style="font-size: 15px; font-weight: 600;">Paula Nogueira</b><span style="font-size: 12px; color: #45556c;">paula.nogueira@alu.ufc.br</span></span></div>
+          <span style="align-self: flex-start; height: 26px; display: inline-flex; align-items: center; padding: 0 10px; border-radius: 999px; background: #f1f5f9; font-size: 12px; font-weight: 600;">Pede: Engenharia Elétrica</span>
+          <p style="margin: 0; font-size: 14px; line-height: 1.5;">Sou do centro acadêmico e já divulgo os editais e eventos do curso.</p>
+          <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 500;">Nota (opcional)<textarea rows="2" placeholder="Ex.: Aprovado, bem-vinda." style="box-sizing: border-box; padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 12px; font: inherit; font-size: 15px;"></textarea></label>
+          <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px;"><button style="height: 48px; border: 0; border-radius: 12px; background: #15803d; color: #ffffff; font: inherit; font-size: 15px; font-weight: 600;">Aprovar</button><button style="height: 48px; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff; font: inherit; font-size: 15px; font-weight: 500;">Rejeitar</button></div>
+        </article>
+        <article style="padding: 16px; border: 1px solid #e2e8f0; border-radius: 16px; background: #ffffff; display: flex; flex-direction: column; gap: 12px;">
+          <div style="display: flex; align-items: center; gap: 10px;"><span aria-hidden="true" style="width: 40px; height: 40px; border-radius: 999px; background: #e0f2fe; color: #075985; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center;">GM</span><span style="flex: 1; display: flex; flex-direction: column;"><b style="font-size: 15px; font-weight: 600;">Gabriel Martins</b><span style="font-size: 12px; color: #45556c;">gabriel.m@gmail.com</span></span></div>
+          <span style="align-self: flex-start; height: 26px; display: inline-flex; align-items: center; padding: 0 10px; border-radius: 999px; background: #f1f5f9; font-size: 12px; font-weight: 600;">Pede: Música</span>
+          <p style="margin: 0; padding: 10px 12px; border-radius: 12px; background: #fffbeb; font-size: 13px; line-height: 1.5; color: #78350f;">E-mail fora da UFC. Confirme o vínculo antes de aprovar.</p>
+          <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px;"><button style="height: 48px; border: 0; border-radius: 12px; background: #15803d; color: #ffffff; font: inherit; font-size: 15px; font-weight: 600;">Aprovar</button><button style="height: 48px; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff; font: inherit; font-size: 15px; font-weight: 500;">Rejeitar</button></div>
+        </article>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{isRestrictions}}" hint-placeholder-val="{{false}}">
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div style="padding: 14px 16px; border: 1px solid #e2e8f0; border-radius: 16px; background: #ffffff; display: flex; flex-direction: column; gap: 8px;">
+          <div style="display: flex; justify-content: space-between; align-items: center;"><b style="font-size: 15px; font-weight: 600;">Rafael Torres</b><span style="height: 24px; display: inline-flex; align-items: center; padding: 0 8px; border-radius: 999px; background: #fef3c7; color: #92400e; font-size: 12px; font-weight: 600;">Silenciado</span></div>
+          <span style="font-size: 13px; color: #45556c;">Eng. de Computação · até 06/11 · dados pessoais de terceiros</span>
+          <button style="height: 44px; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff; font: inherit; font-size: 14px; font-weight: 500;">Revogar</button>
+        </div>
+        <div style="padding: 14px 16px; border: 1px solid #e2e8f0; border-radius: 16px; background: #ffffff; display: flex; flex-direction: column; gap: 8px;">
+          <div style="display: flex; justify-content: space-between; align-items: center;"><b style="font-size: 15px; font-weight: 600;">conta-teste-77</b><span style="height: 24px; display: inline-flex; align-items: center; padding: 0 8px; border-radius: 999px; background: #fee2e2; color: #991b1b; font-size: 12px; font-weight: 600;">Banido</span></div>
+          <span style="font-size: 13px; color: #45556c;">Psicologia · sem prazo · spam repetido</span>
+          <button style="height: 44px; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff; font: inherit; font-size: 14px; font-weight: 500;">Revogar</button>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1500}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { tab: 'reports' }; }
+  renderVals() {
+    const tab = this.state.tab;
+    const defs = [['reports', 'Denúncias · 2'], ['requests', 'Pedidos · 2'], ['restrictions', 'Restrições · 2']];
+    return {
+      tabs: defs.map((d) => {
+        const on = d[0] === tab;
+        return { label: d[1], on: on, pick: () => this.setState({ tab: d[0] }), style: 'flex-shrink: 0; height: 40px; padding: 0 16px; border-radius: 999px; font: inherit; font-size: 14px; font-weight: 600; ' + (on ? 'background: #0f172b; color: #f8fafc; border: 1px solid #0f172b;' : 'background: #ffffff; color: #1d293d; border: 1px solid #e2e8f0;') };
+      }),
+      isReports: tab === 'reports',
+      isRequests: tab === 'requests',
+      isRestrictions: tab === 'restrictions'
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,19 +1,19 @@
 ## Itens de Configuração Mapeados
 
 - **ID**: IC-001
-  - **Descrição**: Arquivo principal de definição de dependências, scripts e overrides para o aplicativo Next.js UFC-FLOW (package.json).
+  - **Descrição**: Arquivos de definição de dependências e scripts: package.json raiz (scripts do Turborepo e versão do pnpm em packageManager) e apps/web/package.json (aplicativo Next.js UFC-FLOW).
   - **Repositório**: [GitHub](https://github.com/vander-furtuna/ufc-flow)
   - **Branch padrão**: `master`
   - **Tags**: `v1.0.0`
 
 - **ID**: IC-002
-  - **Descrição**: Configuração do compilador TypeScript com paths, módulos e opções de validação estrita para o projeto (tsconfig.json).
+  - **Descrição**: Configuração do compilador TypeScript com paths, módulos e opções de validação estrita para o projeto (apps/web/tsconfig.json e tsconfig.base.json para os demais pacotes).
   - **Repositório**: [GitHub](https://github.com/vander-furtuna/ufc-flow)
   - **Branch padrão**: `master`
   - **Tags**: `v1.0.0`
 
 - **ID**: IC-003
-  - **Descrição**: Configuração de build do Next.js com reactCompiler habilitado para otimização do projeto (next.config.mjs).
+  - **Descrição**: Configuração de build do Next.js com reactCompiler habilitado para otimização do projeto e rastreamento do build standalone a partir da raiz do monorepo (apps/web/next.config.mjs).
   - **Repositório**: [GitHub](https://github.com/vander-furtuna/ufc-flow)
   - **Branch padrão**: `master`
   - **Tags**: `v1.0.0`
@@ -55,13 +55,13 @@
   - **Tags**: `v1.0.0`
 
 - **ID**: IC-010
-  - **Descrição**: Arquivo de trava do Bun que garante a consistência das dependências entre desenvolvedores (bun.lock).
+  - **Descrição**: Arquivo de trava do pnpm que garante a consistência das dependências de todo o monorepo entre desenvolvedores, CI e deploy (pnpm-lock.yaml).
   - **Repositório**: [GitHub](https://github.com/vander-furtuna/ufc-flow)
   - **Branch padrão**: `master`
   - **Tags**: `v1.0.0`
 
 - **ID**: IC-011
-  - **Descrição**: Arquivo que armazena as estruturas de dados estáticas dos cursos e currículos (src/data/courses.ts).
+  - **Descrição**: Arquivo que armazena as estruturas de dados estáticas dos cursos e currículos (apps/web/src/data/courses.ts).
   - **Repositório**: [GitHub](https://github.com/vander-furtuna/ufc-flow)
   - **Branch padrão**: `master`
   - **Tags**: `v1.0.0`
@@ -79,49 +79,49 @@
   - **Tags**: `v1.0.0`
 
 - **ID**: IC-014
-  - **Descrição**: Conjunto de componentes React reutilizáveis localizados na pasta src/components.
+  - **Descrição**: Conjunto de componentes React reutilizáveis localizados na pasta apps/web/src/components.
   - **Repositório**: [GitHub](https://github.com/vander-furtuna/ufc-flow)
   - **Branch padrão**: `master`
   - **Tags**: `v1.0.0`
 
 - **ID**: IC-015
-  - **Descrição**: Ficheiros de imagem, logotipos e ícones armazenados na pasta public e assets.
+  - **Descrição**: Ficheiros de imagem, logotipos e ícones armazenados nas pastas apps/web/public e apps/web/src/assets.
   - **Repositório**: [GitHub](https://github.com/vander-furtuna/ufc-flow)
   - **Branch padrão**: `master`
   - **Tags**: `v1.0.0`
 
 - **ID**: IC-016
-  - **Descrição**: Lógica de extração de dados e integração com a API da universidade na pasta src/services.
+  - **Descrição**: Lógica de extração de dados e integração com a API da universidade na pasta apps/web/src/services.
   - **Repositório**: [GitHub](https://github.com/vander-furtuna/ufc-flow)
   - **Branch padrão**: `master`
   - **Tags**: `v1.0.0`
 
 - **ID**: IC-017
-  - **Descrição**: Ficheiros tailwind.config.ts e postcss.config.mjs que definem a identidade visual do projeto.
+  - **Descrição**: Ficheiros globals.css (tema do Tailwind v4) e apps/web/postcss.config.mjs que definem a identidade visual do projeto.
   - **Repositório**: [GitHub](https://github.com/vander-furtuna/ufc-flow)
   - **Branch padrão**: `master`
   - **Tags**: `v1.0.0`
 
 - **ID**: IC-018
-  - **Descrição**: Conjunto de interfaces e tipos TypeScript que garantem a integridade dos dados (src/types).
+  - **Descrição**: Conjunto de interfaces e tipos TypeScript que garantem a integridade dos dados (apps/web/src/types).
   - **Repositório**: [GitHub](https://github.com/vander-furtuna/ufc-flow)
   - **Branch padrão**: `master`
   - **Tags**: `v1.0.0`
 
 - **ID**: IC-019
-  - **Descrição**: Arquivos eslint.config.mjs e .prettierrc que definem as regras de qualidade e formatação de código.
+  - **Descrição**: Arquivos apps/web/eslint.config.mjs e apps/web/.prettierrc que definem as regras de qualidade e formatação de código.
   - **Repositório**: [GitHub](https://github.com/vander-furtuna/ufc-flow)
   - **Branch padrão**: `master`
   - **Tags**: `v1.0.0`
 
 - **ID**: IC-020
-  - **Descrição**: Modelo de variáveis de ambiente necessário para a configuração local e deploy (.env.example).
+  - **Descrição**: Modelo de variáveis de ambiente necessário para a configuração local e deploy (apps/web/.env.example).
   - **Repositório**: [GitHub](https://github.com/vander-furtuna/ufc-flow)
   - **Branch padrão**: `master`
   - **Tags**: `v1.0.0`
 
 - **ID**: IC-021
-  - **Descrição**: Funções utilitárias, hooks personalizados e lógica de infraestrutura (hooks, lib, utils).
+  - **Descrição**: Funções utilitárias, hooks personalizados e lógica de infraestrutura (apps/web/src/hooks, lib, utils).
   - **Repositório**: [GitHub](https://github.com/vander-furtuna/ufc-flow)
   - **Branch padrão**: `master`
   - **Tags**: `v1.0.0`
@@ -131,6 +131,18 @@
   - **Repositório**: [GitHub](https://github.com/vander-furtuna/ufc-flow)
   - **Branch padrão**: `master`
   - **Tags**: `v1.1.3`
+
+- **ID**: IC-023
+  - **Descrição**: Definição do workspace do monorepo, com os pacotes (apps/* e packages/*), o catálogo de versões compartilhadas e overrides de dependências (pnpm-workspace.yaml).
+  - **Repositório**: [GitHub](https://github.com/vander-furtuna/ufc-flow)
+  - **Branch padrão**: `master`
+  - **Tags**: —
+
+- **ID**: IC-024
+  - **Descrição**: Pipeline de tarefas do Turborepo (build, lint, typecheck, dev), com dependências entre pacotes, saídas cacheáveis e variáveis de ambiente consideradas no cache (turbo.json).
+  - **Repositório**: [GitHub](https://github.com/vander-furtuna/ufc-flow)
+  - **Branch padrão**: `master`
+  - **Tags**: —
 
 ## Controle de Mudanças via Git
 

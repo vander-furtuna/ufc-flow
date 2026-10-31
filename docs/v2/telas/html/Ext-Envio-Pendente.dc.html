@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Extensão — aguardando curso</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Clash Display';src:url('../assets/clash-display-variable.woff2') format('woff2');font-weight:200 700;font-display:swap}
+body{margin:0;background:#4b5563}
+a{color:#1d293d}a:hover{color:#020618}
+</style>
+</helmet>
+<div style="width: 560px; height: 520px; box-sizing: border-box; padding: 32px; font-family: 'Geist', system-ui, sans-serif; color: #020618; background: rgba(2,6,24,0.55); display: flex; align-items: center; justify-content: center;">
+  <div role="dialog" aria-modal="true" aria-labelledby="pend-title" style="width: 100%; box-sizing: border-box; padding: 28px; border-radius: 24px; background: #ffffff; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4); display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center;">
+    <span style="width: 64px; height: 64px; border-radius: 999px; background: #fef3c7; color: #b45309; display: flex; align-items: center; justify-content: center;"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
+    <h2 id="pend-title" style="margin: 0; font-family: 'Clash Display', 'Geist', sans-serif; font-weight: 600; font-size: 24px; line-height: 30px;">Recebido, falta o curso</h2>
+    <p style="margin: 0; font-size: 14px; line-height: 1.55; color: #45556c;">Química (código SIGAA <code style="font-family: 'Geist Mono', monospace;">657601</code>) ainda não existe no Flow. A grade ficou guardada e os administradores foram avisados. Quando o curso for criado, o rascunho aparece sozinho.</p>
+    <div style="width: 100%; display: flex; align-items: center; gap: 10px; padding: 12px; border-radius: 14px; background: #f8fafc; border: 1px solid #e2e8f0; text-align: left; font-size: 13px;">
+      <span style="width: 8px; height: 8px; border-radius: 999px; background: #f59e0b;"></span>
+      <span style="flex: 1;">Status em <b style="font-weight: 600;">Envios recentes</b> no popup</span>
+    </div>
+    <div style="width: 100%; display: flex; gap: 8px;">
+      <button style="flex: 1; height: 44px; border: 1px solid #e2e8f0; border-radius: 14px; background: #ffffff; font: inherit; font-size: 14px; font-weight: 500;">Baixar o JSON também</button>
+      <button style="flex: 1; height: 44px; border: 0; border-radius: 14px; background: #0f172b; color: #f8fafc; font: inherit; font-size: 14px; font-weight: 600;">Entendi</button>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":560,"height":520}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
