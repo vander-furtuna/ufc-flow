@@ -36,6 +36,12 @@ importers:
       oxlint-tsgolint:
         specifier: ^7.0.2005
         version: 7.0.2005
+      prettier:
+        specifier: ^3.9.10
+        version: 3.9.10
+      prettier-plugin-tailwindcss:
+        specifier: ^0.6.14
+        version: 0.6.14(prettier@3.9.10)
       turbo:
         specifier: ^2.5.0
         version: 2.11.10
@@ -156,9 +162,6 @@ importers:
       polished:
         specifier: ^4.3.1
         version: 4.3.1
-      prettier:
-        specifier: ^3.9.4
-        version: 3.9.10
       react:
         specifier: 19.3.1
         version: 19.3.1
@@ -211,9 +214,6 @@ importers:
       postcss:
         specifier: ^8.5.16
         version: 8.5.32
-      prettier-plugin-tailwindcss:
-        specifier: ^0.6.14
-        version: 0.6.14(prettier@3.9.10)
       tailwindcss:
         specifier: ^4.3.2
         version: 4.3.3

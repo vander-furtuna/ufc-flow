@@ -1,0 +1,12 @@
+pnpm-lock.yaml
+.claude/
+.agents/
+docs/v2/telas/
+**/.next/
+**/.turbo/
+**/out/
+**/build/
+**/dist/
+**/coverage/
+**/public/
+**/next-env.d.ts
