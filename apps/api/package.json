@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "lint": "oxlint --type-aware",
     "typecheck": "tsc --noEmit",
     "test": "vitest run"
   },

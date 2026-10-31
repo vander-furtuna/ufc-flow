@@ -23,18 +23,18 @@ type CourseLinkProps = {
 export function CourseLink({ course, icon, ...props }: CourseLinkProps) {
   const [isOpen, setIsOpen] = useState(false)
 
-  const { push } = useRouter()
+  const router = useRouter()
 
   const handleSaveSlug = useCallback(
     async (slug: string) => {
       try {
-        push(slug)
+        router.push(slug)
         await saveSlugToCookie(slug)
       } catch (error) {
         console.error('Error saving slug to cookie:', error)
       }
     },
-    [push],
+    [router],
   )
 
   const hasOneStructure = course.curriculumStructures.length === 1

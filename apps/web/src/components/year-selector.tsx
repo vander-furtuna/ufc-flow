@@ -150,7 +150,7 @@ export default function YearSelector({
   // Cleanup timeout
   useEffect(() => {
     return () => {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+      // oxlint-disable-next-line react-hooks-js/exhaustive-deps
       const timeout = scrollTimeoutRef.current
       if (timeout) {
         clearTimeout(timeout)

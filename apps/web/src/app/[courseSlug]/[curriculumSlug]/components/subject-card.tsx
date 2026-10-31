@@ -10,7 +10,7 @@ import { SubjectBar } from './subject-bar'
 type SubjectCardProps = ComponentProps<'button'> & {
   subject: Subject
   childIndex?: number
-  isActive: boolean
+  isActive?: boolean
 }
 
 export function SubjectCard({

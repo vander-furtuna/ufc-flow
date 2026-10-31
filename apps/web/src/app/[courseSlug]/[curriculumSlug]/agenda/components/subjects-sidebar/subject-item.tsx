@@ -209,7 +209,7 @@ export function SubjectItem({
                   onClick={(e) => {
                     e.stopPropagation()
                     e.preventDefault()
-                    navigator.clipboard.writeText(subject.code)
+                    void navigator.clipboard.writeText(subject.code)
                     setIsCopied(true)
                     toast.success(`Código ${subject.code} copiado!`)
                     setTimeout(() => setIsCopied(false), 2000)

@@ -9,7 +9,7 @@ import { SubjectBar } from './subject-bar'
 
 type SubjectCardProps = {
   subject: Subject
-  childIndex: number
+  childIndex?: number
 }
 
 export function SubjectCardSmall({
