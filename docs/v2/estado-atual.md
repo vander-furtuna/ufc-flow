@@ -7,13 +7,13 @@ Retrato em 31/10/2026, ao fim da fase 0. Atualize este arquivo ao fim de cada fa
 | Branch                       | Situação                                                                             |
 | ---------------------------- | ------------------------------------------------------------------------------------ |
 | `master`                     | Produção (deploy no Coolify), e continua sendo (D20). `origin/HEAD` aponta para ela. |
-| `develop`                    | Integração. Já tem `feature/monorepo` mesclada (localmente).                         |
-| `feature/fase-0-fundacao`    | Fase 0 completa, a partir de `develop`. Aguarda PR para `develop`.                   |
-| `feature/monorepo`           | Mesclada em `develop`; pode ser apagada depois do push.                              |
+| `develop`                    | Integração. Tem o monorepo e a fase 0 (PR #61, CI verde).                            |
+| `feature/fase-0-fundacao`    | Mesclada em `develop` pelo PR #61; pode ser apagada.                                 |
+| `feature/monorepo`           | Mesclada em `develop`; pode ser apagada.                                             |
 | `main`                       | Desatualizada em relação à `master`. Deve ser apagada no remoto (D20).               |
 | `hotfix/schedule-course-key` | Já mesclada em `master` e `develop`; pode ser apagada.                               |
 
-Nada disso foi enviado ao GitHub; o push é responsabilidade do usuário (`git push origin master develop feature/fase-0-fundacao`). Falta apagar no remoto `feat/users` e `main` (`git push origin --delete feat/users main`).
+Falta apagar `main` no remoto (`git push origin --delete main`).
 
 ## Concluído
 
@@ -43,12 +43,11 @@ Nada disso foi enviado ao GitHub; o push é responsabilidade do usuário (`git p
 
 ## Pendências imediatas
 
-1. Push das branches e PR de `feature/fase-0-fundacao` para `develop`. O "pronto" da fase 0 é o CI verde nesse PR.
-2. Apagar `main` no remoto e conferir que o GitHub (branch padrão) e o Coolify usam `master`.
-3. Conferir `docker compose -f docker/compose.dev.yml up -d` com o Docker Desktop ligado (o arquivo foi validado com `docker compose config`, mas o container não foi iniciado).
-4. Conferir num navegador com dados reais que filtros, ferramentas e agendas continuam lá depois da migração para o `UFCFlowDB` v7.
-5. Corrigir os 5 avisos de `jsx-a11y` e passar essas regras para erro. Os de `calendario` dependem de uma exceção à D10.
-6. No projeto do Vercel, mudar o Root Directory para `apps/web` (Settings › Build and Deployment) e manter ligada a opção de incluir arquivos fora do Root Directory. Desde o monorepo, o build a partir da raiz falha com `NEXT_NO_VERSION`, porque o `next` está em `apps/web/package.json`.
+A fase 0 está pronta: CI verde no PR #61 para `develop`, `docker compose -f docker/compose.dev.yml up -d` sobe o PostgreSQL 17 (healthy, porta 5432) e o Vercel de testes voltou a publicar com o Root Directory em `apps/web`. Sobram:
+
+1. Apagar `main` no remoto e conferir que o GitHub (branch padrão) e o Coolify usam `master`.
+2. Conferir num navegador com dados reais que filtros, ferramentas e agendas continuam lá depois da migração para o `UFCFlowDB` v7.
+3. Corrigir os 5 avisos de `jsx-a11y` e passar essas regras para erro. Os de `calendario` dependem de uma exceção à D10.
 
 ## Divergências entre a modelagem e o repositório
 
