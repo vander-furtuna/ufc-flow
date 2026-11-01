@@ -232,6 +232,7 @@ flowchart LR
   - Ordenação em lote, agendamento de visibilidade, destaque único, selo "Novo".
   - QR code gerado no front.
 - [ ] Editor com pré-visualização ao vivo, temas prontos, estilo e formato de botão, fonte do título e "links mais clicados".
+- [ ] Redesenhar `Links-Pagina`, `Links-Editor`, `Mobile-Links` e `Mobile-Links-Editor` junto com a implementação, com as cores de `LINK_PAGE_THEMES` (D31) em vez das do mockup.
 
 ## Fase 11 — Fórum e moderação
 

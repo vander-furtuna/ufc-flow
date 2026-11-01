@@ -71,7 +71,7 @@ Acessibilidade: os mockups já usam `role="tab"`, `aria-selected`, `aria-pressed
 
 ## Temas da página de links
 
-Os seis temas são fixos (sem cor livre) e definidos em `LINK_PAGE_THEMES`, no `packages/contracts`. Os valores vêm de `Links-Editor.dc.html`, com uma diferença (D31): no mockup, o rótulo branco do botão preenchido sobre o destaque de CIANO (3,68:1), LARANJA (3,56:1) e VERDE (3,30:1) reprova no AA. Por isso o destaque desses três passou para o tom 700. Um teste em `themes.test.ts` confere 4,5:1 no texto sobre fundo, superfície e capa, no rótulo do botão preenchido e no destaque sobre fundo e superfície.
+Os seis temas são fixos (sem cor livre) e definidos em `LINK_PAGE_THEMES`, no `packages/contracts`. Os valores vêm de `Links-Editor.dc.html`, com uma diferença (D31): no mockup, o rótulo branco do botão preenchido sobre o destaque de CIANO (3,68:1), LARANJA (3,56:1) e VERDE (3,30:1) reprova no AA. Por isso o destaque desses três passou para o tom 700. Os mockups das telas de links ainda têm os valores antigos e serão redesenhados na implementação (fase 10): na dúvida, valem os tokens desta tabela. Um teste em `themes.test.ts` confere 4,5:1 no texto sobre fundo, superfície e capa, no rótulo do botão preenchido e no destaque sobre fundo e superfície.
 
 | Tema    | Fundo (`background`) | Destaque (`accent`)           | Rótulo no destaque (`onAccent`) | Borda (`border`) | Texto (`foreground`) | Superfície (`surface`) | Capa (`cover`) |
 | ------- | -------------------- | ----------------------------- | ------------------------------- | ---------------- | -------------------- | ---------------------- | -------------- |
