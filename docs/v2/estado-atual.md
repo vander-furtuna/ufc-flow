@@ -48,6 +48,7 @@ Nada disso foi enviado ao GitHub; o push é responsabilidade do usuário (`git p
 3. Conferir `docker compose -f docker/compose.dev.yml up -d` com o Docker Desktop ligado (o arquivo foi validado com `docker compose config`, mas o container não foi iniciado).
 4. Conferir num navegador com dados reais que filtros, ferramentas e agendas continuam lá depois da migração para o `UFCFlowDB` v7.
 5. Corrigir os 5 avisos de `jsx-a11y` e passar essas regras para erro. Os de `calendario` dependem de uma exceção à D10.
+6. No projeto do Vercel, mudar o Root Directory para `apps/web` (Settings › Build and Deployment) e manter ligada a opção de incluir arquivos fora do Root Directory. Desde o monorepo, o build a partir da raiz falha com `NEXT_NO_VERSION`, porque o `next` está em `apps/web/package.json`.
 
 ## Divergências entre a modelagem e o repositório
 
@@ -70,4 +71,6 @@ Nada disso foi enviado ao GitHub; o push é responsabilidade do usuário (`git p
 - **Estado no cliente:** contexts em `apps/web/src/contexts` (`course`, `class`, `schedule`, `filter`, `calendar`, `tools`).
 - **Persistência local:** IndexedDB `UFCFlowDB` v7, aberto por `apps/web/src/lib/ufc-flow-db.ts`, com os stores `schedules` (cache de turmas), `user_schedules` (agendas), `user_preferences`, `academic_calendar`, `ru_menus`, `filters` e `tools`. O acesso é feito por `apps/web/src/lib/indexeddb.ts` e `apps/web/src/storage/indexed-db`. O antigo `ufc-flow-indexeddb` é copiado e apagado na primeira abertura da v7.
 - **Semestre vigente:** variáveis `NEXT_PUBLIC_CURRENT_YEAR` e `NEXT_PUBLIC_CURRENT_SEMESTER`. Na v2 isso passa para `academic_terms.is_current`.
-- **Deploy:** o Coolify faz o build do `Dockerfile` da raiz. A saída é standalone do Next, na porta 3000.
+- **Deploy:**
+  - Produção: o Coolify faz o build do `Dockerfile` da raiz. A saída é standalone do Next, na porta 3000.
+  - Testes: o Vercel publica o web a cada push, para pré-visualização. Não é produção, e o Dockerfile não é usado lá.
