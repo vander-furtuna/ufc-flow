@@ -15,6 +15,8 @@ const nextConfig = {
     root: monorepoRoot,
   },
   reactCompiler: true,
+  // Pacotes internos exportam TypeScript direto
+  transpilePackages: ['@ufc-flow/academic-core'],
   allowedDevOrigins: ['192.168.18.*', '127.0.0.1'],
   experimental: {
     optimizePackageImports: ['@phosphor-icons/react'],

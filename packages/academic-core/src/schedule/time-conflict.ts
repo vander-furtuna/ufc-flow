@@ -2,6 +2,11 @@ import type { TimeSlot } from './types'
 
 const TIME_PATTERN = /^([01]\d|2[0-3]):([0-5]\d)(?::[0-5]\d)?$/
 
+// "HH:MM" ou "HH:MM:SS", de 00:00 a 23:59
+export function isValidTime(time: string): boolean {
+  return TIME_PATTERN.test(time)
+}
+
 // Minutos desde a meia-noite. Os segundos são ignorados.
 export function timeToMinutes(time: string): number {
   const match = TIME_PATTERN.exec(time)

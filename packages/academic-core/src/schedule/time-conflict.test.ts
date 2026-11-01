@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import {
   findConflictingSections,
   hasTimeConflict,
+  isValidTime,
   slotsOverlap,
   timeToMinutes,
 } from './time-conflict'
@@ -28,6 +29,19 @@ describe('timeToMinutes', () => {
       expect(() => timeToMinutes(time)).toThrow(RangeError)
     },
   )
+})
+
+describe('isValidTime', () => {
+  it('aceita HH:MM e HH:MM:SS válidos', () => {
+    expect(isValidTime('00:00')).toBe(true)
+    expect(isValidTime('23:59:59')).toBe(true)
+  })
+
+  it('recusa horas fora do formato', () => {
+    expect(isValidTime('8:00')).toBe(false)
+    expect(isValidTime('25:00')).toBe(false)
+    expect(isValidTime('')).toBe(false)
+  })
 })
 
 describe('slotsOverlap', () => {

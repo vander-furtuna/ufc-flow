@@ -1,6 +1,3 @@
-export function normalizeWords(string: string) {
-  return string
-    .toLocaleLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-}
+// Mantido para os usos atuais (inclusive Calendário e RU, D10); a regra vem do
+// academic-core, a mesma usada pela API em search_name.
+export { normalizeSearchText as normalizeWords } from '@ufc-flow/academic-core'
