@@ -71,18 +71,18 @@ Acessibilidade: os mockups já usam `role="tab"`, `aria-selected`, `aria-pressed
 
 ## Temas da página de links
 
-Os seis temas são fixos (sem cor livre) e definidos em `packages/contracts`. Valores extraídos de `Links-Editor.dc.html`:
+Os seis temas são fixos (sem cor livre) e definidos em `LINK_PAGE_THEMES`, no `packages/contracts`. Os valores vêm de `Links-Editor.dc.html`, com uma diferença (D31): no mockup, o rótulo branco do botão preenchido sobre o destaque de CIANO (3,68:1), LARANJA (3,56:1) e VERDE (3,30:1) reprova no AA. Por isso o destaque desses três passou para o tom 700. Um teste em `themes.test.ts` confere 4,5:1 no texto sobre fundo, superfície e capa, no rótulo do botão preenchido e no destaque sobre fundo e superfície.
 
-| Tema    | Fundo     | Destaque  | Borda     | Texto     | Superfície | Capa      |
-| ------- | --------- | --------- | --------- | --------- | ---------- | --------- |
-| CIANO   | `#ecfeff` | `#0891b2` | `#a5f3fc` | `#083344` | `#ffffff`  | `#cffafe` |
-| LARANJA | `#fff7ed` | `#ea580c` | `#fed7aa` | `#7c2d12` | `#ffffff`  | `#ffedd5` |
-| VERDE   | `#f0fdf4` | `#16a34a` | `#bbf7d0` | `#14532d` | `#ffffff`  | `#dcfce7` |
-| VIOLETA | `#f5f3ff` | `#7c3aed` | `#ddd6fe` | `#4c1d95` | `#ffffff`  | `#ede9fe` |
-| BRANCO  | `#ffffff` | `#0f172b` | `#e2e8f0` | `#020618` | `#f8fafc`  | `#f1f5f9` |
-| ESCURO  | `#020618` | `#22d3ee` | `#314158` | `#f8fafc` | `#1d293d`  | `#1d293d` |
+| Tema    | Fundo (`background`) | Destaque (`accent`)           | Rótulo no destaque (`onAccent`) | Borda (`border`) | Texto (`foreground`) | Superfície (`surface`) | Capa (`cover`) |
+| ------- | -------------------- | ----------------------------- | ------------------------------- | ---------------- | -------------------- | ---------------------- | -------------- |
+| CIANO   | `#ecfeff`            | `#0e7490` (mockup: `#0891b2`) | `#ffffff`                       | `#a5f3fc`        | `#083344`            | `#ffffff`              | `#cffafe`      |
+| LARANJA | `#fff7ed`            | `#c2410c` (mockup: `#ea580c`) | `#ffffff`                       | `#fed7aa`        | `#7c2d12`            | `#ffffff`              | `#ffedd5`      |
+| VERDE   | `#f0fdf4`            | `#15803d` (mockup: `#16a34a`) | `#ffffff`                       | `#bbf7d0`        | `#14532d`            | `#ffffff`              | `#dcfce7`      |
+| VIOLETA | `#f5f3ff`            | `#7c3aed`                     | `#ffffff`                       | `#ddd6fe`        | `#4c1d95`            | `#ffffff`              | `#ede9fe`      |
+| BRANCO  | `#ffffff`            | `#0f172b`                     | `#ffffff`                       | `#e2e8f0`        | `#020618`            | `#f8fafc`              | `#f1f5f9`      |
+| ESCURO  | `#020618`            | `#22d3ee`                     | `#020618`                       | `#314158`        | `#f8fafc`            | `#1d293d`              | `#1d293d`      |
 
-Estilos de botão: Preenchido (fundo no destaque), Contorno (borda de 2px no destaque) e Suave (superfície com borda). Formatos: Reto (6px), Arredondado (14px) e Pílula (999px). Fonte do título: Clash Display ou Geist.
+Estilos de botão: Preenchido (fundo no destaque, rótulo em `onAccent`), Contorno (borda de 2px no destaque) e Suave (superfície com borda). Formatos: Reto (6px), Arredondado (14px) e Pílula (999px). Fonte do título: Clash Display ou Geist.
 
 ## Marca
 

@@ -74,6 +74,10 @@ Cada linha é uma decisão já tomada e onde ela aparece na modelagem. Mudar uma
 | D27 | Cálculo do progresso     | Natureza `MANDATORY` ou `OPTATIVE`; cumprida por equivalência usa a carga da EC e a equivalente não conta de novo; subvertente conta para a mãe; total = disciplinas + complementares (até o exigido) + atividades de extensão | Seção Progresso de integralização                                                   |
 | D28 | Co-requisitos            | Não bloqueiam a lista de disciplinas liberadas; contam como satisfeitos se cumpridos ou em `CURSANDO`, e os que faltam são listados para cursar junto                                                                          | `findAvailableSubjects`                                                             |
 | D29 | Tipos de domínio         | `RequirementExpr`, `RecordStatus`, `TimeSlot` e afins são definidos no `academic-core`; o `contracts` depende dele e tipa os schemas Zod contra esses tipos                                                                    | Seção Monorepo e arquitetura                                                        |
+| D30 | Tipo de componente       | `subjects.type` usa os dez tipos que a extensão atual reconhece no SIGAA, com nomes em inglês; TCC, estágio e afins são tipo, não natureza                                                                                     | Seção Catálogo acadêmico; `subjectTypeSchema`                                       |
+| D31 | Temas da página de links | O destaque de CIANO, LARANJA e VERDE passa para o tom 700 e cada tema ganha `onAccent`, para o botão preenchido passar no AA                                                                                                   | `LINK_PAGE_THEMES` e design-system.md; difere do mockup `Links-Editor`              |
+| D32 | Formato da API           | JSON em camelCase, datas ISO 8601 com fuso; Problem Details com `type` = `https://flow.ufc.br/problems/<código>` e validação em 400 `VALIDATION_FAILED` com `errors[]`                                                         | Seção Monorepo e arquitetura; `packages/contracts`                                  |
+| D33 | `CurriculumImportV1`     | Objetos estritos, requisitos já normalizados, coerência de vertentes checada no schema e ciclos de pré-requisito só ao publicar; fixture com a EC 2006.2 de Eng. de Computação, a única disponível                             | Seção Importação e edição de grades; substitui a fixture 2025.1 do roadmap          |
 
 ## Monorepo e arquitetura
 
@@ -139,6 +143,12 @@ apps/api/src/
 - Os schemas vêm dos mesmos contratos Zod de `packages/contracts`, convertidos com `z.toJSONSchema` do Zod 4 (ou `nestjs-zod`, se a versão escolhida suportar Zod 4). Assim validação e documentação não divergem.
 - Cada módulo vira uma tag (`@ApiTags`). Cada rota tem resumo em português (`@ApiOperation`), exemplos de corpo e todas as respostas, inclusive as de erro.
 - Erros seguem um formato único (Problem Details: `type`, `title`, `status`, `detail`, `code`), documentado uma vez e referenciado em todas as rotas. Paginação por cursor também tem schema próprio.
+- Como ficou na fase 2 (D32):
+  - Os schemas com nome (`.meta({ id })`) viram componentes do OpenAPI 3.0 com `toOpenApiComponents()`, e as referências apontam para `#/components/schemas/<id>`. Refinamentos, como a forma normalizada dos requisitos, só existem no Zod.
+  - O `type` do Problem Details é `https://flow.ufc.br/problems/<código em kebab-case>`, e `instance` é opcional.
+  - Falha de validação responde 400 com `code: VALIDATION_FAILED` e `errors[]` (`path`, `message`, `code`), gerado por `validationProblem(error)`. O código de cada erro vem de `params.code` da regra ou do tipo da issue (`VALIDATION_TOO_SMALL`).
+  - A paginação recebe `?cursor=&limit=`, com limite de 1 a 100 e padrão 20, e responde `{ items, nextCursor }`, com `nextCursor` nulo na última página.
+  - JSON em camelCase, inclusive em `attributes`. Datas em ISO 8601 com fuso.
 - Botão "Authorize" com Bearer (`addBearerAuth`): faz-se login em `/auth/sign-in` no próprio Swagger e testam-se as rotas protegidas com o token.
 - Rotas versionadas por URI (`/v1/...`), com um documento por versão.
 - Em desenvolvimento, `/docs` é aberto. Em produção, fica atrás de Basic Auth configurada por variável de ambiente (`SWAGGER_USER`, `SWAGGER_PASSWORD`), ou desligado com `SWAGGER_ENABLED=false`.
@@ -220,13 +230,14 @@ A disciplina é global e identificada pelo código do SIGAA. O que muda de uma E
 campuses(id, slug UQ, name, city, state)
 courses(id, sigaa_id UQ, slug UQ, name, icon, color, campus_id, is_active, created_at, updated_at)
 curricula(id, course_id, period '2025.1', slug, status[DRAFT|PUBLISHED], is_current,
-      min_total_hours, max_total_hours, mandatory_hours, optative_hours, extension_hours,
+      min_total_hours, max_total_hours NULL, mandatory_hours, optative_hours, extension_hours,
       complementary_activity_hours, max_free_optative_hours,
       min_periods, avg_periods, max_periods, period_min_hours, period_avg_hours, period_max_hours,
       published_at NULL, published_by NULL, created_at, updated_at)
       UQ(course_id, slug) · UQ parcial (course_id) WHERE is_current
       CHECK (NOT is_current OR status = 'PUBLISHED')
-subjects(id, code UQ, name, slug, search_name, type,
+subjects(id, code UQ, name, slug, search_name,
+      type[DISCIPLINE|COMPLEMENTARY_ACTIVITY|FINAL_PROJECT|INTERNSHIP|EXTENSION_UNIT|MODULE|ADVANCED_TOPIC|SEMINAR|TUTORING|OTHER],
       workload_hours, theory_hours, lab_hours, ead_hours, extension_hours, credits,
       created_at, updated_at)                       GIN trigram em search_name e code
 curriculum_subjects(id, curriculum_id, subject_id, semester NULL, semester_inferred, nature,
@@ -255,6 +266,21 @@ type RequirementExpr =
 - `E` tem precedência sobre `OU`, e texto vazio significa sem requisito (D21). As equivalências valem só na direção gravada e não se encadeiam: se A equivale a B e B a C, A não equivale a C (D22).
 
 **Vertentes.** O tipo (`SLOPE`, `EMPHASIS`, `SPECIFIC_GROUP`), a hierarquia (`parent_id`) e os mínimos (`min_hours`, `min_components`), que já existem nos tipos do front, entram na modelagem. A pivô `curriculum_subject_branches` com `nature` substitui os campos duplicados `branch: string[]` e `branchRelations`.
+
+**Tipo de componente (D30).** `subjects.type` usa os tipos que a extensão atual reconhece no SIGAA, com nome em inglês. A natureza na EC continua só `MANDATORY` ou `OPTATIVE`.
+
+| SIGAA                                   | `type`                   |
+| --------------------------------------- | ------------------------ |
+| Disciplina                              | `DISCIPLINE`             |
+| Atividade complementar                  | `COMPLEMENTARY_ACTIVITY` |
+| Trabalho de conclusão de curso          | `FINAL_PROJECT`          |
+| Estágio                                 | `INTERNSHIP`             |
+| Unidade curricular especial de extensão | `EXTENSION_UNIT`         |
+| Módulo                                  | `MODULE`                 |
+| Tópico avançado                         | `ADVANCED_TOPIC`         |
+| Seminário                               | `SEMINAR`                |
+| Tutoria                                 | `TUTORING`               |
+| Qualquer outro                          | `OTHER`                  |
 
 **EC vigente.** `is_current` é marcada manualmente por moderador ou admin, porque a Pró-Reitoria de Graduação pode manter vigente uma EC que não é a mais recente. Marcar uma EC desmarca a anterior na mesma transação. Uma EC publicada e não vigente continua visível e válida para quem está matriculado nela.
 
@@ -479,15 +505,15 @@ post_images(post_id, file_id, position)                PK(post_id, file_id)
 
 ```
 
-| Tipo                                    | Campos comuns obrigatórios | `attributes` (opcionais)                                                                 |
-| --------------------------------------- | -------------------------- | ---------------------------------------------------------------------------------------- |
-| `NEWS` notícia                          | —                          | —                                                                                        |
-| `EVENT` evento                          | `starts_at`                | `modality` (presencial, online, híbrido), `registration_url`; usa `ends_at` e `location` |
-| `SCHOLARSHIP` bolsa                     | `deadline_at`              | `amount_brl`, `vacancies`, `weekly_hours`, `sponsor`, `requirements`                     |
-| `EXTENSION_PROJECT` projeto de extensão | —                          | `coordinator`, `vacancies`, `contact`                                                    |
-| `CALL` edital                           | `deadline_at`              | `number`, `issuer`, `document_url`                                                       |
+| Tipo                                    | Campos comuns obrigatórios | `attributes` (opcionais)                                                                    |
+| --------------------------------------- | -------------------------- | ------------------------------------------------------------------------------------------- |
+| `NEWS` notícia                          | —                          | —                                                                                           |
+| `EVENT` evento                          | `starts_at`                | `modality` (`IN_PERSON`, `ONLINE`, `HYBRID`), `registrationUrl`; usa `ends_at` e `location` |
+| `SCHOLARSHIP` bolsa                     | `deadline_at`              | `amountBrl`, `vacancies`, `weeklyHours`, `sponsor`, `requirements`                          |
+| `EXTENSION_PROJECT` projeto de extensão | —                          | `coordinator`, `vacancies`, `contact`                                                       |
+| `CALL` edital                           | `deadline_at`              | `number`, `issuer`, `documentUrl`                                                           |
 
-- A validação por tipo é uma união discriminada em Zod no `packages/contracts`, usada pelo formulário do web e pela API.
+- A validação por tipo é uma união discriminada em Zod no `packages/contracts` (`postInputSchema`), usada pelo formulário do web e pela API. As chaves de `attributes` são camelCase (D32), `attributes` não aceita chave de outro tipo e `ends_at` não pode ser antes de `starts_at`.
 - Feed: `GET /courses/:course/hub?type=&cursor=`, com fixados primeiro e depois por `published_at` decrescente. Eventos aceitam o filtro "próximos"; bolsas e editais com prazo vencido aparecem como encerrados.
 - O corpo é Markdown, renderizado com lista restrita de elementos (sem HTML cru).
 - Links importantes: viram uma página própria do curso, no estilo Linktree (seção Página de links). O hub mostra os 5 primeiros links visíveis e um atalho para a página.
@@ -512,16 +538,16 @@ link_clicks_daily(link_id, day, source[PAGE|QR|HUB], clicks)           PK(link_i
 link_page_views_daily(course_id, day, source[PAGE|QR|HUB], views)      PK(course_id, day, source)
 ```
 
-| Personalização                                     | Onde fica                                | Regra                                                                             |
-| -------------------------------------------------- | ---------------------------------------- | --------------------------------------------------------------------------------- |
-| Ícone ou foto do curso, capa, bio                  | `course_link_pages`                      | Imagens pelo módulo de arquivos                                                   |
-| Tema, estilo e formato dos botões, fonte do título | `course_link_pages`                      | Só temas prontos, todos com contraste AA; os tokens ficam em `packages/contracts` |
-| Seções                                             | `course_link_sections`                   | Ordenáveis e ocultáveis; link sem seção aparece no topo                           |
-| Ícone ou miniatura por link                        | `course_links.icon`, `thumbnail_file_id` | Miniatura tem prioridade sobre o ícone                                            |
-| Destaque com brilho                                | `course_links.is_featured`               | No máximo 1 por página, sempre no topo                                            |
-| Selo “Novo”                                        | `course_links.badge`                     | Marcado pelo moderador                                                            |
-| Aparecer só num período                            | `visible_from`, `visible_until`          | Fora do período o link some sozinho; o editor mostra “programado” ou “expirado”   |
-| Redes do curso                                     | `course_social_links`                    | Fileira de ícones abaixo da bio                                                   |
+| Personalização                                     | Onde fica                                | Regra                                                                                           |
+| -------------------------------------------------- | ---------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| Ícone ou foto do curso, capa, bio                  | `course_link_pages`                      | Imagens pelo módulo de arquivos                                                                 |
+| Tema, estilo e formato dos botões, fonte do título | `course_link_pages`                      | Só temas prontos, todos com contraste AA testado; os tokens ficam em `packages/contracts` (D31) |
+| Seções                                             | `course_link_sections`                   | Ordenáveis e ocultáveis; link sem seção aparece no topo                                         |
+| Ícone ou miniatura por link                        | `course_links.icon`, `thumbnail_file_id` | Miniatura tem prioridade sobre o ícone                                                          |
+| Destaque com brilho                                | `course_links.is_featured`               | No máximo 1 por página, sempre no topo                                                          |
+| Selo “Novo”                                        | `course_links.badge`                     | Marcado pelo moderador                                                                          |
+| Aparecer só num período                            | `visible_from`, `visible_until`          | Fora do período o link some sozinho; o editor mostra “programado” ou “expirado”                 |
+| Redes do curso                                     | `course_social_links`                    | Fileira de ícones abaixo da bio                                                                 |
 
 - **Tipos de link:** endereço externo (`URL`), arquivo enviado, como um PDF de regulamento (`FILE`), tela do próprio Flow, como grade, fórum ou calendário (`INTERNAL`), e post do hub (`POST`). Um link de post some quando o post é arquivado.
 - **Leitura pública:** `GET /l/:slug` devolve só o que está publicado, visível e dentro do período, com cache curto (60 s). Página despublicada responde 404.
@@ -632,6 +658,22 @@ curriculum_imports(id, course_id NULL, curriculum_id NULL, schema_version, sourc
 6. Reimportar sobre um rascunho do mesmo período mostra o diff (adicionadas, removidas, alteradas) antes de aplicar.
 7. Publicar roda uma checagem: toda disciplina com natureza, vertentes válidas, nenhum ciclo de pré-requisitos, códigos de requisitos resolvidos ou sinalizados.
 
+**Formato `CurriculumImportV1` (D33).** Definido em `packages/contracts/src/catalog/curriculum-import-v1.ts`.
+
+- **Estrutura:**
+  - `schemaVersion: 1`;
+  - `source` com `extractedAt` e `url`;
+  - `course` com `sigaaId`, só dígitos, e `name`;
+  - `curriculum` com período, cidade e as cargas e prazos de `curricula`. `maxTotalHours` é opcional porque o SIGAA nem sempre mostra;
+  - `branches` com `key` local, `parentKey`, tipo, nome, descrição, cor e mínimos;
+  - `subjects` com código, nome, `type` (D30), semestre (nulo nas optativas), as cargas, créditos, natureza, `prerequisites`, `corequisites`, `equivalences` e `branches` (`key` e `nature`).
+- **Validação:**
+  - Todos os objetos são estritos: um campo desconhecido é erro, para pegar digitação errada. Uma mudança incompatível vira `schemaVersion: 2`.
+  - Os requisitos são `RequirementExpr` já na forma normalizada (D21). A extensão gera com `parseRequirement`, que normaliza.
+  - O schema também recusa disciplina ou vertente repetida, vertente inexistente (`parentKey` ou vínculo de disciplina) e ciclo entre vertentes. Cada problema vem com o caminho do campo e um código em `params.code`: `CURRICULUM_IMPORT_DUPLICATE_SUBJECT`, `CURRICULUM_IMPORT_DUPLICATE_BRANCH`, `CURRICULUM_IMPORT_UNKNOWN_BRANCH` ou `CURRICULUM_IMPORT_BRANCH_CYCLE`.
+  - Ciclos de pré-requisito não barram a importação: são checados ao publicar (passo 7).
+- **Fixture:** `packages/contracts/fixtures/engenharia-de-computacao-2006-2.json`. É a EC 2006.2 de Eng. de Computação, a única que existe desse curso, com os 114 componentes do HTML real do SIGAA. Os requisitos com `OU` estão preservados, e as três vertentes vêm do `courses.ts`.
+
 **Funções do course-maker que migram para o web** (rotas em `/admin`, protegidas pela matriz de permissões):
 
 | Função atual                                    | No UFC Flow                                           |
@@ -658,3 +700,4 @@ O maior risco é a autenticidade: sem SMTP não dá para verificar e-mail instit
 - **Primeiro admin.** Precisa ser criado por um comando de seed na API, já que ninguém aprova o primeiro.
 - **Semestre vigente.** Passa a ser responsabilidade de um admin cadastrar o semestre e marcá-lo como vigente; antes era variável de ambiente.
 - **Conteúdo a definir.** Lista final de critérios de avaliação e categorias de atividades complementares de cada curso, conforme os regulamentos.
+- **Equivalências na importação.** O `CurriculumImportV1` traz as equivalências de cada disciplina, mas elas são globais e só o admin as edita (D5), e quem importa pode ser moderador. Falta decidir, na fase 5, se a importação de um moderador aplica as equivalências, só as sugere para um admin aprovar ou as ignora.
