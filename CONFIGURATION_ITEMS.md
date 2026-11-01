@@ -109,7 +109,7 @@
   - **Tags**: `v1.0.0`
 
 - **ID**: IC-019
-  - **Descrição**: Arquivos apps/web/eslint.config.mjs e apps/web/.prettierrc que definem as regras de qualidade e formatação de código.
+  - **Descrição**: Arquivos .oxlintrc.json (lint com oxlint, type-aware), .prettierrc e .prettierignore (formatação) e .gitattributes (quebras de linha LF), na raiz do monorepo, que definem as regras de qualidade e formatação de código.
   - **Repositório**: [GitHub](https://github.com/vander-furtuna/ufc-flow)
   - **Branch padrão**: `master`
   - **Tags**: `v1.0.0`
@@ -139,7 +139,13 @@
   - **Tags**: —
 
 - **ID**: IC-024
-  - **Descrição**: Pipeline de tarefas do Turborepo (build, lint, typecheck, dev), com dependências entre pacotes, saídas cacheáveis e variáveis de ambiente consideradas no cache (turbo.json).
+  - **Descrição**: Pipeline de tarefas do Turborepo (build, lint, typecheck, test, dev), com dependências entre pacotes, saídas cacheáveis e variáveis de ambiente consideradas no cache (turbo.json).
+  - **Repositório**: [GitHub](https://github.com/vander-furtuna/ufc-flow)
+  - **Branch padrão**: `master`
+  - **Tags**: —
+
+- **ID**: IC-025
+  - **Descrição**: Ambiente de desenvolvimento da API: PostgreSQL 17 em container (docker/compose.dev.yml) e modelo de variáveis de ambiente da API (apps/api/.env.example).
   - **Repositório**: [GitHub](https://github.com/vander-furtuna/ufc-flow)
   - **Branch padrão**: `master`
   - **Tags**: —

@@ -214,7 +214,7 @@ As mensagens de commit devem descrever claramente o impacto da alteração, util
 O projeto conta com um fluxo automatizado de integração definido em `.github/workflows/ci.yml`. O pipeline roda automaticamente nas seguintes ocasiões:
 
 - Pushes diretos para o branch `master`.
-- Pull Requests abertos ou modificados tendo a branch `master` como destino.
+- Pull Requests abertos ou modificados tendo a branch `develop` ou `master` como destino.
 
 O fluxo de CI executa as seguintes etapas estruturadas na nuvem:
 
@@ -222,10 +222,12 @@ O fluxo de CI executa as seguintes etapas estruturadas na nuvem:
 2. **Setup do Runtime**: Configuração do **Node.js 22** e do **pnpm** na versão fixada no campo `packageManager` do `package.json` raiz.
 3. **Mecanismo de Cache**: Recupera o cache da store do pnpm com base na hash do arquivo `pnpm-lock.yaml` (IC-010). Isso acelera o tempo de execução.
 4. **Instalação Estrita**: Roda o comando `pnpm install --frozen-lockfile` para proibir atualizações não controladas de dependências durante o build da CI.
-5. **Análise Estática (Linting)**: Executa `pnpm lint`, que roda o ESLint em todos os pacotes via Turborepo, para barrar violações de padrões de desenvolvimento.
-6. **Compilação e Tipagem**:
+5. **Formatação**: Executa `pnpm format:check`, que roda `prettier --check` no repositório inteiro.
+6. **Análise Estática (Linting)**: Executa `pnpm lint`, que roda o oxlint com regras type-aware (`oxlint-tsgolint`) em todos os pacotes via Turborepo, para barrar violações de padrões de desenvolvimento.
+7. **Compilação e Tipagem**:
    - Executa `pnpm typecheck`, que em cada pacote roda `tsc --noEmit`; no front-end, antes disso, `next typegen` atualiza os tipos das rotas dinâmicas do Next.js.
-7. **Build de Produção**: Roda o empacotamento completo `pnpm build` para garantir que a baseline compila perfeitamente sem falhas silenciosas.
+8. **Testes**: Executa `pnpm test`, que roda o Vitest em todos os pacotes via Turborepo.
+9. **Build de Produção**: Roda o empacotamento completo `pnpm build` para garantir que a baseline compila perfeitamente sem falhas silenciosas.
 
 Caso qualquer uma das etapas falhe, o build é classificado como quebrado e a mesclagem é bloqueada até que o desenvolvedor submeta as correções necessárias.
 
@@ -299,7 +301,9 @@ Para assegurar a consistência dos processos descritos, a equipe do UFC FLOW con
 | **pnpm**                 | Gerenciador de Pacotes        | Resolução e instalação de dependências do monorepo via workspaces.                |
 | **Turborepo**            | Orquestração de Monorepo      | Execução de build, lint e typecheck por pacote, com cache de resultados.          |
 | **Next.js & TypeScript** | Framework de Aplicação        | Estrutura de código, tipagem estática e compilação do UFC FLOW.                   |
-| **ESLint & Prettier**    | Qualidade & Formatação        | Validação e formatação automática de padrões estéticos e regras de código.        |
+| **oxlint & Prettier**    | Qualidade & Formatação        | Validação e formatação automática de padrões estéticos e regras de código.        |
+| **Vitest**               | Testes                        | Testes unitários e de integração de todos os pacotes.                             |
+| **Docker Compose**       | Ambiente de Desenvolvimento   | PostgreSQL local da API (docker/compose.dev.yml).                                 |
 | **GitHub Actions**       | Integração Contínua (CI)      | Execução automatizada de pipeline de testes, lint e builds em servidores remotos. |
 
 ---

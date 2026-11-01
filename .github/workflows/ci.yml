@@ -1,11 +1,13 @@
 name: CI (Continuous Integration)
 
+# master = produção, develop = integração
 on:
   push:
     branches:
       - master
   pull_request:
     branches:
+      - develop
       - master
 
 env:
@@ -32,11 +34,17 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Check Linting
+      - name: Check Formatting (Prettier)
+        run: pnpm format:check
+
+      - name: Check Linting (oxlint, type-aware)
         run: pnpm lint
 
       - name: Check Types (Next.js typegen + TypeScript)
         run: pnpm typecheck
+
+      - name: Run Tests (Vitest)
+        run: pnpm test
 
       - name: Check Build
         run: pnpm build
