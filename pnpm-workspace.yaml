@@ -16,5 +16,11 @@ overrides:
 
 # Pacotes autorizados a rodar scripts de instalação (o pnpm bloqueia por padrão)
 allowBuilds:
+  # Plasmo (Parcel) na extensão
+  '@parcel/watcher': true
+  '@swc/core': true
+  esbuild: true
+  lmdb: true
+  msgpackr-extract: true
   sharp: true
   unrs-resolver: true

@@ -21,6 +21,10 @@ out/
 build
 dist
 
+# plasmo (extensão)
+.plasmo
+apps/extension/src/styles/generated.css
+
 # misc
 .DS_Store
 *.pem

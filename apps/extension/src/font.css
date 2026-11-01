@@ -3,7 +3,7 @@
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
-  src: url(data-base64:~assets/ClashDisplay-Variable.woff2) format("woff2");
+  src: url(data-base64:../assets/ClashDisplay-Variable.woff2) format("woff2");
 }
 
 @font-face {
@@ -11,7 +11,7 @@
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
-  src: url(data-base64:~assets/Geist-Variable.woff2) format("woff2");
+  src: url(data-base64:../assets/Geist-Variable.woff2) format("woff2");
 }
 
 @font-face {
@@ -19,5 +19,5 @@
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
-  src: url(data-base64:~assets/GeistMono-Variable.woff2) format("woff2");
+  src: url(data-base64:../assets/GeistMono-Variable.woff2) format("woff2");
 }

@@ -1,8 +1,6 @@
 /* UFC Flow Premium Minimalist Design System with Tailwind CSS v3 Integration */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
 
 :host {
   all: initial; /* Style isolation reset - MUST be first */
