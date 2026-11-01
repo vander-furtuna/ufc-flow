@@ -32,39 +32,48 @@ A v2 do UFC Flow troca os dados estáticos do front (`src/data/courses.ts`) por 
 
 Cada linha é uma decisão já tomada e onde ela aparece na modelagem. Mudar uma decisão exige revisar a seção indicada.
 
-| #   | Tema                     | Decisão                                                                                       | Consequência na modelagem                                                           |
-| --- | ------------------------ | --------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| D1  | Turmas                   | O backend faz o scraping do SIGAA e guarda as turmas no Postgres                              | IDs estáveis; agenda referencia `class_sections.id` (seção Turmas e agendas)        |
-| D2  | Agenda sem login         | Anônimo usa IndexedDB; logado sincroniza; importação das agendas locais no primeiro login     | `schedules.id` gerado no cliente (UUID) para importação idempotente                 |
-| D3  | EC vigente               | Definida pela Pró-Reitoria de Graduação, nem sempre a mais recente                            | Flag explícita `is_current`, marcada manualmente, uma por curso                     |
-| D4  | EC publicada             | Só muda o que não prejudica registros ligados a ela                                           | Regra de edição "monotônica" + log de auditoria                                     |
-| D5  | Equivalências            | Globais                                                                                       | Ficam na disciplina (`subject_equivalences`), não na EC                             |
-| D6  | Fórum                    | Assíncrono, no modelo do X/Twitter                                                            | Mensagens com respostas encadeadas, curtidas, feed paginado por cursor              |
-| D7  | Menções                  | Digitar `@` abre um popover de busca por nome ou código da disciplina                         | Token `@CÓDIGO` no texto + tabela de menções gravada na escrita + endpoint de busca |
-| D8  | Repositórios             | Monorepo com web, API e extensão; course-maker absorvido pelo web                             | `apps/web`, `apps/api`, `apps/extension`, `packages/*`                              |
-| D9  | ORM                      | Drizzle                                                                                       | Schema em `apps/api/src/infrastructure/database/schema`                             |
-| D10 | RU e Calendário          | Permanecem como estão                                                                         | Fora do banco                                                                       |
-| L1  | Situação da disciplina   | Cursando, aprovado, reprovado, trancada, suprimida, aproveitada                               | Enum `record_status` + regras de nova tentativa                                     |
-| L2  | EC do aluno              | A matrícula aponta para a EC que o aluno segue                                                | `student_enrollments.curriculum_id`                                                 |
-| L3  | Moderação                | Usuário solicita, admin aprova                                                                | `moderator_requests`                                                                |
-| L4  | Vínculo institucional    | E-mail `@alu.ufc.br` para avaliar e postar                                                    | Modelado, mas sem SMTP não há como verificar (ver Lacunas)                          |
-| L5  | Anonimato das avaliações | Só agregados, a partir de 5 respostas                                                         | Regra na leitura; `user_id` nunca exposto                                           |
-| L6  | Horas complementares     | Lançadas pelo aluno                                                                           | `student_activity_records` + categorias por EC                                      |
-| L7  | LGPD                     | Termos, privacidade, exclusão e exportação de dados                                           | `user_consents`, rotina de exclusão com anonimização                                |
-| L8  | SMTP                     | Fora da v2                                                                                    | Nada de verificação ou recuperação por e-mail                                       |
-| L9  | Imagens                  | Armazenadas na VM                                                                             | `files` + adaptador de disco local                                                  |
-| L10 | Moderação do fórum       | Denúncias, ações de moderação e restrições                                                    | `message_reports`, `moderation_actions`, `user_course_restrictions`                 |
-| L11 | Backup                   | Nenhum na v2                                                                                  | Risco aceito (ver Lacunas)                                                          |
-| D11 | Gerenciador de pacotes   | pnpm + Turborepo                                                                              | O front sai do bun: lockfile único, Dockerfile e CI com pnpm                        |
-| D12 | Vagas por curso          | Uma turma atende vários cursos; reserved\_seats é a reserva de um curso dentro do total       | class\_section\_offers, uma linha por turma e curso                                 |
-| D13 | Agendas locais antigas   | Curso inferido no front; hotfix passa a gravar os slugs                                       | Importação sempre com course\_id explícito (seção Turmas e agendas)                 |
-| D14 | Branch feat/users        | Descartada por completo                                                                       | Nada dela é reaproveitado; a v2 parte do master atual                               |
-| D15 | Leitura do fórum         | Só para usuários logados                                                                      | Matriz de permissões                                                                |
-| D16 | Notificações             | Só dentro da plataforma, já na v2                                                             | Seção Notificações                                                                  |
-| D17 | Documentação da API      | Swagger em todas as rotas, com CI barrando rota sem documentação                              | Seção Monorepo e arquitetura                                                        |
-| D18 | Links do curso           | Página própria no estilo Linktree, com tema, seções, destaque, agendamento e cliques anônimos | Seção Página de links; course\_links substituída por 6 tabelas                      |
-| D19 | Lint                     | oxlint no lugar do ESLint, com lint type-aware e plugin JS para as regras do React Compiler   | Seção Monorepo e arquitetura; Prettier segue só como formatador                     |
-| D20 | Branch de produção       | `master` continua como produção; `main` é apagada                                             | Substitui a escolha de `main` no Git flow; CI em PRs para `develop` e `master`      |
+| #   | Tema                     | Decisão                                                                                                                                                                                                                        | Consequência na modelagem                                                           |
+| --- | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------- |
+| D1  | Turmas                   | O backend faz o scraping do SIGAA e guarda as turmas no Postgres                                                                                                                                                               | IDs estáveis; agenda referencia `class_sections.id` (seção Turmas e agendas)        |
+| D2  | Agenda sem login         | Anônimo usa IndexedDB; logado sincroniza; importação das agendas locais no primeiro login                                                                                                                                      | `schedules.id` gerado no cliente (UUID) para importação idempotente                 |
+| D3  | EC vigente               | Definida pela Pró-Reitoria de Graduação, nem sempre a mais recente                                                                                                                                                             | Flag explícita `is_current`, marcada manualmente, uma por curso                     |
+| D4  | EC publicada             | Só muda o que não prejudica registros ligados a ela                                                                                                                                                                            | Regra de edição "monotônica" + log de auditoria                                     |
+| D5  | Equivalências            | Globais                                                                                                                                                                                                                        | Ficam na disciplina (`subject_equivalences`), não na EC                             |
+| D6  | Fórum                    | Assíncrono, no modelo do X/Twitter                                                                                                                                                                                             | Mensagens com respostas encadeadas, curtidas, feed paginado por cursor              |
+| D7  | Menções                  | Digitar `@` abre um popover de busca por nome ou código da disciplina                                                                                                                                                          | Token `@CÓDIGO` no texto + tabela de menções gravada na escrita + endpoint de busca |
+| D8  | Repositórios             | Monorepo com web, API e extensão; course-maker absorvido pelo web                                                                                                                                                              | `apps/web`, `apps/api`, `apps/extension`, `packages/*`                              |
+| D9  | ORM                      | Drizzle                                                                                                                                                                                                                        | Schema em `apps/api/src/infrastructure/database/schema`                             |
+| D10 | RU e Calendário          | Permanecem como estão                                                                                                                                                                                                          | Fora do banco                                                                       |
+| L1  | Situação da disciplina   | Cursando, aprovado, reprovado, trancada, suprimida, aproveitada                                                                                                                                                                | Enum `record_status` + regras de nova tentativa                                     |
+| L2  | EC do aluno              | A matrícula aponta para a EC que o aluno segue                                                                                                                                                                                 | `student_enrollments.curriculum_id`                                                 |
+| L3  | Moderação                | Usuário solicita, admin aprova                                                                                                                                                                                                 | `moderator_requests`                                                                |
+| L4  | Vínculo institucional    | E-mail `@alu.ufc.br` para avaliar e postar                                                                                                                                                                                     | Modelado, mas sem SMTP não há como verificar (ver Lacunas)                          |
+| L5  | Anonimato das avaliações | Só agregados, a partir de 5 respostas                                                                                                                                                                                          | Regra na leitura; `user_id` nunca exposto                                           |
+| L6  | Horas complementares     | Lançadas pelo aluno                                                                                                                                                                                                            | `student_activity_records` + categorias por EC                                      |
+| L7  | LGPD                     | Termos, privacidade, exclusão e exportação de dados                                                                                                                                                                            | `user_consents`, rotina de exclusão com anonimização                                |
+| L8  | SMTP                     | Fora da v2                                                                                                                                                                                                                     | Nada de verificação ou recuperação por e-mail                                       |
+| L9  | Imagens                  | Armazenadas na VM                                                                                                                                                                                                              | `files` + adaptador de disco local                                                  |
+| L10 | Moderação do fórum       | Denúncias, ações de moderação e restrições                                                                                                                                                                                     | `message_reports`, `moderation_actions`, `user_course_restrictions`                 |
+| L11 | Backup                   | Nenhum na v2                                                                                                                                                                                                                   | Risco aceito (ver Lacunas)                                                          |
+| D11 | Gerenciador de pacotes   | pnpm + Turborepo                                                                                                                                                                                                               | O front sai do bun: lockfile único, Dockerfile e CI com pnpm                        |
+| D12 | Vagas por curso          | Uma turma atende vários cursos; reserved\_seats é a reserva de um curso dentro do total                                                                                                                                        | class\_section\_offers, uma linha por turma e curso                                 |
+| D13 | Agendas locais antigas   | Curso inferido no front; hotfix passa a gravar os slugs                                                                                                                                                                        | Importação sempre com course\_id explícito (seção Turmas e agendas)                 |
+| D14 | Branch feat/users        | Descartada por completo                                                                                                                                                                                                        | Nada dela é reaproveitado; a v2 parte do master atual                               |
+| D15 | Leitura do fórum         | Só para usuários logados                                                                                                                                                                                                       | Matriz de permissões                                                                |
+| D16 | Notificações             | Só dentro da plataforma, já na v2                                                                                                                                                                                              | Seção Notificações                                                                  |
+| D17 | Documentação da API      | Swagger em todas as rotas, com CI barrando rota sem documentação                                                                                                                                                               | Seção Monorepo e arquitetura                                                        |
+| D18 | Links do curso           | Página própria no estilo Linktree, com tema, seções, destaque, agendamento e cliques anônimos                                                                                                                                  | Seção Página de links; course\_links substituída por 6 tabelas                      |
+| D19 | Lint                     | oxlint no lugar do ESLint, com lint type-aware e plugin JS para as regras do React Compiler                                                                                                                                    | Seção Monorepo e arquitetura; Prettier segue só como formatador                     |
+| D20 | Branch de produção       | `master` continua como produção; `main` é apagada                                                                                                                                                                              | Substitui a escolha de `main` no Git flow; CI em PRs para `develop` e `master`      |
+| D21 | Sintaxe dos requisitos   | `E` tem precedência sobre `OU`; texto vazio é "sem requisito"; a árvore é guardada normalizada (grupos achatados, sem repetição)                                                                                               | Seção Catálogo acadêmico; `parseRequirement` no `academic-core`                     |
+| D22 | Equivalências            | Diretas, só na direção gravada (não simétricas) e sem encadear (não transitivas); uma equivalência com `E` exige todas as disciplinas                                                                                          | Seção Catálogo acadêmico; `isSubjectCompleted`                                      |
+| D23 | Termo letivo             | Só os períodos `.1` e `.2`; depois de `2026.2` vem `2027.1`                                                                                                                                                                    | `academic_terms.period` em 1 ou 2                                                   |
+| D24 | Dia da semana            | ISO 8601: 1 = segunda … 7 = domingo                                                                                                                                                                                            | `class_section_slots.weekday`                                                       |
+| D25 | Nota                     | 0 a 10 com duas casas, opcional em `APROVADO`, `REPROVADO` e `APROVEITADA`, sem faixa mínima ou máxima por situação                                                                                                            | Regras do histórico                                                                 |
+| D26 | Histórico passado        | Registros podem nascer com situação final em qualquer semestre até o vigente; `CURSANDO` só no vigente; nada em semestre futuro                                                                                                | Regras do histórico                                                                 |
+| D27 | Cálculo do progresso     | Natureza `MANDATORY` ou `OPTATIVE`; cumprida por equivalência usa a carga da EC e a equivalente não conta de novo; subvertente conta para a mãe; total = disciplinas + complementares (até o exigido) + atividades de extensão | Seção Progresso de integralização                                                   |
+| D28 | Co-requisitos            | Não bloqueiam a lista de disciplinas liberadas; contam como satisfeitos se cumpridos ou em `CURSANDO`, e os que faltam são listados para cursar junto                                                                          | `findAvailableSubjects`                                                             |
+| D29 | Tipos de domínio         | `RequirementExpr`, `RecordStatus`, `TimeSlot` e afins são definidos no `academic-core`; o `contracts` depende dele e tipa os schemas Zod contra esses tipos                                                                    | Seção Monorepo e arquitetura                                                        |
 
 ## Monorepo e arquitetura
 
@@ -77,7 +86,7 @@ ufc-flow/
 │  ├─ api/            NestJS + Drizzle + PostgreSQL
 │  └─ extension/      Plasmo — o atual sigaa-classes-scraping
 ├─ packages/
-│  ├─ contracts/      schemas Zod: DTOs da API, formato de importação de EC (v1), enums
+│  ├─ contracts/      schemas Zod: DTOs da API, formato de importação de EC (v1), enums; depende do academic-core (D29)
 │  └─ academic-core/  regras puras: expressão de requisitos, termo "2026.1", conflito de horário, progresso
 ├─ docker/            compose de desenvolvimento (Postgres)
 ├─ .oxlintrc.json     lint de todo o monorepo
@@ -243,6 +252,7 @@ type RequirementExpr =
 - A árvore referencia **códigos**, não IDs: o SIGAA cita disciplinas que podem não estar importadas (ex.: `CEC0058` em equivalências de Cálculo I).
 - As tabelas `*_requirements` e `*_equivalence_codes` são derivadas da árvore a cada gravação. Servem para o grafo do React Flow e para a consulta "o que esta disciplina desbloqueia".
 - Uma disciplina está cumprida se o aluno tem registro `APROVADO` ou `APROVEITADA` nela ou numa equivalente (equivalência global, decisão D5).
+- `E` tem precedência sobre `OU`, e texto vazio significa sem requisito (D21). As equivalências valem só na direção gravada e não se encadeiam: se A equivale a B e B a C, A não equivale a C (D22).
 
 **Vertentes.** O tipo (`SLOPE`, `EMPHASIS`, `SPECIFIC_GROUP`), a hierarquia (`parent_id`) e os mínimos (`min_hours`, `min_components`), que já existem nos tipos do front, entram na modelagem. A pivô `curriculum_subject_branches` com `nature` substitui os campos duplicados `branch: string[]` e `branchRelations`.
 
@@ -280,7 +290,7 @@ instructors(id, siape UQ, name, profile_url)
 class_sections(id, term_id, subject_code, subject_id NULL, section_code,
       valid_from, valid_to, fingerprint, first_seen_at, last_seen_at, removed_at NULL, updated_at)
       UQ(term_id, subject_code, section_code)
-class_section_slots(id, class_section_id, weekday 1..7, start_time, end_time)
+class_section_slots(id, class_section_id, weekday 1..7 (ISO: 1 = segunda, D24), start_time, end_time)
 class_section_instructors(class_section_id, instructor_id)        PK composta
 class_section_offers(class_section_id, course_id, reserved_seats, last_seen_at)   PK composta
 scrape_runs(id, course_id, term_id, trigger[SCHEDULED|MANUAL], status[RUNNING|SUCCESS|FAILED],
@@ -370,6 +380,8 @@ student_activity_records(id, enrollment_id, kind[COMPLEMENTARY|EXTENSION], categ
 | `APROVEITADA`                          | Criada direto, sem passar por `CURSANDO`; pode apontar o registro de origem (`source_record_id`) ou descrever a origem (`origin_note`) |
 | Nota                                   | Opcional em `APROVADO`, `REPROVADO` e `APROVEITADA` (0 a 10, duas casas); proibida nas demais                                          |
 | Disciplina fora da EC                  | Aceita: conta como optativa livre, até `max_free_optative_hours`                                                                       |
+| Histórico passado                      | Pode ser lançado direto com situação final, em qualquer semestre até o vigente (D26)                                                   |
+| Semestre futuro                        | Nenhum registro em semestre posterior ao vigente                                                                                       |
 
 **Troca de EC e transferência.**
 
@@ -388,6 +400,16 @@ student_activity_records(id, enrollment_id, kind[COMPLEMENTARY|EXTENSION], categ
 - total vs `min_total_hours`.
 
 Uma disciplina conta como cumprida quando tem `APROVADO` ou `APROVEITADA`, nela ou numa equivalente.
+
+Detalhes do cálculo (D27):
+
+- A natureza na EC é `MANDATORY` ou `OPTATIVE`. TCC, estágio e afins entram como uma das duas, conforme a EC.
+- Uma disciplina da EC cumprida por equivalência conta com a carga da EC, e a equivalente usada não conta de novo como livre.
+- As disciplinas de uma subvertente (`parent_id`) contam também para a vertente-mãe.
+- Atividades sem categoria não têm teto.
+- O total soma as disciplinas contadas (obrigatórias e optativas, com o teto das livres), as complementares até `complementary_activity_hours` e as atividades de extensão. As horas de extensão das disciplinas já estão na carga delas e não contam duas vezes.
+
+**Disciplinas liberadas.** São as da EC ainda não cumpridas nem em `CURSANDO`, com o pré-requisito cumprido (`CURSANDO` não conta). O co-requisito não bloqueia: conta como satisfeito se cumprido ou em `CURSANDO`, e os que faltam aparecem para cursar junto (D28).
 
 ## Avaliação de disciplinas
 

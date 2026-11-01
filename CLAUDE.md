@@ -27,7 +27,7 @@ apps/
   extension/        extensão do SIGAA, Plasmo (@ufc-flow/extension) — placeholder
 packages/
   contracts/        schemas Zod compartilhados (@ufc-flow/contracts) — placeholder
-  academic-core/    regras acadêmicas puras, sem framework (@ufc-flow/academic-core) — placeholder
+  academic-core/    regras acadêmicas puras, sem framework (@ufc-flow/academic-core)
 docs/v2/            documentação da v2 (este conjunto)
 ```
 
@@ -55,7 +55,7 @@ pnpm --filter @ufc-flow/academic-core add -D vitest   # dependência num pacote
 
 ## Regras do projeto
 
-- **Domínio primeiro, com testes.** Regras acadêmicas (requisitos, conflito de horário, progresso, termo `2026.1`, menções `@CÓDIGO`) vão em `packages/academic-core`, escritas com TDD (Vitest). Web e API importam de lá; nunca duplique essas regras.
+- **Domínio primeiro, com testes.** Regras acadêmicas (requisitos, conflito de horário, progresso, termo `2026.1`, menções `@CÓDIGO`) vão em `packages/academic-core`, escritas com TDD (Vitest). Web e API importam de lá; nunca duplique essas regras. O pacote exige 90% de cobertura (`pnpm --filter @ufc-flow/academic-core test`).
 - **Contratos únicos.** DTOs, enums e o formato `CurriculumImportV1` vivem em `packages/contracts` (Zod 4). Validação da API, Swagger e formulários do web derivam do mesmo schema.
 - **API hexagonal por módulo** (`domain/`, `application/`, `infrastructure/`), com o rigor completo onde a modelagem pede (catalog, academic-record, planning, forum, identity). Detalhes em `docs/v2/modelagem.md` › Monorepo e arquitetura.
 - **Swagger obrigatório** em toda rota, com respostas de erro em Problem Details. Rota sem documentação quebra o CI.
