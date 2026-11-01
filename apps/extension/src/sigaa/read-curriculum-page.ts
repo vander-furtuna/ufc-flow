@@ -257,11 +257,12 @@ function readEmphases(table: Element): PageEmphasis[] {
     const text = textOf(row)
     if (row.classList.contains('tituloRelatorio')) continue
     if (row.classList.contains('header')) {
-      // "2023.1E2 - EIXO DE GESTÃO E EMPREENDEDORISMO"
+      // "2023.1E2 - EIXO DE GESTÃO E EMPREENDEDORISMO"; sem código, só o nome
       const [code = '', ...name] = text.split(' - ')
+      const hasCode = name.length > 0
       current = {
-        sigaaCode: code.trim(),
-        name: name.join(' - ').trim(),
+        sigaaCode: hasCode ? code.trim() : '',
+        name: hasCode ? name.join(' - ').trim() : text,
         mandatoryHours: null,
         minOptativeHours: null,
         members: [],
