@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>SIGAA - UFC</title></head>
+<body>
+<!-- Só os formulários da tela "Busca por Estruturas Curriculares", sem o cabeçalho com os dados do usuário -->
+<form id="busca" name="busca" method="post" action="https://si3.ufc.br/sigaa/graduacao/curriculo/lista.jsf" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="busca" value="busca">
+
+		<table class="formulario" width="85%">
+			<caption>Busca por Estruturas Curriculares</caption>
+			<tbody>
+				<tr>
+					<td><input id="busca:checkCurso" type="checkbox" name="busca:checkCurso" checked="checked"></td>
+					<td><label for="checkcurso">Curso:</label></td>
+					<td><select id="busca:curso" name="busca:curso" size="1" onchange="submit()" onfocus="$('busca:checkCurso').checked = true;">	<option value="0">-- SELECIONE --</option>
+	<option value="76942757">ABI - EDUCAÇÃO FÍSICA/IEFES - FORTALEZA</option>
+	<option value="657446">ADMINISTRAÇÃO (DIURNO)/FEAAC - FORTALEZA</option>
+	<option value="657452">ADMINISTRAÇÃO (NOTURNO)/FEAAC - FORTALEZA</option>
+	<option value="657524">ADMINISTRAÇÃO PUBLICA/CUFCCARIRI - JUAZEIRO DO NORTE</option>
+	<option value="6491865">ADMINISTRAÇÃO PÚBLICA/IUVI - FORTALEZA</option>
+	<option value="657488">ADMINISTRAÇÃO/CUFCCARIRI - JUAZEIRO DO NORTE</option>
+	<option value="6491862">ADMINISTRAÇÃO/IUVI - FORTALEZA</option>
+	<option value="657420">AGRONOMIA/CCA - FORTALEZA</option>
+	<option value="657489">AGRONOMIA/CUFCCARIRI - JUAZEIRO DO NORTE</option>
+	<option value="72461781">ANÁLISE E DESENVOLVIMENTO DE SISTEMAS/CITAPAJE - ITAPAJÉ</option>
+	<option value="79802471">ARQUEOLOGIA/CC - FORTALEZA</option>
+	<option value="657473">ARQUITETURA E URBANISMO/IAUD - FORTALEZA</option>
+	<option value="5707016">BACHARELADO EM DESIGN/CUFCCARIRI - JUAZEIRO DO NORTE</option>
+	<option value="657457">BIBLIOTECONOMIA/CH - FORTALEZA</option>
+	<option value="657490">BIBLIOTECONOMIA/CUFCCARIRI - JUAZEIRO DO NORTE</option>
+	<option value="657502">BIOTECNOLOGIA/CC - FORTALEZA</option>
+	<option value="657504">CINEMA E AUDIOVISUAL/ICA - FORTALEZA</option>
+	<option value="1912104">CIÊNCIA DA COMPUTAÇÃO/CAMPRUSSAS - RUSSAS</option>
+	<option value="3325058">CIÊNCIA DA COMPUTAÇÃO/CC - FORTALEZA</option>
+	<option value="1878933">CIÊNCIA DA COMPUTAÇÃO/CCRATEUS - CRATEÚS</option>
+	<option value="1371512">CIÊNCIA DA COMPUTAÇÃO/DIRQUIXADA - QUIXADÁ</option>
+	<option value="75287727">CIÊNCIA DE DADOS/CC - FORTALEZA</option>
+	<option value="72460878">CIÊNCIA DE DADOS/CITAPAJE - ITAPAJÉ</option>
+	<option value="657503">CIÊNCIAS AMBIENTAIS/LABOMAR - FORTALEZA</option>
+	<option value="657451">CIÊNCIAS ATUARIAIS/FEAAC - FORTALEZA</option>
+	<option value="657427">CIÊNCIAS BIOLÓGICAS/CC - FORTALEZA</option>
+	<option value="657450">CIÊNCIAS CONTÁBEIS (DIURNO)/FEAAC - FORTALEZA</option>
+	<option value="657447">CIÊNCIAS CONTÁBEIS (NOTURNO)/FEAAC - FORTALEZA</option>
+	<option value="76067675">CIÊNCIAS DA NATUREZA E MATEMÁTICA/PRG - FORTALEZA</option>
+	<option value="657448">CIÊNCIAS ECONÔMICAS (DIURNO)/FEAAC - FORTALEZA</option>
+	<option value="657449">CIÊNCIAS ECONÔMICAS (NOTURNO)/FEAAC - FORTALEZA</option>
+	<option value="657483">CIÊNCIAS ECONÔMICAS/CUFCSOBRAL - SOBRAL</option>
+	<option value="76067785">CIÊNCIAS HUMANAS/PRG - FORTALEZA</option>
+	<option value="657458">CIÊNCIAS SOCIAIS (DIURNO)/CH - FORTALEZA</option>
+	<option value="657499">CIÊNCIAS SOCIAIS (NOTURNO)/CH - FORTALEZA</option>
+	<option value="657442">COMPUTAÇÃO/CC - FORTALEZA</option>
+	<option value="657518">COMUNICAÇÃO SOCIAL - JORNALISMO DA TERRA/ICA - FORTALEZA</option>
+	<option value="657510">COMUNICAÇÃO SOCIAL - JORNALISMO/CUFCCARIRI - JUAZEIRO DO NORTE</option>
+	<option value="657526">COMUNICAÇÃO SOCIAL - JORNALISMO/ICA - FORTALEZA</option>
+	<option value="657527">COMUNICAÇÃO SOCIAL - PUBLICIDADE E PROPAGANDA/ICA - FORTALEZA</option>
+	<option value="657459">COMUNICAÇÃO SOCIAL/ICA - FORTALEZA</option>
+	<option value="657520">DANÇA - BACHARELADO/ICA - FORTALEZA</option>
+	<option value="657521">DANÇA - LICENCIATURA/ICA - FORTALEZA</option>
+	<option value="657525">DESIGN - MODA/ICA - FORTALEZA</option>
+	<option value="657511">DESIGN DE PRODUTO/CUFCCARIRI - JUAZEIRO DO NORTE</option>
+	<option value="2112172">DESIGN DIGITAL/DIRQUIXADA - QUIXADÁ</option>
+	<option value="1021532">DESIGN/IAUD - FORTALEZA</option>
+	<option value="657444">DIREITO (DIURNO)/FACDIR - FORTALEZA</option>
+	<option value="657443">DIREITO (NOTURNO)/FACDIR - FORTALEZA</option>
+	<option value="657421">ECONOMIA DOMÉSTICA/CCA - FORTALEZA</option>
+	<option value="2683037">ECONOMIA ECOLÓGICA/CCA - FORTALEZA</option>
+	<option value="657464">EDUCACAO FISICA/IEFES - FORTALEZA</option>
+	<option value="657467">EDUCACAO FÍSICA - BACHARELADO (DIURNO)/IEFES - FORTALEZA</option>
+	<option value="657466">EDUCACAO FÍSICA - LICENCIATURA (DIURNO)/IEFES - FORTALEZA</option>
+	<option value="1371289">EDUCAÇÃO FÍSICA - BACHARELADO (VESPERTINO-NOTURNO)/IEFES - FORTALEZA</option>
+	<option value="1371359">EDUCAÇÃO FÍSICA - LICENCIATURA (VESPERTINO-NOTURNO)/IEFES - FORTALEZA</option>
+	<option value="657454">ENFERMAGEM/FFOE - FORTALEZA</option>
+	<option value="71172498">ENGENHARIA AMBIENTAL E SANITÁRIA/CCRATEUS - CRATEÚS</option>
+	<option value="75732895">ENGENHARIA AMBIENTAL E SANITÁRIA/CT - FORTALEZA</option>
+	<option value="2097265">ENGENHARIA AMBIENTAL/CCRATEUS - CRATEÚS</option>
+	<option value="2097288">ENGENHARIA CIVIL/CAMPRUSSAS - RUSSAS</option>
+	<option value="2097286">ENGENHARIA CIVIL/CCRATEUS - CRATEÚS</option>
+	<option value="657474">ENGENHARIA CIVIL/CT - FORTALEZA</option>
+	<option value="657491">ENGENHARIA CIVIL/CUFCCARIRI - JUAZEIRO DO NORTE</option>
+	<option value="657424">ENGENHARIA DE ALIMENTOS/CCA - FORTALEZA</option>
+	<option value="2103424">ENGENHARIA DE COMPUTAÇÃO/CT - FORTALEZA</option>
+	<option value="657484" selected="selected">ENGENHARIA DE COMPUTAÇÃO/CUFCSOBRAL - SOBRAL</option>
+	<option value="2106185">ENGENHARIA DE COMPUTAÇÃO/DIRQUIXADA - QUIXADÁ</option>
+	<option value="657517">ENGENHARIA DE ENERGIAS E MEIO AMBIENTE/CT - FORTALEZA</option>
+	<option value="75776991">ENGENHARIA DE ENERGIAS RENOVÁVEIS/CT - FORTALEZA</option>
+	<option value="657513">ENGENHARIA DE MATERIAIS/CUFCCARIRI - JUAZEIRO DO NORTE</option>
+	<option value="2118717">ENGENHARIA DE MINAS/CCRATEUS - CRATEÚS</option>
+	<option value="657423">ENGENHARIA DE PESCA/CCA - FORTALEZA</option>
+	<option value="657479">ENGENHARIA DE PRODUÇÃO MECÂNICA/CT - FORTALEZA</option>
+	<option value="2097200">ENGENHARIA DE PRODUÇÃO/CAMPRUSSAS - RUSSAS</option>
+	<option value="74365941">ENGENHARIA DE PRODUÇÃO/CT - FORTALEZA</option>
+	<option value="1878932">ENGENHARIA DE SOFTWARE/CAMPRUSSAS - RUSSAS</option>
+	<option value="657515">ENGENHARIA DE SOFTWARE/DIRQUIXADA - QUIXADÁ</option>
+	<option value="1994679">ENGENHARIA DE TELECOMUNICAÇÕES/CT - FORTALEZA</option>
+	<option value="657480">ENGENHARIA DE TELEINFORMÁTICA (DIURNO)/CT - FORTALEZA</option>
+	<option value="657498">ENGENHARIA DE TELEINFORMÁTICA (NOTURNO)/CT - FORTALEZA</option>
+	<option value="657475">ENGENHARIA ELÉTRICA/CT - FORTALEZA</option>
+	<option value="657485">ENGENHARIA ELÉTRICA/CUFCSOBRAL - SOBRAL</option>
+	<option value="2097267">ENGENHARIA MECÂNICA/CAMPRUSSAS - RUSSAS</option>
+	<option value="657476">ENGENHARIA MECÂNICA/CT - FORTALEZA</option>
+	<option value="657477">ENGENHARIA METALÚRGICA/CT - FORTALEZA</option>
+	<option value="657478">ENGENHARIA QUÍMICA/CT - FORTALEZA</option>
+	<option value="657428">ESTATÍSTICA/CC - FORTALEZA</option>
+	<option value="657422">ESTILISMO E MODA/ICA - FORTALEZA</option>
+	<option value="657455">FARMÁCIA/FFOE - FORTALEZA</option>
+	<option value="657492">FILOSOFIA/CUFCCARIRI - JUAZEIRO DO NORTE</option>
+	<option value="657463">FILOSOFIA/IFEC - FORTALEZA</option>
+	<option value="657514">FINANÇAS/CUFCSOBRAL - SOBRAL</option>
+	<option value="1064892">FINANÇAS/FEAAC - FORTALEZA</option>
+	<option value="657505">FISIOTERAPIA/FACMED - FORTALEZA</option>
+	<option value="657435">FÍSICA - BACHARELADO/CC - FORTALEZA</option>
+	<option value="657429">FÍSICA - LICENCIATURA/CC - FORTALEZA</option>
+	<option value="657430">FÍSICA/CC - FORTALEZA</option>
+	<option value="6491866">FÍSICA/IUVI - FORTALEZA</option>
+	<option value="657506">GASTRONOMIA/ICA - FORTALEZA</option>
+	<option value="657432">GEOGRAFIA/CC - FORTALEZA</option>
+	<option value="657431">GEOLOGIA/CC - FORTALEZA</option>
+	<option value="2168903">GESTÃO DE POLÍTICAS PÚBLICAS/CCA - FORTALEZA</option>
+	<option value="1883790">HISTORIA/CUFCCARIRI - ICÓ</option>
+	<option value="657460">HISTÓRIA/CH - FORTALEZA</option>
+	<option value="78419166">INTELIGÊNCIA ARTIFICIAL/DIRQUIXADA - QUIXADÁ</option>
+	<option value="2928774">INTERDISCIPLINAR EM CIÊNCIAS NATURAIS E MATEMÁTICA/CUFCCARIRI - BREJO SANTO</option>
+	<option value="1904932">INTERDISCIPLINAR EM CIÊNCIAS NATURAIS/CUFCCARIRI - BREJO SANTO</option>
+	<option value="71171931">JORNALISMO/ICA - FORTALEZA</option>
+	<option value="657507">LETRAS - ESPANHOL/CH - FORTALEZA</option>
+	<option value="6491870">LETRAS - ESPANHOL/IUVI - FORTALEZA</option>
+	<option value="657508">LETRAS - INGLÊS/CH - FORTALEZA</option>
+	<option value="6491867">LETRAS - INGLÊS/IUVI - FORTALEZA</option>
+	<option value="1371493">LETRAS - LIBRAS/CH - FORTALEZA</option>
+	<option value="75319980">LETRAS LÍNGUA PORTUGUESA/CH - FORTALEZA</option>
+	<option value="75307867">LETRAS PORTUGUÊS E ALEMÃO/CH - FORTALEZA</option>
+	<option value="76313990">LETRAS PORTUGUÊS E ESPANHOL/CH - FORTALEZA</option>
+	<option value="75449986">LETRAS PORTUGUÊS E FRANCÊS/CH - FORTALEZA</option>
+	<option value="75281014">LETRAS PORTUGUÊS E INGLÊS/CH - FORTALEZA</option>
+	<option value="76326155">LETRAS PORTUGUÊS E ITALIANO/CH - FORTALEZA</option>
+	<option value="657461">LETRAS/CH - FORTALEZA</option>
+	<option value="5242178">LICENCIATURA EM BIOLOGIA/CUFCCARIRI - BREJO SANTO</option>
+	<option value="76202299">LICENCIATURA EM EDUCAÇÃO DO CAMPO - PARFOR/FACED - FORTALEZA</option>
+	<option value="5242234">LICENCIATURA EM FÍSICA/CUFCCARIRI - BREJO SANTO</option>
+	<option value="6491864">LICENCIATURA EM LETRAS - PORTUGUÊS/IUVI - FORTALEZA</option>
+	<option value="5242254">LICENCIATURA EM MATEMÁTICA/CUFCCARIRI - BREJO SANTO</option>
+	<option value="5242261">LICENCIATURA EM QUÍMICA/CUFCCARIRI - BREJO SANTO</option>
+	<option value="5244893">LICENCIATURA INTERCULTURAL INDÍGENA KUABA/CH - FORTALEZA</option>
+	<option value="657519">LICENCIATURA INTERCULTURAL INDÍGENA PITAKAJÁ/CH - FORTALEZA</option>
+	<option value="76065237">LINGUAGENS E CÓDIGOS/PRG - FORTALEZA</option>
+	<option value="657500">MAGISTÉRIO INDÍGENA TREMEMBÉ SUPERIOR/CUFCSOBRAL - SOBRAL</option>
+	<option value="657436">MATEMÁTICA - BACHARELADO/CC - FORTALEZA</option>
+	<option value="657433">MATEMÁTICA - LICENCIATURA/CC - FORTALEZA</option>
+	<option value="657522">MATEMÁTICA INDUSTRIAL/CC - FORTALEZA</option>
+	<option value="657434">MATEMÁTICA/CC - FORTALEZA</option>
+	<option value="6491863">MATEMÁTICA/IUVI - FORTALEZA</option>
+	<option value="657495">MEDICINA - BARBALHA/CUFCCARIRI - FORTALEZA</option>
+	<option value="657494">MEDICINA - SOBRAL/CUFCSOBRAL - SOBRAL</option>
+	<option value="657470">MEDICINA/FACMED - FORTALEZA</option>
+	<option value="657512">MUSICA - LICENCIATURA/CUFCCARIRI - JUAZEIRO DO NORTE</option>
+	<option value="657523">MÚSICA-LICENCIATURA/CUFCSOBRAL - SOBRAL</option>
+	<option value="657465">MÚSICA/ICA - FORTALEZA</option>
+	<option value="657497">OCEANOGRAFIA/LABOMAR - FORTALEZA</option>
+	<option value="657486">ODONTOLOGIA/CUFCSOBRAL - SOBRAL</option>
+	<option value="657456">ODONTOLOGIA/FFOE - FORTALEZA</option>
+	<option value="657468">PEDAGOGIA (DIURNO)/FACED - FORTALEZA</option>
+	<option value="657469">PEDAGOGIA (NOTURNO)/FACED - FORTALEZA</option>
+	<option value="657493">PEDAGOGIA DA TERRA / LICENCIATURA PLENA/PRG - FORTALEZA</option>
+	<option value="6491869">PEDAGOGIA/IUVI - FORTALEZA</option>
+	<option value="4650139">PEDAGOGIA/PARFOR/FACED - FORTALEZA</option>
+	<option value="657487">PSICOLOGIA/CCGPSIC - SOBRAL/CUFCSOBRAL - SOBRAL</option>
+	<option value="657462">PSICOLOGIA/CH - FORTALEZA</option>
+	<option value="657437">QUÍMICA - BACHARELADO/CC - FORTALEZA</option>
+	<option value="657440">QUÍMICA - LICENCIATURA/CC - FORTALEZA</option>
+	<option value="657439">QUÍMICA INDUSTRIAL/CC - FORTALEZA</option>
+	<option value="657438">QUÍMICA/CC - FORTALEZA</option>
+	<option value="6491868">QUÍMICA/IUVI - FORTALEZA</option>
+	<option value="657516">REDES DE COMPUTADORES/DIRQUIXADA - QUIXADÁ</option>
+	<option value="657453">SECRETARIADO EXECUTIVO/FEAAC - FORTALEZA</option>
+	<option value="72461701">SEGURANÇA DA INFORMAÇÃO/CITAPAJE - ITAPAJÉ</option>
+	<option value="2097205">SISTEMAS DE INFORMAÇÃO/CCRATEUS - CRATEÚS</option>
+	<option value="657496">SISTEMAS DE INFORMAÇÃO/DIRQUIXADA - QUIXADÁ</option>
+	<option value="657509">SISTEMAS E MÍDIAS DIGITAIS (DIURNO)/IUVI - FORTALEZA</option>
+	<option value="3251521">SISTEMAS E MÍDIAS DIGITAIS (NOTURNO)/IUVI - FORTALEZA</option>
+	<option value="657501">TEATRO - LICENCIATURA/ICA - FORTALEZA</option>
+	<option value="78320237">TEATRO/CITAPAJE - ITAPAJÉ</option>
+	<option value="657481">TECNOLOGIA EM GESTÃO DA EDUCAÇÃO SUPERIOR/PRG - FORTALEZA</option>
+	<option value="1244886">TECNOLOGIA EM GESTÃO DA QUALIDADE/FEAAC - FORTALEZA</option>
+	<option value="657482">TECNOLOGIA EM GESTÃO DE HOSPITAIS UNIVERSITÁRIOS/PRG - FORTALEZA</option>
+	<option value="657425">ZOOTECNIA/CCA - FORTALEZA</option>
+</select></td>
+				</tr>
+				<tr>
+					<td><input id="busca:checkMatriz" type="checkbox" name="busca:checkMatriz"></td>
+					<td>Matriz Curricular:</td>
+					<td><select id="busca:matriz" name="busca:matriz" size="1" onfocus="$('busca:checkMatriz').checked = true;">	<option value="0" selected="selected">-- SELECIONE --</option>
+	<option value="658201">ENGENHARIA DE COMPUTAÇÃO - SOBRAL - Presencial - MT - BACHARELADO</option>
+</select></td>
+				</tr>
+				<tr>
+					<td><input id="busca:checkCodigo" type="checkbox" name="busca:checkCodigo"></td>
+					<td><label for="checkCodigo">Código:</label></td>
+					<td><input id="busca:codigo" type="text" name="busca:codigo" value="" maxlength="7" onfocus="$('busca:checkCodigo').checked = true;" onkeyup="CAPS(this)" size="7"></td>
+				</tr>
+					
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="3"><input id="busca:btnBuscar" type="submit" name="busca:btnBuscar" value="Buscar"><input id="busca:btnCancelar" type="submit" name="busca:btnCancelar" value="Cancelar" onclick="return confirm('Deseja cancelar a operação? Todos os dados digitados não salvos serão perdidos!');"> </td>
+				</tr>
+			</tfoot>
+		</table>
+	<input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id5">
+</form>
+<form id="resultado" name="resultado" method="post" action="https://si3.ufc.br/sigaa/graduacao/curriculo/lista.jsf" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="resultado" value="resultado">
+
+			<br>
+			<center>
+			<div class="infoAltRem">
+				
+				
+				
+			</div>
+			</center>
+	
+			<table class="listagem">
+				<caption class="listagem">Lista de Estruturas Curriculares Encontradas</caption>
+				<thead>
+					<tr>
+						<td>Código</td>
+						<td style="text-align: center">Ano-Período</td>
+						<td>Matriz Curricular</td>
+	
+						
+						<td></td>
+						<td></td>
+						
+						
+					</tr>
+				</thead>
+				
+					<tbody><tr class="linhaPar">
+						<td>2006.2</td>
+						<td style="text-align: center">2006.2</td>
+						<td>ENGENHARIA DE COMPUTAÇÃO - MT - BACHARELADO <b> (Vigente)</b> </td>
+											
+						<td width="3%">
+							
+<script type="text/javascript" language="Javascript">function dpf(f) {var adp = f.adp;if (adp != null) {for (var i = 0;i < adp.length;i++) {f.removeChild(adp[i]);}}};function apf(f, pvp) {var adp = new Array();f.adp = adp;var ps = pvp.split(',');for (var i = 0,ii = 0;i < ps.length;i++,ii++) {var p = document.createElement("input");p.type = "hidden";p.name = ps[i];p.value = ps[i + 1];f.appendChild(p);adp[ii] = p;i += 1;}};function jsfcljs(f, pvp, t) {apf(f, pvp);var ft = f.target;if (t) {f.target = t;}f.submit();f.target = ft;dpf(f);};</script>
+<a id="resultado:relatorio" href="https://si3.ufc.br/sigaa//graduacao/curriculo/lista.jsf#" title="Relatório da Estrutura Curricular" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.forms['resultado'],'resultado:relatorio,resultado:relatorio,id,658760','');}return false" class="noborder"><img src="./SIGAA - UFC_files/report.png"></a>
+						</td>
+						
+						<td width="3%">
+							<a id="resultado:visualizacaoGrafica" href="https://si3.ufc.br/sigaa//graduacao/curriculo/lista.jsf#" title="Visualizar Graficamente" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.forms['resultado'],'resultado:visualizacaoGrafica,resultado:visualizacaoGrafica,id,658760','');}return false" class="noborder"><img src="./SIGAA - UFC_files/turmas_curriculo.png"></a>
+						</td>
+	
+						
+
+<!-- 							<td width="3%"> -->
+
+
+
+
+<!-- 							</td> -->
+
+					</tr>
+					
+				
+			</tbody></table>
+		<input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id5">
+</form>
+</body>
+</html>
