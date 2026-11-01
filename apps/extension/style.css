@@ -1,0 +1,820 @@
+/* UFC Flow Premium Minimalist Design System with Tailwind CSS v3 Integration */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:host {
+  all: initial; /* Style isolation reset - MUST be first */
+
+  /* UFC Flow Color Tokens - Solid Minimalist Theme (OKLCH Space, No Transparency, No Gradients) */
+  --ufc-background: oklch(12.9% 0.02 264.695); /* Chumbo escuro profundo sólido */
+  --ufc-foreground: oklch(98.4% 0.003 247.858); /* Off-white suave */
+  --ufc-primary: oklch(25% 0.03 265.755); /* Azul-cinza escuro sólido */
+  --ufc-primary-light: oklch(85% 0.015 255.508); /* Cinza claro para textos */
+  --ufc-card: oklch(18.5% 0.025 260.031); /* Grafite plano e sólido para cards */
+  --ufc-column-bg: oklch(15.5% 0.02 260.031); /* Grafite plano intermediário para colunas */
+  --ufc-border: oklch(24% 0.025 257.287); /* Borda cinza escura sólida */
+  
+  --ufc-compulsory: #ea580c; /* Laranja sólido de alto contraste para Obrigatórias */
+  --ufc-optional: #64748b; /* Slate neutro sólido para Optativas */
+  
+  --ufc-destructive: oklch(65% 0.15 22.216); /* Vermelho terroso plano */
+  --ufc-success: oklch(70% 0.13 145.23); /* Verde plano */
+  --ufc-info-cyan: oklch(72% 0.12 200.43); /* Ciano plano */
+
+  /* Typography */
+  --ufc-font-display: "ClashDisplay", sans-serif;
+  --ufc-font-body: "Geist", "Inter", system-ui, sans-serif;
+  --ufc-font-mono: "Geist Mono", "DM Mono", monospace;
+}
+
+/* Base overlay container */
+.sigaa-dashboard-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--ufc-font-body);
+  color: var(--ufc-foreground);
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+/* Flat, solid backdrop overlay (No blur) */
+.sigaa-dashboard-backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(6, 8, 14, 0.85); /* Escuro sólido sem blur */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* Minimalist Solid Dashboard Window (No blur, no gradients, no shadows) */
+.sigaa-dashboard-window {
+  position: relative;
+  width: 100%;
+  max-width: 95%;
+  height: 90vh;
+  max-height: 880px;
+  background: var(--ufc-background);
+  border: 1px solid var(--ufc-border);
+  border-radius: 12px; /* Cantos levemente mais retos e minimalistas */
+  box-shadow: none; /* Sem sombras */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
+  animation: modalFadeIn 0.25s ease-out forwards;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header Area (No transparency, no gradients) */
+.sigaa-dashboard-header {
+  padding: 1.25rem 2rem;
+  border-bottom: 1px solid var(--ufc-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--ufc-background);
+  box-sizing: border-box;
+}
+
+.sigaa-header-title-area {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.sigaa-logo-badge {
+  background: var(--ufc-border);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.5rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sigaa-logo-icon {
+  color: var(--ufc-foreground);
+}
+
+.sigaa-dashboard-title {
+  margin: 0;
+  font-family: var(--ufc-font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: white;
+}
+
+.sigaa-dashboard-subtitle {
+  margin: 0.1rem 0 0 0;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #64748b;
+}
+
+.sigaa-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Flat, solid buttons (No gradients, no shadows) */
+.sigaa-btn-primary {
+  background: white;
+  border: 1px solid white;
+  color: black;
+  padding: 0.55rem 1.15rem;
+  font-family: var(--ufc-font-body);
+  font-weight: 600;
+  font-size: 0.8rem;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  box-shadow: none;
+  transition: all 0.15s ease-out;
+}
+
+.sigaa-btn-primary:hover {
+  background: var(--ufc-foreground);
+  border-color: var(--ufc-foreground);
+  transform: none;
+  box-shadow: none;
+}
+
+.sigaa-btn-close {
+  background: transparent;
+  border: 1px solid var(--ufc-border);
+  color: #64748b;
+  padding: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease-out;
+}
+
+.sigaa-btn-close:hover {
+  background: var(--ufc-border);
+  color: white;
+}
+
+/* Stats dashboard (Flat backgrounds, no gradients) */
+.sigaa-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  padding: 1.1rem 2rem;
+  background: var(--ufc-background);
+  border-bottom: 1px solid var(--ufc-border);
+  box-sizing: border-box;
+}
+
+.sigaa-stat-card {
+  padding: 0.9rem 1.2rem;
+  border-radius: 8px;
+  border: 1px solid var(--ufc-border);
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  background: var(--ufc-column-bg);
+  box-shadow: none;
+  box-sizing: border-box;
+}
+
+.bg-gradient-blue { border-left: 3px solid #38bdf8; }
+.bg-gradient-emerald { border-left: 3px solid #34d399; }
+.bg-gradient-purple { border-left: 3px solid #a78bfa; }
+.bg-gradient-slate { border-left: 3px solid #94a3b8; }
+
+.sigaa-stat-icon-wrapper {
+  background: var(--ufc-background);
+  border: 1px solid var(--ufc-border);
+  padding: 0.45rem;
+  border-radius: 6px;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bg-gradient-blue .sigaa-stat-icon-wrapper { color: #38bdf8; }
+.bg-gradient-emerald .sigaa-stat-icon-wrapper { color: #34d399; }
+.bg-gradient-purple .sigaa-stat-icon-wrapper { color: #a78bfa; }
+.bg-gradient-slate .sigaa-stat-icon-wrapper { color: #94a3b8; }
+
+.sigaa-stat-val {
+  font-family: var(--ufc-font-mono);
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: white;
+}
+
+.sigaa-stat-label {
+  font-size: 0.675rem;
+  font-weight: 600;
+  color: #64748b;
+  margin-top: 0.1rem;
+}
+
+/* Interactive Filters Bar */
+.sigaa-filters-bar {
+  padding: 0.9rem 2rem;
+  background: var(--ufc-background);
+  border-bottom: 1px solid var(--ufc-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+
+.sigaa-search-wrapper {
+  position: relative;
+  flex: 1;
+  min-width: 290px;
+}
+
+.sigaa-search-icon {
+  position: absolute;
+  left: 0.85rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #64748b;
+  pointer-events: none;
+}
+
+.sigaa-search-input {
+  width: 100%;
+  background: var(--ufc-column-bg);
+  border: 1px solid var(--ufc-border);
+  border-radius: 8px;
+  padding: 0.55rem 0.95rem 0.55rem 2.25rem;
+  color: white;
+  font-family: var(--ufc-font-body);
+  font-size: 0.825rem;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease-out;
+}
+
+.sigaa-search-input:focus {
+  border-color: #64748b;
+  box-shadow: none;
+}
+
+.sigaa-nature-filters {
+  display: flex;
+  background: var(--ufc-column-bg);
+  border: 1px solid var(--ufc-border);
+  padding: 0.2rem;
+  border-radius: 8px;
+}
+
+.sigaa-filter-tab {
+  background: transparent;
+  border: none;
+  color: #64748b;
+  padding: 0.35rem 0.95rem;
+  font-family: var(--ufc-font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease-out;
+}
+
+.sigaa-filter-tab:hover {
+  color: #cbd5e1;
+}
+
+.sigaa-filter-tab.active {
+  background: var(--ufc-border);
+  color: white;
+  border: none;
+}
+
+.sigaa-help-legend {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.725rem;
+  color: #64748b;
+  border-left: 1px solid var(--ufc-border);
+  padding-left: 1rem;
+}
+
+.legend-pre { color: #f87171; font-weight: 600; }
+.legend-post { color: #34d399; font-weight: 600; }
+
+/* Kanban Board with solid scrolling container (No masks, no gradients) */
+.sigaa-kanban-container {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: var(--ufc-background);
+  padding: 1.25rem 2rem 2rem;
+  position: relative;
+  
+  /* No fade masks for flat minimal style */
+  mask-image: none;
+  -webkit-mask-image: none;
+}
+
+/* Minimal solid scrollbar for vertical container */
+.sigaa-kanban-container {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ufc-border) var(--ufc-background);
+}
+.sigaa-kanban-container::-webkit-scrollbar {
+  width: 8px;
+  display: block;
+}
+.sigaa-kanban-container::-webkit-scrollbar-track {
+  background: var(--ufc-background);
+}
+.sigaa-kanban-container::-webkit-scrollbar-thumb {
+  background: var(--ufc-border);
+  border-radius: 4px;
+}
+
+.sigaa-kanban-board {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.sigaa-kanban-column {
+  width: 100%;
+  min-width: 100%;
+  background: var(--ufc-column-bg);
+  border: 1px solid var(--ufc-border);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  box-shadow: none;
+  transition: border-color 0.15s ease-out;
+}
+
+.sigaa-kanban-column:hover {
+  border-color: #64748b;
+  box-shadow: none;
+}
+
+.optativas-column {
+  background: var(--ufc-background);
+  border: 1px dashed var(--ufc-border);
+}
+
+.sigaa-column-header {
+  padding: 0.9rem 1.15rem;
+  border-bottom: 1px solid var(--ufc-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--ufc-column-bg);
+  box-sizing: border-box;
+}
+
+.sigaa-column-title {
+  margin: 0;
+  font-family: var(--ufc-font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #cbd5e1;
+  letter-spacing: -0.01em;
+}
+
+.optativas-column .sigaa-column-title {
+  color: #a78bfa;
+}
+
+.sigaa-column-count {
+  font-family: var(--ufc-font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  background: var(--ufc-background);
+  border: 1px solid var(--ufc-border);
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  color: #cbd5e1;
+}
+
+.sigaa-column-content {
+  padding: 0.9rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  box-sizing: border-box;
+}
+
+/* Scrollbar columns */
+.sigaa-column-content::-webkit-scrollbar {
+  width: 4px;
+}
+.sigaa-column-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sigaa-column-content::-webkit-scrollbar-thumb {
+  background: var(--ufc-border);
+  border-radius: 2px;
+}
+
+/* Flat Subject Card Styles - Solid Minimalist */
+.sigaa-subject-card {
+  background: var(--ufc-card);
+  border: 1px solid var(--ufc-border);
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  box-shadow: none;
+  box-sizing: border-box;
+  transition: all 0.15s ease-out;
+  width: 280px;
+  min-width: 280px;
+}
+
+/* Left borders are solid colors representing the category */
+.sigaa-subject-card.nature-obrigatoria {
+  border-left: 3px solid var(--ufc-compulsory);
+}
+
+.sigaa-subject-card.nature-optativa {
+  border-left: 3px solid var(--ufc-optional);
+}
+
+.sigaa-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+
+.sigaa-subject-code {
+  font-family: var(--ufc-font-mono);
+  font-size: 0.725rem;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.sigaa-nature-badge {
+  font-size: 0.575rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.075rem 0.35rem;
+  border-radius: 3px;
+}
+
+.badge-mandatory {
+  background: transparent;
+  color: #ea580c;
+  border: 1px solid rgba(234, 88, 12, 0.4);
+}
+
+.badge-optative {
+  background: transparent;
+  color: #94a3b8;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+.sigaa-subject-name {
+  margin: 0;
+  font-family: var(--ufc-font-body);
+  font-size: 0.775rem;
+  font-weight: 600;
+  color: #cbd5e1;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: 2.1rem;
+}
+
+.sigaa-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.05rem;
+}
+
+.sigaa-subject-duration {
+  font-family: var(--ufc-font-mono);
+  font-size: 0.7rem;
+  color: #64748b;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: 500;
+}
+
+.sigaa-subject-prereqs-badge {
+  font-family: var(--ufc-font-mono);
+  font-size: 0.6rem;
+  background: var(--ufc-background);
+  border: 1px solid var(--ufc-border);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  color: #64748b;
+}
+
+/* Hover Card State: Clean, solid border color shift (No shadows, no dynamic rotation) */
+.sigaa-subject-card:hover {
+  background: var(--ufc-column-bg);
+  border-color: #64748b;
+  transform: none;
+  box-shadow: none;
+}
+
+.sigaa-subject-card.sigaa-card-hovered {
+  border-color: white !important;
+  background: var(--ufc-column-bg);
+  box-shadow: none;
+  transform: none;
+}
+
+/* Prerequisite card state (Solid Red border) */
+.sigaa-subject-card.sigaa-card-prereq {
+  border-color: var(--ufc-destructive) !important;
+  box-shadow: none;
+  background: rgba(239, 68, 68, 0.05);
+  transform: none;
+}
+
+.sigaa-subject-card.sigaa-card-prereq .sigaa-subject-code {
+  color: #f87171;
+}
+
+/* Unlockable/Post-requisite card state (Solid Green border) */
+.sigaa-subject-card.sigaa-card-unlock {
+  border-color: var(--ufc-success) !important;
+  box-shadow: none;
+  background: rgba(16, 185, 129, 0.05);
+  transform: none;
+}
+
+.sigaa-subject-card.sigaa-card-unlock .sigaa-subject-code {
+  color: #34d399;
+}
+
+/* Ambient glow removed (fully disabled) */
+.sigaa-ambient-glow {
+  display: none !important;
+}
+
+/* Floating Launcher button - Solid Minimalist Flat (No gradients, no rotation, no shadows) */
+.sigaa-modern-launcher-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 999999;
+  font-family: var(--ufc-font-body);
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 0.75rem 1.4rem;
+  color: black;
+  background: white;
+  border: 1px solid white !important;
+  cursor: pointer;
+  border-radius: 6px; /* Reto e minimalista */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: none;
+  transition: all 0.15s ease-out;
+  animation: modalFadeIn 0.3s ease-out forwards;
+}
+
+.sigaa-modern-launcher-btn:hover {
+  background: var(--ufc-foreground);
+  border-color: var(--ufc-foreground) !important;
+  transform: translateY(-1px);
+  box-shadow: none;
+}
+
+.sigaa-modern-launcher-btn .launcher-icon {
+  animation: none;
+}
+
+/* Secondary Button - Flat minimalist */
+.sigaa-btn-secondary {
+  background: transparent;
+  border: 1px solid var(--ufc-border);
+  color: #cbd5e1;
+  padding: 0.55rem 1.15rem;
+  font-family: var(--ufc-font-body);
+  font-weight: 600;
+  font-size: 0.8rem;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.15s ease-out;
+}
+
+.sigaa-btn-secondary:hover {
+  background: var(--ufc-border);
+  color: white;
+}
+
+/* Side Drawer - Premium flat minimalist solid slide-in drawer */
+.sigaa-side-drawer {
+  width: 360px;
+  min-width: 360px;
+  border-left: 1px solid var(--ufc-border);
+  background: var(--ufc-column-bg);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+  position: relative;
+  animation: slideInRight 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.sigaa-side-drawer-header {
+  padding: 1.25rem;
+  border-bottom: 1px solid var(--ufc-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  background: var(--ufc-column-bg);
+  box-sizing: border-box;
+}
+
+.sigaa-side-drawer-title {
+  font-family: var(--ufc-font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.sigaa-side-drawer-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  box-sizing: border-box;
+  background: var(--ufc-column-bg);
+}
+
+/* Scrollbars for drawer content */
+.sigaa-side-drawer-content::-webkit-scrollbar {
+  width: 4px;
+}
+.sigaa-side-drawer-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sigaa-side-drawer-content::-webkit-scrollbar-thumb {
+  background: var(--ufc-border);
+  border-radius: 2px;
+}
+
+.sigaa-drawer-section-title {
+  font-family: var(--ufc-font-display);
+  font-size: 0.725rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #64748b;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: 0.05em;
+}
+
+/* Hour Grid Breakdown */
+.sigaa-hours-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.sigaa-hour-card {
+  background: var(--ufc-background);
+  border: 1px solid var(--ufc-border);
+  border-radius: 6px;
+  padding: 0.5rem;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.sigaa-hour-card-val {
+  font-family: var(--ufc-font-mono);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: white;
+}
+
+.sigaa-hour-card-lbl {
+  font-size: 0.6rem;
+  color: #64748b;
+  margin-top: 0.15rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.sigaa-drawer-badge-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+/* Clickable relation item */
+.sigaa-drawer-relation-btn {
+  background: var(--ufc-background);
+  border: 1px solid var(--ufc-border);
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  font-family: var(--ufc-font-mono);
+  font-size: 0.7rem;
+  color: #cbd5e1;
+  cursor: pointer;
+  transition: all 0.1s ease-out;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.sigaa-drawer-relation-btn:hover {
+  border-color: #64748b;
+  color: white;
+  background: var(--ufc-border);
+}
+
+.sigaa-drawer-meta-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.75rem;
+}
+
+.sigaa-drawer-meta-table td {
+  padding: 0.45rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.sigaa-drawer-meta-table tr:last-child td {
+  border-bottom: none;
+}
+
+.sigaa-drawer-meta-table td:first-child {
+  color: #64748b;
+  font-weight: 600;
+  text-align: left;
+}
+
+.sigaa-drawer-meta-table td:last-child {
+  color: white;
+  text-align: right;
+  font-weight: 600;
+}
+
+.sigaa-drawer-no-data {
+  font-size: 0.75rem;
+  color: #64748b;
+  font-style: italic;
+  margin: 0;
+}
+
+.sigaa-card-selected {
+  border-color: white !important;
+  background: var(--ufc-column-bg);
+}
