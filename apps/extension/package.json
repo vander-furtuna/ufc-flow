@@ -41,8 +41,12 @@
     "vitest": "catalog:"
   },
   "manifest": {
+    "permissions": [
+      "storage"
+    ],
     "host_permissions": [
-      "https://si3.ufc.br/*"
+      "https://si3.ufc.br/*",
+      "$PLASMO_PUBLIC_FLOW_API_URL/*"
     ]
   },
   "alias": {

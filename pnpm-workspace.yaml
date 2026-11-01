@@ -8,7 +8,7 @@ catalog:
   typescript: ^5.9.3
   '@vitest/coverage-v8': ^5.0.5
   vitest: ^5.0.5
-  zod: ^4.4.3
+  zod: ^4.6.7
 
 overrides:
   '@types/react': 19.3.0
@@ -35,3 +35,9 @@ allowBuilds:
   msgpackr-extract: true
   sharp: true
   unrs-resolver: true
+  # Bloqueados de propósito: telemetria e módulos nativos opcionais (SSH do
+  # cliente Docker do Testcontainers), dispensáveis
+  '@scarf/scarf': false
+  cpu-features: false
+  protobufjs: false
+  ssh2: false

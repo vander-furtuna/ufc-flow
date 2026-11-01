@@ -46,5 +46,10 @@ jobs:
       - name: Run Tests (Vitest)
         run: pnpm test
 
+      # Repositórios e e2e da API com PostgreSQL real (Testcontainers; o
+      # runner do GitHub já tem Docker)
+      - name: Run Integration Tests (Testcontainers)
+        run: pnpm test:integration
+
       - name: Check Build
         run: pnpm build

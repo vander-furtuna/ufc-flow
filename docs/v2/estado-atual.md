@@ -1,20 +1,24 @@
 # Estado atual do repositório
 
-Retrato em 01/11/2026, ao fim da fase 3. Atualize este arquivo ao fim de cada fase do [roadmap](roadmap.md).
+Retrato em 01/11/2026, ao fim da fase 4. Atualize este arquivo ao fim de cada fase do [roadmap](roadmap.md).
 
 ## Branches
 
-| Branch                         | Situação                                                                                 |
-| ------------------------------ | ---------------------------------------------------------------------------------------- |
-| `master`                       | Produção (deploy no Coolify), e continua sendo (D20). `origin/HEAD` aponta para ela.     |
-| `develop`                      | Integração. Tem o monorepo e as fases 0 (PR #61), 1 (PR #63) e 2 (PR #64), com CI verde. |
-| `feature/fase-0-fundacao`      | Mesclada em `develop` pelo PR #61; pode ser apagada.                                     |
-| `feature/fase-1-academic-core` | Mesclada em `develop` pelo PR #63; pode ser apagada.                                     |
-| `feature/fase-2-contracts`     | Mesclada em `develop` pelo PR #64; pode ser apagada.                                     |
-| `feature/docs-redesenho-links` | Mesclada em `develop` pelo PR #65; pode ser apagada.                                     |
-| `feature/fase-3-extensao`      | Fase 3, em PR para `develop`.                                                            |
-| `feature/monorepo`             | Mesclada em `develop`; pode ser apagada.                                                 |
-| `hotfix/schedule-course-key`   | Já mesclada em `master` e `develop`; pode ser apagada.                                   |
+| Branch                          | Situação                                                                                             |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `master`                        | Produção (deploy no Coolify), e continua sendo (D20). `origin/HEAD` aponta para ela.                 |
+| `develop`                       | Integração. Tem o monorepo e as fases 0 (PR #61), 1 (PR #63), 2 (PR #64) e 3 (PR #66), com CI verde. |
+| `feature/fase-0-fundacao`       | Mesclada em `develop` pelo PR #61; pode ser apagada.                                                 |
+| `feature/fase-1-academic-core`  | Mesclada em `develop` pelo PR #63; pode ser apagada.                                                 |
+| `feature/fase-2-contracts`      | Mesclada em `develop` pelo PR #64; pode ser apagada.                                                 |
+| `feature/docs-redesenho-links`  | Mesclada em `develop` pelo PR #65; pode ser apagada.                                                 |
+| `feature/fase-3-extensao`       | Mesclada em `develop` pelo PR #66; pode ser apagada.                                                 |
+| `fix/dependency-audit`          | Mesclada em `develop` pelo PR #67; pode ser apagada.                                                 |
+| `hotfix/dependency-audit`       | Mesclada em `master` pelo PR #68; pode ser apagada.                                                  |
+| `chore/sync-master`             | Traz o hotfix da `master` para a `develop` (PR #69, aberto, sem diferença de código).                |
+| `feature/fase-4-api-identidade` | Fase 4, em PR para `develop`.                                                                        |
+| `feature/monorepo`              | Mesclada em `develop`; pode ser apagada.                                                             |
+| `hotfix/schedule-course-key`    | Já mesclada em `master` e `develop`; pode ser apagada.                                               |
 
 A `main` foi apagada no remoto (D20). As branches já mescladas ficam por enquanto.
 
@@ -73,17 +77,30 @@ A `main` foi apagada no remoto (D20). As branches já mescladas ficam por enquan
   - Contrato e core: `CurriculumImportV1` com ênfases, grupos, código e vigor da EC e `course.recognition` (D34–D40); `findDependents` no core. A fixture do `contracts` passou a ser gerada pelo parser, o que corrigiu cargas de aula, laboratório e créditos gravadas erradas na fase 2.
   - Login e envio atrás de `PLASMO_PUBLIC_FLOW_SYNC`, desligada (D41): por enquanto só o download do JSON.
   - 144 testes na extensão (cobertura acima de 90% em `src/sigaa` e `src/lib`), 201 no core e 181 no contracts. O fluxo completo foi conferido no Edge headless com o SIGAA simulado pelas fixtures.
-- **Modelagem v2 fechada** ([modelagem.md](modelagem.md)), com 41 decisões (D1–D41) e 11 lacunas resolvidas (L1–L11).
+- **Fase 4 — API e identidade** (branch `feature/fase-4-api-identidade`):
+  - `apps/api`: NestJS 12 em ESM, hexagonal por módulo, com `shared/` (DomainError, Result, Clock, IdGenerator, cursor, `AccessPolicy`, Problem Details, validação pelo `contracts`) e `database/` (Drizzle, migrations do `drizzle-kit` em `apps/api/drizzle`). Detalhes nas D42 a D49.
+  - Módulo `identity`: as 9 tabelas da modelagem, cadastro com aceite (versão `0.1`, D46), login, refresh com rotação e revogação por família, saída, `GET /me`, link de redefinição gerado pelo admin, pedidos de moderação com aprovação, rejeição e cancelamento, e auditoria.
+  - `catalog` mínimo: `campuses` e `courses` com `GET /v1/courses` e o seed dos 6 cursos (D47).
+  - Swagger em `/docs` com Bearer, Problem Details em todas as rotas, `openapi.json` versionado e teste que exige resumo, respostas e 401 documentado. Basic Auth ou `SWAGGER_ENABLED=false` em produção.
+  - Comandos: `db:migrate`, `seed:courses`, `seed:admin --email --name` e `openapi`.
+  - Testes: 82 unitários (cobertura de 99% em domínio e aplicação) e 18 de integração (repositórios e e2e com supertest) contra Postgres no Testcontainers, os dois no CI.
+  - Web como BFF (D48): `/entrar` (telas `Main` e `Mobile-Entrar`), `/redefinir-senha`, `/termos` e `/privacidade`, menu do usuário no header e renovação da sessão no `proxy.ts`. Testes de formulário com Testing Library. Fluxo conferido no Edge headless contra a API local: cadastro, menu, renovação sem o access token, saída, senha errada e link inválido.
+  - Extensão: login do popup ligado à API, com a sessão em `chrome.storage.local` (D50); continua atrás de `PLASMO_PUBLIC_FLOW_SYNC`.
+- **Modelagem v2 fechada** ([modelagem.md](modelagem.md)), com 50 decisões (D1–D50) e 11 lacunas resolvidas (L1–L11).
 - **39 telas desenhadas** para desktop, mobile e extensão ([telas.md](telas.md)).
 
 ## Pendências imediatas
 
-1. PR de `feature/fase-3-extensao` para `develop`, com CI verde.
-2. Testar a extensão no SIGAA de verdade: carregar `apps/extension/build/chrome-mv3-prod` sem empacotar em `chrome://extensions` (modo de desenvolvedor), buscar um curso em Currículos, abrir a estrutura pela lupa e conferir o botão flutuante, o painel, o curso reconhecido e o download do JSON.
+1. Mesclar o PR #69 (`master` → `develop`) e o PR da fase 4.
+2. Testar a fase 4 localmente:
+   - `docker compose -f docker/compose.dev.yml up -d`;
+   - na API, copiar `.env.example` para `.env`, `pnpm --filter @ufc-flow/api db:migrate`, `seed:courses` e `seed:admin -- --email <e-mail> --name <nome>`;
+   - `pnpm --filter @ufc-flow/api dev` (porta 3333, Swagger em `/docs`) e `pnpm dev:web`, com `API_URL` no `apps/web/.env.local`.
+3. Login da extensão: `PLASMO_PUBLIC_FLOW_SYNC=true pnpm --filter @ufc-flow/extension build` e entrar pelo popup com a API rodando.
 
 As telas de links (`Links-Pagina`, `Links-Editor`, `Mobile-Links` e `Mobile-Links-Editor`) ainda usam os destaques antigos e serão redesenhadas na implementação, na fase 10 (D31).
 
-Próximo passo: fase 4 (API e identidade). A fase 5 depende dela.
+Próximo passo: fase 5 (catálogo, ingestão e admin de ECs).
 
 ## Segurança das dependências
 
@@ -93,7 +110,7 @@ Auditoria de 01/11/2026 (`pnpm audit` na `develop` e alertas do Dependabot na `m
   - `@parcel/reporter-dev-server` (moderado): preso ao Parcel 2.9 do Plasmo. Só roda durante o `plasmo dev`; evite navegar em sites desconhecidos com o `pnpm dev` da extensão aberto.
   - `deepmerge` (baixo): sem versão corrigida; usado só no build, com a configuração do projeto.
   - `minimatch` 3 (moderado): vem do ESLint que o plugin de lint do React carrega; a correção (v11) muda a API que o ESLint usa. Só roda no lint, com globs do projeto.
-- **`master`:** os alertas do Dependabot vêm do `package-lock.json`, que o build de produção não usa (o Dockerfile instala pelo `bun.lock`). O `bun.lock` tem as mesmas versões vulneráveis de undici, zod e source-map-js; a correção vai num hotfix.
+- **`master`:** os alertas do Dependabot vinham do `package-lock.json`, que o build de produção não usa (o Dockerfile instala pelo `bun.lock`). O hotfix do PR #68 sincronizou o `bun.lock` e corrigiu undici, zod e source-map-js.
 - O Plasmo não tem versão nova desde maio de 2025 e prende o Parcel 2.9. Se a cadeia de build acumular avisos sem correção, vale avaliar trocar de framework de extensão (ver Lacunas na modelagem).
 
 ## Divergências entre a modelagem e o repositório

@@ -1,7 +1,11 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "types": ["node"]
+    "types": ["node"],
+    // Decorators do NestJS. Os tipos dos construtores não são emitidos
+    // (esbuild e oxc não geram metadata): toda injeção usa @Inject(token).
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": false
   },
-  "include": ["src"]
+  "include": ["src", "test", "drizzle.config.ts", "tsup.config.ts"]
 }

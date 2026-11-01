@@ -6,6 +6,9 @@ import './catalog/sigaa-course'
 import './common/problem-details'
 import './enums'
 import './hub/post'
+import './identity/auth'
+import './identity/moderation'
+import './common/health'
 
 export type JsonSchema = Record<string, unknown>
 
