@@ -1,0 +1,4562 @@
+<html xmlns="http://www.w3.org/1999/xhtml" data-darkreader-mode="dynamic" data-darkreader-scheme="dark"
+  data-darkreader-proxy-injected="true">
+
+<head>
+  <style class="darkreader darkreader--fallback" media="screen"></style>
+  <style class="darkreader darkreader--user-agent" media="screen">
+    @layer {
+      html {
+        background-color: var(--darkreader-background-ffffff, #181a1b) !important;
+      }
+
+      html {
+        color-scheme: dark !important;
+      }
+
+      iframe {
+        color-scheme: dark !important;
+      }
+
+      html,
+      body {
+        background-color: var(--darkreader-background-ffffff, #181a1b);
+      }
+
+      html,
+      body {
+        border-color: var(--darkreader-border-4c4c4c, #736b5e);
+        color: var(--darkreader-text-000000, #e8e6e3);
+      }
+
+      a {
+        color: var(--darkreader-text-0040ff, #3391ff);
+      }
+
+      table {
+        border-color: var(--darkreader-border-808080, #545b5e);
+      }
+
+      mark {
+        color: var(--darkreader-text-000000, #e8e6e3);
+      }
+
+      ::placeholder {
+        color: var(--darkreader-text-a9a9a9, #b2aba1);
+      }
+
+      input:-webkit-autofill,
+      textarea:-webkit-autofill,
+      select:-webkit-autofill {
+        background-color: var(--darkreader-background-faffbd, #404400) !important;
+        color: var(--darkreader-text-000000, #e8e6e3) !important;
+      }
+
+      ::selection {
+        background-color: var(--darkreader-background-0060d4, #004daa) !important;
+        color: var(--darkreader-text-ffffff, #e8e6e3) !important;
+      }
+
+      ::-moz-selection {
+        background-color: var(--darkreader-background-0060d4, #004daa) !important;
+        color: var(--darkreader-text-ffffff, #e8e6e3) !important;
+      }
+    }
+  </style>
+  <style class="darkreader darkreader--text" media="screen"></style>
+  <style class="darkreader darkreader--invert" media="screen">
+    .jfk-bubble.gtx-bubble,
+    .captcheck_answer_label>input+img,
+    span#closed_text>img[src^="https://www.gstatic.com/images/branding/googlelogo"],
+    span[data-href^="https://www.hcaptcha.com/"]>#icon,
+    img.Wirisformula,
+    a[data-testid="headerMediumLogo"]>svg,
+    .d2l-navigation-link-image-container,
+    .d2l-iframe-loading-container,
+    div.mc-ip-hide[style*="background: rgb(255, 255, 255) !important"],
+    [style*="color: rgb(0, 0, 1) !important;"] {
+      filter: invert(100%) hue-rotate(180deg) contrast(90%) !important;
+    }
+  </style>
+  <style class="darkreader darkreader--inline" media="screen">
+    [data-darkreader-inline-bgcolor] {
+      background-color: var(--darkreader-inline-bgcolor) !important;
+    }
+
+    [data-darkreader-inline-bgimage] {
+      background-image: var(--darkreader-inline-bgimage) !important;
+    }
+
+    [data-darkreader-inline-border] {
+      border-color: var(--darkreader-inline-border) !important;
+    }
+
+    [data-darkreader-inline-border-bottom] {
+      border-bottom-color: var(--darkreader-inline-border-bottom) !important;
+    }
+
+    [data-darkreader-inline-border-left] {
+      border-left-color: var(--darkreader-inline-border-left) !important;
+    }
+
+    [data-darkreader-inline-border-right] {
+      border-right-color: var(--darkreader-inline-border-right) !important;
+    }
+
+    [data-darkreader-inline-border-top] {
+      border-top-color: var(--darkreader-inline-border-top) !important;
+    }
+
+    [data-darkreader-inline-boxshadow] {
+      box-shadow: var(--darkreader-inline-boxshadow) !important;
+    }
+
+    [data-darkreader-inline-color] {
+      color: var(--darkreader-inline-color) !important;
+    }
+
+    [data-darkreader-inline-fill] {
+      fill: var(--darkreader-inline-fill) !important;
+    }
+
+    [data-darkreader-inline-stroke] {
+      stroke: var(--darkreader-inline-stroke) !important;
+    }
+
+    [data-darkreader-inline-outline] {
+      outline-color: var(--darkreader-inline-outline) !important;
+    }
+
+    [data-darkreader-inline-stopcolor] {
+      stop-color: var(--darkreader-inline-stopcolor) !important;
+    }
+
+    [data-darkreader-inline-bg] {
+      background: var(--darkreader-inline-bg) !important;
+    }
+
+    [data-darkreader-inline-border-short] {
+      border: var(--darkreader-inline-border-short) !important;
+    }
+
+    [data-darkreader-inline-border-bottom-short] {
+      border-bottom: var(--darkreader-inline-border-bottom-short) !important;
+    }
+
+    [data-darkreader-inline-border-left-short] {
+      border-left: var(--darkreader-inline-border-left-short) !important;
+    }
+
+    [data-darkreader-inline-border-right-short] {
+      border-right: var(--darkreader-inline-border-right-short) !important;
+    }
+
+    [data-darkreader-inline-border-top-short] {
+      border-top: var(--darkreader-inline-border-top-short) !important;
+    }
+
+    [data-darkreader-inline-invert] {
+      filter: invert(100%) hue-rotate(180deg);
+    }
+  </style>
+  <style class="darkreader darkreader--variables" media="screen">
+    :root {
+      --darkreader-neutral-background: var(--darkreader-background-ffffff, #181a1b);
+      --darkreader-neutral-text: var(--darkreader-text-000000, #e8e6e3);
+      --darkreader-selection-background: var(--darkreader-background-0060d4, #004daa);
+      --darkreader-selection-text: var(--darkreader-text-ffffff, #e8e6e3);
+    }
+  </style>
+  <style class="darkreader darkreader--root-vars" media="screen"></style>
+  <title>SIGAA - Sistema Integrado de Gestão de Atividades Acadêmicas</title>
+  <link class="component"
+    href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/basic_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf"
+    rel="stylesheet" type="text/css">
+  <style class="darkreader darkreader--sync" media="screen"></style>
+  <link class="component"
+    href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/extended_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf"
+    rel="stylesheet" type="text/css">
+  <style class="darkreader darkreader--sync" media="screen"></style>
+  <script type="text/javascript">window.RICH_FACES_EXTENDED_SKINNING_ON = true;</script>
+  <script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/skinning.js.jsf"
+    type="text/javascript"></script>
+  <link rel="shortcut icon" href="/shared/img/brasao.ico">
+
+  <script type="text/javascript" src="/shared/javascript/sigaa.js"> </script>
+  <meta name="darkreader" content="2ad4db7d34e6448eb41e9657b92868f1">
+  <style class="darkreader darkreader--override" media="screen">
+    .vimvixen-hint {
+      background-color: var(--darkreader-background-ffd76e, #684b00) !important;
+      border-color: var(--darkreader-background-c59d00, #9e7e00) !important;
+      color: var(--darkreader-text-302505, #d7d4cf) !important;
+    }
+
+    #vimvixen-console-frame {
+      color-scheme: light !important;
+    }
+
+    ::placeholder {
+      opacity: 0.5 !important;
+    }
+
+    #edge-translate-panel-body,
+    .MuiTypography-body1,
+    .nfe-quote-text {
+      color: var(--darkreader-neutral-text) !important;
+    }
+
+    gr-main-header {
+      background-color: var(--darkreader-background-add8e6, #1b4958) !important;
+    }
+
+    .tou-z65h9k,
+    .tou-mignzq,
+    .tou-1b6i2ox,
+    .tou-lnqlqk {
+      background-color: var(--darkreader-neutral-background) !important;
+    }
+
+    .tou-75mvi {
+      background-color: var(--darkreader-background-cfecf5, #0f3a47) !important;
+    }
+
+    .tou-ta9e87,
+    .tou-1w3fhi0,
+    .tou-1b8t2us,
+    .tou-py7lfi,
+    .tou-1lpmd9d,
+    .tou-1frrtv8,
+    .tou-17ezmgn {
+      background-color: var(--darkreader-background-f5f5f5, #1e2021) !important;
+    }
+
+    .tou-uknfeu {
+      background-color: var(--darkreader-background-faedda, #432c09) !important;
+    }
+
+    .tou-6i3zyv {
+      background-color: var(--darkreader-background-85c3d8, #245d70) !important;
+    }
+
+    div.mermaid-viewer-control-panel .btn {
+      background-color: var(--darkreader-neutral-background);
+      fill: var(--darkreader-neutral-text);
+    }
+
+    svg g rect.er {
+      fill: var(--darkreader-neutral-background) !important;
+    }
+
+    svg g rect.er.entityBox {
+      fill: var(--darkreader-neutral-background) !important;
+    }
+
+    svg g rect.er.attributeBoxOdd {
+      fill: var(--darkreader-neutral-background) !important;
+    }
+
+    svg g rect.er.attributeBoxEven {
+      fill: var(--darkreader-selection-background);
+      fill-opacity: 0.8 !important;
+    }
+
+    svg rect.er.relationshipLabelBox {
+      fill: var(--darkreader-neutral-background) !important;
+    }
+
+    svg g g.nodes rect,
+    svg g g.nodes polygon {
+      fill: var(--darkreader-neutral-background) !important;
+    }
+
+    svg g rect.task {
+      fill: var(--darkreader-selection-background) !important;
+    }
+
+    svg line.messageLine0,
+    svg line.messageLine1 {
+      stroke: var(--darkreader-neutral-text) !important;
+    }
+
+    div.mermaid .actor {
+      fill: var(--darkreader-neutral-background) !important;
+    }
+
+    mitid-authenticators-code-app>.code-app-container {
+      background-color: white !important;
+      padding-top: 1rem;
+    }
+
+    iframe#unpaywall[src$="unpaywall.html"] {
+      color-scheme: light !important;
+    }
+
+    select {
+      --darkreader-bg--form-control-background-color: rgba(22, 22, 22, 0) !important;
+    }
+
+    body#tumblr {
+      --darkreader-bg--secondary-accent: 31, 32, 34 !important;
+      --darkreader-bg--white: 23, 23, 23 !important;
+      --darkreader-text--black: 228, 224, 218 !important;
+    }
+
+    :host {
+      --d2l-border-color: var(--darkreader-bg--d2l-color-gypsum) !important;
+      --d2l-button-icon-background-color-hover: var(--darkreader-bg--d2l-color-gypsum) !important;
+      --d2l-color-ferrite: var(--darkreader-neutral-text) !important;
+      --d2l-color-sylvite: var(--darkreader-bg--d2l-color-sylvite) !important;
+      --d2l-dropdown-background-color: var(--darkreader-neutral-background) !important;
+      --d2l-dropdown-border-color: var(--darkreader-border--d2l-color-mica) !important;
+      --d2l-input-backgroud-color: var(--darkreader-neutral-background) !important;
+      --d2l-menu-border-color: var(--darkreader-bg--d2l-color-gypsum) !important;
+      --d2l-tooltip-background-color: var(--darkreader-neutral-background) !important;
+      --d2l-tooltip-border-color: var(--darkreader-bg--d2l-color-gypsum) !important;
+    }
+
+    :host([_floating]) .d2l-floating-buttons-container {
+      background-color: var(--darkreader-neutral-background) !important;
+      border-top-color: var(--darkreader-border--d2l-color-mica) !important;
+      opacity: 0.88 !important;
+    }
+
+    d2l-card {
+      background: var(--darkreader-neutral-background) !important;
+      border-color: var(--darkreader-border--d2l-color-gypsum) !important;
+    }
+
+    d2l-dropdown-content>div,
+    d2l-menu-item {
+      background-color: var(--darkreader-neutral-background) !important;
+      border-radius: 10px !important;
+    }
+
+    d2l-empty-state-simple {
+      border-color: var(--darkreader-bg--d2l-color-gypsum) !important;
+    }
+
+    .d2l-button-filter>ul>li>a.vui-button {
+      border-color: var(--darkreader-border--d2l-color-mica) !important;
+    }
+
+    .d2l-label-text:has(.d2l-button-subtle-content):hover,
+    .d2l-label-text:has(.d2l-button-subtle-content):focus,
+    .d2l-label-text:has(.d2l-button-subtle-content):active {
+      background-color: var(--darkreader-bg--d2l-color-gypsum) !important;
+    }
+
+    .d2l-navigation-centerer {
+      color: inherit !important;
+    }
+
+    .d2l-tabs-layout {
+      border-color: var(--darkreader-border--d2l-color-gypsum) !important;
+    }
+
+    .d2l-input,
+    .d2l-calendar-date,
+    .d2l-htmleditor-container {
+      background-color: var(--darkreader-neutral-background) !important;
+    }
+
+    .d2l-collapsible-panel {
+      border: 1px solid var(--darkreader-border--d2l-color-mica) !important;
+      border-radius: 0.4rem !important;
+    }
+
+    .d2l-collapsible-panel-divider {
+      border-bottom: 1px solid var(--darkreader-border--d2l-color-mica) !important;
+    }
+
+    .d2l-w2d-flex {
+      border-bottom: 2px solid var(--darkreader-border--d2l-color-mica) !important;
+    }
+
+    .d2l-collapsible-panel scrolled,
+    .d2l-collapsible-panel-header,
+    .d2l-w2d-collection-fixed {
+      background-color: var(--darkreader-neutral-background) !important;
+    }
+
+    .d2l-loading-spinner-bg {
+      fill: var(--darkreader-bg--d2l-color-gypsum) !important;
+    }
+
+    .d2l-loading-spinner-bg-stroke {
+      stroke: var(--darkreader-border--d2l-color-mica) !important;
+    }
+
+    .d2l-loading-spinner-wrapper svg path,
+    .d2l-loading-spinner-wrapper svg circle {
+      fill: var(--darkreader-neutral-background) !important;
+    }
+
+    .d2l-twopanelselector-side.d2l-twopanelselector-side-sep {
+      background: var(--darkreader-bg--d2l-color-mica) !important;
+    }
+
+    .d2l-le-TreeAccordionItem-anchor::before {
+      background: var(--darkreader-bg--d2l-color-corundum) !important;
+    }
+
+    table[class|="moz-header"] {
+      background: none;
+    }
+
+    *[style*="color: rgba(0,0,0,"],
+    *[style*="color: rgba(0, 0, 0,"],
+    *[style*="color:#000"],
+    *[style*="color:black"],
+    *[style*="color:#282828"],
+    *[style*="color:#444"] {
+      color: var(--darkreader-neutral-text) !important;
+    }
+
+    *[style*="background:#fff"],
+    *[style*="background-color:#fff"] {
+      background: var(--darkreader-neutral-background) !important;
+    }
+
+    *[bgcolor="#F5F5F5"],
+    *[style*="background-color: #F5F5F5"] {
+      background: var(--darkreader-background-f5f5f5, #1e2021) !important;
+    }
+
+    body[style*="background: rgb(255, 255, 255) !important"] *:not(a),
+    .body[style*="background-color: rgb(254, 254, 254) !important"] *:not(a) {
+      background-color: var(--darkreader-neutral-background) !important;
+    }
+
+    div[style*="www.gstatic.com/android/"] {
+      background: none !important;
+    }
+
+    *[style*="background:#f9f9f9"] {
+      background: var(--darkreader-background-f9f9f9, #1b1e1f) !important;
+    }
+
+    body.mediawiki.skin-vector #mw-page-base {
+      background-image: none !important;
+    }
+  </style>
+
+  <link href="/shared/css/ufrn_relatorio.css" rel="stylesheet" type="text/css">
+  <style class="darkreader darkreader--sync" media="screen"></style>
+  <link href="/shared/css/ufrn.css" rel="stylesheet" type="text/css">
+  <style class="darkreader darkreader--sync" media="screen"></style>
+  <link rel="stylesheet" media="print" href="/shared/css/ufrn_print.css">
+  <link rel="stylesheet" href="/shared/acessibilidade/bootstrap-acessibilidade.css">
+  <style class="darkreader darkreader--sync" media="screen"></style>
+  <style>
+    [vw] [vw-access-button] {
+      display: none;
+      flex-direction: row-reverse;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      overflow: hidden;
+      position: absolute;
+      border-radius: 8px;
+      transition: all 0.5s ease;
+      right: 0;
+      left: auto
+    }
+
+    [vw] [vw-access-button] img {
+      max-height: 40px;
+      transition: all 0.5s ease;
+      border-radius: 8px;
+      opacity: 1 !important;
+      visibility: visible !important
+    }
+
+    [vw] [vw-access-button] .vp-access-button {
+      width: 40px;
+      height: 40px;
+      z-index: 1
+    }
+
+    [vw] [vw-access-button] .vp-pop-up {
+      position: absolute;
+      height: 40px;
+      min-width: 150px;
+      z-index: 0;
+      left: 0;
+      right: auto
+    }
+
+    [vw] [vw-access-button]:hover {
+      width: 200px
+    }
+
+    [vw] [vw-access-button].isLeft {
+      flex-direction: row;
+      left: 0;
+      right: auto
+    }
+
+    [vw] [vw-access-button].isLeft .vp-pop-up {
+      left: auto;
+      right: 0
+    }
+
+    [vw] [vw-access-button].isTopOrBottom:hover {
+      bottom: -20px;
+      top: 0;
+      margin-right: -80px
+    }
+
+    [vw] [vw-access-button].active {
+      display: flex
+    }
+  </style>
+  <style class="darkreader darkreader--sync" media="screen"></style>
+  <style>
+    [vw].left [vw-plugin-wrapper] {
+      float: left
+    }
+
+    [vw] [vw-plugin-wrapper] {
+      position: relative;
+      display: none;
+      width: 300px;
+      height: 100%;
+      float: right;
+      background: white;
+      -webkit-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+      -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+      border-radius: 12px;
+      -moz-border-radius: 12px;
+      -webkit-border-radius: 12px
+    }
+
+    [vw] [vw-plugin-wrapper].active {
+      display: -webkit-flex;
+      display: flex;
+      flex-direction: column;
+      -webkit-flex-direction: column;
+      height: 450px;
+      max-width: 100%;
+      min-height: 100%
+    }
+  </style>
+  <style class="darkreader darkreader--sync" media="screen"></style>
+  <style>
+    div[vw] {
+      position: fixed;
+      max-width: 95vw;
+      min-height: 40px;
+      min-width: 40px;
+      z-index: 2147483645 !important;
+      display: none;
+      margin: 10px !important
+    }
+
+    div[vw].enabled {
+      display: block
+    }
+
+    div[vw].active {
+      margin-top: -285px
+    }
+
+    div[vw].left {
+      left: 0;
+      right: initial
+    }
+  </style>
+  <style class="darkreader darkreader--sync" media="screen"></style>
+  <style>
+    .vue-notification-group {
+      display: block;
+      position: fixed;
+      z-index: 5000
+    }
+
+    .vue-notification-wrapper {
+      display: block;
+      overflow: hidden;
+      width: 100%;
+      margin: 0;
+      padding: 0
+    }
+
+    .notification-title {
+      font-weight: 600
+    }
+
+    .vue-notification-template {
+      display: block;
+      box-sizing: border-box;
+      background: #fff;
+      text-align: left
+    }
+
+    .vue-notification {
+      display: block;
+      box-sizing: border-box;
+      text-align: left;
+      font-size: 12px;
+      padding: 10px;
+      margin: 0 5px 5px;
+      color: #fff;
+      background: #44a4fc;
+      border-left: 5px solid #187FE7
+    }
+
+    .vue-notification.warn {
+      background: #ffb648;
+      border-left-color: #f48a06
+    }
+
+    .vue-notification.error {
+      background: #e54d42;
+      border-left-color: #b82e24
+    }
+
+    .vue-notification.success {
+      background: #68cd86;
+      border-left-color: #42a85f
+    }
+
+    .vn-fade-enter-active,
+    .vn-fade-leave-active,
+    .vn-fade-move {
+      transition: all .5s
+    }
+
+    .vn-fade-enter-from,
+    .vn-fade-leave-to {
+      opacity: 0
+    }
+  </style>
+  <style class="darkreader darkreader--sync" media="screen"></style>
+  <style>
+    .vue-notification-group {
+      display: block;
+      position: fixed;
+      z-index: 5000
+    }
+
+    .vue-notification-wrapper {
+      display: block;
+      overflow: hidden;
+      width: 100%;
+      margin: 0;
+      padding: 0
+    }
+
+    .notification-title {
+      font-weight: 600
+    }
+
+    .vue-notification-template {
+      display: block;
+      box-sizing: border-box;
+      background: #fff;
+      text-align: left
+    }
+
+    .vue-notification {
+      display: block;
+      box-sizing: border-box;
+      text-align: left;
+      font-size: 12px;
+      padding: 10px;
+      margin: 0 5px 5px;
+      color: #fff;
+      background: #44a4fc;
+      border-left: 5px solid #187FE7
+    }
+
+    .vue-notification.warn {
+      background: #ffb648;
+      border-left-color: #f48a06
+    }
+
+    .vue-notification.error {
+      background: #e54d42;
+      border-left-color: #b82e24
+    }
+
+    .vue-notification.success {
+      background: #68cd86;
+      border-left-color: #42a85f
+    }
+
+    .vn-fade-enter-active,
+    .vn-fade-leave-active,
+    .vn-fade-move {
+      transition: all .5s
+    }
+
+    .vn-fade-enter-from,
+    .vn-fade-leave-to {
+      opacity: 0
+    }
+  </style>
+  <style class="darkreader darkreader--sync" media="screen"></style>
+  <style>
+    .vue-notification-group {
+      display: block;
+      position: fixed;
+      z-index: 5000
+    }
+
+    .vue-notification-wrapper {
+      display: block;
+      overflow: hidden;
+      width: 100%;
+      margin: 0;
+      padding: 0
+    }
+
+    .notification-title {
+      font-weight: 600
+    }
+
+    .vue-notification-template {
+      display: block;
+      box-sizing: border-box;
+      background: #fff;
+      text-align: left
+    }
+
+    .vue-notification {
+      display: block;
+      box-sizing: border-box;
+      text-align: left;
+      font-size: 12px;
+      padding: 10px;
+      margin: 0 5px 5px;
+      color: #fff;
+      background: #44a4fc;
+      border-left: 5px solid #187FE7
+    }
+
+    .vue-notification.warn {
+      background: #ffb648;
+      border-left-color: #f48a06
+    }
+
+    .vue-notification.error {
+      background: #e54d42;
+      border-left-color: #b82e24
+    }
+
+    .vue-notification.success {
+      background: #68cd86;
+      border-left-color: #42a85f
+    }
+
+    .vn-fade-enter-active,
+    .vn-fade-leave-active,
+    .vn-fade-move {
+      transition: all .5s
+    }
+
+    .vn-fade-enter-from,
+    .vn-fade-leave-to {
+      opacity: 0
+    }
+  </style>
+  <style class="darkreader darkreader--sync" media="screen"></style>
+  <link type="text/css" rel="stylesheet"
+    href="//fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap">
+  <link type="text/css" rel="stylesheet"
+    href="//fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap">
+</head>
+
+
+
+
+
+<body>
+
+  <div id="relatorio-paisagem-container">
+
+    <div id="relatorio-cabecalho">
+      <div id="ufrn"><img src="https://www.si3.ufc.br/shared/img/instituicao/brasao.png"><br><a
+          href="/sigaa/verPortalDiscente.do">Portal do Discente</a></div>
+      <div id="sinfo" style="position:relative; top: 20px; left: -55px"><img src="/shared/img/sti.gif"> </div>
+      <div id="texto">
+        Universidade Federal do Ceará<br>
+        Sistema Integrado de Gestão de Atividades Acadêmicas<br>
+
+
+        <br>
+        <span class="dataAtual"> Emitido em 29/05/2026 20:22 </span>
+      </div>
+      <div class="clear"> </div>
+    </div>
+    <div id="relatorio">
+
+      <br>
+
+      <style>
+        tr.tituloRelatorio td {
+          padding: 19px 0 0;
+          border-bottom: 1px solid #555;
+          font-weight: bold;
+          font-size: 13px;
+        }
+
+        tr.header td {
+          padding: 3px;
+          border-bottom: 1px solid #555;
+          background-color: #eee;
+        }
+
+        table.formulario tr.componentes td {
+          padding: 4px 2px 2px;
+          border-bottom: 1px dashed #888;
+          font-size: 0.9em;
+        }
+
+        table.formulario tr th {
+          font-weight: bold;
+        }
+
+        table.formulario tr table th {
+          font-weight: normal;
+          font-style: italic;
+        }
+      </style>
+      <style class="darkreader darkreader--sync" media="screen"></style>
+
+
+
+
+
+
+      <h3 class="tituloTabela" style="width: 100%">Dados da Estrutura Curricular</h3>
+
+      <table class="formulario" width="100%">
+        <tbody>
+          <tr>
+            <th width="35%">Código:</th>
+            <td>2006.2</td>
+          </tr>
+
+          <tr>
+            <th>Matriz Curricular:</th>
+            <td>ENGENHARIA DE COMPUTAÇÃO - SOBRAL - Presencial - MT - BACHARELADO</td>
+          </tr>
+
+
+          <tr>
+            <th> Unidade de Vinculação: </th>
+            <td> CAMPUS DA UFC EM SOBRAL (11.00.01.28) </td>
+          </tr>
+          <tr>
+            <th> Município de funcionamento: </th>
+            <td> SOBRAL - CE </td>
+          </tr>
+          <tr>
+            <th>Período Letivo de Entrada em Vigor:</th>
+            <td>2006 . 2</td>
+          </tr>
+          <tr>
+            <th>Carga Horária:</th>
+            <td>
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Total Mínima</th>
+                    <td>3648</td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+
+
+          <tr>
+            <th class="rotulo">Ênfases:</th>
+            <td>
+              Exigido (0), Permitido (0)
+            </td>
+          </tr>
+
+
+
+          <tr>
+            <th>Carga Horária Obrigatória:</th>
+            <td>
+              2752h Total - ( 432h Práticas ) / ( 2320h Teóricas ) / ( 0h EAD )
+            </td>
+          </tr>
+          <tr>
+            <th>Carga Horária de Extensão:</th>
+            <td>
+              0 hrs
+            </td>
+          </tr>
+          <tr>
+          </tr>
+          <tr>
+            <th>Carga Horária Optativa Minima:</th>
+            <td>
+              896 hrs
+            </td>
+          </tr>
+          <tr>
+            <th>Carga Horária Obrigatória de Atividade Acadêmica Específica:</th>
+            <td>
+              560 hrs
+            </td>
+          </tr>
+          <tr>
+            <th>Carga Horária Máxima de Componentes Curriculares Optativos Livres:</th>
+            <td>
+              320 hrs
+            </td>
+          </tr>
+          <tr>
+            <th>Prazos para Conclusão em Períodos Letivos:</th>
+            <td>
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Mínimo</th>
+                    <td>7</td>
+                    <th>Médio</th>
+                    <td>10</td>
+                    <th>Máximo</th>
+                    <td>15</td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+
+          <tr>
+            <th>Carga Horária por Período Letivo:</th>
+            <td>
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Mínima</th>
+                    <td>64 hrs, </td>
+                    <th>Média</th>
+                    <td>528 hrs, </td>
+                    <th>Máxima</th>
+                    <td>640 hrs </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+
+
+          <!-- Disciplinas Obrigat&#243;rias / Curr&#237;culo do Curso -->
+          <tr>
+            <td colspan="2">
+              <table class="subFormulario" width="100%">
+                <caption>Componentes Obrigatórios (Currículo / Curso)</caption>
+
+                <tbody>
+                  <tr class="tituloRelatorio">
+                    <td colspan="5">1º Semestre</td>
+                  </tr>
+                  <tr class="header">
+                    <td colspan="2" width="35%">Componente Curricular</td>
+                    <td width="10%">CH Detalhada</td>
+                    <td width="8%">Tipo</td>
+                    <td width="8%">Natureza</td>
+                    <td width="13%">Pré-Requisitos</td>
+                    <td width="13%">Equivalencias</td>
+                    <td width="13%">Co-Requisitos</td>
+                  </tr>
+
+
+
+                  <tr class="componentes">
+                    <td>ECO0005</td>
+                    <td>
+                      INTRODUÇÃO A ENGENHARIA - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0025</td>
+                    <td>
+                      MATEMÁTICA DISCRETA PARA COMPUTAÇÃO - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0057</td>
+                    <td>
+                      CÁLCULO DIFERENCIAL E INTEGRAL I - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>( <acronym title="ECO0001 - CÁLCULO DIFERENCIAL E INTEGRAL I">ECO0001</acronym> OU
+                        <acronym title="EEL0001 - CÁLCULO DIFERENCIAL E INTEGRAL I">EEL0001</acronym> OU <acronym
+                          title="CEC0058 - ECONOMIA MATEMÁTICA I">CEC0058</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0074</td>
+                    <td>
+                      FÍSICA GERAL I - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>( <acronym title="ECO0002 - FÍSICA GERAL I">ECO0002</acronym> OU <acronym
+                          title="EEL0002 - FÍSICA GERAL I">EEL0002</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0086</td>
+                    <td>
+                      PROGRAMAÇÃO COMPUTACIONAL - 96h (6cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 32h lab. (2cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>( <acronym title="ECO0004 - PROGRAMAÇÃO COMPUTACIONAL P ENG COM">ECO0004</acronym> OU
+                        <acronym title="EEL0004 - PROGRAMAÇÃO COMPUTACIONAL PARA ENGENHARIA ELÉTRICA">EEL0004</acronym>
+                        )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+                  <tr>
+                    <td colspan="5"><b>CH Total:</b> 352hrs. &nbsp;&nbsp;&nbsp; </td>
+                  </tr>
+
+                  <tr class="tituloRelatorio">
+                    <td colspan="5">2º Semestre</td>
+                  </tr>
+                  <tr class="header">
+                    <td colspan="2" width="35%">Componente Curricular</td>
+                    <td width="10%">CH Detalhada</td>
+                    <td width="8%">Tipo</td>
+                    <td width="8%">Natureza</td>
+                    <td width="13%">Pré-Requisitos</td>
+                    <td width="13%">Equivalencias</td>
+                    <td width="13%">Co-Requisitos</td>
+                  </tr>
+
+
+
+                  <tr class="componentes">
+                    <td>ECO0015</td>
+                    <td>
+                      TÉCNICAS DE PROGRAMAÇÃO - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      32h aula (2cr)
+                      <br> 32h lab. (2cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>( <acronym title="ECO0004 - PROGRAMAÇÃO COMPUTACIONAL P ENG COM">ECO0004</acronym> OU
+                        <acronym title="SBL0086 - PROGRAMAÇÃO COMPUTACIONAL">SBL0086</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0056</td>
+                    <td>
+                      ÁLGEBRA LINEAR - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>( <acronym title="SBL0057 - CÁLCULO DIFERENCIAL E INTEGRAL I">SBL0057</acronym> )
+                      </small></td>
+                    <td><small>( <acronym title="ECO0008 - ÁLGEBRA LINEAR">ECO0008</acronym> OU <acronym
+                          title="EEL0008 - ÁLGEBRA LINEAR">EEL0008</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0058</td>
+                    <td>
+                      CÁLCULO DIFERENCIAL E INTEGRAL II - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>( <acronym title="SBL0057 - CÁLCULO DIFERENCIAL E INTEGRAL I">SBL0057</acronym> )
+                      </small></td>
+                    <td><small>( <acronym title="ECO0006 - CÁLCULO DIFERENCIAL E INTEGRAL II">ECO0006</acronym> OU
+                        <acronym title="EEL0006 - CÁLCULO DIFERENCIAL E INTEGRAL II">EEL0006</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0066</td>
+                    <td>
+                      DESENHO PARA ENGENHARIA - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      32h aula (2cr)
+                      <br> 32h lab. (2cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>( <acronym title="ECO0010 - DESENHO PARA ENGENHARIA">ECO0010</acronym> OU <acronym
+                          title="EEL0011 - DESENHO PARA ENGENHARIA">EEL0011</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0072</td>
+                    <td>
+                      FÍSICA EXPERIMENTAL I - 32h (2cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      0h aula (0cr)
+                      <br> 32h lab. (2cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>( <acronym title="SBL0074 - FÍSICA GERAL I">SBL0074</acronym> )
+                      </small></td>
+                    <td><small>( <acronym title="ECO0009 - FÍSICA EXPERIMENTAL ENGENHARIA I">ECO0009</acronym> OU
+                        <acronym title="EEL0010 - FÍSICA EXPERIMENTAL PARA ENGENHARIA I">EEL0010</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0075</td>
+                    <td>
+                      FÍSICA GERAL II - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>( <acronym title="SBL0057 - CÁLCULO DIFERENCIAL E INTEGRAL I">SBL0057</acronym> E
+                        <acronym title="SBL0074 - FÍSICA GERAL I">SBL0074</acronym> )
+                      </small></td>
+                    <td><small>( <acronym title="ECO0007 - FÍSICA GERAL II">ECO0007</acronym> OU <acronym
+                          title="EEL0007 - FÍSICA GERAL II">EEL0007</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0084</td>
+                    <td>
+                      PROBABILIDADE E ESTATÍSTICA - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>( <acronym title="SBL0057 - CÁLCULO DIFERENCIAL E INTEGRAL I">SBL0057</acronym> )
+                      </small></td>
+                    <td><small>( <acronym title="ECO0011 - PROBABILIDADE E ESTATÍSTICA">ECO0011</acronym> OU <acronym
+                          title="EEL0009 - PROBABILIDADE E ESTATÍSTICA">EEL0009</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+                  <tr>
+                    <td colspan="5"><b>CH Total:</b> 416hrs. &nbsp;&nbsp;&nbsp; </td>
+                  </tr>
+
+                  <tr class="tituloRelatorio">
+                    <td colspan="5">3º Semestre</td>
+                  </tr>
+                  <tr class="header">
+                    <td colspan="2" width="35%">Componente Curricular</td>
+                    <td width="10%">CH Detalhada</td>
+                    <td width="8%">Tipo</td>
+                    <td width="8%">Natureza</td>
+                    <td width="13%">Pré-Requisitos</td>
+                    <td width="13%">Equivalencias</td>
+                    <td width="13%">Co-Requisitos</td>
+                  </tr>
+
+
+
+                  <tr class="componentes">
+                    <td>ECO0016</td>
+                    <td>
+                      ESTRUTURAS DE DADOS - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>( <acronym title="ECO0004 - PROGRAMAÇÃO COMPUTACIONAL P ENG COM">ECO0004</acronym> OU
+                        <acronym title="SBL0086 - PROGRAMAÇÃO COMPUTACIONAL">SBL0086</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0059</td>
+                    <td>
+                      CÁLCULO VETORIAL - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>( <acronym title="SBL0058 - CÁLCULO DIFERENCIAL E INTEGRAL II">SBL0058</acronym> )
+                      </small></td>
+                    <td><small>( <acronym title="ECO0012 - CÁLCULO VETORIAL APLICADO">ECO0012</acronym> OU <acronym
+                          title="EEL0012 - CÁLCULO VETORIAL">EEL0012</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0067</td>
+                    <td>
+                      FÍSICA GERAL III - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>( <acronym title="SBL0075 - FÍSICA GERAL II">SBL0075</acronym> E <acronym
+                          title="SBL0058 - CÁLCULO DIFERENCIAL E INTEGRAL II">SBL0058</acronym> )
+                      </small></td>
+                    <td><small>( <acronym title="ECO0018 - ELETRICIDADE E MAGNETISMO">ECO0018</acronym> OU <acronym
+                          title="EEL0016 - ELETRICIDADE E MAGNETISMO">EEL0016</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0073</td>
+                    <td>
+                      FÍSICA EXPERIMENTAL II - 32h (2cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      0h aula (0cr)
+                      <br> 32h lab. (2cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>( <acronym title="SBL0075 - FÍSICA GERAL II">SBL0075</acronym> E <acronym
+                          title="SBL0058 - CÁLCULO DIFERENCIAL E INTEGRAL II">SBL0058</acronym> )
+                      </small></td>
+                    <td><small>( <acronym title="ECO0014 - FÍSICA EXPERIMENTAL PARA ENGENHARIA II">ECO0014</acronym> OU
+                        <acronym title="EEL0071 - FÍSICA EXPERIMENTAL PARA ENGENHARIA II">EEL0071</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0081</td>
+                    <td>
+                      MÉTODOS NUMÉRICOS - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>( <acronym title="SBL0056 - ÁLGEBRA LINEAR">SBL0056</acronym> E <acronym
+                          title="SBL0057 - CÁLCULO DIFERENCIAL E INTEGRAL I">SBL0057</acronym> E <acronym
+                          title="SBL0086 - PROGRAMAÇÃO COMPUTACIONAL">SBL0086</acronym> )
+                      </small></td>
+                    <td><small>( <acronym title="ECO0013 - MET NUMÉRICOS APLIC A ENGENHARIA">ECO0013</acronym> OU
+                        <acronym title="EEL0015 - MÉTODOS NUMÉRICOS APLIC A ENG ELÉTRICA">EEL0015</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0089</td>
+                    <td>
+                      SERIES E EQUAÇÕES DIFERENCIAIS - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>( <acronym title="SBL0058 - CÁLCULO DIFERENCIAL E INTEGRAL II">SBL0058</acronym> )
+                      </small></td>
+                    <td><small>( <acronym title="ECO0017 - SERIES E EQUACOES DIFERENCIAIS">ECO0017</acronym> OU <acronym
+                          title="EEL0013 - SERIES E EQUACOES DIFERENCIAIS">EEL0013</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+                  <tr>
+                    <td colspan="5"><b>CH Total:</b> 352hrs. &nbsp;&nbsp;&nbsp; </td>
+                  </tr>
+
+                  <tr class="tituloRelatorio">
+                    <td colspan="5">4º Semestre</td>
+                  </tr>
+                  <tr class="header">
+                    <td colspan="2" width="35%">Componente Curricular</td>
+                    <td width="10%">CH Detalhada</td>
+                    <td width="8%">Tipo</td>
+                    <td width="8%">Natureza</td>
+                    <td width="13%">Pré-Requisitos</td>
+                    <td width="13%">Equivalencias</td>
+                    <td width="13%">Co-Requisitos</td>
+                  </tr>
+
+
+
+                  <tr class="componentes">
+                    <td>ECO0020</td>
+                    <td>
+                      PARADIGMAS DE LINGUAGEM DE PROGRAMAÇÃO - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>( <acronym title="ECO0015 - TÉCNICAS DE PROGRAMAÇÃO">ECO0015</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0021</td>
+                    <td>
+                      ARQUITETURA E ORGANIZACAO DE COMPUTADORES - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>( <acronym title="ECO0004 - PROGRAMAÇÃO COMPUTACIONAL P ENG COM">ECO0004</acronym> OU
+                        <acronym title="SBL0086 - PROGRAMAÇÃO COMPUTACIONAL">SBL0086</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0061</td>
+                    <td>
+                      CIRCUITOS ELÉTRICOS I - 96h (6cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 32h lab. (2cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>( <acronym title="SBL0067 - FÍSICA GERAL III">SBL0067</acronym> E <acronym
+                          title="SBL0081 - MÉTODOS NUMÉRICOS">SBL0081</acronym> E <acronym
+                          title="SBL0089 - SERIES E EQUAÇÕES DIFERENCIAIS">SBL0089</acronym> )
+                      </small></td>
+                    <td><small>( <acronym title="ECO0023 - CIRCUITOS ELÉTRICOS I">ECO0023</acronym> OU <acronym
+                          title="EEL0021 - CIRCUITOS ELÉTRICOS I">EEL0021</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0068</td>
+                    <td>
+                      ELETROMAGNETISMO APLICADO - 96h (6cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      96h aula (6cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>( <acronym title="SBL0059 - CÁLCULO VETORIAL">SBL0059</acronym> E <acronym
+                          title="SBL0067 - FÍSICA GERAL III">SBL0067</acronym> )
+                      </small></td>
+                    <td><small>( <acronym title="ECO0019 - ELETROMAGNETISMO APLICADO">ECO0019</acronym> OU <acronym
+                          title="EEL0024 - ELETROMAGNETISMO APLICADO">EEL0024</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0069</td>
+                    <td>
+                      ELETRÔNICA DIGITAL - 96h (6cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 32h lab. (2cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>( <acronym title="SBL0067 - FÍSICA GERAL III">SBL0067</acronym> E <acronym
+                          title="SBL0073 - FÍSICA EXPERIMENTAL II">SBL0073</acronym> )
+                      </small></td>
+                    <td><small>( <acronym title="ECO0024 - ELETRÔNICA DIGITAL">ECO0024</acronym> OU <acronym
+                          title="EEL0019 - ELETRÔNICA DIGITAL">EEL0019</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+                  <tr>
+                    <td colspan="5"><b>CH Total:</b> 416hrs. &nbsp;&nbsp;&nbsp; </td>
+                  </tr>
+
+                  <tr class="tituloRelatorio">
+                    <td colspan="5">5º Semestre</td>
+                  </tr>
+                  <tr class="header">
+                    <td colspan="2" width="35%">Componente Curricular</td>
+                    <td width="10%">CH Detalhada</td>
+                    <td width="8%">Tipo</td>
+                    <td width="8%">Natureza</td>
+                    <td width="13%">Pré-Requisitos</td>
+                    <td width="13%">Equivalencias</td>
+                    <td width="13%">Co-Requisitos</td>
+                  </tr>
+
+
+
+                  <tr class="componentes">
+                    <td>ECO0022</td>
+                    <td>
+                      SISTEMAS OPERACIONAIS - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>( <acronym title="ECO0016 - ESTRUTURAS DE DADOS">ECO0016</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0028</td>
+                    <td>
+                      ENGENHARIA DE SOFTWARE - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>( <acronym title="ECO0020 - PARADIGMAS DE LINGUAGEM DE PROGRAMAÇÃO">ECO0020</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0082</td>
+                    <td>
+                      MICROPROCESSADORES - 96h (6cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 32h lab. (2cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>( <acronym title="SBL0069 - ELETRÔNICA DIGITAL">SBL0069</acronym> OU <acronym
+                          title="ECO0024 - ELETRÔNICA DIGITAL">ECO0024</acronym> )
+                      </small></td>
+                    <td><small>( <acronym title="ECO0026 - MICROPROCESSADORES">ECO0026</acronym> OU <acronym
+                          title="EEL0022 - MICROPROCESSADORES">EEL0022</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0088</td>
+                    <td>
+                      REDES DE COMPUTADORES - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>( <acronym title="ECO0021 - ARQUITETURA E ORGANIZACAO DE COMPUTADORES">ECO0021</acronym>
+                        )
+                      </small></td>
+                    <td><small>( <acronym title="ECO0027 - REDES DE COMPUTADORES">ECO0027</acronym> OU <acronym
+                          title="EEL0064 - REDES DE COMPUTADORES">EEL0064</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+                  <tr>
+                    <td colspan="5"><b>CH Total:</b> 288hrs. &nbsp;&nbsp;&nbsp; </td>
+                  </tr>
+
+                  <tr class="tituloRelatorio">
+                    <td colspan="5">6º Semestre</td>
+                  </tr>
+                  <tr class="header">
+                    <td colspan="2" width="35%">Componente Curricular</td>
+                    <td width="10%">CH Detalhada</td>
+                    <td width="8%">Tipo</td>
+                    <td width="8%">Natureza</td>
+                    <td width="13%">Pré-Requisitos</td>
+                    <td width="13%">Equivalencias</td>
+                    <td width="13%">Co-Requisitos</td>
+                  </tr>
+
+
+
+                  <tr class="componentes">
+                    <td>ECO0031</td>
+                    <td>
+                      BANCO DE DADOS - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>( <acronym title="ECO0016 - ESTRUTURAS DE DADOS">ECO0016</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0080</td>
+                    <td>
+                      INTELIGÊNCIA COMPUTACIONAL - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>( <acronym title="ECO0016 - ESTRUTURAS DE DADOS">ECO0016</acronym> E <acronym
+                          title="ECO0020 - PARADIGMAS DE LINGUAGEM DE PROGRAMAÇÃO">ECO0020</acronym> E <acronym
+                          title="ECO0025 - MATEMÁTICA DISCRETA PARA COMPUTAÇÃO">ECO0025</acronym> )
+                      </small></td>
+                    <td><small>( <acronym title="ECO0029 - INTELIGÊNCIA COMPUTACIONAL">ECO0029</acronym> OU <acronym
+                          title="EEL0072 - INTELIGÊNCIA COMPUTACIONAL APLICADA">EEL0072</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+                  <tr>
+                    <td colspan="5"><b>CH Total:</b> 128hrs. &nbsp;&nbsp;&nbsp; </td>
+                  </tr>
+
+                  <tr class="tituloRelatorio">
+                    <td colspan="5">7º Semestre</td>
+                  </tr>
+                  <tr class="header">
+                    <td colspan="2" width="35%">Componente Curricular</td>
+                    <td width="10%">CH Detalhada</td>
+                    <td width="8%">Tipo</td>
+                    <td width="8%">Natureza</td>
+                    <td width="13%">Pré-Requisitos</td>
+                    <td width="13%">Equivalencias</td>
+                    <td width="13%">Co-Requisitos</td>
+                  </tr>
+
+
+
+                  <tr class="componentes">
+                    <td>SBL0060</td>
+                    <td>
+                      CIÊNCIAS, TECNOLOGIA E SOCIEDADE - 32h (2cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      32h aula (2cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>( <acronym title="ECO0005 - INTRODUÇÃO A ENGENHARIA">ECO0005</acronym> )
+                      </small></td>
+                    <td><small>( <acronym title="ECO0032 - CIÊNCIAS, TECNOLOGIA E SOCIEDADE">ECO0032</acronym> OU
+                        <acronym title="EEL0036 - CIÊNCIAS, TECNOLOGIA E SOCIEDADE">EEL0036</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0092</td>
+                    <td>
+                      SOFTWARE EM TEMPO REAL - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>( <acronym title="ECO0020 - PARADIGMAS DE LINGUAGEM DE PROGRAMAÇÃO">ECO0020</acronym> E
+                        <acronym title="ECO0022 - SISTEMAS OPERACIONAIS">ECO0022</acronym> )
+                      </small></td>
+                    <td><small>( <acronym title="ECO0036 - SOFTWARE EM TEMPO REAL">ECO0036</acronym> OU <acronym
+                          title="EEL0061 - SOFTWARE EM TEMPO REAL">EEL0061</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+                  <tr>
+                    <td colspan="5"><b>CH Total:</b> 96hrs. &nbsp;&nbsp;&nbsp; </td>
+                  </tr>
+
+                  <tr class="tituloRelatorio">
+                    <td colspan="5">8º Semestre</td>
+                  </tr>
+                  <tr class="header">
+                    <td colspan="2" width="35%">Componente Curricular</td>
+                    <td width="10%">CH Detalhada</td>
+                    <td width="8%">Tipo</td>
+                    <td width="8%">Natureza</td>
+                    <td width="13%">Pré-Requisitos</td>
+                    <td width="13%">Equivalencias</td>
+                    <td width="13%">Co-Requisitos</td>
+                  </tr>
+
+
+
+                  <tr class="componentes">
+                    <td>SBL0070</td>
+                    <td>
+                      ENGENHARIA AMBIENTAL - 48h (3cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      48h aula (3cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>( <acronym title="ECO0034 - ENGENHARIA AMBIENTAL">ECO0034</acronym> OU <acronym
+                          title="EEL0040 - ENGENHARIA AMBIENTAL">EEL0040</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0077</td>
+                    <td>
+                      FUNDAMENTOS DE ADMINISTRAÇÃO - 32h (2cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      32h aula (2cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>( <acronym title="ECO0035 - FUNDAMENTOS DE ADMINISTRAÇÃO">ECO0035</acronym> OU <acronym
+                          title="EEL0039 - FUNDAMENTOS DE ADMINISTRAÇÃO">EEL0039</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+                  <tr>
+                    <td colspan="5"><b>CH Total:</b> 80hrs. &nbsp;&nbsp;&nbsp; </td>
+                  </tr>
+
+                  <tr class="tituloRelatorio">
+                    <td colspan="5">9º Semestre</td>
+                  </tr>
+                  <tr class="header">
+                    <td colspan="2" width="35%">Componente Curricular</td>
+                    <td width="10%">CH Detalhada</td>
+                    <td width="8%">Tipo</td>
+                    <td width="8%">Natureza</td>
+                    <td width="13%">Pré-Requisitos</td>
+                    <td width="13%">Equivalencias</td>
+                    <td width="13%">Co-Requisitos</td>
+                  </tr>
+
+
+
+                  <tr class="componentes">
+                    <td>ECO0037</td>
+                    <td>
+                      ESTÁGIO SUPERVISIONADO - 160h (10cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      160h aula
+                      <br> 0h lab.
+                      <br> 0h ead
+                      <br> 0h ext.
+                    </td>
+                    <td>
+                      <small>
+
+                        ESTÁGIO
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0038</td>
+                    <td>
+                      SEMINÁRIO DE ESTÁGIO - 32h (2cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      32h aula
+                      <br> 0h lab.
+                      <br> 0h ead
+                      <br> 0h ext.
+                    </td>
+                    <td>
+                      <small>
+
+                        ESTÁGIO
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0040</td>
+                    <td>
+                      SEMINÁRIO DE MONOGRAFIA - 32h (2cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      32h aula
+                      <br> 0h lab.
+                      <br> 0h ead
+                      <br> 0h ext.
+                    </td>
+                    <td>
+                      <small>
+
+                        TRABALHO DE CONCLUSÃO DE CURSO
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+                  <tr>
+                    <td colspan="5"><b>CH Total:</b> 224hrs. &nbsp;&nbsp;&nbsp; </td>
+                  </tr>
+
+                  <tr class="tituloRelatorio">
+                    <td colspan="5">10º Semestre</td>
+                  </tr>
+                  <tr class="header">
+                    <td colspan="2" width="35%">Componente Curricular</td>
+                    <td width="10%">CH Detalhada</td>
+                    <td width="8%">Tipo</td>
+                    <td width="8%">Natureza</td>
+                    <td width="13%">Pré-Requisitos</td>
+                    <td width="13%">Equivalencias</td>
+                    <td width="13%">Co-Requisitos</td>
+                  </tr>
+
+
+
+                  <tr class="componentes">
+                    <td>ECO0039</td>
+                    <td>
+                      TRABALHO DE CONCLUSÃO DE CURSO - 160h (10cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      160h aula
+                      <br> 0h lab.
+                      <br> 0h ead
+                      <br> 0h ext.
+                    </td>
+                    <td>
+                      <small>
+
+                        TRABALHO DE CONCLUSÃO DE CURSO
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0105</td>
+                    <td>
+                      COMUNICAÇÃO E EXPRESSAO - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECOS0001</td>
+                    <td>
+                      ATIVIDADES COMPLEMENTARES - 176h (11cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      0h aula
+                      <br> 176h lab.
+                      <br> 0h ead
+                      <br> 0h ext.
+                    </td>
+                    <td>
+                      <small>
+
+                        ATIVIDADES COMPLEMENTARES
+                      </small>
+                    </td>
+                    <td width="8%"><small>OBRIGATÓRIA</small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+                  <tr>
+                    <td colspan="5"><b>CH Total:</b> 400hrs. &nbsp;&nbsp;&nbsp; </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </td>
+          </tr>
+
+
+
+
+
+          <!-- Disciplinas Optativas / Curr&#237;culo do Curso -->
+          <tr>
+            <td colspan="2">
+              <table class="subFormulario" width="100%">
+                <caption>Componentes Optativos (Currículo / Curso)</caption>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <tbody>
+                  <tr class="tituloRelatorio">
+                    <td colspan="5">10º Semestre</td>
+                  </tr>
+                  <tr class="header">
+                    <td colspan="2" width="35%">Componente Curricular</td>
+                    <td width="10%">CH Detalhada</td>
+                    <td width="8%">Tipo</td>
+                    <td width="8%">Natureza</td>
+                    <td width="13%">Pré-Requisitos</td>
+                    <td width="13%">Equivalencias</td>
+                    <td width="13%">Co-Requisitos</td>
+                  </tr>
+
+
+
+                  <tr class="componentes">
+                    <td>ECO0042</td>
+                    <td>
+                      TEORIA DOS AUTOMATOS E LINGUAGENS FORMAIS - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="ECO0016 - ESTRUTURAS DE DADOS">ECO0016</acronym> E <acronym
+                          title="ECO0025 - MATEMÁTICA DISCRETA PARA COMPUTAÇÃO">ECO0025</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0043</td>
+                    <td>
+                      PESQUISA E ORDENACAO DE DADOS - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="ECO0016 - ESTRUTURAS DE DADOS">ECO0016</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0044</td>
+                    <td>
+                      LÓGICA MATEMÁTICA - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="ECO0025 - MATEMÁTICA DISCRETA PARA COMPUTAÇÃO">ECO0025</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0045</td>
+                    <td>
+                      TÓPICOS EM PROGRAMAÇÃO - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="ECO0015 - TÉCNICAS DE PROGRAMAÇÃO">ECO0015</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0046</td>
+                    <td>
+                      ALGORITMOS EM GRAFOS - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="ECO0016 - ESTRUTURAS DE DADOS">ECO0016</acronym> E <acronym
+                          title="ECO0025 - MATEMÁTICA DISCRETA PARA COMPUTAÇÃO">ECO0025</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0047</td>
+                    <td>
+                      CONSTRUÇÃO E ANÁLISE DE ALGORITMOS - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="ECO0016 - ESTRUTURAS DE DADOS">ECO0016</acronym> E <acronym
+                          title="ECO0025 - MATEMÁTICA DISCRETA PARA COMPUTAÇÃO">ECO0025</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0048</td>
+                    <td>
+                      COMPUTAÇÃO GRÁFICA - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="ECO0015 - TÉCNICAS DE PROGRAMAÇÃO">ECO0015</acronym> E <acronym
+                          title="SBL0056 - ÁLGEBRA LINEAR">SBL0056</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0049</td>
+                    <td>
+                      SISTEMAS DE GERENCIAMENTO DE BANCO DE DADOS - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="ECO0031 - BANCO DE DADOS">ECO0031</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0050</td>
+                    <td>
+                      CONSTRUÇÃO DE COMPILADORES - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="ECO0020 - PARADIGMAS DE LINGUAGEM DE PROGRAMAÇÃO">ECO0020</acronym> E
+                        <acronym title="ECO0042 - TEORIA DOS AUTOMATOS E LINGUAGENS FORMAIS">ECO0042</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0051</td>
+                    <td>
+                      SISTEMAS DISTRIBUÍDOS - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="SBL0088 - REDES DE COMPUTADORES">SBL0088</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0052</td>
+                    <td>
+                      PROGRAMAÇÃO DISTRIBUÍDA E PARALELA - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="ECO0020 - PARADIGMAS DE LINGUAGEM DE PROGRAMAÇÃO">ECO0020</acronym> E
+                        <acronym title="ECO0016 - ESTRUTURAS DE DADOS">ECO0016</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0053</td>
+                    <td>
+                      REDES DE PETRI - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="ECO0020 - PARADIGMAS DE LINGUAGEM DE PROGRAMAÇÃO">ECO0020</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0054</td>
+                    <td>
+                      REDES DE ALTA VELOCIDADE - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="ECO0027 - REDES DE COMPUTADORES">ECO0027</acronym> OU <acronym
+                          title="SBL0088 - REDES DE COMPUTADORES">SBL0088</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0055</td>
+                    <td>
+                      SISTEMAS TOLERANTES A FALHAS - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="ECO0028 - ENGENHARIA DE SOFTWARE">ECO0028</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0056</td>
+                    <td>
+                      TECNOLOGIAS WEB - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      32h aula (2cr)
+                      <br> 32h lab. (2cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="ECO0015 - TÉCNICAS DE PROGRAMAÇÃO">ECO0015</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0057</td>
+                    <td>
+                      QUALIDADE DE SOFTWARE - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      32h aula (2cr)
+                      <br> 32h lab. (2cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="ECO0028 - ENGENHARIA DE SOFTWARE">ECO0028</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0058</td>
+                    <td>
+                      GERÊNCIA E CONFIGURACAO DE SOFTWARE - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="ECO0028 - ENGENHARIA DE SOFTWARE">ECO0028</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0059</td>
+                    <td>
+                      VERIFICAÇÃO DE SOFTWARE - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="ECO0028 - ENGENHARIA DE SOFTWARE">ECO0028</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0060</td>
+                    <td>
+                      METODOLOGIA CIENTÍFICA TECNOLÓGICA - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0061</td>
+                    <td>
+                      SEMINÁRIOS DE COMPUTAÇÃO I - 32h (2cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      32h aula (2cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0062</td>
+                    <td>
+                      SEMINÁRIOS DE COMPUTAÇÃO II - 32h (2cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      32h aula (2cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0063</td>
+                    <td>
+                      TÓPICOS ESPECIAIS EM COMPUTAÇÃO I - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0064</td>
+                    <td>
+                      TÓPICOS ESPECIAIS EM COMPUTAÇÃO II - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0065</td>
+                    <td>
+                      COMUNICAÇÕES ANALÓGICAS E DIGITAIS - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="SBL0083 - PRINCÍPIOS DE COMUNICAÇÕES">SBL0083</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0066</td>
+                    <td>
+                      SISTEMAS DE COMUNICAÇÕES MÓVEIS - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="SBL0083 - PRINCÍPIOS DE COMUNICAÇÕES">SBL0083</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0067</td>
+                    <td>
+                      SISTEMAS DE COMUNICAÇÕES OPTICAS - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="SBL0083 - PRINCÍPIOS DE COMUNICAÇÕES">SBL0083</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0068</td>
+                    <td>
+                      SISTEMAS TELEFONICOS - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="SBL0083 - PRINCÍPIOS DE COMUNICAÇÕES">SBL0083</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0069</td>
+                    <td>
+                      TÓPICOS EM REDES DE COMUNICAÇÕES - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="SBL0083 - PRINCÍPIOS DE COMUNICAÇÕES">SBL0083</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0070</td>
+                    <td>
+                      ARQUITETURA E ORGANIZAÇÃO DAS REDES DE COMUNICAÇÕES - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="SBL0083 - PRINCÍPIOS DE COMUNICAÇÕES">SBL0083</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0071</td>
+                    <td>
+                      TÓPICOS EM SISTEMAS DE COMUNICAÇÕES MÓVEIS - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="ECO0066 - SISTEMAS DE COMUNICAÇÕES MÓVEIS">ECO0066</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0072</td>
+                    <td>
+                      TÓPICOS EM SISTEMAS DE COMUNICAÇÕES OPTICAS - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="ECO0067 - SISTEMAS DE COMUNICAÇÕES OPTICAS">ECO0067</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0073</td>
+                    <td>
+                      SISTEMAS DE COMUNICAÇÕES VIA RÁDIO - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="SBL0083 - PRINCÍPIOS DE COMUNICAÇÕES">SBL0083</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0074</td>
+                    <td>
+                      LABORATÓRIO DE COMUNICAÇÕES I - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="SBL0083 - PRINCÍPIOS DE COMUNICAÇÕES">SBL0083</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0075</td>
+                    <td>
+                      COMUNICAÇÃO POR SATELITE - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="SBL0083 - PRINCÍPIOS DE COMUNICAÇÕES">SBL0083</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0076</td>
+                    <td>
+                      PROCESSOS ESTOCASTICOS - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="SBL0084 - PROBABILIDADE E ESTATÍSTICA">SBL0084</acronym> E <acronym
+                          title="SBL0059 - CÁLCULO VETORIAL">SBL0059</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0078</td>
+                    <td>
+                      EMPREENDEDORISMO E ADMINISTRAÇÃO DE EMPRESAS - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="SBL0077 - FUNDAMENTOS DE ADMINISTRAÇÃO">SBL0077</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0079</td>
+                    <td>
+                      SEMINÁRIO DE TELECOMUNICAÇÕES I - 32h (2cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      32h aula (2cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="ECO0065 - COMUNICAÇÕES ANALÓGICAS E DIGITAIS">ECO0065</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0080</td>
+                    <td>
+                      TÓPICOS ESPECIAIS EM TELECOMUNICAÇÕES I - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="ECO0065 - COMUNICAÇÕES ANALÓGICAS E DIGITAIS">ECO0065</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0081</td>
+                    <td>
+                      LINHA DE TRANSMISSAO E GUIAS DE ONDAS - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="SBL0068 - ELETROMAGNETISMO APLICADO">SBL0068</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0089</td>
+                    <td>
+                      MICROPROCESSADORES II - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="SBL0082 - MICROPROCESSADORES">SBL0082</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0090</td>
+                    <td>
+                      ELETRÔNICA INDUSTRIAL - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="SBL0069 - ELETRÔNICA DIGITAL">SBL0069</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0091</td>
+                    <td>
+                      TEORIA DO CONTROLE DISCRETO - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="SBL0064 - CONTROLE DE SISTEMAS DINÂMICOS">SBL0064</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0093</td>
+                    <td>
+                      SISTEMAS EMBARCADOS - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="SBL0082 - MICROPROCESSADORES">SBL0082</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0097</td>
+                    <td>
+                      SEMINÁRIO EM AUTOMACAO E CONTROLE I - 32h (2cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      32h aula (2cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="SBL0064 - CONTROLE DE SISTEMAS DINÂMICOS">SBL0064</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0098</td>
+                    <td>
+                      TÓPICOS ESPECIAIS EM AUTOMACAO E CONTROLE I - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="SBL0064 - CONTROLE DE SISTEMAS DINÂMICOS">SBL0064</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0099</td>
+                    <td>
+                      TEORIA DA COMPUTAÇÃO - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="ECO0042 - TEORIA DOS AUTOMATOS E LINGUAGENS FORMAIS">ECO0042</acronym>
+                        )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0100</td>
+                    <td>
+                      ANÁLISE E PROJETOS DE SISTEMAS I - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="ECO0028 - ENGENHARIA DE SOFTWARE">ECO0028</acronym> E <acronym
+                          title="ECO0031 - BANCO DE DADOS">ECO0031</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0101</td>
+                    <td>
+                      ANÁLISE E PROJETOS DE SISTEMAS II - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="ECO0100 - ANÁLISE E PROJETOS DE SISTEMAS I">ECO0100</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0102</td>
+                    <td>
+                      PROGRAMAÇÃO LINEAR - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="SBL0081 - MÉTODOS NUMÉRICOS">SBL0081</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0103</td>
+                    <td>
+                      TECNOLOGIAS WEB II - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      32h aula (2cr)
+                      <br> 32h lab. (2cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="ECO0056 - TECNOLOGIAS WEB">ECO0056</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0104</td>
+                    <td>
+                      ALGORITMOS DISTRIBUÍDOS - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="ECO0016 - ESTRUTURAS DE DADOS">ECO0016</acronym> E <acronym
+                          title="ECO0047 - CONSTRUÇÃO E ANÁLISE DE ALGORITMOS">ECO0047</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0106</td>
+                    <td>
+                      TESTE DE SOFTWARE - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      32h aula (2cr)
+                      <br> 32h lab. (2cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="ECO0028 - ENGENHARIA DE SOFTWARE">ECO0028</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>ECO0107</td>
+                    <td>
+                      DESENVOLVIMENTO PARA DISPOSITIVOS MÓVEIS - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      32h aula (2cr)
+                      <br> 32h lab. (2cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="ECO0103 - TECNOLOGIAS WEB II">ECO0103</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>PRG0002</td>
+                    <td>
+                      RELAÇOES ETNICO-RACIAIS E AFRICANIDADES - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>PRG0003</td>
+                    <td>
+                      EDUCAÇÃO AMBIENTAL - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>PRG0004</td>
+                    <td>
+                      EDUCAÇÃO EM DIREITOS HUMANOS - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>PRG0005</td>
+                    <td>
+                      DIFERENÇA E ENFRENTAMENTO PROFISSIONAL NAS DESIGUALDADES SOCIAIS - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      0h aula (0cr)
+                      <br> 0h lab. (0cr)
+                      <br> 64h ead (4cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0062</td>
+                    <td>
+                      CIRCUITOS ELÉTRICOS II - 96h (6cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 32h lab. (2cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="SBL0061 - CIRCUITOS ELÉTRICOS I">SBL0061</acronym> )
+                      </small></td>
+                    <td><small>( <acronym title="ECO0088 - CIRCUITOS ELÉTRICOS II">ECO0088</acronym> OU <acronym
+                          title="EEL0027 - CIRCUITOS ELÉTRICOS II">EEL0027</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0063</td>
+                    <td>
+                      CONTROLE ADAPTATIVO - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="SBL0064 - CONTROLE DE SISTEMAS DINÂMICOS">SBL0064</acronym> )
+                      </small></td>
+                    <td><small>( <acronym title="ECO0082 - CONTROLE ADAPTATIVO">ECO0082</acronym> OU <acronym
+                          title="EEL0057 - CONTROLE ADAPTATIVO">EEL0057</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0064</td>
+                    <td>
+                      CONTROLE DE SISTEMAS DINÂMICOS - 96h (6cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 32h lab. (2cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="SBL0091 - SISTEMAS LINEARES">SBL0091</acronym> )
+                      </small></td>
+                    <td><small>( <acronym title="ECO0033 - CONTROLE DE SISTEMAS DINÂMICOS">ECO0033</acronym> OU <acronym
+                          title="EEL0029 - CONTROLE DE SISTEMAS DINÂMICOS">EEL0029</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0065</td>
+                    <td>
+                      CONTROLE E AUTOMAÇÃO INDUSTRIAL - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="SBL0064 - CONTROLE DE SISTEMAS DINÂMICOS">SBL0064</acronym> )
+                      </small></td>
+                    <td><small>( <acronym title="ECO0083 - CONTROLE E AUTOMACAO INDUSTRIAL">ECO0083</acronym> OU
+                        <acronym title="EEL0058 - CONTROLE E AUTOMACAO INDUSTRIAL">EEL0058</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0071</td>
+                    <td>
+                      ENGENHARIA ECONÔMICA - 32h (2cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      32h aula (2cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="SBL0076 - FUNDAMENTOS DE ECONOMIA">SBL0076</acronym> )
+                      </small></td>
+                    <td><small>( <acronym title="ECO0096 - ENGENHARIA ECONÔMICA">ECO0096</acronym> OU <acronym
+                          title="EEL0023 - ENGENHARIA ECONÔMICA">EEL0023</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0076</td>
+                    <td>
+                      FUNDAMENTOS DE ECONOMIA - 32h (2cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      32h aula (2cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>( <acronym title="ECO0095 - FUNDAMENTOS DE ECONOMIA">ECO0095</acronym> OU <acronym
+                          title="EEL0038 - FUNDAMENTOS DA ECONOMIA">EEL0038</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0078</td>
+                    <td>
+                      HIGIENE INDUSTRIAL E SEGURANÇA NO TRABALHO - 32h (2cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      32h aula (2cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>( <acronym title="ECO0094 - HIGIENE INDUSTRIAL E SEGURANÇA NO TRABALHO">ECO0094</acronym>
+                        OU <acronym title="EEL0037 - HIGIENE INDUSTRIAL E SEGURANÇA NO TRABALHO">EEL0037</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0079</td>
+                    <td>
+                      IDENTIFICAÇÃO DE SISTEMAS - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="SBL0084 - PROBABILIDADE E ESTATÍSTICA">SBL0084</acronym> E <acronym
+                          title="SBL0091 - SISTEMAS LINEARES">SBL0091</acronym> E <acronym
+                          title="SBL0064 - CONTROLE DE SISTEMAS DINÂMICOS">SBL0064</acronym> )
+                      </small></td>
+                    <td><small>( <acronym title="ECO0084 - IDENTIFICACAO DE SISTEMAS">ECO0084</acronym> OU <acronym
+                          title="EEL0059 - IDENTIFICACAO DE SISTEMAS">EEL0059</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0083</td>
+                    <td>
+                      PRINCÍPIOS DE COMUNICAÇÕES - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="SBL0084 - PROBABILIDADE E ESTATÍSTICA">SBL0084</acronym> E <acronym
+                          title="SBL0091 - SISTEMAS LINEARES">SBL0091</acronym> )
+                      </small></td>
+                    <td><small>( <acronym title="ECO0030 - PRINCÍPIOS DE COMUNICAÇÕES">ECO0030</acronym> OU <acronym
+                          title="EEL0031 - PRINCÍPIOS DE COMUNICAÇÕES">EEL0031</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0085</td>
+                    <td>
+                      PROCESSAMENTO DIGITAL DE SINAIS - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="SBL0091 - SISTEMAS LINEARES">SBL0091</acronym> )
+                      </small></td>
+                    <td><small>( <acronym title="ECO0077 - PROCESSAMENTO DIGITAL DE SINAIS">ECO0077</acronym> OU
+                        <acronym title="EEL0070 - PROCESSAMENTO DIGITAL DE SINAIS">EEL0070</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0087</td>
+                    <td>
+                      QUÍMICA GERAL - 96h (6cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 32h lab. (2cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>( <acronym title="ECO0003 - QUÍMICA GERAL PARA ENGENHARIA">ECO0003</acronym> OU <acronym
+                          title="EEL0003 - QUÍMICA GERAL PARA ENGENHARIA">EEL0003</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0090</td>
+                    <td>
+                      SISTEMAS ELETRÔNICOS - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="SBL0069 - ELETRÔNICA DIGITAL">SBL0069</acronym> )
+                      </small></td>
+                    <td><small>( <acronym title="ECO0087 - SISTEMAS ELETRÔNICOS">ECO0087</acronym> OU <acronym
+                          title="EEL0069 - SISTEMAS ELETRÔNICOS">EEL0069</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0091</td>
+                    <td>
+                      SISTEMAS LINEARES - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="SBL0061 - CIRCUITOS ELÉTRICOS I">SBL0061</acronym> E <acronym
+                          title="SBL0095 - VARIAVEIS COMPLEXAS">SBL0095</acronym> )
+                      </small></td>
+                    <td><small>( <acronym title="ECO0092 - SISTEMAS LINEARES">ECO0092</acronym> OU <acronym
+                          title="EEL0025 - SISTEMAS LINEARES">EEL0025</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0093</td>
+                    <td>
+                      TÉCNICAS AVANÇADAS EM ELETRÔNICA DIGITAL - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="SBL0069 - ELETRÔNICA DIGITAL">SBL0069</acronym> )
+                      </small></td>
+                    <td><small>( <acronym title="ECO0086 - TÉCNICAS AVANCADAS EM ELETRÔNICA DIGITAL">ECO0086</acronym>
+                        OU <acronym title="EEL0063 - TÉCNICAS AVANCADAS EM ELETRÔNICA DIGITAL">EEL0063</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0094</td>
+                    <td>
+                      TÉCNICAS AVANÇADAS EM MICROPROCESSADORES - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="SBL0082 - MICROPROCESSADORES">SBL0082</acronym> )
+                      </small></td>
+                    <td><small>( <acronym title="ECO0085 - TÉCNICAS AVANCADAS EM MICROPROCESSADORES">ECO0085</acronym>
+                        OU <acronym title="EEL0062 - TÉCNICAS AVANCADAS EM MICROPROCESSADORES">EEL0062</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0095</td>
+                    <td>
+                      VARIAVEIS COMPLEXAS - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      64h aula (4cr)
+                      <br> 0h lab. (0cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="SBL0059 - CÁLCULO VETORIAL">SBL0059</acronym> )
+                      </small></td>
+                    <td><small>( <acronym title="ECO0041 - VARIAVEIS COMPLEXAS">ECO0041</acronym> OU <acronym
+                          title="EEL0017 - VARIAVEIS COMPLEXAS">EEL0017</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0100</td>
+                    <td>
+                      LÍNGUA BRASILEIRA DE SINAIS - LIBRAS - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      48h aula (3cr)
+                      <br> 16h lab. (1cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+
+                  <tr class="componentes">
+                    <td>SBL0117</td>
+                    <td>
+                      APRENDIZAGEM PROFUNDA - 64h (4cr) -
+                      <small> 1 período letivo</small>
+                    </td>
+                    <td style="font-size: 0.9em;">
+                      32h aula (2cr)
+                      <br> 32h lab. (2cr)
+                      <br> 0h ead (0cr)
+                      <br> 0h ext. (0cr)
+                    </td>
+                    <td>
+                      <small>
+                        DISCIPLINA
+
+                      </small>
+                    </td>
+                    <td width="8%"><small>OPTATIVA</small></td>
+                    <td><small>( <acronym title="SBL0080 - INTELIGÊNCIA COMPUTACIONAL">SBL0080</acronym> OU <acronym
+                          title="EEL0072 - INTELIGÊNCIA COMPUTACIONAL APLICADA">EEL0072</acronym> ) E ( <acronym
+                          title="SBL0056 - ÁLGEBRA LINEAR">SBL0056</acronym> ) E ( <acronym
+                          title="SBL0086 - PROGRAMAÇÃO COMPUTACIONAL">SBL0086</acronym> )
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                    <td><small>
+                      </small></td>
+                  </tr>
+
+                  <tr>
+                    <td colspan="5"><b>CH Total:</b> 4672hrs. &nbsp;&nbsp;&nbsp; </td>
+                  </tr>
+
+
+                </tbody>
+              </table>
+            </td>
+          </tr>
+
+
+        </tbody>
+      </table>
+
+
+
+
+    </div>
+    <div class="clear"> </div>
+    <br>
+    <div id="relatorio-rodape">
+      <p>
+      <table width="100%">
+        <tbody>
+          <tr>
+            <td class="voltar" align="left"><a href="javascript:history.back();"> Voltar </a></td>
+            <td width="70%" align="center">SIGAA | Copyright © 2006-2026 - Superintendência de Tecnologia da Informação
+              - UFC - (85) 3366-9999 - si3asprd02.ufc.br</td>
+            <td class="naoImprimir" align="right">
+              <a onclick="javascript:window.print();" href="#">Imprimir</a>
+            </td>
+            <td class="naoImprimir" align="right">
+              <a onclick="javascript:window.print();" href="#">
+                <img alt="Imprimir" title="Imprimir" src="/shared/javascript/ext-1.1/docs/resources/print.gif">
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      </p>
+
+    </div>
+  </div>
+
+  <div id="mensagem">
+    <div class="x-window-header"></div>
+    <div class="x-window-body"></div>
+  </div>
+
+
+
+  <div vw="" class="enabled"
+    style="left: initial; right: 0px; top: 50%; bottom: initial; transform: translateY(calc(-50% - 10px));">
+    <div vw-access-button="" class="active" style=""><img class="vp-access-button"
+        data-src="assets/access_icon.svg?v=20260510"
+        alt="Conteúdo acessível em Libras usando o VLibras Widget com opções dos Avatares Ícaro, Hosana ou Guga."
+        src="https://vlibras.gov.br/app//assets/access_icon.svg?v=20260510">
+      <img class="vp-pop-up" data-src="assets/access_popup.jpg?v=20260510"
+        alt="Conteúdo acessível em Libras usando o VLibras Widget com opções dos Avatares Ícaro, Hosana ou Guga."
+        src="https://vlibras.gov.br/app//assets/access_popup.jpg?v=20260510">
+    </div>
+    <div vw-plugin-wrapper="">
+      <div vp="">
+        <div vp-box=""></div>
+        <div vp-message-box=""></div>
+        <div vp-settings=""></div>
+        <div vp-dictionary=""></div>
+        <div vp-settings-btn=""></div>
+        <div vp-info-screen=""></div>
+        <div vp-suggestion-screen=""></div>
+        <div vp-translator-screen=""></div>
+        <div vp-more-options-screen=""></div>
+        <div vp-emotions-tooltip=""></div>
+        <div vp-main-guide-screen=""></div>
+        <div vp-suggestion-button=""></div>
+        <div vp-rate-box=""></div>
+        <div vp-change-avatar=""></div>
+        <div vp-aux-controls=""></div>
+        <div vp-controls=""></div>
+        <span vp-click-blocker=""></span>
+      </div>
+    </div>
+  </div>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js" charset="UTF-8"></script>
+  <script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+  </script>
+
+  <!-- MYFACES JAVASCRIPT -->
+
+
+
+
+  <div id="qy557zq8rb" style="display: block;"><template shadowrootmode="closed">
+      <div id="kxdovn63v8">
+        <style type="text/css">
+          @import 'chrome-extension://bpgniflghkfilpfdacibcpggobmldnlf/app.css';
+        </style>
+        <div id="cuponomia" data-v-app="">
+          <div></div>
+        </div>
+      </div>
+    </template></div>
+</body>
+
+</html>

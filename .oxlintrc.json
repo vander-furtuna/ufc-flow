@@ -19,6 +19,8 @@
     "**/out/**",
     "**/build/**",
     "**/dist/**",
+    "**/.plasmo/**",
+    "apps/extension/src/vendor/**",
     "**/next-env.d.ts",
     "docs/**",
     ".claude/**",

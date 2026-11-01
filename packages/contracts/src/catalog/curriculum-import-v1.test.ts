@@ -13,6 +13,7 @@ const subject = (
   name: `Disciplina ${code}`,
   type: 'DISCIPLINE',
   semester: 1,
+  durationTerms: 1,
   workloadHours: 64,
   theoryHours: 64,
   labHours: 0,
@@ -33,16 +34,25 @@ const validImport = (): CurriculumImportV1 => ({
     extractedAt: '2026-11-01T14:00:00Z',
     url: 'https://si3.ufc.br/sigaa/graduacao/curriculo/lista.jsf',
   },
-  course: { sigaaId: '657484', name: 'Engenharia de Computação' },
+  course: {
+    sigaaId: '657484',
+    name: 'Engenharia de Computação',
+    recognition: 'SELECTED',
+  },
   curriculum: {
-    period: '2006.2',
-    city: 'Sobral',
+    code: '2006.2',
+    effectiveTerm: '2006.2',
+    sigaaId: '658760',
+    matrixName:
+      'ENGENHARIA DE COMPUTAÇÃO - SOBRAL - Presencial - MT - BACHARELADO',
+    unitName: 'CAMPUS DA UFC EM SOBRAL (11.00.01.28)',
+    city: 'SOBRAL - CE',
     minTotalHours: 3648,
     maxTotalHours: null,
     mandatoryHours: 2752,
     optativeHours: 896,
     extensionHours: 0,
-    complementaryActivityHours: 560,
+    specificActivityHours: 560,
     maxFreeOptativeHours: 320,
     minPeriods: 7,
     avgPeriods: 10,
@@ -50,6 +60,8 @@ const validImport = (): CurriculumImportV1 => ({
     periodMinHours: 64,
     periodAvgHours: 528,
     periodMaxHours: 640,
+    minEmphases: 0,
+    maxEmphases: 1,
   },
   branches: [
     {
@@ -58,9 +70,13 @@ const validImport = (): CurriculumImportV1 => ({
       type: 'EMPHASIS',
       name: 'Sistemas',
       description: null,
+      sigaaCode: '2006.2E1',
       color: '#0891b2',
+      mandatoryHours: 64,
       minHours: 128,
+      maxHours: null,
       minComponents: null,
+      maxComponents: null,
     },
     {
       key: 'group-redes',
@@ -68,9 +84,13 @@ const validImport = (): CurriculumImportV1 => ({
       type: 'SPECIFIC_GROUP',
       name: 'Redes',
       description: 'Grupo de redes',
+      sigaaCode: null,
       color: null,
+      mandatoryHours: null,
       minHours: null,
+      maxHours: 256,
       minComponents: 2,
+      maxComponents: 4,
     },
   ],
   subjects: [
@@ -119,14 +139,37 @@ describe('curriculumImportV1Schema', () => {
     expect(curriculumImportV1Schema.safeParse(value).success).toBe(false)
   })
 
-  it('valida o termo e as cargas da EC', () => {
+  it('valida o período de vigor e as cargas da EC', () => {
     const value = validImport()
-    value.curriculum.period = '2006.3'
+    value.curriculum.effectiveTerm = '2006.3'
     value.curriculum.mandatoryHours = -1
     expect(issuesOf(value).map((issue) => issue.path)).toEqual([
-      ['curriculum', 'period'],
+      ['curriculum', 'effectiveTerm'],
       ['curriculum', 'mandatoryHours'],
     ])
+  })
+
+  it('separa o código da EC do período de vigor', () => {
+    const value = validImport()
+    value.curriculum.code = '2023.1'
+    value.curriculum.effectiveTerm = '2024.1'
+    expect(curriculumImportV1Schema.safeParse(value).success).toBe(true)
+    value.curriculum.code = ' '
+    expect(issuesOf(value)[0]?.path).toEqual(['curriculum', 'code'])
+  })
+
+  it('aceita componente anual e recusa outra duração', () => {
+    const value = validImport()
+    value.subjects[0]!.durationTerms = 2
+    expect(curriculumImportV1Schema.safeParse(value).success).toBe(true)
+    value.subjects[0]!.durationTerms = 3 as 2
+    expect(issuesOf(value)[0]?.path).toEqual(['subjects', 0, 'durationTerms'])
+  })
+
+  it('aceita só as formas conhecidas de achar o curso', () => {
+    const value = validImport()
+    value.course.recognition = 'GUESSED' as 'MANUAL'
+    expect(issuesOf(value)[0]?.path).toEqual(['course', 'recognition'])
   })
 
   it('exige o id do curso no SIGAA só com dígitos', () => {
@@ -213,6 +256,28 @@ describe('curriculumImportV1Schema', () => {
         {
           path: ['branches', 1, 'parentKey'],
           code: 'CURRICULUM_IMPORT_BRANCH_CYCLE',
+        },
+      ])
+    })
+
+    it('recusa mínimo maior que o máximo', () => {
+      const value = validImport()
+      value.branches[1]!.maxHours = 64
+      value.branches[1]!.minHours = 128
+      value.branches[1]!.maxComponents = 1
+      value.curriculum.minEmphases = 2
+      expect(issuesOf(value)).toEqual([
+        {
+          path: ['curriculum', 'maxEmphases'],
+          code: 'CURRICULUM_IMPORT_INVALID_RANGE',
+        },
+        {
+          path: ['branches', 1, 'maxHours'],
+          code: 'CURRICULUM_IMPORT_INVALID_RANGE',
+        },
+        {
+          path: ['branches', 1, 'maxComponents'],
+          code: 'CURRICULUM_IMPORT_INVALID_RANGE',
         },
       ])
     })

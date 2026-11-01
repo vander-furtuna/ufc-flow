@@ -1,0 +1,1362 @@
+[
+  {
+    "sigaaId": "1912104",
+    "name": "CIÊNCIA DA COMPUTAÇÃO",
+    "city": "RUSSAS",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CAMPRUSSAS",
+    "unitName": "CAMPUS DA UFC DE RUSSAS"
+  },
+  {
+    "sigaaId": "2097288",
+    "name": "ENGENHARIA CIVIL",
+    "city": "RUSSAS",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CAMPRUSSAS",
+    "unitName": "CAMPUS DA UFC DE RUSSAS"
+  },
+  {
+    "sigaaId": "2097200",
+    "name": "ENGENHARIA DE PRODUÇÃO",
+    "city": "RUSSAS",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CAMPRUSSAS",
+    "unitName": "CAMPUS DA UFC DE RUSSAS"
+  },
+  {
+    "sigaaId": "1878932",
+    "name": "ENGENHARIA DE SOFTWARE",
+    "city": "RUSSAS",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CAMPRUSSAS",
+    "unitName": "CAMPUS DA UFC DE RUSSAS"
+  },
+  {
+    "sigaaId": "2097267",
+    "name": "ENGENHARIA MECÂNICA",
+    "city": "RUSSAS",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CAMPRUSSAS",
+    "unitName": "CAMPUS DA UFC DE RUSSAS"
+  },
+  {
+    "sigaaId": "79802471",
+    "name": "ARQUEOLOGIA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CC",
+    "unitName": "CENTRO DE CIÊNCIAS"
+  },
+  {
+    "sigaaId": "657502",
+    "name": "BIOTECNOLOGIA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CC",
+    "unitName": "CENTRO DE CIÊNCIAS"
+  },
+  {
+    "sigaaId": "3325058",
+    "name": "CIÊNCIA DA COMPUTAÇÃO",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CC",
+    "unitName": "CENTRO DE CIÊNCIAS"
+  },
+  {
+    "sigaaId": "75287727",
+    "name": "CIÊNCIA DE DADOS",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CC",
+    "unitName": "CENTRO DE CIÊNCIAS"
+  },
+  {
+    "sigaaId": "657427",
+    "name": "CIÊNCIAS BIOLÓGICAS",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CC",
+    "unitName": "CENTRO DE CIÊNCIAS"
+  },
+  {
+    "sigaaId": "657442",
+    "name": "COMPUTAÇÃO",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CC",
+    "unitName": "CENTRO DE CIÊNCIAS"
+  },
+  {
+    "sigaaId": "657428",
+    "name": "ESTATÍSTICA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CC",
+    "unitName": "CENTRO DE CIÊNCIAS"
+  },
+  {
+    "sigaaId": "657430",
+    "name": "FÍSICA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CC",
+    "unitName": "CENTRO DE CIÊNCIAS"
+  },
+  {
+    "sigaaId": "657435",
+    "name": "FÍSICA - BACHARELADO",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CC",
+    "unitName": "CENTRO DE CIÊNCIAS"
+  },
+  {
+    "sigaaId": "657429",
+    "name": "FÍSICA - LICENCIATURA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CC",
+    "unitName": "CENTRO DE CIÊNCIAS"
+  },
+  {
+    "sigaaId": "657432",
+    "name": "GEOGRAFIA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CC",
+    "unitName": "CENTRO DE CIÊNCIAS"
+  },
+  {
+    "sigaaId": "657431",
+    "name": "GEOLOGIA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CC",
+    "unitName": "CENTRO DE CIÊNCIAS"
+  },
+  {
+    "sigaaId": "657434",
+    "name": "MATEMÁTICA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CC",
+    "unitName": "CENTRO DE CIÊNCIAS"
+  },
+  {
+    "sigaaId": "657436",
+    "name": "MATEMÁTICA - BACHARELADO",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CC",
+    "unitName": "CENTRO DE CIÊNCIAS"
+  },
+  {
+    "sigaaId": "657522",
+    "name": "MATEMÁTICA INDUSTRIAL",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CC",
+    "unitName": "CENTRO DE CIÊNCIAS"
+  },
+  {
+    "sigaaId": "657433",
+    "name": "MATEMÁTICA - LICENCIATURA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CC",
+    "unitName": "CENTRO DE CIÊNCIAS"
+  },
+  {
+    "sigaaId": "657438",
+    "name": "QUÍMICA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CC",
+    "unitName": "CENTRO DE CIÊNCIAS"
+  },
+  {
+    "sigaaId": "657437",
+    "name": "QUÍMICA - BACHARELADO",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CC",
+    "unitName": "CENTRO DE CIÊNCIAS"
+  },
+  {
+    "sigaaId": "657439",
+    "name": "QUÍMICA INDUSTRIAL",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CC",
+    "unitName": "CENTRO DE CIÊNCIAS"
+  },
+  {
+    "sigaaId": "657440",
+    "name": "QUÍMICA - LICENCIATURA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CC",
+    "unitName": "CENTRO DE CIÊNCIAS"
+  },
+  {
+    "sigaaId": "657420",
+    "name": "AGRONOMIA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CCA",
+    "unitName": "CENTRO DE CIÊNCIAS AGRÁRIAS"
+  },
+  {
+    "sigaaId": "657421",
+    "name": "ECONOMIA DOMÉSTICA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CCA",
+    "unitName": "CENTRO DE CIÊNCIAS AGRÁRIAS"
+  },
+  {
+    "sigaaId": "2683037",
+    "name": "ECONOMIA ECOLÓGICA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CCA",
+    "unitName": "CENTRO DE CIÊNCIAS AGRÁRIAS"
+  },
+  {
+    "sigaaId": "657424",
+    "name": "ENGENHARIA DE ALIMENTOS",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CCA",
+    "unitName": "CENTRO DE CIÊNCIAS AGRÁRIAS"
+  },
+  {
+    "sigaaId": "657423",
+    "name": "ENGENHARIA DE PESCA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CCA",
+    "unitName": "CENTRO DE CIÊNCIAS AGRÁRIAS"
+  },
+  {
+    "sigaaId": "2168903",
+    "name": "GESTÃO DE POLÍTICAS PÚBLICAS",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CCA",
+    "unitName": "CENTRO DE CIÊNCIAS AGRÁRIAS"
+  },
+  {
+    "sigaaId": "657425",
+    "name": "ZOOTECNIA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CCA",
+    "unitName": "CENTRO DE CIÊNCIAS AGRÁRIAS"
+  },
+  {
+    "sigaaId": "1878933",
+    "name": "CIÊNCIA DA COMPUTAÇÃO",
+    "city": "CRATEÚS",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CCRATEUS",
+    "unitName": "CAMPUS DA UFC DE CRATEÚS"
+  },
+  {
+    "sigaaId": "2097265",
+    "name": "ENGENHARIA AMBIENTAL",
+    "city": "CRATEÚS",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CCRATEUS",
+    "unitName": "CAMPUS DA UFC DE CRATEÚS"
+  },
+  {
+    "sigaaId": "71172498",
+    "name": "ENGENHARIA AMBIENTAL E SANITÁRIA",
+    "city": "CRATEÚS",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CCRATEUS",
+    "unitName": "CAMPUS DA UFC DE CRATEÚS"
+  },
+  {
+    "sigaaId": "2097286",
+    "name": "ENGENHARIA CIVIL",
+    "city": "CRATEÚS",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CCRATEUS",
+    "unitName": "CAMPUS DA UFC DE CRATEÚS"
+  },
+  {
+    "sigaaId": "2118717",
+    "name": "ENGENHARIA DE MINAS",
+    "city": "CRATEÚS",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CCRATEUS",
+    "unitName": "CAMPUS DA UFC DE CRATEÚS"
+  },
+  {
+    "sigaaId": "2097205",
+    "name": "SISTEMAS DE INFORMAÇÃO",
+    "city": "CRATEÚS",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CCRATEUS",
+    "unitName": "CAMPUS DA UFC DE CRATEÚS"
+  },
+  {
+    "sigaaId": "657457",
+    "name": "BIBLIOTECONOMIA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CH",
+    "unitName": "CENTRO DE HUMANIDADES"
+  },
+  {
+    "sigaaId": "657458",
+    "name": "CIÊNCIAS SOCIAIS (DIURNO)",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CH",
+    "unitName": "CENTRO DE HUMANIDADES"
+  },
+  {
+    "sigaaId": "657499",
+    "name": "CIÊNCIAS SOCIAIS (NOTURNO)",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CH",
+    "unitName": "CENTRO DE HUMANIDADES"
+  },
+  {
+    "sigaaId": "657460",
+    "name": "HISTÓRIA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CH",
+    "unitName": "CENTRO DE HUMANIDADES"
+  },
+  {
+    "sigaaId": "657461",
+    "name": "LETRAS",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CH",
+    "unitName": "CENTRO DE HUMANIDADES"
+  },
+  {
+    "sigaaId": "657507",
+    "name": "LETRAS - ESPANHOL",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CH",
+    "unitName": "CENTRO DE HUMANIDADES"
+  },
+  {
+    "sigaaId": "657508",
+    "name": "LETRAS - INGLÊS",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CH",
+    "unitName": "CENTRO DE HUMANIDADES"
+  },
+  {
+    "sigaaId": "1371493",
+    "name": "LETRAS - LIBRAS",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CH",
+    "unitName": "CENTRO DE HUMANIDADES"
+  },
+  {
+    "sigaaId": "75319980",
+    "name": "LETRAS LÍNGUA PORTUGUESA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CH",
+    "unitName": "CENTRO DE HUMANIDADES"
+  },
+  {
+    "sigaaId": "75307867",
+    "name": "LETRAS PORTUGUÊS E ALEMÃO",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CH",
+    "unitName": "CENTRO DE HUMANIDADES"
+  },
+  {
+    "sigaaId": "76313990",
+    "name": "LETRAS PORTUGUÊS E ESPANHOL",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CH",
+    "unitName": "CENTRO DE HUMANIDADES"
+  },
+  {
+    "sigaaId": "75449986",
+    "name": "LETRAS PORTUGUÊS E FRANCÊS",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CH",
+    "unitName": "CENTRO DE HUMANIDADES"
+  },
+  {
+    "sigaaId": "75281014",
+    "name": "LETRAS PORTUGUÊS E INGLÊS",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CH",
+    "unitName": "CENTRO DE HUMANIDADES"
+  },
+  {
+    "sigaaId": "76326155",
+    "name": "LETRAS PORTUGUÊS E ITALIANO",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CH",
+    "unitName": "CENTRO DE HUMANIDADES"
+  },
+  {
+    "sigaaId": "5244893",
+    "name": "LICENCIATURA INTERCULTURAL INDÍGENA KUABA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CH",
+    "unitName": "CENTRO DE HUMANIDADES"
+  },
+  {
+    "sigaaId": "657519",
+    "name": "LICENCIATURA INTERCULTURAL INDÍGENA PITAKAJÁ",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CH",
+    "unitName": "CENTRO DE HUMANIDADES"
+  },
+  {
+    "sigaaId": "657462",
+    "name": "PSICOLOGIA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CH",
+    "unitName": "CENTRO DE HUMANIDADES"
+  },
+  {
+    "sigaaId": "72461781",
+    "name": "ANÁLISE E DESENVOLVIMENTO DE SISTEMAS",
+    "city": "ITAPAJÉ",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CITAPAJE",
+    "unitName": "CAMPUS DE ITAPAJÉ"
+  },
+  {
+    "sigaaId": "72460878",
+    "name": "CIÊNCIA DE DADOS",
+    "city": "ITAPAJÉ",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CITAPAJE",
+    "unitName": "CAMPUS DE ITAPAJÉ"
+  },
+  {
+    "sigaaId": "72461701",
+    "name": "SEGURANÇA DA INFORMAÇÃO",
+    "city": "ITAPAJÉ",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CITAPAJE",
+    "unitName": "CAMPUS DE ITAPAJÉ"
+  },
+  {
+    "sigaaId": "78320237",
+    "name": "TEATRO",
+    "city": "ITAPAJÉ",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CITAPAJE",
+    "unitName": "CAMPUS DE ITAPAJÉ"
+  },
+  {
+    "sigaaId": "75732895",
+    "name": "ENGENHARIA AMBIENTAL E SANITÁRIA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CT",
+    "unitName": "CENTRO DE TECNOLOGIA"
+  },
+  {
+    "sigaaId": "657474",
+    "name": "ENGENHARIA CIVIL",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CT",
+    "unitName": "CENTRO DE TECNOLOGIA"
+  },
+  {
+    "sigaaId": "2103424",
+    "name": "ENGENHARIA DE COMPUTAÇÃO",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CT",
+    "unitName": "CENTRO DE TECNOLOGIA"
+  },
+  {
+    "sigaaId": "657517",
+    "name": "ENGENHARIA DE ENERGIAS E MEIO AMBIENTE",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CT",
+    "unitName": "CENTRO DE TECNOLOGIA"
+  },
+  {
+    "sigaaId": "75776991",
+    "name": "ENGENHARIA DE ENERGIAS RENOVÁVEIS",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CT",
+    "unitName": "CENTRO DE TECNOLOGIA"
+  },
+  {
+    "sigaaId": "74365941",
+    "name": "ENGENHARIA DE PRODUÇÃO",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CT",
+    "unitName": "CENTRO DE TECNOLOGIA"
+  },
+  {
+    "sigaaId": "657479",
+    "name": "ENGENHARIA DE PRODUÇÃO MECÂNICA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CT",
+    "unitName": "CENTRO DE TECNOLOGIA"
+  },
+  {
+    "sigaaId": "1994679",
+    "name": "ENGENHARIA DE TELECOMUNICAÇÕES",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CT",
+    "unitName": "CENTRO DE TECNOLOGIA"
+  },
+  {
+    "sigaaId": "657480",
+    "name": "ENGENHARIA DE TELEINFORMÁTICA (DIURNO)",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CT",
+    "unitName": "CENTRO DE TECNOLOGIA"
+  },
+  {
+    "sigaaId": "657498",
+    "name": "ENGENHARIA DE TELEINFORMÁTICA (NOTURNO)",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CT",
+    "unitName": "CENTRO DE TECNOLOGIA"
+  },
+  {
+    "sigaaId": "657475",
+    "name": "ENGENHARIA ELÉTRICA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CT",
+    "unitName": "CENTRO DE TECNOLOGIA"
+  },
+  {
+    "sigaaId": "657476",
+    "name": "ENGENHARIA MECÂNICA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CT",
+    "unitName": "CENTRO DE TECNOLOGIA"
+  },
+  {
+    "sigaaId": "657477",
+    "name": "ENGENHARIA METALÚRGICA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CT",
+    "unitName": "CENTRO DE TECNOLOGIA"
+  },
+  {
+    "sigaaId": "657478",
+    "name": "ENGENHARIA QUÍMICA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CT",
+    "unitName": "CENTRO DE TECNOLOGIA"
+  },
+  {
+    "sigaaId": "657488",
+    "name": "ADMINISTRAÇÃO",
+    "city": "JUAZEIRO DO NORTE",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CUFCCARIRI",
+    "unitName": "CAMPUS DA UFC NO CARIRI"
+  },
+  {
+    "sigaaId": "657524",
+    "name": "ADMINISTRAÇÃO PUBLICA",
+    "city": "JUAZEIRO DO NORTE",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CUFCCARIRI",
+    "unitName": "CAMPUS DA UFC NO CARIRI"
+  },
+  {
+    "sigaaId": "657489",
+    "name": "AGRONOMIA",
+    "city": "JUAZEIRO DO NORTE",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CUFCCARIRI",
+    "unitName": "CAMPUS DA UFC NO CARIRI"
+  },
+  {
+    "sigaaId": "5707016",
+    "name": "BACHARELADO EM DESIGN",
+    "city": "JUAZEIRO DO NORTE",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CUFCCARIRI",
+    "unitName": "CAMPUS DA UFC NO CARIRI"
+  },
+  {
+    "sigaaId": "657490",
+    "name": "BIBLIOTECONOMIA",
+    "city": "JUAZEIRO DO NORTE",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CUFCCARIRI",
+    "unitName": "CAMPUS DA UFC NO CARIRI"
+  },
+  {
+    "sigaaId": "657510",
+    "name": "COMUNICAÇÃO SOCIAL - JORNALISMO",
+    "city": "JUAZEIRO DO NORTE",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CUFCCARIRI",
+    "unitName": "CAMPUS DA UFC NO CARIRI"
+  },
+  {
+    "sigaaId": "657511",
+    "name": "DESIGN DE PRODUTO",
+    "city": "JUAZEIRO DO NORTE",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CUFCCARIRI",
+    "unitName": "CAMPUS DA UFC NO CARIRI"
+  },
+  {
+    "sigaaId": "657491",
+    "name": "ENGENHARIA CIVIL",
+    "city": "JUAZEIRO DO NORTE",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CUFCCARIRI",
+    "unitName": "CAMPUS DA UFC NO CARIRI"
+  },
+  {
+    "sigaaId": "657513",
+    "name": "ENGENHARIA DE MATERIAIS",
+    "city": "JUAZEIRO DO NORTE",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CUFCCARIRI",
+    "unitName": "CAMPUS DA UFC NO CARIRI"
+  },
+  {
+    "sigaaId": "657492",
+    "name": "FILOSOFIA",
+    "city": "JUAZEIRO DO NORTE",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CUFCCARIRI",
+    "unitName": "CAMPUS DA UFC NO CARIRI"
+  },
+  {
+    "sigaaId": "1883790",
+    "name": "HISTORIA",
+    "city": "ICÓ",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CUFCCARIRI",
+    "unitName": "CAMPUS DA UFC NO CARIRI"
+  },
+  {
+    "sigaaId": "1904932",
+    "name": "INTERDISCIPLINAR EM CIÊNCIAS NATURAIS",
+    "city": "BREJO SANTO",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CUFCCARIRI",
+    "unitName": "CAMPUS DA UFC NO CARIRI"
+  },
+  {
+    "sigaaId": "2928774",
+    "name": "INTERDISCIPLINAR EM CIÊNCIAS NATURAIS E MATEMÁTICA",
+    "city": "BREJO SANTO",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CUFCCARIRI",
+    "unitName": "CAMPUS DA UFC NO CARIRI"
+  },
+  {
+    "sigaaId": "5242178",
+    "name": "LICENCIATURA EM BIOLOGIA",
+    "city": "BREJO SANTO",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CUFCCARIRI",
+    "unitName": "CAMPUS DA UFC NO CARIRI"
+  },
+  {
+    "sigaaId": "5242234",
+    "name": "LICENCIATURA EM FÍSICA",
+    "city": "BREJO SANTO",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CUFCCARIRI",
+    "unitName": "CAMPUS DA UFC NO CARIRI"
+  },
+  {
+    "sigaaId": "5242254",
+    "name": "LICENCIATURA EM MATEMÁTICA",
+    "city": "BREJO SANTO",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CUFCCARIRI",
+    "unitName": "CAMPUS DA UFC NO CARIRI"
+  },
+  {
+    "sigaaId": "5242261",
+    "name": "LICENCIATURA EM QUÍMICA",
+    "city": "BREJO SANTO",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CUFCCARIRI",
+    "unitName": "CAMPUS DA UFC NO CARIRI"
+  },
+  {
+    "sigaaId": "657495",
+    "name": "MEDICINA - BARBALHA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CUFCCARIRI",
+    "unitName": "CAMPUS DA UFC NO CARIRI"
+  },
+  {
+    "sigaaId": "657512",
+    "name": "MUSICA - LICENCIATURA",
+    "city": "JUAZEIRO DO NORTE",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CUFCCARIRI",
+    "unitName": "CAMPUS DA UFC NO CARIRI"
+  },
+  {
+    "sigaaId": "657483",
+    "name": "CIÊNCIAS ECONÔMICAS",
+    "city": "SOBRAL",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CUFCSOBRAL",
+    "unitName": "CAMPUS DA UFC EM SOBRAL"
+  },
+  {
+    "sigaaId": "657484",
+    "name": "ENGENHARIA DE COMPUTAÇÃO",
+    "city": "SOBRAL",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CUFCSOBRAL",
+    "unitName": "CAMPUS DA UFC EM SOBRAL"
+  },
+  {
+    "sigaaId": "657485",
+    "name": "ENGENHARIA ELÉTRICA",
+    "city": "SOBRAL",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CUFCSOBRAL",
+    "unitName": "CAMPUS DA UFC EM SOBRAL"
+  },
+  {
+    "sigaaId": "657514",
+    "name": "FINANÇAS",
+    "city": "SOBRAL",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CUFCSOBRAL",
+    "unitName": "CAMPUS DA UFC EM SOBRAL"
+  },
+  {
+    "sigaaId": "657500",
+    "name": "MAGISTÉRIO INDÍGENA TREMEMBÉ SUPERIOR",
+    "city": "SOBRAL",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CUFCSOBRAL",
+    "unitName": "CAMPUS DA UFC EM SOBRAL"
+  },
+  {
+    "sigaaId": "657494",
+    "name": "MEDICINA - SOBRAL",
+    "city": "SOBRAL",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CUFCSOBRAL",
+    "unitName": "CAMPUS DA UFC EM SOBRAL"
+  },
+  {
+    "sigaaId": "657523",
+    "name": "MÚSICA-LICENCIATURA",
+    "city": "SOBRAL",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CUFCSOBRAL",
+    "unitName": "CAMPUS DA UFC EM SOBRAL"
+  },
+  {
+    "sigaaId": "657486",
+    "name": "ODONTOLOGIA",
+    "city": "SOBRAL",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CUFCSOBRAL",
+    "unitName": "CAMPUS DA UFC EM SOBRAL"
+  },
+  {
+    "sigaaId": "657487",
+    "name": "PSICOLOGIA/CCGPSIC - SOBRAL",
+    "city": "SOBRAL",
+    "modality": "IN_PERSON",
+    "unitAcronym": "CUFCSOBRAL",
+    "unitName": "CAMPUS DA UFC EM SOBRAL"
+  },
+  {
+    "sigaaId": "1371512",
+    "name": "CIÊNCIA DA COMPUTAÇÃO",
+    "city": "QUIXADÁ",
+    "modality": "IN_PERSON",
+    "unitAcronym": "DIRQUIXADA",
+    "unitName": "CAMPUS DA UFC EM QUIXADÁ"
+  },
+  {
+    "sigaaId": "2112172",
+    "name": "DESIGN DIGITAL",
+    "city": "QUIXADÁ",
+    "modality": "IN_PERSON",
+    "unitAcronym": "DIRQUIXADA",
+    "unitName": "CAMPUS DA UFC EM QUIXADÁ"
+  },
+  {
+    "sigaaId": "2106185",
+    "name": "ENGENHARIA DE COMPUTAÇÃO",
+    "city": "QUIXADÁ",
+    "modality": "IN_PERSON",
+    "unitAcronym": "DIRQUIXADA",
+    "unitName": "CAMPUS DA UFC EM QUIXADÁ"
+  },
+  {
+    "sigaaId": "657515",
+    "name": "ENGENHARIA DE SOFTWARE",
+    "city": "QUIXADÁ",
+    "modality": "IN_PERSON",
+    "unitAcronym": "DIRQUIXADA",
+    "unitName": "CAMPUS DA UFC EM QUIXADÁ"
+  },
+  {
+    "sigaaId": "78419166",
+    "name": "INTELIGÊNCIA ARTIFICIAL",
+    "city": "QUIXADÁ",
+    "modality": "IN_PERSON",
+    "unitAcronym": "DIRQUIXADA",
+    "unitName": "CAMPUS DA UFC EM QUIXADÁ"
+  },
+  {
+    "sigaaId": "657516",
+    "name": "REDES DE COMPUTADORES",
+    "city": "QUIXADÁ",
+    "modality": "IN_PERSON",
+    "unitAcronym": "DIRQUIXADA",
+    "unitName": "CAMPUS DA UFC EM QUIXADÁ"
+  },
+  {
+    "sigaaId": "657496",
+    "name": "SISTEMAS DE INFORMAÇÃO",
+    "city": "QUIXADÁ",
+    "modality": "IN_PERSON",
+    "unitAcronym": "DIRQUIXADA",
+    "unitName": "CAMPUS DA UFC EM QUIXADÁ"
+  },
+  {
+    "sigaaId": "657444",
+    "name": "DIREITO (DIURNO)",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "FACDIR",
+    "unitName": "FACULDADE DE DIREITO"
+  },
+  {
+    "sigaaId": "657443",
+    "name": "DIREITO (NOTURNO)",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "FACDIR",
+    "unitName": "FACULDADE DE DIREITO"
+  },
+  {
+    "sigaaId": "76202299",
+    "name": "LICENCIATURA EM EDUCAÇÃO DO CAMPO - PARFOR",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "FACED",
+    "unitName": "FACULDADE DE EDUCAÇÃO"
+  },
+  {
+    "sigaaId": "657468",
+    "name": "PEDAGOGIA (DIURNO)",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "FACED",
+    "unitName": "FACULDADE DE EDUCAÇÃO"
+  },
+  {
+    "sigaaId": "657469",
+    "name": "PEDAGOGIA (NOTURNO)",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "FACED",
+    "unitName": "FACULDADE DE EDUCAÇÃO"
+  },
+  {
+    "sigaaId": "4650139",
+    "name": "PEDAGOGIA/PARFOR",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "FACED",
+    "unitName": "FACULDADE DE EDUCAÇÃO"
+  },
+  {
+    "sigaaId": "657505",
+    "name": "FISIOTERAPIA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "FACMED",
+    "unitName": "FACULDADE DE MEDICINA"
+  },
+  {
+    "sigaaId": "657470",
+    "name": "MEDICINA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "FACMED",
+    "unitName": "FACULDADE DE MEDICINA"
+  },
+  {
+    "sigaaId": "657446",
+    "name": "ADMINISTRAÇÃO (DIURNO)",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "FEAAC",
+    "unitName": "FACULDADE DE ECONOMIA ADMINISTRAÇÃO ATUARIA E CONTABILIDADE"
+  },
+  {
+    "sigaaId": "657452",
+    "name": "ADMINISTRAÇÃO (NOTURNO)",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "FEAAC",
+    "unitName": "FACULDADE DE ECONOMIA ADMINISTRAÇÃO ATUARIA E CONTABILIDADE"
+  },
+  {
+    "sigaaId": "657451",
+    "name": "CIÊNCIAS ATUARIAIS",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "FEAAC",
+    "unitName": "FACULDADE DE ECONOMIA ADMINISTRAÇÃO ATUARIA E CONTABILIDADE"
+  },
+  {
+    "sigaaId": "657450",
+    "name": "CIÊNCIAS CONTÁBEIS (DIURNO)",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "FEAAC",
+    "unitName": "FACULDADE DE ECONOMIA ADMINISTRAÇÃO ATUARIA E CONTABILIDADE"
+  },
+  {
+    "sigaaId": "657447",
+    "name": "CIÊNCIAS CONTÁBEIS (NOTURNO)",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "FEAAC",
+    "unitName": "FACULDADE DE ECONOMIA ADMINISTRAÇÃO ATUARIA E CONTABILIDADE"
+  },
+  {
+    "sigaaId": "657448",
+    "name": "CIÊNCIAS ECONÔMICAS (DIURNO)",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "FEAAC",
+    "unitName": "FACULDADE DE ECONOMIA ADMINISTRAÇÃO ATUARIA E CONTABILIDADE"
+  },
+  {
+    "sigaaId": "657449",
+    "name": "CIÊNCIAS ECONÔMICAS (NOTURNO)",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "FEAAC",
+    "unitName": "FACULDADE DE ECONOMIA ADMINISTRAÇÃO ATUARIA E CONTABILIDADE"
+  },
+  {
+    "sigaaId": "1064892",
+    "name": "FINANÇAS",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "FEAAC",
+    "unitName": "FACULDADE DE ECONOMIA ADMINISTRAÇÃO ATUARIA E CONTABILIDADE"
+  },
+  {
+    "sigaaId": "657453",
+    "name": "SECRETARIADO EXECUTIVO",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "FEAAC",
+    "unitName": "FACULDADE DE ECONOMIA ADMINISTRAÇÃO ATUARIA E CONTABILIDADE"
+  },
+  {
+    "sigaaId": "1244886",
+    "name": "TECNOLOGIA EM GESTÃO DA QUALIDADE",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "FEAAC",
+    "unitName": "FACULDADE DE ECONOMIA ADMINISTRAÇÃO ATUARIA E CONTABILIDADE"
+  },
+  {
+    "sigaaId": "657454",
+    "name": "ENFERMAGEM",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "FFOE",
+    "unitName": "FACULDADE DE FARMÁCIA ODONTOLOGIA E ENFERMAGEM"
+  },
+  {
+    "sigaaId": "657455",
+    "name": "FARMÁCIA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "FFOE",
+    "unitName": "FACULDADE DE FARMÁCIA ODONTOLOGIA E ENFERMAGEM"
+  },
+  {
+    "sigaaId": "657456",
+    "name": "ODONTOLOGIA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "FFOE",
+    "unitName": "FACULDADE DE FARMÁCIA ODONTOLOGIA E ENFERMAGEM"
+  },
+  {
+    "sigaaId": "657473",
+    "name": "ARQUITETURA E URBANISMO",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "IAUD",
+    "unitName": "INSTITUTO DE ARQUITETURA E URBANISMO E DESIGN"
+  },
+  {
+    "sigaaId": "1021532",
+    "name": "DESIGN",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "IAUD",
+    "unitName": "INSTITUTO DE ARQUITETURA E URBANISMO E DESIGN"
+  },
+  {
+    "sigaaId": "657504",
+    "name": "CINEMA E AUDIOVISUAL",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "ICA",
+    "unitName": "INSTITUTO DE CULTURA E ARTE"
+  },
+  {
+    "sigaaId": "657459",
+    "name": "COMUNICAÇÃO SOCIAL",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "ICA",
+    "unitName": "INSTITUTO DE CULTURA E ARTE"
+  },
+  {
+    "sigaaId": "657526",
+    "name": "COMUNICAÇÃO SOCIAL - JORNALISMO",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "ICA",
+    "unitName": "INSTITUTO DE CULTURA E ARTE"
+  },
+  {
+    "sigaaId": "657518",
+    "name": "COMUNICAÇÃO SOCIAL - JORNALISMO DA TERRA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "ICA",
+    "unitName": "INSTITUTO DE CULTURA E ARTE"
+  },
+  {
+    "sigaaId": "657527",
+    "name": "COMUNICAÇÃO SOCIAL - PUBLICIDADE E PROPAGANDA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "ICA",
+    "unitName": "INSTITUTO DE CULTURA E ARTE"
+  },
+  {
+    "sigaaId": "657520",
+    "name": "DANÇA - BACHARELADO",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "ICA",
+    "unitName": "INSTITUTO DE CULTURA E ARTE"
+  },
+  {
+    "sigaaId": "657521",
+    "name": "DANÇA - LICENCIATURA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "ICA",
+    "unitName": "INSTITUTO DE CULTURA E ARTE"
+  },
+  {
+    "sigaaId": "657525",
+    "name": "DESIGN - MODA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "ICA",
+    "unitName": "INSTITUTO DE CULTURA E ARTE"
+  },
+  {
+    "sigaaId": "657422",
+    "name": "ESTILISMO E MODA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "ICA",
+    "unitName": "INSTITUTO DE CULTURA E ARTE"
+  },
+  {
+    "sigaaId": "657506",
+    "name": "GASTRONOMIA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "ICA",
+    "unitName": "INSTITUTO DE CULTURA E ARTE"
+  },
+  {
+    "sigaaId": "71171931",
+    "name": "JORNALISMO",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "ICA",
+    "unitName": "INSTITUTO DE CULTURA E ARTE"
+  },
+  {
+    "sigaaId": "657465",
+    "name": "MÚSICA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "ICA",
+    "unitName": "INSTITUTO DE CULTURA E ARTE"
+  },
+  {
+    "sigaaId": "657501",
+    "name": "TEATRO - LICENCIATURA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "ICA",
+    "unitName": "INSTITUTO DE CULTURA E ARTE"
+  },
+  {
+    "sigaaId": "76942757",
+    "name": "ABI - EDUCAÇÃO FÍSICA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "IEFES",
+    "unitName": "INSTITUTO DE EDUCAÇÃO FÍSICA E ESPORTES"
+  },
+  {
+    "sigaaId": "657464",
+    "name": "EDUCACAO FISICA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "IEFES",
+    "unitName": "INSTITUTO DE EDUCAÇÃO FÍSICA E ESPORTES"
+  },
+  {
+    "sigaaId": "657467",
+    "name": "EDUCACAO FÍSICA - BACHARELADO (DIURNO)",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "IEFES",
+    "unitName": "INSTITUTO DE EDUCAÇÃO FÍSICA E ESPORTES"
+  },
+  {
+    "sigaaId": "1371289",
+    "name": "EDUCAÇÃO FÍSICA - BACHARELADO (VESPERTINO-NOTURNO)",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "IEFES",
+    "unitName": "INSTITUTO DE EDUCAÇÃO FÍSICA E ESPORTES"
+  },
+  {
+    "sigaaId": "657466",
+    "name": "EDUCACAO FÍSICA - LICENCIATURA (DIURNO)",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "IEFES",
+    "unitName": "INSTITUTO DE EDUCAÇÃO FÍSICA E ESPORTES"
+  },
+  {
+    "sigaaId": "1371359",
+    "name": "EDUCAÇÃO FÍSICA - LICENCIATURA (VESPERTINO-NOTURNO)",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "IEFES",
+    "unitName": "INSTITUTO DE EDUCAÇÃO FÍSICA E ESPORTES"
+  },
+  {
+    "sigaaId": "657463",
+    "name": "FILOSOFIA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "IFEC",
+    "unitName": "INSTITUTO DE FILOSOFIA E ESTUDOS CLÁSSICOS"
+  },
+  {
+    "sigaaId": "6491862",
+    "name": "ADMINISTRAÇÃO",
+    "city": "FORTALEZA",
+    "modality": "DISTANCE",
+    "unitAcronym": "IUVI",
+    "unitName": "INSTITUTO UNIVERSIDADE VIRTUAL"
+  },
+  {
+    "sigaaId": "6491865",
+    "name": "ADMINISTRAÇÃO PÚBLICA",
+    "city": "FORTALEZA",
+    "modality": "DISTANCE",
+    "unitAcronym": "IUVI",
+    "unitName": "INSTITUTO UNIVERSIDADE VIRTUAL"
+  },
+  {
+    "sigaaId": "6491866",
+    "name": "FÍSICA",
+    "city": "FORTALEZA",
+    "modality": "DISTANCE",
+    "unitAcronym": "IUVI",
+    "unitName": "INSTITUTO UNIVERSIDADE VIRTUAL"
+  },
+  {
+    "sigaaId": "6491870",
+    "name": "LETRAS - ESPANHOL",
+    "city": "FORTALEZA",
+    "modality": "DISTANCE",
+    "unitAcronym": "IUVI",
+    "unitName": "INSTITUTO UNIVERSIDADE VIRTUAL"
+  },
+  {
+    "sigaaId": "6491867",
+    "name": "LETRAS - INGLÊS",
+    "city": "FORTALEZA",
+    "modality": "DISTANCE",
+    "unitAcronym": "IUVI",
+    "unitName": "INSTITUTO UNIVERSIDADE VIRTUAL"
+  },
+  {
+    "sigaaId": "6491864",
+    "name": "LICENCIATURA EM LETRAS - PORTUGUÊS",
+    "city": "FORTALEZA",
+    "modality": "DISTANCE",
+    "unitAcronym": "IUVI",
+    "unitName": "INSTITUTO UNIVERSIDADE VIRTUAL"
+  },
+  {
+    "sigaaId": "6491863",
+    "name": "MATEMÁTICA",
+    "city": "FORTALEZA",
+    "modality": "DISTANCE",
+    "unitAcronym": "IUVI",
+    "unitName": "INSTITUTO UNIVERSIDADE VIRTUAL"
+  },
+  {
+    "sigaaId": "6491869",
+    "name": "PEDAGOGIA",
+    "city": "FORTALEZA",
+    "modality": "DISTANCE",
+    "unitAcronym": "IUVI",
+    "unitName": "INSTITUTO UNIVERSIDADE VIRTUAL"
+  },
+  {
+    "sigaaId": "6491868",
+    "name": "QUÍMICA",
+    "city": "FORTALEZA",
+    "modality": "DISTANCE",
+    "unitAcronym": "IUVI",
+    "unitName": "INSTITUTO UNIVERSIDADE VIRTUAL"
+  },
+  {
+    "sigaaId": "657509",
+    "name": "SISTEMAS E MÍDIAS DIGITAIS (DIURNO)",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "IUVI",
+    "unitName": "INSTITUTO UNIVERSIDADE VIRTUAL"
+  },
+  {
+    "sigaaId": "3251521",
+    "name": "SISTEMAS E MÍDIAS DIGITAIS (NOTURNO)",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "IUVI",
+    "unitName": "INSTITUTO UNIVERSIDADE VIRTUAL"
+  },
+  {
+    "sigaaId": "657503",
+    "name": "CIÊNCIAS AMBIENTAIS",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "LABOMAR",
+    "unitName": "INSTITUTO DE CIÊNCIAS DO MAR"
+  },
+  {
+    "sigaaId": "657497",
+    "name": "OCEANOGRAFIA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "LABOMAR",
+    "unitName": "INSTITUTO DE CIÊNCIAS DO MAR"
+  },
+  {
+    "sigaaId": "76067675",
+    "name": "CIÊNCIAS DA NATUREZA E MATEMÁTICA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "PRG",
+    "unitName": "PRÓ - REITORIA DE GRADUAÇÃO"
+  },
+  {
+    "sigaaId": "76067785",
+    "name": "CIÊNCIAS HUMANAS",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "PRG",
+    "unitName": "PRÓ - REITORIA DE GRADUAÇÃO"
+  },
+  {
+    "sigaaId": "76065237",
+    "name": "LINGUAGENS E CÓDIGOS",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "PRG",
+    "unitName": "PRÓ - REITORIA DE GRADUAÇÃO"
+  },
+  {
+    "sigaaId": "657493",
+    "name": "PEDAGOGIA DA TERRA / LICENCIATURA PLENA",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "PRG",
+    "unitName": "PRÓ - REITORIA DE GRADUAÇÃO"
+  },
+  {
+    "sigaaId": "657481",
+    "name": "TECNOLOGIA EM GESTÃO DA EDUCAÇÃO SUPERIOR",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "PRG",
+    "unitName": "PRÓ - REITORIA DE GRADUAÇÃO"
+  },
+  {
+    "sigaaId": "657482",
+    "name": "TECNOLOGIA EM GESTÃO DE HOSPITAIS UNIVERSITÁRIOS",
+    "city": "FORTALEZA",
+    "modality": "IN_PERSON",
+    "unitAcronym": "PRG",
+    "unitName": "PRÓ - REITORIA DE GRADUAÇÃO"
+  }
+]

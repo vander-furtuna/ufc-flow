@@ -2,6 +2,7 @@ import { z } from 'zod'
 
 // Garante que todos os schemas nomeados estejam no registro global
 import './catalog/curriculum-import-v1'
+import './catalog/sigaa-course'
 import './common/problem-details'
 import './enums'
 import './hub/post'

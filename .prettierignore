@@ -10,3 +10,8 @@ docs/v2/telas/
 **/coverage/
 **/public/
 **/next-env.d.ts
+**/.plasmo/
+# HTML real do SIGAA, guardado como veio
+**/__fixtures__/*.html
+apps/extension/src/styles/generated.css
+apps/extension/src/vendor/

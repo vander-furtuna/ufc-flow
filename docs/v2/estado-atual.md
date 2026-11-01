@@ -1,6 +1,6 @@
 # Estado atual do repositório
 
-Retrato em 31/10/2026, ao fim da fase 2. Atualize este arquivo ao fim de cada fase do [roadmap](roadmap.md).
+Retrato em 01/11/2026, ao fim da fase 3. Atualize este arquivo ao fim de cada fase do [roadmap](roadmap.md).
 
 ## Branches
 
@@ -11,6 +11,8 @@ Retrato em 31/10/2026, ao fim da fase 2. Atualize este arquivo ao fim de cada fa
 | `feature/fase-0-fundacao`      | Mesclada em `develop` pelo PR #61; pode ser apagada.                                     |
 | `feature/fase-1-academic-core` | Mesclada em `develop` pelo PR #63; pode ser apagada.                                     |
 | `feature/fase-2-contracts`     | Mesclada em `develop` pelo PR #64; pode ser apagada.                                     |
+| `feature/docs-redesenho-links` | Mesclada em `develop` pelo PR #65; pode ser apagada.                                     |
+| `feature/fase-3-extensao`      | Fase 3, em PR para `develop`.                                                            |
 | `feature/monorepo`             | Mesclada em `develop`; pode ser apagada.                                                 |
 | `hotfix/schedule-course-key`   | Já mesclada em `master` e `develop`; pode ser apagada.                                   |
 
@@ -57,21 +59,38 @@ A `main` foi apagada no remoto (D20). As branches já mescladas ficam por enquan
   - `toJsonSchema` e `toOpenApiComponents()` para o Swagger. O Ajv confere exemplos contra o JSON Schema gerado.
   - Fixture `fixtures/engenharia-de-computacao-2006-2.json`, com os 114 componentes do HTML real do SIGAA e os `OU` preservados.
   - 168 testes e cobertura acima de 90%. O `academic-core` passou a exportar `SUBJECT_CODE_PATTERN` e `TERM_PATTERN`.
-- **Modelagem v2 fechada** ([modelagem.md](modelagem.md)), com 33 decisões (D1–D33) e 11 lacunas resolvidas (L1–L11).
+- **Fase 3 — Extensão** (branch `feature/fase-3-extensao`):
+  - A cópia de trabalho de `sigaa-classes-scraping` foi migrada para `apps/extension` (commit só de cópia) e substituída. Plasmo 0.90 no workspace, React 19, Tailwind 4 pela CLI e zod empacotado com o esbuild (detalhes na modelagem, Monorepo e arquitetura).
+  - Parser novo em `src/sigaa/`, lendo a página nó a nó. Os 1.118 textos de requisito de 11 ECs reais viram expressão sem falha.
+  - O parser lê ênfases com código e cargas, grupos com mínimos e máximos (também dentro de ênfases), componentes anuais e o semestre das optativas como o SIGAA mostra.
+  - Código do curso (D34): a extensão captura o curso selecionado na tela de busca, reconhece pelo cabeçalho (`matchSigaaCourse`, no `academic-core`) ou deixa escolher, com o catálogo dos 170 cursos da lista pública embutido.
+  - Aba Revisar com a checagem da leitura: curso, componentes, requisitos com `OU` e ciclos, vertentes, códigos fora da EC e o que não foi entendido. O JSON só sai sem itens em vermelho.
+  - Interface nova:
+    - popup (início, estrutura detectada, login atrás da flag) nos temas claro e escuro;
+    - botão flutuante no SIGAA;
+    - painel com Grade, Vertentes, Regras da EC e Revisar;
+    - página de prévia que abre uma estrutura salva.
+  - Contrato e core: `CurriculumImportV1` com ênfases, grupos, código e vigor da EC e `course.recognition` (D34–D40); `findDependents` no core. A fixture do `contracts` passou a ser gerada pelo parser, o que corrigiu cargas de aula, laboratório e créditos gravadas erradas na fase 2.
+  - Login e envio atrás de `PLASMO_PUBLIC_FLOW_SYNC`, desligada (D41): por enquanto só o download do JSON.
+  - 144 testes na extensão (cobertura acima de 90% em `src/sigaa` e `src/lib`), 201 no core e 181 no contracts. O fluxo completo foi conferido no Edge headless com o SIGAA simulado pelas fixtures.
+- **Modelagem v2 fechada** ([modelagem.md](modelagem.md)), com 41 decisões (D1–D41) e 11 lacunas resolvidas (L1–L11).
 - **39 telas desenhadas** para desktop, mobile e extensão ([telas.md](telas.md)).
 
 ## Pendências imediatas
 
-Nenhuma. As telas de links (`Links-Pagina`, `Links-Editor`, `Mobile-Links` e `Mobile-Links-Editor`) ainda usam os destaques antigos e serão redesenhadas na implementação, na fase 10 (D31).
+1. PR de `feature/fase-3-extensao` para `develop`, com CI verde.
+2. Testar a extensão no SIGAA de verdade: carregar `apps/extension/build/chrome-mv3-prod` sem empacotar em `chrome://extensions` (modo de desenvolvedor), buscar um curso em Currículos, abrir a estrutura pela lupa e conferir o botão flutuante, o painel, o curso reconhecido e o download do JSON.
 
-Próximo passo: fase 3 (extensão) ou fase 4 (API e identidade). As duas dependem só das fases 1 e 2.
+As telas de links (`Links-Pagina`, `Links-Editor`, `Mobile-Links` e `Mobile-Links-Editor`) ainda usam os destaques antigos e serão redesenhadas na implementação, na fase 10 (D31).
+
+Próximo passo: fase 4 (API e identidade). A fase 5 depende dela.
 
 ## Divergências entre a modelagem e o repositório
 
-| Modelagem diz                                       | Repositório hoje                                            | O que vale                                                 |
-| --------------------------------------------------- | ----------------------------------------------------------- | ---------------------------------------------------------- |
-| Caminho `src/data/courses.ts`                       | `apps/web/src/data/courses.ts`                              | O novo caminho.                                            |
-| Extensão = Plasmo, "o atual sigaa-classes-scraping" | O repositório irmão usa Plasmo e tem trabalho não commitado | Migrar a cópia de trabalho para `apps/extension` (fase 3). |
+| Modelagem diz                                      | Repositório hoje                                                                          | O que vale                   |
+| -------------------------------------------------- | ----------------------------------------------------------------------------------------- | ---------------------------- |
+| Caminho `src/data/courses.ts`                      | `apps/web/src/data/courses.ts`                                                            | O novo caminho.              |
+| `computeProgress` usa `complementaryActivityHours` | O SIGAA não tem essa carga; a do cabeçalho é a de atividades acadêmicas específicas (D40) | Rever o progresso na fase 9. |
 
 ## Como o web funciona hoje (o que a v2 substitui)
 
