@@ -28,6 +28,10 @@ const eslintConfig = [
         },
       ],
       '@next/next/no-img-element': 'off',
+      // Os contexts calendar, class e schedule chamam setState dentro de
+      // efeitos. A correção está na develop (fase 0 da v2); aqui fica como
+      // aviso para não mexer nesse código em produção.
+      'react-hooks/set-state-in-effect': 'warn',
     },
   },
 ]
