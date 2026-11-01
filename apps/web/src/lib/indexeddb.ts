@@ -1,7 +1,8 @@
 // lib/indexeddb.ts
-import { IDBPDatabase, openDB } from 'idb'
+import type { IDBPDatabase } from 'idb'
 import { useCallback } from 'react'
 
+import { STORES, getUfcFlowDb } from './ufc-flow-db'
 import { getClassesInformationsService } from '@/services/scrapping/get-classes-informations'
 // Supondo que você tenha um serviço para o calendário (exemplo)
 // Caso seja um fetch direto, você pode adaptar dentro do useCalendarManager
@@ -13,14 +14,12 @@ import { getCalendarService } from '@/services/scrapping/get-calendar-service'
 import { normalizeWords } from '@/utils/normalize-words'
 import type { RUMenuDay, RUMenuWeek } from '@/types/ru'
 
-// Configuração do banco
-const DB_NAME = 'UFCFlowDB'
-const DB_VERSION = 6 // Incrementado para incluir ru_menus
-const STORE_NAME = 'schedules'
-const STORE_USER_AGENDAS = 'user_schedules'
-const STORE_USER_PREFERENCES = 'user_preferences'
-const STORE_CALENDAR = 'academic_calendar'
-const STORE_RU = 'ru_menus' // Store de Cardápio do RU
+// Stores do banco (abertura e versões em ./ufc-flow-db)
+const STORE_NAME = STORES.classes
+const STORE_USER_AGENDAS = STORES.userSchedules
+const STORE_USER_PREFERENCES = STORES.userPreferences
+const STORE_CALENDAR = STORES.academicCalendar
+const STORE_RU = STORES.ruMenus // Store de Cardápio do RU
 
 const importantTerms = ['matricula', 'ira']
 
@@ -34,64 +33,7 @@ class IndexedDBStorage {
   // Inicializa o banco de dados
   async init(): Promise<void> {
     if (this.db) return
-
-    this.db = await openDB(DB_NAME, DB_VERSION, {
-      upgrade(db, oldVersion, _, transaction) {
-        // Remove store antiga se existir (para migração)
-        if (oldVersion < 2 && db.objectStoreNames.contains(STORE_NAME)) {
-          db.deleteObjectStore(STORE_NAME)
-        }
-
-        if (!db.objectStoreNames.contains(STORE_NAME)) {
-          const store = db.createObjectStore(STORE_NAME, {
-            keyPath: 'id',
-          })
-          // Índices para facilitar buscas
-          store.createIndex('courseId', 'courseId')
-          store.createIndex('year', 'year')
-          store.createIndex('semester', 'semester')
-          store.createIndex('courseYear', ['courseId', 'year'])
-          store.createIndex(
-            'courseSemester',
-            ['courseId', 'year', 'semester'],
-            {
-              unique: true,
-            },
-          )
-        }
-
-        // --- Stores de Agenda e Preferências ---
-        let agendaStore
-        if (!db.objectStoreNames.contains(STORE_USER_AGENDAS)) {
-          agendaStore = db.createObjectStore(STORE_USER_AGENDAS, {
-            keyPath: 'id',
-          })
-        } else {
-          agendaStore = transaction.objectStore(STORE_USER_AGENDAS)
-        }
-
-        // Adiciona índice courseId na versão 4
-        if (!agendaStore.indexNames.contains('courseId')) {
-          agendaStore.createIndex('courseId', 'courseId', { unique: false })
-        }
-
-        if (!db.objectStoreNames.contains(STORE_USER_PREFERENCES)) {
-          db.createObjectStore(STORE_USER_PREFERENCES, { keyPath: 'key' })
-        }
-
-        // --- Nova Store de Calendário (Versão 4) ---
-        if (!db.objectStoreNames.contains(STORE_CALENDAR)) {
-          // A chave será o ano (ex: 2026)
-          db.createObjectStore(STORE_CALENDAR, { keyPath: 'year' })
-        }
-
-        // --- Nova Store de Cardápio do RU (Versão 6) ---
-        if (!db.objectStoreNames.contains(STORE_RU)) {
-          // A chave será id composta: campusId-date (ex: "9-2026-09-25")
-          db.createObjectStore(STORE_RU, { keyPath: 'id' })
-        }
-      },
-    })
+    this.db = await getUfcFlowDb()
   }
 
   async getSchedulesByCourse(courseId: string): Promise<Schedule[]> {
