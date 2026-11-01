@@ -119,10 +119,6 @@
     "jsx-a11y/aria-unsupported-elements": "warn",
     "jsx-a11y/role-has-required-aria-props": "warn",
     "jsx-a11y/role-supports-aria-props": "warn",
-    "jsx-a11y/click-events-have-key-events": "warn",
-    "jsx-a11y/no-noninteractive-element-interactions": "warn",
-    "jsx-a11y/no-static-element-interactions": "warn",
-    "jsx-a11y/prefer-tag-over-role": "warn",
     "nextjs/google-font-display": "warn",
     "nextjs/google-font-preconnect": "warn",
     "nextjs/next-script-for-ga": "warn",
@@ -153,6 +149,12 @@
         "prefer-const": "error",
         "prefer-rest-params": "error",
         "prefer-spread": "error"
+      }
+    },
+    {
+      "files": ["apps/web/src/components/ui/**"],
+      "rules": {
+        "jsx-a11y/prefer-tag-over-role": "off"
       }
     }
   ]
