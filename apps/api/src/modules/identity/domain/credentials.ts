@@ -8,7 +8,8 @@ export const normalizeEmail = (email: string) => email.trim().toLowerCase()
 
 // Só o tamanho, sem regra de composição (orientação do NIST)
 export function checkPassword(password: string) {
-  const length = [...password].length
+  // Mesma contagem do schema do contracts (z.string().min/max)
+  const length = password.length
   if (length < PASSWORD_MIN_LENGTH) throw IdentityErrors.passwordTooShort()
   if (length > PASSWORD_MAX_LENGTH) throw IdentityErrors.passwordTooLong()
 }

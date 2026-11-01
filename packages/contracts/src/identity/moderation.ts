@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { cursorPage } from '../common/pagination'
+import { cursorPage, cursorPageQuerySchema } from '../common/pagination'
 import { isoDateTimeSchema, uuidSchema } from '../common/primitives'
 import { moderatorRequestStatusSchema } from '../enums'
 import { courseSummarySchema } from './auth'
@@ -37,6 +37,14 @@ export const moderatorRequestPageSchema = cursorPage(
   moderatorRequestSchema,
 ).meta({ id: 'ModeratorRequestPage' })
 
+// Fila do admin: ?status=PENDING&cursor=&limit=
+export const moderatorRequestListQuerySchema = cursorPageQuerySchema.extend({
+  status: moderatorRequestStatusSchema.optional(),
+})
+
+export type ModeratorRequestListQuery = z.infer<
+  typeof moderatorRequestListQuerySchema
+>
 export type CreateModeratorRequestInput = z.infer<
   typeof createModeratorRequestInputSchema
 >

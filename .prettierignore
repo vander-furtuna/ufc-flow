@@ -15,3 +15,6 @@ docs/v2/telas/
 **/__fixtures__/*.html
 apps/extension/src/styles/generated.css
 apps/extension/src/vendor/
+# Gerado por pnpm --filter @ufc-flow/api openapi
+apps/api/openapi.json
+apps/api/drizzle/meta/

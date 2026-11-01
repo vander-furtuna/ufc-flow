@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import {
   createModeratorRequestInputSchema,
+  moderatorRequestListQuerySchema,
   moderatorRequestPageSchema,
   moderatorRequestSchema,
   reviewModeratorRequestInputSchema,
@@ -46,6 +47,15 @@ describe('pedidos de moderação', () => {
     expect(
       reviewModeratorRequestInputSchema.safeParse({ note: 'x'.repeat(1001) })
         .success,
+    ).toBe(false)
+  })
+
+  it('a fila filtra por situação e pagina por cursor', () => {
+    expect(
+      moderatorRequestListQuerySchema.parse({ status: 'PENDING', limit: '10' }),
+    ).toEqual({ status: 'PENDING', limit: 10 })
+    expect(
+      moderatorRequestListQuerySchema.safeParse({ status: 'OUTRO' }).success,
     ).toBe(false)
   })
 

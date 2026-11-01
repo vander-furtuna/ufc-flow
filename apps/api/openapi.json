@@ -1,0 +1,2652 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/v1/health": {
+      "get": {
+        "description": "Confere a conexão com o banco (para o Coolify).",
+        "operationId": "HealthController_check",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "API e banco no ar",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Serviço indisponível",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Saúde da API",
+        "tags": [
+          "health"
+        ]
+      }
+    },
+    "/v1/auth/sign-up": {
+      "post": {
+        "description": "Cria a conta com o aceite de Termos e Privacidade e já devolve a sessão.",
+        "operationId": "AuthController_createAccount",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignUpInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Conta criada e sessão aberta",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthSession"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos (VALIDATION_FAILED) ou regra de domínio violada",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito com o estado atual",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Muitas tentativas; aguarde e tente de novo",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Criar conta",
+        "tags": [
+          "identity"
+        ]
+      }
+    },
+    "/v1/auth/sign-in": {
+      "post": {
+        "description": "Entra com e-mail e senha. Cinco tentativas por minuto para cada e-mail e IP.",
+        "operationId": "AuthController_enter",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignInInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sessão aberta",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthSession"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos (VALIDATION_FAILED) ou regra de domínio violada",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sem token válido ou credenciais incorretas",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão para a ação",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Muitas tentativas; aguarde e tente de novo",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Entrar",
+        "tags": [
+          "identity"
+        ]
+      }
+    },
+    "/v1/auth/refresh": {
+      "post": {
+        "description": "Troca o token de renovação por um par novo. Reusar um token já trocado encerra a sessão em todos os aparelhos daquele login.",
+        "operationId": "AuthController_refresh",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Tokens renovados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthTokens"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos (VALIDATION_FAILED) ou regra de domínio violada",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sem token válido ou credenciais incorretas",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão para a ação",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Muitas tentativas; aguarde e tente de novo",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Renovar a sessão",
+        "tags": [
+          "identity"
+        ]
+      }
+    },
+    "/v1/auth/sign-out": {
+      "post": {
+        "description": "Encerra a sessão do token de renovação informado.",
+        "operationId": "AuthController_leave",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Sessão encerrada"
+          },
+          "400": {
+            "description": "Dados inválidos (VALIDATION_FAILED) ou regra de domínio violada",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Sair",
+        "tags": [
+          "identity"
+        ]
+      }
+    },
+    "/v1/auth/password-reset": {
+      "post": {
+        "description": "Usa o token do link gerado por um administrador. Encerra todas as sessões da conta.",
+        "operationId": "AuthController_reset",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Senha trocada"
+          },
+          "400": {
+            "description": "Dados inválidos (VALIDATION_FAILED) ou regra de domínio violada",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Muitas tentativas; aguarde e tente de novo",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Redefinir a senha pelo link",
+        "tags": [
+          "identity"
+        ]
+      }
+    },
+    "/v1/me": {
+      "get": {
+        "description": "Dados da conta, papéis e cursos que a pessoa modera.",
+        "operationId": "MeController_me",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Usuário logado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Me"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sem token válido ou credenciais incorretas",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso não encontrado",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Usuário logado",
+        "tags": [
+          "identity"
+        ]
+      }
+    },
+    "/v1/me/moderator-requests": {
+      "get": {
+        "operationId": "MeController_myRequests",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Pedidos do usuário, do mais novo ao mais antigo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ModeratorRequest"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sem token válido ou credenciais incorretas",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão para a ação",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Meus pedidos de moderação",
+        "tags": [
+          "identity"
+        ]
+      }
+    },
+    "/v1/moderator-requests": {
+      "post": {
+        "description": "Um pedido pendente por curso. Um administrador aprova ou rejeita.",
+        "operationId": "ModerationController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateModeratorRequestInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Pedido criado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModeratorRequest"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos (VALIDATION_FAILED) ou regra de domínio violada",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sem token válido ou credenciais incorretas",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão para a ação",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso não encontrado",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito com o estado atual",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Pedir moderação de um curso",
+        "tags": [
+          "identity"
+        ]
+      },
+      "get": {
+        "description": "Do mais novo ao mais antigo, paginada por cursor.",
+        "operationId": "ModerationController_list",
+        "parameters": [
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "enum": [
+                "PENDING",
+                "APPROVED",
+                "REJECTED",
+                "CANCELED"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Página de pedidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModeratorRequestPage"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos (VALIDATION_FAILED) ou regra de domínio violada",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sem token válido ou credenciais incorretas",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão para a ação",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Fila de pedidos de moderação (admin)",
+        "tags": [
+          "identity"
+        ]
+      }
+    },
+    "/v1/moderator-requests/{id}/approve": {
+      "post": {
+        "description": "Torna a pessoa moderadora do curso.",
+        "operationId": "ModerationController_approve",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewModeratorRequestInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Pedido aprovado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModeratorRequest"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos (VALIDATION_FAILED) ou regra de domínio violada",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sem token válido ou credenciais incorretas",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão para a ação",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso não encontrado",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito com o estado atual",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Aprovar pedido (admin)",
+        "tags": [
+          "identity"
+        ]
+      }
+    },
+    "/v1/moderator-requests/{id}/reject": {
+      "post": {
+        "operationId": "ModerationController_reject",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewModeratorRequestInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Pedido rejeitado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModeratorRequest"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos (VALIDATION_FAILED) ou regra de domínio violada",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sem token válido ou credenciais incorretas",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão para a ação",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso não encontrado",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito com o estado atual",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Rejeitar pedido (admin)",
+        "tags": [
+          "identity"
+        ]
+      }
+    },
+    "/v1/moderator-requests/{id}/cancel": {
+      "post": {
+        "operationId": "ModerationController_cancel",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pedido cancelado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModeratorRequest"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos (VALIDATION_FAILED) ou regra de domínio violada",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sem token válido ou credenciais incorretas",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão para a ação",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso não encontrado",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito com o estado atual",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Cancelar o próprio pedido pendente",
+        "tags": [
+          "identity"
+        ]
+      }
+    },
+    "/v1/admin/users/{userId}/password-reset-links": {
+      "post": {
+        "description": "Sem SMTP na v2: o link vale por 24 horas, é de uso único e o admin o entrega por fora. Invalida os links anteriores.",
+        "operationId": "AdminUsersController_create",
+        "parameters": [
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Link gerado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PasswordResetLink"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos (VALIDATION_FAILED) ou regra de domínio violada",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sem token válido ou credenciais incorretas",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão para a ação",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso não encontrado",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Gerar link de redefinição de senha (admin)",
+        "tags": [
+          "identity"
+        ]
+      }
+    },
+    "/v1/courses": {
+      "get": {
+        "operationId": "CoursesController_list",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Cursos em ordem alfabética",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CourseSummary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Cursos ativos no Flow",
+        "tags": [
+          "catalog"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "UFC Flow API",
+    "description": "API do UFC Flow. Erros em Problem Details (application/problem+json). Para testar rotas protegidas, entre em POST /v1/auth/sign-in e use o accessToken em Authorize.",
+    "version": "1",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "ValidationError": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                }
+              ]
+            }
+          },
+          "message": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string",
+            "pattern": "^[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)*$"
+          }
+        },
+        "required": [
+          "path",
+          "message",
+          "code"
+        ]
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "format": "uri"
+          },
+          "title": {
+            "type": "string"
+          },
+          "status": {
+            "type": "integer",
+            "minimum": 400,
+            "maximum": 599
+          },
+          "detail": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string",
+            "pattern": "^[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)*$"
+          },
+          "instance": {
+            "type": "string"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            }
+          }
+        },
+        "required": [
+          "type",
+          "title",
+          "status",
+          "code"
+        ]
+      },
+      "Health": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "ok"
+            ]
+          },
+          "database": {
+            "type": "string",
+            "enum": [
+              "ok"
+            ]
+          }
+        },
+        "required": [
+          "status",
+          "database"
+        ]
+      },
+      "CurriculumNature": {
+        "type": "string",
+        "enum": [
+          "MANDATORY",
+          "OPTATIVE"
+        ]
+      },
+      "SubjectType": {
+        "type": "string",
+        "enum": [
+          "DISCIPLINE",
+          "COMPLEMENTARY_ACTIVITY",
+          "FINAL_PROJECT",
+          "INTERNSHIP",
+          "EXTENSION_UNIT",
+          "MODULE",
+          "ADVANCED_TOPIC",
+          "SEMINAR",
+          "TUTORING",
+          "INTEGRATIVE_ACTIVITY",
+          "OTHER"
+        ]
+      },
+      "BranchType": {
+        "type": "string",
+        "enum": [
+          "SLOPE",
+          "EMPHASIS",
+          "SPECIFIC_GROUP"
+        ]
+      },
+      "CurriculumStatus": {
+        "type": "string",
+        "enum": [
+          "DRAFT",
+          "PUBLISHED"
+        ]
+      },
+      "SigaaCourseModality": {
+        "type": "string",
+        "enum": [
+          "IN_PERSON",
+          "DISTANCE"
+        ]
+      },
+      "CourseRecognition": {
+        "type": "string",
+        "enum": [
+          "SELECTED",
+          "MATCHED",
+          "MANUAL"
+        ]
+      },
+      "RecordStatus": {
+        "type": "string",
+        "enum": [
+          "CURSANDO",
+          "APROVADO",
+          "REPROVADO",
+          "TRANCADA",
+          "SUPRIMIDA",
+          "APROVEITADA"
+        ]
+      },
+      "EnrollmentStatus": {
+        "type": "string",
+        "enum": [
+          "ACTIVE",
+          "TRANSFERRED",
+          "CONCLUDED",
+          "CANCELED"
+        ]
+      },
+      "ActivityKind": {
+        "type": "string",
+        "enum": [
+          "COMPLEMENTARY",
+          "EXTENSION"
+        ]
+      },
+      "UserRole": {
+        "type": "string",
+        "enum": [
+          "ADMIN"
+        ]
+      },
+      "UserStatus": {
+        "type": "string",
+        "enum": [
+          "ACTIVE",
+          "SUSPENDED"
+        ]
+      },
+      "ModeratorRequestStatus": {
+        "type": "string",
+        "enum": [
+          "PENDING",
+          "APPROVED",
+          "REJECTED",
+          "CANCELED"
+        ]
+      },
+      "CurriculumImportSource": {
+        "type": "string",
+        "enum": [
+          "EXTENSION",
+          "UPLOAD"
+        ]
+      },
+      "CurriculumImportStatus": {
+        "type": "string",
+        "enum": [
+          "RECEIVED",
+          "APPLIED",
+          "FAILED",
+          "DISCARDED"
+        ]
+      },
+      "PostType": {
+        "type": "string",
+        "enum": [
+          "NEWS",
+          "EVENT",
+          "SCHOLARSHIP",
+          "EXTENSION_PROJECT",
+          "CALL"
+        ]
+      },
+      "PostStatus": {
+        "type": "string",
+        "enum": [
+          "DRAFT",
+          "PUBLISHED",
+          "ARCHIVED"
+        ]
+      },
+      "EventModality": {
+        "type": "string",
+        "enum": [
+          "IN_PERSON",
+          "ONLINE",
+          "HYBRID"
+        ]
+      },
+      "LinkKind": {
+        "type": "string",
+        "enum": [
+          "URL",
+          "FILE",
+          "INTERNAL",
+          "POST"
+        ]
+      },
+      "LinkBadge": {
+        "type": "string",
+        "enum": [
+          "NONE",
+          "NEW"
+        ]
+      },
+      "LinkPageTheme": {
+        "type": "string",
+        "enum": [
+          "CIANO",
+          "LARANJA",
+          "VERDE",
+          "VIOLETA",
+          "BRANCO",
+          "ESCURO"
+        ]
+      },
+      "LinkButtonStyle": {
+        "type": "string",
+        "enum": [
+          "FILLED",
+          "OUTLINE",
+          "SOFT"
+        ]
+      },
+      "LinkButtonShape": {
+        "type": "string",
+        "enum": [
+          "SQUARE",
+          "ROUNDED",
+          "PILL"
+        ]
+      },
+      "LinkTitleFont": {
+        "type": "string",
+        "enum": [
+          "CLASH",
+          "GEIST"
+        ]
+      },
+      "SocialNetwork": {
+        "type": "string",
+        "enum": [
+          "INSTAGRAM",
+          "EMAIL",
+          "WHATSAPP",
+          "YOUTUBE",
+          "SITE",
+          "OUTRO"
+        ]
+      },
+      "LinkTrafficSource": {
+        "type": "string",
+        "enum": [
+          "PAGE",
+          "QR",
+          "HUB"
+        ]
+      },
+      "RequirementSubject": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "subject"
+            ]
+          },
+          "code": {
+            "type": "string",
+            "pattern": "^[A-Z]+\\d+$"
+          }
+        },
+        "required": [
+          "kind",
+          "code"
+        ]
+      },
+      "RequirementAnd": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "and"
+            ]
+          },
+          "items": {
+            "minItems": 2,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RequirementExpr"
+            }
+          }
+        },
+        "required": [
+          "kind",
+          "items"
+        ]
+      },
+      "RequirementOr": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "or"
+            ]
+          },
+          "items": {
+            "minItems": 2,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RequirementExpr"
+            }
+          }
+        },
+        "required": [
+          "kind",
+          "items"
+        ]
+      },
+      "RequirementExpr": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/RequirementSubject"
+          },
+          {
+            "$ref": "#/components/schemas/RequirementAnd"
+          },
+          {
+            "$ref": "#/components/schemas/RequirementOr"
+          }
+        ]
+      },
+      "CurriculumImportV1": {
+        "type": "object",
+        "properties": {
+          "schemaVersion": {
+            "type": "number",
+            "enum": [
+              1
+            ]
+          },
+          "source": {
+            "type": "object",
+            "properties": {
+              "extractedAt": {
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              },
+              "url": {
+                "nullable": true,
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "required": [
+              "extractedAt",
+              "url"
+            ],
+            "additionalProperties": false
+          },
+          "course": {
+            "type": "object",
+            "properties": {
+              "sigaaId": {
+                "type": "string",
+                "pattern": "^\\d+$"
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "recognition": {
+                "$ref": "#/components/schemas/CourseRecognition"
+              }
+            },
+            "required": [
+              "sigaaId",
+              "name",
+              "recognition"
+            ],
+            "additionalProperties": false
+          },
+          "curriculum": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 20
+              },
+              "effectiveTerm": {
+                "type": "string",
+                "pattern": "^([1-9]\\d{3})\\.([12])$"
+              },
+              "sigaaId": {
+                "nullable": true,
+                "type": "string",
+                "pattern": "^\\d+$"
+              },
+              "matrixName": {
+                "type": "string",
+                "minLength": 1
+              },
+              "unitName": {
+                "nullable": true,
+                "type": "string",
+                "minLength": 1
+              },
+              "city": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minTotalHours": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "maxTotalHours": {
+                "nullable": true,
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "mandatoryHours": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "optativeHours": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "extensionHours": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "specificActivityHours": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "maxFreeOptativeHours": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "minPeriods": {
+                "type": "integer",
+                "minimum": 0,
+                "exclusiveMinimum": true,
+                "maximum": 9007199254740991
+              },
+              "avgPeriods": {
+                "type": "integer",
+                "minimum": 0,
+                "exclusiveMinimum": true,
+                "maximum": 9007199254740991
+              },
+              "maxPeriods": {
+                "type": "integer",
+                "minimum": 0,
+                "exclusiveMinimum": true,
+                "maximum": 9007199254740991
+              },
+              "periodMinHours": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "periodAvgHours": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "periodMaxHours": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "minEmphases": {
+                "nullable": true,
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "maxEmphases": {
+                "nullable": true,
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "code",
+              "effectiveTerm",
+              "sigaaId",
+              "matrixName",
+              "unitName",
+              "city",
+              "minTotalHours",
+              "maxTotalHours",
+              "mandatoryHours",
+              "optativeHours",
+              "extensionHours",
+              "specificActivityHours",
+              "maxFreeOptativeHours",
+              "minPeriods",
+              "avgPeriods",
+              "maxPeriods",
+              "periodMinHours",
+              "periodAvgHours",
+              "periodMaxHours",
+              "minEmphases",
+              "maxEmphases"
+            ],
+            "additionalProperties": false
+          },
+          "branches": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "parentKey": {
+                  "nullable": true,
+                  "type": "string",
+                  "minLength": 1
+                },
+                "type": {
+                  "$ref": "#/components/schemas/BranchType"
+                },
+                "name": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "description": {
+                  "nullable": true,
+                  "type": "string"
+                },
+                "sigaaCode": {
+                  "nullable": true,
+                  "type": "string",
+                  "minLength": 1
+                },
+                "color": {
+                  "nullable": true,
+                  "type": "string",
+                  "pattern": "^#[0-9a-fA-F]{6}$"
+                },
+                "mandatoryHours": {
+                  "nullable": true,
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "minHours": {
+                  "nullable": true,
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "maxHours": {
+                  "nullable": true,
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "minComponents": {
+                  "nullable": true,
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "maxComponents": {
+                  "nullable": true,
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                }
+              },
+              "required": [
+                "key",
+                "parentKey",
+                "type",
+                "name",
+                "description",
+                "sigaaCode",
+                "color",
+                "mandatoryHours",
+                "minHours",
+                "maxHours",
+                "minComponents",
+                "maxComponents"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "subjects": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "pattern": "^[A-Z]+\\d+$"
+                },
+                "name": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "type": {
+                  "$ref": "#/components/schemas/SubjectType"
+                },
+                "semester": {
+                  "nullable": true,
+                  "type": "integer",
+                  "minimum": 0,
+                  "exclusiveMinimum": true,
+                  "maximum": 9007199254740991
+                },
+                "durationTerms": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "enum": [
+                        1
+                      ]
+                    },
+                    {
+                      "type": "number",
+                      "enum": [
+                        2
+                      ]
+                    }
+                  ]
+                },
+                "workloadHours": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "theoryHours": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "labHours": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "eadHours": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "extensionHours": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "credits": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "nature": {
+                  "$ref": "#/components/schemas/CurriculumNature"
+                },
+                "prerequisites": {
+                  "nullable": true,
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/RequirementExpr"
+                    }
+                  ]
+                },
+                "corequisites": {
+                  "nullable": true,
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/RequirementExpr"
+                    }
+                  ]
+                },
+                "equivalences": {
+                  "nullable": true,
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/RequirementExpr"
+                    }
+                  ]
+                },
+                "branches": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "key": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "nature": {
+                        "$ref": "#/components/schemas/CurriculumNature"
+                      }
+                    },
+                    "required": [
+                      "key",
+                      "nature"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "code",
+                "name",
+                "type",
+                "semester",
+                "durationTerms",
+                "workloadHours",
+                "theoryHours",
+                "labHours",
+                "eadHours",
+                "extensionHours",
+                "credits",
+                "nature",
+                "prerequisites",
+                "corequisites",
+                "equivalences",
+                "branches"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "schemaVersion",
+          "source",
+          "course",
+          "curriculum",
+          "branches",
+          "subjects"
+        ],
+        "additionalProperties": false
+      },
+      "SigaaCourse": {
+        "type": "object",
+        "properties": {
+          "sigaaId": {
+            "type": "string",
+            "pattern": "^\\d+$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "city": {
+            "type": "string",
+            "minLength": 1
+          },
+          "modality": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SigaaCourseModality"
+              }
+            ]
+          },
+          "unitAcronym": {
+            "nullable": true,
+            "type": "string",
+            "minLength": 1
+          },
+          "unitName": {
+            "nullable": true,
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "sigaaId",
+          "name",
+          "city",
+          "modality",
+          "unitAcronym",
+          "unitName"
+        ]
+      },
+      "PostInput": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "summary": {
+                "nullable": true,
+                "type": "string"
+              },
+              "bodyMd": {
+                "type": "string",
+                "minLength": 1
+              },
+              "coverFileId": {
+                "nullable": true,
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
+              "externalUrl": {
+                "nullable": true,
+                "type": "string",
+                "format": "uri"
+              },
+              "status": {
+                "$ref": "#/components/schemas/PostStatus"
+              },
+              "pinned": {
+                "type": "boolean"
+              },
+              "startsAt": {
+                "nullable": true,
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              },
+              "endsAt": {
+                "nullable": true,
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              },
+              "deadlineAt": {
+                "nullable": true,
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              },
+              "location": {
+                "nullable": true,
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "NEWS"
+                ]
+              },
+              "attributes": {
+                "type": "object",
+                "properties": {},
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "title",
+              "summary",
+              "bodyMd",
+              "coverFileId",
+              "externalUrl",
+              "status",
+              "pinned",
+              "startsAt",
+              "endsAt",
+              "deadlineAt",
+              "location",
+              "type",
+              "attributes"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "summary": {
+                "nullable": true,
+                "type": "string"
+              },
+              "bodyMd": {
+                "type": "string",
+                "minLength": 1
+              },
+              "coverFileId": {
+                "nullable": true,
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
+              "externalUrl": {
+                "nullable": true,
+                "type": "string",
+                "format": "uri"
+              },
+              "status": {
+                "$ref": "#/components/schemas/PostStatus"
+              },
+              "pinned": {
+                "type": "boolean"
+              },
+              "startsAt": {
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              },
+              "endsAt": {
+                "nullable": true,
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              },
+              "deadlineAt": {
+                "nullable": true,
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              },
+              "location": {
+                "nullable": true,
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "EVENT"
+                ]
+              },
+              "attributes": {
+                "type": "object",
+                "properties": {
+                  "modality": {
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/EventModality"
+                      }
+                    ]
+                  },
+                  "registrationUrl": {
+                    "type": "string",
+                    "format": "uri"
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "title",
+              "summary",
+              "bodyMd",
+              "coverFileId",
+              "externalUrl",
+              "status",
+              "pinned",
+              "startsAt",
+              "endsAt",
+              "deadlineAt",
+              "location",
+              "type",
+              "attributes"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "summary": {
+                "nullable": true,
+                "type": "string"
+              },
+              "bodyMd": {
+                "type": "string",
+                "minLength": 1
+              },
+              "coverFileId": {
+                "nullable": true,
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
+              "externalUrl": {
+                "nullable": true,
+                "type": "string",
+                "format": "uri"
+              },
+              "status": {
+                "$ref": "#/components/schemas/PostStatus"
+              },
+              "pinned": {
+                "type": "boolean"
+              },
+              "startsAt": {
+                "nullable": true,
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              },
+              "endsAt": {
+                "nullable": true,
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              },
+              "deadlineAt": {
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              },
+              "location": {
+                "nullable": true,
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "SCHOLARSHIP"
+                ]
+              },
+              "attributes": {
+                "type": "object",
+                "properties": {
+                  "amountBrl": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "vacancies": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "exclusiveMinimum": true,
+                    "maximum": 9007199254740991
+                  },
+                  "weeklyHours": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "exclusiveMinimum": true,
+                    "maximum": 9007199254740991
+                  },
+                  "sponsor": {
+                    "type": "string"
+                  },
+                  "requirements": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "title",
+              "summary",
+              "bodyMd",
+              "coverFileId",
+              "externalUrl",
+              "status",
+              "pinned",
+              "startsAt",
+              "endsAt",
+              "deadlineAt",
+              "location",
+              "type",
+              "attributes"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "summary": {
+                "nullable": true,
+                "type": "string"
+              },
+              "bodyMd": {
+                "type": "string",
+                "minLength": 1
+              },
+              "coverFileId": {
+                "nullable": true,
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
+              "externalUrl": {
+                "nullable": true,
+                "type": "string",
+                "format": "uri"
+              },
+              "status": {
+                "$ref": "#/components/schemas/PostStatus"
+              },
+              "pinned": {
+                "type": "boolean"
+              },
+              "startsAt": {
+                "nullable": true,
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              },
+              "endsAt": {
+                "nullable": true,
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              },
+              "deadlineAt": {
+                "nullable": true,
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              },
+              "location": {
+                "nullable": true,
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "EXTENSION_PROJECT"
+                ]
+              },
+              "attributes": {
+                "type": "object",
+                "properties": {
+                  "coordinator": {
+                    "type": "string"
+                  },
+                  "vacancies": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "exclusiveMinimum": true,
+                    "maximum": 9007199254740991
+                  },
+                  "contact": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "title",
+              "summary",
+              "bodyMd",
+              "coverFileId",
+              "externalUrl",
+              "status",
+              "pinned",
+              "startsAt",
+              "endsAt",
+              "deadlineAt",
+              "location",
+              "type",
+              "attributes"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "summary": {
+                "nullable": true,
+                "type": "string"
+              },
+              "bodyMd": {
+                "type": "string",
+                "minLength": 1
+              },
+              "coverFileId": {
+                "nullable": true,
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
+              "externalUrl": {
+                "nullable": true,
+                "type": "string",
+                "format": "uri"
+              },
+              "status": {
+                "$ref": "#/components/schemas/PostStatus"
+              },
+              "pinned": {
+                "type": "boolean"
+              },
+              "startsAt": {
+                "nullable": true,
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              },
+              "endsAt": {
+                "nullable": true,
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              },
+              "deadlineAt": {
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              },
+              "location": {
+                "nullable": true,
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "CALL"
+                ]
+              },
+              "attributes": {
+                "type": "object",
+                "properties": {
+                  "number": {
+                    "type": "string"
+                  },
+                  "issuer": {
+                    "type": "string"
+                  },
+                  "documentUrl": {
+                    "type": "string",
+                    "format": "uri"
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "title",
+              "summary",
+              "bodyMd",
+              "coverFileId",
+              "externalUrl",
+              "status",
+              "pinned",
+              "startsAt",
+              "endsAt",
+              "deadlineAt",
+              "location",
+              "type",
+              "attributes"
+            ]
+          }
+        ]
+      },
+      "SignUpInput": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "email": {
+            "type": "string",
+            "maxLength": 254,
+            "format": "email",
+            "pattern": "^(?:[A-Za-z0-9_'+\\-]+\\.)*[A-Za-z0-9_'+\\-]*[A-Za-z0-9_+-]@(?:[A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 128
+          },
+          "acceptTerms": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          },
+          "acceptPrivacy": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "password",
+          "acceptTerms",
+          "acceptPrivacy"
+        ]
+      },
+      "SignInInput": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "maxLength": 254,
+            "format": "email",
+            "pattern": "^(?:[A-Za-z0-9_'+\\-]+\\.)*[A-Za-z0-9_'+\\-]*[A-Za-z0-9_+-]@(?:[A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ]
+      },
+      "RefreshInput": {
+        "type": "object",
+        "properties": {
+          "refreshToken": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "refreshToken"
+        ]
+      },
+      "ResetPasswordInput": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "minLength": 1
+          },
+          "password": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 128
+          }
+        },
+        "required": [
+          "token",
+          "password"
+        ]
+      },
+      "CourseSummary": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "slug",
+          "name"
+        ]
+      },
+      "Me": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/UserStatus"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserRole"
+            }
+          },
+          "moderatedCourses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CourseSummary"
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "email",
+          "status",
+          "roles",
+          "moderatedCourses",
+          "createdAt"
+        ]
+      },
+      "AuthTokens": {
+        "type": "object",
+        "properties": {
+          "tokenType": {
+            "type": "string",
+            "enum": [
+              "Bearer"
+            ]
+          },
+          "accessToken": {
+            "type": "string"
+          },
+          "accessTokenExpiresAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+          },
+          "refreshToken": {
+            "type": "string"
+          },
+          "refreshTokenExpiresAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+          }
+        },
+        "required": [
+          "tokenType",
+          "accessToken",
+          "accessTokenExpiresAt",
+          "refreshToken",
+          "refreshTokenExpiresAt"
+        ]
+      },
+      "AuthSession": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "$ref": "#/components/schemas/Me"
+          },
+          "tokens": {
+            "$ref": "#/components/schemas/AuthTokens"
+          }
+        },
+        "required": [
+          "user",
+          "tokens"
+        ]
+      },
+      "PasswordResetLink": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+          }
+        },
+        "required": [
+          "url",
+          "expiresAt"
+        ]
+      },
+      "CreateModeratorRequestInput": {
+        "type": "object",
+        "properties": {
+          "courseId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "justification": {
+            "type": "string",
+            "minLength": 20,
+            "maxLength": 1000
+          }
+        },
+        "required": [
+          "courseId",
+          "justification"
+        ]
+      },
+      "ReviewModeratorRequestInput": {
+        "type": "object",
+        "properties": {
+          "note": {
+            "type": "string",
+            "maxLength": 1000
+          }
+        }
+      },
+      "ModeratorRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "email"
+            ]
+          },
+          "course": {
+            "$ref": "#/components/schemas/CourseSummary"
+          },
+          "justification": {
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ModeratorRequestStatus"
+          },
+          "reviewNote": {
+            "nullable": true,
+            "type": "string"
+          },
+          "reviewedAt": {
+            "nullable": true,
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+          }
+        },
+        "required": [
+          "id",
+          "user",
+          "course",
+          "justification",
+          "status",
+          "reviewNote",
+          "reviewedAt",
+          "createdAt"
+        ]
+      },
+      "ModeratorRequestPage": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ModeratorRequest"
+            }
+          },
+          "nextCursor": {
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "items",
+          "nextCursor"
+        ]
+      }
+    }
+  }
+}

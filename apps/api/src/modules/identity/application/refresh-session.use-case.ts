@@ -67,8 +67,9 @@ export class RefreshSessionUseCase {
         return { error: IdentityErrors.userSuspended() }
       }
 
-      await sessions.update(rotation.value.previous)
+      // A nova primeiro: a anterior aponta para ela (replaced_by_id, FK)
       await sessions.insert(rotation.value.next)
+      await sessions.update(rotation.value.previous)
       const access = await this.accessTokens.issue({ userId: user.id }, now)
       return {
         tokens: toTokens(access, {
