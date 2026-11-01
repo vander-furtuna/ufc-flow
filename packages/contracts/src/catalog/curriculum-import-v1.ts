@@ -9,6 +9,7 @@ import {
 } from '../common/primitives'
 import {
   branchTypeSchema,
+  courseRecognitionSchema,
   curriculumNatureSchema,
   subjectTypeSchema,
 } from '../enums'
@@ -20,8 +21,13 @@ export type CurriculumImportIssueCode =
   | 'CURRICULUM_IMPORT_DUPLICATE_BRANCH'
   | 'CURRICULUM_IMPORT_UNKNOWN_BRANCH'
   | 'CURRICULUM_IMPORT_BRANCH_CYCLE'
+  | 'CURRICULUM_IMPORT_INVALID_RANGE'
 
 const nameSchema = z.string().trim().min(1)
+
+const sigaaIdSchema = z.string().regex(/^\d+$/, 'Id do SIGAA inválido')
+
+const countSchema = z.int().nonnegative()
 
 // Chave local do arquivo (ex.: emphasis-sistemas); vira UUID ao aplicar
 const branchKeySchema = z.string().trim().min(1)
@@ -32,17 +38,27 @@ const branchSchema = z.strictObject({
   type: branchTypeSchema,
   name: nameSchema,
   description: z.string().nullable(),
+  // Código da ênfase no SIGAA (ex.: 2023.1E2); grupos não têm
+  sigaaCode: z.string().trim().min(1).nullable(),
   color: hexColorSchema.nullable(),
+  // Ênfase: CH obrigatória e CH optativa mínima (minHours). Grupo: CH mínima
+  // e máxima e quantidade mínima e máxima de componentes (D37).
+  mandatoryHours: hoursSchema.nullable(),
   minHours: hoursSchema.nullable(),
-  minComponents: z.int().positive().nullable(),
+  maxHours: hoursSchema.nullable(),
+  minComponents: countSchema.nullable(),
+  maxComponents: countSchema.nullable(),
 })
 
 const subjectSchema = z.strictObject({
   code: subjectCodeSchema,
   name: nameSchema,
   type: subjectTypeSchema,
-  // Semestre ideal; optativas costumam vir sem
+  // Semestre como o SIGAA mostra, inclusive nas optativas (D39); nulo só
+  // quando a página não traz cabeçalho de semestre
   semester: z.int().positive().nullable(),
+  // 1 período letivo, ou 2 nos componentes anuais (D38)
+  durationTerms: z.union([z.literal(1), z.literal(2)]),
   workloadHours: hoursSchema,
   theoryHours: hoursSchema,
   labHours: hoursSchema,
@@ -59,14 +75,24 @@ const subjectSchema = z.strictObject({
 })
 
 const curriculumSchema = z.strictObject({
-  period: termSchema,
+  // Código da EC no SIGAA, que dá o slug. Nem sempre é o período de vigor
+  // (Arquitetura: código 2023.1, vigor 2024.1) (D35).
+  code: z.string().trim().min(1).max(20),
+  effectiveTerm: termSchema,
+  // Id da EC no SIGAA, quando a extensão o captura na tela de busca
+  sigaaId: sigaaIdSchema.nullable(),
+  // Textos do cabeçalho como vieram, para a API conferir o curso (D34)
+  matrixName: nameSchema,
+  unitName: z.string().trim().min(1).nullable(),
   city: nameSchema,
   minTotalHours: hoursSchema,
   maxTotalHours: hoursSchema.nullable(),
   mandatoryHours: hoursSchema,
   optativeHours: hoursSchema,
   extensionHours: hoursSchema,
-  complementaryActivityHours: hoursSchema,
+  // "Carga Horária Obrigatória de Atividade Acadêmica Específica": a soma
+  // dos componentes obrigatórios que não são disciplina (D40)
+  specificActivityHours: hoursSchema,
   maxFreeOptativeHours: hoursSchema,
   minPeriods: z.int().positive(),
   avgPeriods: z.int().positive(),
@@ -74,9 +100,13 @@ const curriculumSchema = z.strictObject({
   periodMinHours: hoursSchema,
   periodAvgHours: hoursSchema,
   periodMaxHours: hoursSchema,
+  // "Ênfases: Exigido (n), Permitido (m)"; nulos em "Sem exigências"
+  minEmphases: countSchema.nullable(),
+  maxEmphases: countSchema.nullable(),
 })
 
 type Draft = {
+  curriculum: z.infer<typeof curriculumSchema>
   branches: z.infer<typeof branchSchema>[]
   subjects: z.infer<typeof subjectSchema>[]
 }
@@ -103,9 +133,44 @@ function findDuplicates<T>(
 // Problemas que o schema de cada campo não enxerga sozinho: repetição,
 // referências entre vertentes e ciclos na hierarquia. Ciclos de
 // pré-requisito ficam para a publicação.
-function checkCoherence({ branches, subjects }: Draft): Issue[] {
+function checkCoherence({ curriculum, branches, subjects }: Draft): Issue[] {
   const issues: Issue[] = []
   const keys = new Set(branches.map((branch) => branch.key))
+
+  const checkRange = (
+    path: (string | number)[],
+    min: number | null,
+    max: number | null,
+    label: string,
+  ) => {
+    if (min === null || max === null || min <= max) return
+    issues.push({
+      path,
+      code: 'CURRICULUM_IMPORT_INVALID_RANGE',
+      message: `${label}: mínimo ${min} maior que o máximo ${max}`,
+    })
+  }
+
+  checkRange(
+    ['curriculum', 'maxEmphases'],
+    curriculum.minEmphases,
+    curriculum.maxEmphases,
+    'Ênfases',
+  )
+  branches.forEach((branch, index) => {
+    checkRange(
+      ['branches', index, 'maxHours'],
+      branch.minHours,
+      branch.maxHours,
+      `Horas da vertente ${branch.key}`,
+    )
+    checkRange(
+      ['branches', index, 'maxComponents'],
+      branch.minComponents,
+      branch.maxComponents,
+      `Componentes da vertente ${branch.key}`,
+    )
+  })
 
   findDuplicates(
     subjects,
@@ -195,8 +260,9 @@ export const curriculumImportV1Schema = z
       url: z.url().nullable(),
     }),
     course: z.strictObject({
-      sigaaId: z.string().regex(/^\d+$/, 'Id do curso no SIGAA inválido'),
+      sigaaId: sigaaIdSchema,
       name: nameSchema,
+      recognition: courseRecognitionSchema,
     }),
     curriculum: curriculumSchema,
     branches: z.array(branchSchema),

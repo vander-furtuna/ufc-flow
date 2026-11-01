@@ -2,6 +2,7 @@ import type {
   ActivityKind,
   CurriculumNature,
   RecordStatus,
+  SigaaCourseModality,
 } from '@ufc-flow/academic-core'
 import { describe, expect, expectTypeOf, it } from 'vitest'
 import type { z } from 'zod'
@@ -9,6 +10,7 @@ import type { z } from 'zod'
 import {
   activityKindSchema,
   branchTypeSchema,
+  courseRecognitionSchema,
   curriculumImportSourceSchema,
   curriculumImportStatusSchema,
   curriculumNatureSchema,
@@ -26,6 +28,7 @@ import {
   postStatusSchema,
   postTypeSchema,
   recordStatusSchema,
+  sigaaCourseModalitySchema,
   socialNetworkSchema,
   subjectTypeSchema,
   userRoleSchema,
@@ -43,6 +46,9 @@ describe('enums', () => {
     expectTypeOf<
       z.infer<typeof activityKindSchema>
     >().toEqualTypeOf<ActivityKind>()
+    expectTypeOf<
+      z.infer<typeof sigaaCourseModalitySchema>
+    >().toEqualTypeOf<SigaaCourseModality>()
   })
 
   it.each([
@@ -71,9 +77,12 @@ describe('enums', () => {
         'ADVANCED_TOPIC',
         'SEMINAR',
         'TUTORING',
+        'INTEGRATIVE_ACTIVITY',
         'OTHER',
       ],
     ],
+    [sigaaCourseModalitySchema, ['IN_PERSON', 'DISTANCE']],
+    [courseRecognitionSchema, ['SELECTED', 'MATCHED', 'MANUAL']],
     [branchTypeSchema, ['SLOPE', 'EMPHASIS', 'SPECIFIC_GROUP']],
     [curriculumStatusSchema, ['DRAFT', 'PUBLISHED']],
     [

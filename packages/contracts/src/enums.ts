@@ -2,6 +2,7 @@ import type {
   ActivityKind,
   CurriculumNature,
   RecordStatus,
+  SigaaCourseModality,
 } from '@ufc-flow/academic-core'
 import { z } from 'zod'
 
@@ -14,7 +15,8 @@ export const curriculumNatureSchema = z.enum([
   'OPTATIVE',
 ] satisfies CurriculumNature[])
 
-// Tipos de componente do SIGAA, os mesmos da extensão atual (D30)
+// Tipos de componente do SIGAA, os da extensão antiga mais as atividades
+// integradoras de formação (D30, D36)
 export const subjectTypeSchema = z.enum([
   'DISCIPLINE',
   'COMPLEMENTARY_ACTIVITY',
@@ -25,12 +27,19 @@ export const subjectTypeSchema = z.enum([
   'ADVANCED_TOPIC',
   'SEMINAR',
   'TUTORING',
+  'INTEGRATIVE_ACTIVITY',
   'OTHER',
 ])
 
 export const branchTypeSchema = z.enum(['SLOPE', 'EMPHASIS', 'SPECIFIC_GROUP'])
 
 export const curriculumStatusSchema = z.enum(['DRAFT', 'PUBLISHED'])
+
+// Modalidade do curso na lista pública do SIGAA
+export const sigaaCourseModalitySchema = z.enum([
+  'IN_PERSON',
+  'DISTANCE',
+] satisfies SigaaCourseModality[])
 
 // Vida acadêmica
 export const recordStatusSchema = z.enum([
@@ -67,6 +76,11 @@ export const moderatorRequestStatusSchema = z.enum([
 ])
 
 // Importação de grades
+
+// Como a extensão chegou ao curso: selecionado na tela de busca do SIGAA,
+// reconhecido pelo cabeçalho da estrutura ou escolhido pelo usuário (D34)
+export const courseRecognitionSchema = z.enum(['SELECTED', 'MATCHED', 'MANUAL'])
+
 export const curriculumImportSourceSchema = z.enum(['EXTENSION', 'UPLOAD'])
 
 export const curriculumImportStatusSchema = z.enum([
@@ -123,6 +137,7 @@ export const linkTrafficSourceSchema = z.enum(['PAGE', 'QR', 'HUB'])
 export type SubjectType = z.infer<typeof subjectTypeSchema>
 export type BranchType = z.infer<typeof branchTypeSchema>
 export type CurriculumStatus = z.infer<typeof curriculumStatusSchema>
+export type CourseRecognition = z.infer<typeof courseRecognitionSchema>
 export type EnrollmentStatus = z.infer<typeof enrollmentStatusSchema>
 export type UserRole = z.infer<typeof userRoleSchema>
 export type UserStatus = z.infer<typeof userStatusSchema>
@@ -153,6 +168,8 @@ const enumIds: [z.ZodType, string][] = [
   [subjectTypeSchema, 'SubjectType'],
   [branchTypeSchema, 'BranchType'],
   [curriculumStatusSchema, 'CurriculumStatus'],
+  [sigaaCourseModalitySchema, 'SigaaCourseModality'],
+  [courseRecognitionSchema, 'CourseRecognition'],
   [recordStatusSchema, 'RecordStatus'],
   [enrollmentStatusSchema, 'EnrollmentStatus'],
   [activityKindSchema, 'ActivityKind'],
