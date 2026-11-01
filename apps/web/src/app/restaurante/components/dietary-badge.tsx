@@ -190,8 +190,8 @@ export function DietaryBadge({
             onPointerLeave={handlePointerLeave}
             aria-label={tooltipText}
             className={cn(
-              'bg-accent border-border text-foreground/90 hover:bg-accent/90 hover:border-foreground/30 relative inline-flex cursor-pointer items-center justify-center overflow-hidden rounded-md border p-1 text-[11px] font-medium shadow-2xs transition-all select-none active:scale-90',
-              isOpen && 'ring-primary/40 ring-1',
+              'relative inline-flex cursor-pointer items-center justify-center overflow-hidden rounded-md border border-border bg-accent p-1 text-[11px] font-medium text-foreground/90 shadow-2xs transition-all select-none hover:border-foreground/30 hover:bg-accent/90 active:scale-90',
+              isOpen && 'ring-1 ring-primary/40',
               className,
             )}
           >
@@ -203,7 +203,7 @@ export function DietaryBadge({
             )}
             <Icon
               weight="bold"
-              className="text-foreground/90 relative z-10 size-3.5 shrink-0"
+              className="relative z-10 size-3.5 shrink-0 text-foreground/90"
             />
           </button>
         </PopoverPrimitive.Trigger>
@@ -221,8 +221,8 @@ export function DietaryBadge({
               }
             }}
             className={cn(
-              'bg-popover/95 border-border/80 text-foreground pointer-events-none z-900 flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-xs font-semibold shadow-md backdrop-blur-md select-none',
-              'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-1 data-[side=left]:slide-in-from-right-1 data-[side=right]:slide-in-from-left-1 data-[side=top]:slide-in-from-bottom-1',
+              'pointer-events-none z-900 flex items-center gap-1.5 rounded-lg border border-border/80 bg-popover/95 px-2.5 py-1 text-xs font-semibold text-foreground shadow-md backdrop-blur-md select-none',
+              'data-[side=bottom]:slide-in-from-top-1 data-[side=left]:slide-in-from-right-1 data-[side=right]:slide-in-from-left-1 data-[side=top]:slide-in-from-bottom-1 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95',
             )}
           >
             {color && (
@@ -243,7 +243,7 @@ export function DietaryBadge({
     <span
       title={title}
       className={cn(
-        'bg-accent border-border text-foreground/90 relative inline-flex items-center gap-1 overflow-hidden rounded-md border px-1.5 py-0.5 text-[11px] font-medium shadow-2xs transition-all select-none',
+        'relative inline-flex items-center gap-1 overflow-hidden rounded-md border border-border bg-accent px-1.5 py-0.5 text-[11px] font-medium text-foreground/90 shadow-2xs transition-all select-none',
         className,
       )}
       {...props}
@@ -256,7 +256,7 @@ export function DietaryBadge({
       )}
       <Icon
         weight="bold"
-        className="text-foreground/90 relative z-10 size-4 shrink-0"
+        className="relative z-10 size-4 shrink-0 text-foreground/90"
       />
       {label && <span className="relative z-10 font-medium">{label}</span>}
     </span>

@@ -37,14 +37,14 @@ export function DestructiveDialog({
     <Dialog {...props} open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="z-900 gap-0 p-0">
-        <DialogHeader className="border-border flex border-b p-5">
-          <WarningIcon weight="bold" className="text-destructive size-10" />
-          <DialogTitle className="font-clash text-destructive text-xl">
+        <DialogHeader className="flex border-b border-border p-5">
+          <WarningIcon weight="bold" className="size-10 text-destructive" />
+          <DialogTitle className="font-clash text-xl text-destructive">
             {title}
           </DialogTitle>
         </DialogHeader>
         <div className="p-5">
-          <DialogDescription className="text-foreground text-base">
+          <DialogDescription className="text-base text-foreground">
             {description}
           </DialogDescription>
         </div>

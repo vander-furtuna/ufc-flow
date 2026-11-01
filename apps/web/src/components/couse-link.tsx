@@ -23,18 +23,18 @@ type CourseLinkProps = {
 export function CourseLink({ course, icon, ...props }: CourseLinkProps) {
   const [isOpen, setIsOpen] = useState(false)
 
-  const { push } = useRouter()
+  const router = useRouter()
 
   const handleSaveSlug = useCallback(
     async (slug: string) => {
       try {
-        push(slug)
+        router.push(slug)
         await saveSlugToCookie(slug)
       } catch (error) {
         console.error('Error saving slug to cookie:', error)
       }
     },
-    [push],
+    [router],
   )
 
   const hasOneStructure = course.curriculumStructures.length === 1
@@ -56,7 +56,7 @@ export function CourseLink({ course, icon, ...props }: CourseLinkProps) {
               )
             : setIsOpen(!isOpen)
         }
-        className="bg-accent border-border group/link relative flex h-24 cursor-pointer items-center justify-between overflow-hidden rounded-md border px-4"
+        className="group/link relative flex h-24 cursor-pointer items-center justify-between overflow-hidden rounded-md border border-border bg-accent px-4"
         {...props}
       >
         <Glow
@@ -72,22 +72,22 @@ export function CourseLink({ course, icon, ...props }: CourseLinkProps) {
             name={icon}
             weight="bold"
             className={cn(
-              'text-muted-foreground group-hover/link:text-foreground/90 size-8 transition-all',
+              'size-8 text-muted-foreground transition-all group-hover/link:text-foreground/90',
               isOpen && 'text-foreground/90',
             )}
           />
           <div className="flex flex-col items-start justify-center gap-1">
-            <strong className="font-clash text-left text-xl leading-tight font-medium">
+            <strong className="text-left font-clash text-xl leading-tight font-medium">
               {course.name}
             </strong>
             <div className="flex gap-0.5 text-left text-sm">
               {hasOneStructure && (
-                <span className="bg-background/30 border-border/50 flex items-center gap-1 rounded-full border px-2 py-0.5">
+                <span className="flex items-center gap-1 rounded-full border border-border/50 bg-background/30 px-2 py-0.5">
                   <HourglassIcon weight="bold" className="size-4" />
                   {course.curriculumStructures[0].period}
                 </span>
               )}
-              <span className="border-border/50 bg-background/30 flex items-center gap-1 rounded-full border px-2 py-0.5">
+              <span className="flex items-center gap-1 rounded-full border border-border/50 bg-background/30 px-2 py-0.5">
                 <MapPinIcon weight="bold" className="size-4" />
                 {course.curriculumStructures[0].city}
               </span>
@@ -97,7 +97,7 @@ export function CourseLink({ course, icon, ...props }: CourseLinkProps) {
         <CaretRightIcon
           weight="bold"
           className={cn(
-            'text-muted-foreground/70 group-hover/link:text-muted-foreground size-6 transition',
+            'size-6 text-muted-foreground/70 transition group-hover/link:text-muted-foreground',
             hasOneStructure && 'group-hover/link:translate-x-2',
             isOpen && 'rotate-90',
           )}
@@ -121,20 +121,20 @@ export function CourseLink({ course, icon, ...props }: CourseLinkProps) {
                     onClick={() =>
                       handleSaveSlug(`/${course.slug}/${structure.slug}`)
                     }
-                    className="bg-accent border-border group/link relative flex cursor-pointer items-center justify-between gap-1 overflow-hidden rounded-full border py-0.5 pr-1.5 pl-3"
+                    className="group/link relative flex cursor-pointer items-center justify-between gap-1 overflow-hidden rounded-full border border-border bg-accent py-0.5 pr-1.5 pl-3"
                   >
                     {structure.isCurrent && (
                       <StarIcon
                         weight="bold"
-                        className="text-foreground size-4"
+                        className="size-4 text-foreground"
                       />
                     )}
-                    <strong className="font-clash text-left text-lg leading-tight font-medium">
+                    <strong className="text-left font-clash text-lg leading-tight font-medium">
                       {structure.period}
                     </strong>
                     <CaretRightIcon
                       weight="bold"
-                      className="text-muted-foreground/70 group-hover/link:text-muted-foreground size-4 transition group-hover/link:translate-x-1"
+                      className="size-4 text-muted-foreground/70 transition group-hover/link:translate-x-1 group-hover/link:text-muted-foreground"
                     />
                   </button>
                 </li>

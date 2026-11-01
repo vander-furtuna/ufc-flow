@@ -45,7 +45,7 @@ export function DietaryFilters({
   return (
     <div
       className={cn(
-        'no-scrollbar relative flex w-full items-center gap-1.5 overflow-x-auto py-0.5',
+        'relative flex w-full no-scrollbar items-center gap-1.5 overflow-x-auto py-0.5',
         className,
       )}
       ref={scrollRef}
@@ -61,7 +61,7 @@ export function DietaryFilters({
             type="button"
             onClick={() => onToggleFilter(item.type)}
             data-state={isActive ? 'active' : 'inactive'}
-            className="bg-accent border-border text-foreground/90 group/filter data-[state=active]:border-foreground/30 data-[state=active]:bg-accent/80 relative flex shrink-0 cursor-pointer items-center justify-center gap-1.5 overflow-hidden rounded-full border px-2.5 py-1 text-xs font-medium text-nowrap shadow-2xs transition-all select-none"
+            className="group/filter relative flex shrink-0 cursor-pointer items-center justify-center gap-1.5 overflow-hidden rounded-full border border-border bg-accent px-2.5 py-1 text-xs font-medium text-nowrap text-foreground/90 shadow-2xs transition-all select-none data-[state=active]:border-foreground/30 data-[state=active]:bg-accent/80"
           >
             <Glow
               colors={item.color}

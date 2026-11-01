@@ -11,14 +11,14 @@ export const CheckboxBox = forwardRef<HTMLDivElement, CheckboxBoxProps>(
       <div
         ref={ref}
         className={cn(
-          'border-primary ring-offset-background group-has-checked:bg-primary group-has-focus-visible:ring-ring flex size-4 cursor-pointer items-center justify-center rounded-sm border transition-all duration-150 ease-in-out group-has-focus-visible:ring-2 group-has-focus-visible:ring-offset-2 group-has-focus-visible:outline-hidden hover:brightness-110',
+          'flex size-4 cursor-pointer items-center justify-center rounded-sm border border-primary ring-offset-background transition-all duration-150 ease-in-out group-has-checked:bg-primary group-has-focus-visible:ring-2 group-has-focus-visible:ring-ring group-has-focus-visible:ring-offset-2 group-has-focus-visible:outline-hidden hover:brightness-110',
           className,
         )}
         {...rest}
       >
         <CheckIcon
           weight="bold"
-          className="text-primary-foreground hidden size-4 group-has-checked:block"
+          className="hidden size-4 text-primary-foreground group-has-checked:block"
         />
       </div>
     )

@@ -181,13 +181,13 @@ export default function NumberSelector({
         <motion.button
           onClick={goDown}
           disabled={selectedNumber <= startNumber}
-          className="bg-accent/80 hover:bg-accent absolute -top-12 left-1/2 z-10 -translate-x-1/2 transform rounded-md border p-2 transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+          className="absolute -top-12 left-1/2 z-10 -translate-x-1/2 transform rounded-md border bg-accent/80 p-2 transition-colors hover:bg-accent disabled:cursor-not-allowed disabled:opacity-50"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
         >
           <CaretUpIcon
             weight="bold"
-            className="text-accent-foreground h-6 w-6"
+            className="h-6 w-6 text-accent-foreground"
           />
         </motion.button>
 
@@ -204,7 +204,7 @@ export default function NumberSelector({
           onTouchCancel={handleTouchCancel}
         >
           {/* Indicador central */}
-          <div className="border-accent-foreground/60 pointer-events-none absolute inset-x-0 top-1/2 z-10 h-12 -translate-y-1/2 transform rounded-md border-2" />
+          <div className="pointer-events-none absolute inset-x-0 top-1/2 z-10 h-12 -translate-y-1/2 transform rounded-md border-2 border-accent-foreground/60" />
 
           {/* Números */}
           <div className="relative flex h-full flex-col items-center justify-center">
@@ -255,21 +255,21 @@ export default function NumberSelector({
         <motion.button
           onClick={goUp}
           disabled={selectedNumber >= endNumber}
-          className="bg-accent/80 hover:bg-accent absolute -bottom-12 left-1/2 z-10 -translate-x-1/2 transform rounded-md border p-2 transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+          className="absolute -bottom-12 left-1/2 z-10 -translate-x-1/2 transform rounded-md border bg-accent/80 p-2 transition-colors hover:bg-accent disabled:cursor-not-allowed disabled:opacity-50"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
         >
           <CaretDownIcon
             weight="bold"
-            className="text-accent-foreground h-6 w-6"
+            className="h-6 w-6 text-accent-foreground"
           />
         </motion.button>
       </div>
 
       <div className="flex flex-col items-center justify-center gap-1">
-        <span className="text-accent-foreground text-sm">Periodo</span>
-        <div className="bg-accent flex h-12 w-16 items-center justify-center rounded-lg border">
-          <span className="text-accent-foreground text-xl font-bold">
+        <span className="text-sm text-accent-foreground">Periodo</span>
+        <div className="flex h-12 w-16 items-center justify-center rounded-lg border bg-accent">
+          <span className="text-xl font-bold text-accent-foreground">
             {selectedNumber}
           </span>
         </div>

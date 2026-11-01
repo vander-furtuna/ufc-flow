@@ -3,7 +3,8 @@
 ## Código
 
 - **TypeScript estrito** em todos os pacotes. Nada de `any` sem comentário explicando o motivo.
-- **Formatação:** Prettier com `singleQuote`, sem ponto e vírgula, `trailingComma: all`, 80 colunas e `prettier-plugin-tailwindcss` (config em `apps/web/.prettierrc`; ao migrar para oxlint, mova para a raiz).
+- **Formatação:** Prettier com `singleQuote`, sem ponto e vírgula, `trailingComma: all`, 80 colunas e `prettier-plugin-tailwindcss` (config em `.prettierrc` na raiz). Quebras de linha LF. `pnpm format` formata e `pnpm format:check` confere.
+- **Lint:** oxlint com a config `.oxlintrc.json` da raiz, rodado por `pnpm lint` em cada pacote, sem `--fix`. Para suprimir uma regra do React Compiler, use o alias do plugin JS: `// oxlint-disable-next-line react-hooks-js/<regra>`.
 - **Nomes de arquivo** em kebab-case (`app-search-bar.tsx`, `resolve-schedule-course.ts`). Componentes React em PascalCase no código.
 - **Imports no web:** alias `@/` → `apps/web/src`. Pacotes internos por nome (`@ufc-flow/academic-core`).
 - **Identificadores em inglês**; textos de interface em português do Brasil, escritos direto no JSX (não há i18n).
@@ -35,14 +36,14 @@
 
 ## Testes
 
-| Camada | Ferramenta | Regra |
-| --- | --- | --- |
-| `academic-core` e domínio da API | Vitest | Escreva o teste antes; cada linha das tabelas de regras da modelagem vira um caso |
-| Casos de uso | Vitest + repositórios em memória | Sem banco, sem Nest |
-| Repositórios Drizzle | Vitest + Testcontainers (PostgreSQL) | Um container por arquivo de teste, com as migrations aplicadas |
-| HTTP | supertest sobre o app Nest | Fluxo feliz e erros documentados no Swagger |
-| Web | Vitest + Testing Library | Componentes com lógica de estado (editor de expressão, formulários) |
-| Extensão | Vitest com fixtures HTML do SIGAA | O parser nunca é testado contra o SIGAA ao vivo |
+| Camada                           | Ferramenta                           | Regra                                                                             |
+| -------------------------------- | ------------------------------------ | --------------------------------------------------------------------------------- |
+| `academic-core` e domínio da API | Vitest                               | Escreva o teste antes; cada linha das tabelas de regras da modelagem vira um caso |
+| Casos de uso                     | Vitest + repositórios em memória     | Sem banco, sem Nest                                                               |
+| Repositórios Drizzle             | Vitest + Testcontainers (PostgreSQL) | Um container por arquivo de teste, com as migrations aplicadas                    |
+| HTTP                             | supertest sobre o app Nest           | Fluxo feliz e erros documentados no Swagger                                       |
+| Web                              | Vitest + Testing Library             | Componentes com lógica de estado (editor de expressão, formulários)               |
+| Extensão                         | Vitest com fixtures HTML do SIGAA    | O parser nunca é testado contra o SIGAA ao vivo                                   |
 
 Arquivos de teste ficam ao lado do código: `*.test.ts`. Fixtures em `__fixtures__/` no pacote.
 

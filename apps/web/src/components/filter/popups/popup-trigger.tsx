@@ -16,15 +16,15 @@ export const PopupTrigger = forwardRef<HTMLButtonElement, PopupTriggerProps>(
         ref={ref}
         {...rest}
         data-active={isActive ? 'active' : 'inactive'}
-        className="bg-accent border-border group/filter relative flex shrink-0 cursor-pointer items-center justify-center gap-1.5 overflow-hidden rounded-full border px-2.5 py-1.5"
+        className="group/filter relative flex shrink-0 cursor-pointer items-center justify-center gap-1.5 overflow-hidden rounded-full border border-border bg-accent px-2.5 py-1.5"
       >
-        <i className="text-muted-foreground group-data-[active=active]/filter:text-foreground z-10">
+        <i className="z-10 text-muted-foreground group-data-[active=active]/filter:text-foreground">
           {icon}
         </i>
         {label && <span className="z-10 text-xs">{label}</span>}
         <CaretDownIcon
           weight="bold"
-          className="text-muted-foreground z-10 size-3 transition-all group-data-[state=open]/filter:rotate-180"
+          className="z-10 size-3 text-muted-foreground transition-all group-data-[state=open]/filter:rotate-180"
         />
 
         <Glow

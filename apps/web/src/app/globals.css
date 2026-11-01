@@ -179,7 +179,6 @@
   color utility to any element that depends on these defaults.
 */
 
-
 @property --border-angle {
   inherits: false;
   initial-value: 0deg;
@@ -205,9 +204,11 @@
 
 @utility transparent-mask-left {
   mask-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgb(0, 0, 0) 100%);
-  -webkit-mask-image: linear-gradient(to right,
-      rgba(0, 0, 0, 0),
-      rgb(0, 0, 0) 100%);
+  -webkit-mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0),
+    rgb(0, 0, 0) 100%
+  );
 }
 
 @utility calendar-scrollbar {

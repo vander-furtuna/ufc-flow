@@ -169,7 +169,7 @@ export default function RootLayout({
       </head>
 
       <body
-        className={`${clashDisplay.variable} ${poppins.variable} ${dmMono.variable} ${outfit.variable} ${geist.variable} bg-background max-h-full min-h-dvh font-sans antialiased`}
+        className={`${clashDisplay.variable} ${poppins.variable} ${dmMono.variable} ${outfit.variable} ${geist.variable} max-h-full min-h-dvh bg-background font-sans antialiased`}
       >
         <AppProvider>
           <ThemeProvider

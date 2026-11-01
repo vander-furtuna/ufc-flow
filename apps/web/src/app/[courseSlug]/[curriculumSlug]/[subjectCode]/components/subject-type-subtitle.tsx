@@ -26,9 +26,9 @@ export function SubjectTypeSubtitle() {
   }, [selectedCurriculum])
 
   return (
-    <div className="bg-accent/50 border-border relative w-full rounded-full border p-2">
+    <div className="relative w-full rounded-full border border-border bg-accent/50 p-2">
       <div
-        className="no-scrollbar relative flex w-full gap-2 overflow-x-auto"
+        className="relative flex w-full no-scrollbar gap-2 overflow-x-auto"
         ref={scrollRef}
         style={{
           maskImage,
@@ -37,7 +37,7 @@ export function SubjectTypeSubtitle() {
         {activeNatures.map((nature) => (
           <div
             key={nature.value}
-            className="bg-accent border-border flex shrink-0 items-center justify-center gap-1 rounded-full border px-2.5 py-1.5"
+            className="flex shrink-0 items-center justify-center gap-1 rounded-full border border-border bg-accent px-2.5 py-1.5"
           >
             <div
               className="size-3 rounded-full"
@@ -51,7 +51,7 @@ export function SubjectTypeSubtitle() {
         {selectedCurriculum?.branchs.map((branch) => (
           <div
             key={branch.id}
-            className="bg-accent border-border flex shrink-0 items-center justify-center gap-1 rounded-full border px-2.5 py-1.5"
+            className="flex shrink-0 items-center justify-center gap-1 rounded-full border border-border bg-accent px-2.5 py-1.5"
           >
             <div
               className="size-3 rounded-full"

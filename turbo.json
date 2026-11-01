@@ -11,7 +11,10 @@
     "typecheck": {
       "dependsOn": ["^typecheck"]
     },
-    "lint": {},
+    "lint": {
+      "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/.oxlintrc.json"]
+    },
+    "test": {},
     "dev": {
       "cache": false,
       "persistent": true

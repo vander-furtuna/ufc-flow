@@ -80,7 +80,7 @@ export function CalendarView() {
       days.push(
         <div
           key={`empty-${i}`}
-          className="bg-muted/20 border-border h-full border md:h-full"
+          className="h-full border border-border bg-muted/20 md:h-full"
         />,
       )
     }
@@ -97,7 +97,7 @@ export function CalendarView() {
           key={day}
           onClick={() => handleDayClick(day)}
           className={cn(
-            'border-border hover:bg-accent/60 group bg-card relative h-full cursor-pointer overflow-hidden border p-1 transition-all sm:p-2 md:h-32',
+            'group relative h-full cursor-pointer overflow-hidden border border-border bg-card p-1 transition-all hover:bg-accent/60 sm:p-2 md:h-32',
             isWeekend && 'bg-muted/30',
           )}
         >
@@ -110,10 +110,10 @@ export function CalendarView() {
           <div className="relative z-10 flex items-start justify-between">
             <span
               className={cn(
-                'text-muted-foreground flex h-7 w-7 items-center justify-center rounded-md text-sm font-medium transition-colors',
-                hasEvents && 'bg-accent text-foreground border',
+                'flex h-7 w-7 items-center justify-center rounded-md text-sm font-medium text-muted-foreground transition-colors',
+                hasEvents && 'border bg-accent text-foreground',
                 d.toDateString() === new Date().toDateString() &&
-                  'bg-primary text-primary-foreground border',
+                  'border bg-primary text-primary-foreground',
               )}
             >
               {day}
@@ -129,16 +129,16 @@ export function CalendarView() {
                   <div
                     key={`${day}-${idx}`}
                     className={cn(
-                      'bg-accent text-foreground/90 truncate rounded px-1 py-0.5 text-[10px]',
+                      'truncate rounded bg-accent px-1 py-0.5 text-[10px] text-foreground/90',
                       event.isImportant &&
-                        'bg-compulsory text-background font-semibold',
+                        'bg-compulsory font-semibold text-background',
                     )}
                   >
                     {event.description}
                   </div>
                 ))}
               {dayEvents.length > 2 && (
-                <div className="text-muted-foreground pl-1 text-[10px] font-medium">
+                <div className="pl-1 text-[10px] font-medium text-muted-foreground">
                   + {dayEvents.length - 2}
                 </div>
               )}
@@ -146,7 +146,7 @@ export function CalendarView() {
           )}
 
           <div className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
-            <span className="bg-popover text-popover-foreground border-border rounded border px-2 py-1 text-[10px] backdrop-blur-sm">
+            <span className="rounded border border-border bg-popover px-2 py-1 text-[10px] text-popover-foreground backdrop-blur-sm">
               Ver Detalhes
             </span>
           </div>
@@ -158,41 +158,41 @@ export function CalendarView() {
   }
 
   return (
-    <div className="bg-card border-border flex max-h-full flex-col overflow-hidden rounded-lg border transition-colors">
-      <div className="bg-card border-border flex items-center justify-between border-b px-6 py-4">
-        <h2 className="text-card-foreground font-clash flex flex-col gap-x-1 text-2xl font-semibold capitalize sm:flex-row sm:items-center sm:text-3xl">
+    <div className="flex max-h-full flex-col overflow-hidden rounded-lg border border-border bg-card transition-colors">
+      <div className="flex items-center justify-between border-b border-border bg-card px-6 py-4">
+        <h2 className="flex flex-col gap-x-1 font-clash text-2xl font-semibold text-card-foreground capitalize sm:flex-row sm:items-center sm:text-3xl">
           {currentDate.toLocaleDateString('pt-BR', { month: 'long' })}
-          <span className="text-muted-foreground font-light">
+          <span className="font-light text-muted-foreground">
             {currentDate.getFullYear()}
           </span>
         </h2>
         <div className="flex items-center gap-2">
           <button
             onClick={prevMonth}
-            className="hover:bg-muted text-foreground border-border rounded-full border p-2 transition-colors"
+            className="rounded-full border border-border p-2 text-foreground transition-colors hover:bg-muted"
           >
             <CaretLeftIcon weight="bold" className="h-5 w-5" />
           </button>
           <button
             onClick={() => setCurrentDate(new Date())}
-            className="bg-muted hover:bg-accent text-foreground border-border hidden rounded-lg border px-4 py-2 text-xs font-medium transition-colors sm:block"
+            className="hidden rounded-lg border border-border bg-muted px-4 py-2 text-xs font-medium text-foreground transition-colors hover:bg-accent sm:block"
           >
             Resetar
           </button>
           <button
             onClick={nextMonth}
-            className="hover:bg-muted text-foreground border-border rounded-full border p-2 transition-colors"
+            className="rounded-full border border-border p-2 text-foreground transition-colors hover:bg-muted"
           >
             <CaretRightIcon weight="bold" className="h-5 w-5" />
           </button>
         </div>
       </div>
 
-      <div className="bg-muted/50 border-border grid grid-cols-7 border-b">
+      <div className="grid grid-cols-7 border-b border-border bg-muted/50">
         {daysOfWeek.map((day) => (
           <div
             key={day}
-            className="text-muted-foreground py-3 text-center text-xs font-bold tracking-wider uppercase"
+            className="py-3 text-center text-xs font-bold tracking-wider text-muted-foreground uppercase"
           >
             {day}
           </div>
@@ -201,7 +201,7 @@ export function CalendarView() {
 
       <div
         className={cn(
-          'border-border no-scrollbar grid max-h-full auto-rows-[8rem] grid-cols-7 overflow-y-auto border-l',
+          'grid max-h-full no-scrollbar auto-rows-[8rem] grid-cols-7 overflow-y-auto border-l border-border',
           isLoading && events.length === 0 && 'animate-pulse opacity-60',
         )}
       >

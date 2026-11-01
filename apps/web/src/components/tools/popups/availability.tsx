@@ -39,10 +39,10 @@ export function AvailabilityPopup() {
         />
       </PopoverTrigger>
       <PopoverContent
-        className="border-border bg-accent/50 flex w-fit flex-col gap-4 backdrop-blur-md"
+        className="flex w-fit flex-col gap-4 border-border bg-accent/50 backdrop-blur-md"
         side="top"
       >
-        <strong className="text-foreground text-center">Disponibilidade</strong>
+        <strong className="text-center text-foreground">Disponibilidade</strong>
 
         <RadioGroup
           defaultValue={availability}

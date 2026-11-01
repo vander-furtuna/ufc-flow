@@ -61,7 +61,7 @@ export function ViewSwitcher<T extends string>({
       role="tablist"
       aria-label={ariaLabel}
       className={cn(
-        'bg-muted/70 border-border/60 flex items-center rounded-xl border p-1 backdrop-blur-sm',
+        'flex items-center rounded-xl border border-border/60 bg-muted/70 p-1 backdrop-blur-sm',
         className,
       )}
     >
@@ -85,8 +85,8 @@ export function ViewSwitcher<T extends string>({
             className={cn(
               'flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-medium transition-all select-none sm:px-3 sm:text-sm',
               isSelected
-                ? 'bg-background text-foreground font-semibold shadow-xs'
-                : 'text-muted-foreground hover:text-foreground hover:bg-background/40',
+                ? 'bg-background font-semibold text-foreground shadow-xs'
+                : 'text-muted-foreground hover:bg-background/40 hover:text-foreground',
               disabled && 'cursor-not-allowed opacity-50',
             )}
             title={option.title}

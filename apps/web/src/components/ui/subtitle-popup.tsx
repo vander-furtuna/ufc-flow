@@ -19,10 +19,10 @@ export function SubtitlePopup() {
     <Popover>
       <PopoverTrigger asChild className="group">
         <Button size="icon" variant="ghost">
-          <InfoIcon weight="bold" className="text-muted-foreground size-4" />
+          <InfoIcon weight="bold" className="size-4 text-muted-foreground" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="border-border flex w-fit flex-col gap-4 bg-slate-100/50 backdrop-blur-md dark:bg-slate-800/50">
+      <PopoverContent className="flex w-fit flex-col gap-4 border-border bg-slate-100/50 backdrop-blur-md dark:bg-slate-800/50">
         <strong className="text-center text-slate-600 dark:text-slate-100">
           Tipo / Vertente
         </strong>

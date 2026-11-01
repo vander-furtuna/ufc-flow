@@ -8,7 +8,7 @@ export type SectionTitleProps = {
 } & React.HTMLAttributes<HTMLDivElement>
 
 export function Line() {
-  return <div className="bg-foreground/10 h-0.5 w-full" />
+  return <div className="h-0.5 w-full bg-foreground/10" />
 }
 
 export function SectionTitle({
@@ -28,7 +28,7 @@ export function SectionTitle({
       {...rest}
     >
       {['right', 'center'].includes(side) && <Line />}
-      <h2 className="text-md font-clash text-center font-semibold text-nowrap uppercase">
+      <h2 className="text-md text-center font-clash font-semibold text-nowrap uppercase">
         {children}
       </h2>
       {['center', 'left'].includes(side) && <Line />}

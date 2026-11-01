@@ -35,22 +35,22 @@ export function MealEmptyState({
       <Icon
         weight="bold"
         className={cn(
-          'text-muted-foreground/60 mb-3',
+          'mb-3 text-muted-foreground/60',
           isNoMeal ? 'size-10' : 'size-8',
         )}
       />
       {isNoMeal ? (
-        <h3 className="text-foreground text-base font-semibold">
+        <h3 className="text-base font-semibold text-foreground">
           {resolvedTitle}
         </h3>
       ) : (
-        <h4 className="text-foreground text-sm font-semibold">
+        <h4 className="text-sm font-semibold text-foreground">
           {resolvedTitle}
         </h4>
       )}
       <p
         className={cn(
-          'text-muted-foreground mt-1',
+          'mt-1 text-muted-foreground',
           isNoMeal ? 'max-w-md text-xs sm:text-sm' : 'text-xs',
         )}
       >

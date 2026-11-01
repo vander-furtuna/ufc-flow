@@ -129,7 +129,7 @@ export function SubjectItem({
       {...props}
       id={cardId}
       className={cn(
-        'bg-accent/70 border-border/50 group hover:border-border text-foreground/90 hover:bg-accent/90 relative flex w-full cursor-pointer items-start justify-between gap-2 overflow-hidden rounded-md border px-3 py-3 transition-all duration-300 aria-disabled:opacity-80',
+        'group relative flex w-full cursor-pointer items-start justify-between gap-2 overflow-hidden rounded-md border border-border/50 bg-accent/70 px-3 py-3 text-foreground/90 transition-all duration-300 hover:border-border hover:bg-accent/90 aria-disabled:opacity-80',
         isCompleted &&
           'border-emerald-300 bg-emerald-300/20 hover:border-emerald-400 hover:bg-emerald-300/30 dark:border-emerald-400/50 dark:bg-emerald-400/30 hover:dark:border-emerald-400 hover:dark:bg-emerald-400/40',
         isScheduled &&
@@ -185,7 +185,7 @@ export function SubjectItem({
                       return nextPinned
                     })
                   }}
-                  className="text-muted-foreground/80 hover:text-foreground inline-flex shrink-0 cursor-pointer items-center justify-center rounded-xs p-0.5 transition-colors focus:outline-hidden"
+                  className="inline-flex shrink-0 cursor-pointer items-center justify-center rounded-xs p-0.5 text-muted-foreground/80 transition-colors hover:text-foreground focus:outline-hidden"
                 >
                   <TagIcon weight="bold" className="size-4" />
                 </button>
@@ -198,7 +198,7 @@ export function SubjectItem({
                 onMouseLeave={() => {
                   if (!isPinned) setIsPopoverOpen(false)
                 }}
-                className="bg-popover/95 border-border/80 text-popover-foreground flex w-auto items-center gap-2 px-2.5 py-1.5 shadow-md backdrop-blur-xs"
+                className="flex w-auto items-center gap-2 border-border/80 bg-popover/95 px-2.5 py-1.5 text-popover-foreground shadow-md backdrop-blur-xs"
                 onClick={(e) => e.stopPropagation()}
               >
                 <span className="font-mono text-xs font-semibold select-all">
@@ -209,12 +209,12 @@ export function SubjectItem({
                   onClick={(e) => {
                     e.stopPropagation()
                     e.preventDefault()
-                    navigator.clipboard.writeText(subject.code)
+                    void navigator.clipboard.writeText(subject.code)
                     setIsCopied(true)
                     toast.success(`Código ${subject.code} copiado!`)
                     setTimeout(() => setIsCopied(false), 2000)
                   }}
-                  className="hover:bg-accent/80 text-muted-foreground hover:text-foreground flex items-center justify-center rounded-xs p-1 transition-colors"
+                  className="flex items-center justify-center rounded-xs p-1 text-muted-foreground transition-colors hover:bg-accent/80 hover:text-foreground"
                   title="Copiar código"
                 >
                   {isCopied ? (
@@ -228,7 +228,7 @@ export function SubjectItem({
                 </button>
               </PopoverContent>
             </Popover>
-            <span className="text-foreground text-start text-sm">
+            <span className="text-start text-sm text-foreground">
               {capitalizeWords(subject.name)}
             </span>
           </div>

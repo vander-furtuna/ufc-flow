@@ -68,7 +68,7 @@ export function SubjectDetailsPainel({
       </button>
       <h2
         className={cn(
-          'font-clash center mt-3 w-full text-center text-lg font-semibold drop-shadow-lg dark:text-slate-50',
+          'center mt-3 w-full text-center font-clash text-lg font-semibold drop-shadow-lg dark:text-slate-50',
           isInfoPanelOpen ? '' : 'mt-0 text-base',
         )}
       >
@@ -108,7 +108,7 @@ export function SubjectDetailsPainel({
       )}
 
       {isInfoPanelOpen && (
-        <div className="text-foreground/80 mt-3 text-[10px] italic sm:text-xs">
+        <div className="mt-3 text-[10px] text-foreground/80 italic sm:text-xs">
           {isPersistent
             ? 'Visualização travada. Clique na disciplina ativa para destravar.'
             : 'Passe o mouse ou clique em qualquer nó para analisar as dependências.'}
@@ -116,13 +116,13 @@ export function SubjectDetailsPainel({
       )}
 
       <button
-        className={cn('bg-accent/30 mt-2 rounded-full px-2 py-0.5')}
+        className={cn('mt-2 rounded-full bg-accent/30 px-2 py-0.5')}
         onClick={() => setIsInfoPanelOpen((prev) => !prev)}
       >
         <CaretUpIcon
           weight="bold"
           className={cn(
-            'text-foreground/85 size-6 transition-transform duration-300',
+            'size-6 text-foreground/85 transition-transform duration-300',
             isInfoPanelOpen ? '' : 'rotate-180',
           )}
         />

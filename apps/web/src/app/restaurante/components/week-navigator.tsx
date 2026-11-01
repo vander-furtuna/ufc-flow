@@ -58,7 +58,7 @@ export function WeekNavigator({
   }
 
   return (
-    <div className="bg-accent/40 border-border/70 flex w-full items-center justify-between gap-2 rounded-2xl border p-2 shadow-xs backdrop-blur-md">
+    <div className="flex w-full items-center justify-between gap-2 rounded-2xl border border-border/70 bg-accent/40 p-2 shadow-xs backdrop-blur-md">
       {/* Botão Semana Anterior */}
       <button
         type="button"
@@ -66,7 +66,7 @@ export function WeekNavigator({
         disabled={isLoading}
         title="Navegar para a semana anterior"
         className={cn(
-          'text-foreground hover:bg-accent/80 flex items-center gap-1 rounded-xl p-2 text-xs font-medium transition-all active:scale-95 sm:px-3 sm:py-2',
+          'flex items-center gap-1 rounded-xl p-2 text-xs font-medium text-foreground transition-all hover:bg-accent/80 active:scale-95 sm:px-3 sm:py-2',
           isLoading && 'cursor-not-allowed opacity-50',
         )}
       >
@@ -78,11 +78,11 @@ export function WeekNavigator({
       <div className="flex items-center gap-2">
         <div className="flex flex-col items-center justify-center text-center">
           <div className="flex items-center gap-1.5">
-            <span className="text-foreground text-sm font-semibold tracking-tight sm:text-base">
+            <span className="text-sm font-semibold tracking-tight text-foreground sm:text-base">
               {label || `Semana de ${weekStartDate}`}
             </span>
             {isCurrentWeek && (
-              <span className="bg-accent border-border text-foreground/90 relative inline-flex items-center gap-1 overflow-hidden rounded-full border px-2.5 py-0.5 text-[10px] font-semibold tracking-wider uppercase shadow-2xs select-none">
+              <span className="relative inline-flex items-center gap-1 overflow-hidden rounded-full border border-border bg-accent px-2.5 py-0.5 text-[10px] font-semibold tracking-wider text-foreground/90 uppercase shadow-2xs select-none">
                 <Glow
                   colors="#22d3ee"
                   className="pointer-events-none absolute -left-2 size-6 opacity-90 blur-xs"
@@ -99,7 +99,7 @@ export function WeekNavigator({
             onClick={onResetCurrentWeek}
             disabled={isLoading}
             title="Voltar para a semana atual"
-            className="text-muted-foreground hover:text-foreground hover:bg-accent flex items-center gap-1 rounded-lg border border-transparent px-2 py-1 text-xs font-medium transition-all"
+            className="flex items-center gap-1 rounded-lg border border-transparent px-2 py-1 text-xs font-medium text-muted-foreground transition-all hover:bg-accent hover:text-foreground"
           >
             <ArrowCounterClockwiseIcon
               weight="bold"
@@ -117,7 +117,7 @@ export function WeekNavigator({
         disabled={isLoading}
         title="Navegar para a próxima semana"
         className={cn(
-          'text-foreground hover:bg-accent/80 flex items-center gap-1 rounded-xl p-2 text-xs font-medium transition-all active:scale-95 sm:px-3 sm:py-2',
+          'flex items-center gap-1 rounded-xl p-2 text-xs font-medium text-foreground transition-all hover:bg-accent/80 active:scale-95 sm:px-3 sm:py-2',
           isLoading && 'cursor-not-allowed opacity-50',
         )}
       >

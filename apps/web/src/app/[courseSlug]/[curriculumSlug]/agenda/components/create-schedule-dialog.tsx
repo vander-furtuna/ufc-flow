@@ -49,7 +49,7 @@ export function CreateScheduleDialog({
     <Dialog {...props} open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="z-500 gap-0 p-0">
-        <DialogHeader className="border-border border-b p-5">
+        <DialogHeader className="border-b border-border p-5">
           <DialogTitle className="font-clash text-xl">
             Criar nova agenda
           </DialogTitle>

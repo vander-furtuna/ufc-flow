@@ -32,27 +32,27 @@ export function CampusSelector({
         <button
           type="button"
           className={cn(
-            'group bg-accent/60 hover:bg-accent/80 border-border/80 text-foreground flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-medium shadow-xs backdrop-blur-md transition-all active:scale-98 sm:text-sm',
+            'group flex items-center gap-2 rounded-full border border-border/80 bg-accent/60 px-3 py-1.5 text-xs font-medium text-foreground shadow-xs backdrop-blur-md transition-all hover:bg-accent/80 active:scale-98 sm:text-sm',
             disabled && 'cursor-not-allowed opacity-60',
           )}
           aria-label="Selecionar campus do Restaurante Universitário"
         >
           <MapPinIcon
             weight="bold"
-            className="text-primary size-4 shrink-0 transition-transform group-hover:scale-110"
+            className="size-4 shrink-0 text-primary transition-transform group-hover:scale-110"
           />
           <span className="hidden max-w-32.5 truncate font-medium tracking-tight sm:inline-block sm:max-w-none">
             {currentCampus.name}
           </span>
           <CaretDownIcon
             weight="bold"
-            className="text-muted-foreground size-3.5 shrink-0 transition-transform group-data-[state=open]:rotate-180"
+            className="size-3.5 shrink-0 text-muted-foreground transition-transform group-data-[state=open]:rotate-180"
           />
         </button>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="end" className="w-56 p-1.5">
-        <DropdownMenuLabel className="text-muted-foreground px-2 py-1 text-xs font-semibold">
+        <DropdownMenuLabel className="px-2 py-1 text-xs font-semibold text-muted-foreground">
           Selecione o Campus do RU
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
@@ -66,13 +66,13 @@ export function CampusSelector({
               onClick={() => onSelectCampus(campus.id)}
               className={cn(
                 'flex cursor-pointer items-center justify-between rounded-md px-2 py-2 text-xs transition-colors sm:text-sm',
-                isSelected && 'bg-primary/10 text-primary font-medium',
+                isSelected && 'bg-primary/10 font-medium text-primary',
               )}
             >
               <div className="flex flex-col">
                 <span className="leading-none font-medium">{campus.name}</span>
                 {campus.units && (
-                  <span className="text-muted-foreground mt-1 text-[11px] leading-tight">
+                  <span className="mt-1 text-[11px] leading-tight text-muted-foreground">
                     {campus.units.join(' • ')}
                   </span>
                 )}
@@ -81,7 +81,7 @@ export function CampusSelector({
               {isSelected && (
                 <CheckIcon
                   weight="bold"
-                  className="text-primary ml-2 size-4 shrink-0"
+                  className="ml-2 size-4 shrink-0 text-primary"
                 />
               )}
             </DropdownMenuItem>

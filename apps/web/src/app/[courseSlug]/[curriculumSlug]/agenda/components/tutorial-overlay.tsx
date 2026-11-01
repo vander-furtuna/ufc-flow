@@ -254,11 +254,11 @@ export function TutorialOverlay({
 
       {/* Tooltip Card */}
       <div
-        className="animate-in fade-in slide-in-from-bottom-4 bg-background dark:bg-background/60 flex w-[calc(100vw-32px)] max-w-87.5 flex-col space-y-4 overflow-hidden rounded-lg border shadow-2xl backdrop-blur-lg duration-300 md:w-87.5"
+        className="flex w-[calc(100vw-32px)] max-w-87.5 animate-in flex-col space-y-4 overflow-hidden rounded-lg border bg-background shadow-2xl backdrop-blur-lg duration-300 fade-in slide-in-from-bottom-4 md:w-87.5 dark:bg-background/60"
         style={getTooltipStyle()}
       >
-        <div className="bg-accent/90 flex items-center justify-between px-4 py-3">
-          <h3 className="font-clash text-foreground text-lg leading-tight font-semibold">
+        <div className="flex items-center justify-between bg-accent/90 px-4 py-3">
+          <h3 className="font-clash text-lg leading-tight font-semibold text-foreground">
             {step.title}
           </h3>
           <button
@@ -273,12 +273,12 @@ export function TutorialOverlay({
           {step.content}
         </p>
 
-        <div className="bg-accent/90 mt-auto flex items-center justify-between px-4 py-3">
+        <div className="mt-auto flex items-center justify-between bg-accent/90 px-4 py-3">
           <div className="flex gap-1">
             {TOUR_STEPS.map((_, i) => (
               <div
                 key={i}
-                className={`h-1.5 rounded-full transition-all ${i === stepIndex ? 'bg-primary w-6' : 'bg-foreground/20 w-1.5'}`}
+                className={`h-1.5 rounded-full transition-all ${i === stepIndex ? 'w-6 bg-primary' : 'w-1.5 bg-foreground/20'}`}
               />
             ))}
           </div>
@@ -294,7 +294,7 @@ export function TutorialOverlay({
             )}
             <button
               onClick={isLastStep ? onClose : onNext}
-              className="bg-primary text-primary-foreground flex items-center gap-1 rounded-md px-4 py-1.5 text-sm font-bold shadow-sm transition-colors"
+              className="flex items-center gap-1 rounded-md bg-primary px-4 py-1.5 text-sm font-bold text-primary-foreground shadow-sm transition-colors"
             >
               {isLastStep ? 'Concluir' : 'Próximo'}
               {!isLastStep && <ArrowRightIcon weight="bold" size={16} />}

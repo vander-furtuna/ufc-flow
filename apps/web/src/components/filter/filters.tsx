@@ -16,7 +16,7 @@ export function Filters() {
 
   return (
     <div
-      className="no-scrollbar relative z-100 flex w-full items-center gap-1.5 overflow-x-auto"
+      className="relative z-100 flex w-full no-scrollbar items-center gap-1.5 overflow-x-auto"
       ref={scrollRef}
       style={{
         maskImage,

@@ -325,10 +325,10 @@ export default function RestaurantePage() {
         <div className="flex flex-col gap-3">
           <div className="flex items-center justify-between gap-3 sm:gap-4">
             <div>
-              <h1 className="text-foreground font-clash text-3xl font-semibold tracking-tight sm:text-4xl">
+              <h1 className="font-clash text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
                 Cardápio do RU
               </h1>
-              <p className="text-muted-foreground text-sm">
+              <p className="text-sm text-muted-foreground">
                 Restaurante Universitário • {currentCampusInfo.name}
                 {currentCampusInfo.units &&
                   ` (${currentCampusInfo.units.join(', ')})`}
@@ -337,7 +337,7 @@ export default function RestaurantePage() {
 
             <div className="flex shrink-0 items-center gap-2.5 sm:gap-3">
               {isFetching && !isLoading && (
-                <div className="text-muted-foreground flex animate-pulse items-center gap-1.5 text-xs">
+                <div className="flex animate-pulse items-center gap-1.5 text-xs text-muted-foreground">
                   <ArrowsClockwiseIcon
                     weight="bold"
                     className="size-3.5 animate-spin"
@@ -352,13 +352,13 @@ export default function RestaurantePage() {
                 href="https://si3.ufc.br/public/jsp/restaurante_universitario/consulta_comensal_ru.jsf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group bg-accent/60 hover:bg-accent border-border/80 hover:border-border text-foreground flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-medium shadow-xs backdrop-blur-md transition-all active:scale-95 sm:text-sm"
+                className="group flex items-center gap-2 rounded-full border border-border/80 bg-accent/60 px-4 py-2 text-xs font-medium text-foreground shadow-xs backdrop-blur-md transition-all hover:border-border hover:bg-accent active:scale-95 sm:text-sm"
                 title="Recarregar cartão do RU (SI3)"
                 aria-label="Recarregar cartão do RU"
               >
                 <CreditCardIcon
                   weight="bold"
-                  className="text-primary size-4 shrink-0 transition-transform group-hover:scale-110"
+                  className="size-4 shrink-0 text-primary transition-transform group-hover:scale-110"
                 />
                 <span className="hidden font-medium sm:inline-block">
                   Recarga
@@ -442,22 +442,22 @@ export default function RestaurantePage() {
             isDayLoading ? (
               <RuSkeleton />
             ) : isDayError ? (
-              <div className="bg-destructive/10 border-destructive/30 flex flex-col items-center justify-center rounded-2xl border p-8 text-center">
+              <div className="flex flex-col items-center justify-center rounded-2xl border border-destructive/30 bg-destructive/10 p-8 text-center">
                 <WarningCircleIcon
                   weight="bold"
-                  className="text-destructive mb-2 size-8"
+                  className="mb-2 size-8 text-destructive"
                 />
-                <h3 className="text-foreground text-base font-semibold">
+                <h3 className="text-base font-semibold text-foreground">
                   Falha ao carregar o cardápio do dia
                 </h3>
-                <p className="text-muted-foreground mt-1 max-w-md text-xs">
+                <p className="mt-1 max-w-md text-xs text-muted-foreground">
                   {dayError?.message ||
                     'O servidor da UFC pode estar temporariamente indisponível.'}
                 </p>
                 <button
                   type="button"
                   onClick={() => refetchDay()}
-                  className="bg-primary text-primary-foreground hover:bg-primary/90 mt-4 rounded-xl px-4 py-2 text-xs font-medium transition-all"
+                  className="mt-4 rounded-xl bg-primary px-4 py-2 text-xs font-medium text-primary-foreground transition-all hover:bg-primary/90"
                 >
                   Tentar novamente
                 </button>
@@ -485,22 +485,22 @@ export default function RestaurantePage() {
           ) : isWeekLoading ? (
             <WeekSkeleton />
           ) : isWeekError ? (
-            <div className="bg-destructive/10 border-destructive/30 flex flex-col items-center justify-center rounded-2xl border p-8 text-center">
+            <div className="flex flex-col items-center justify-center rounded-2xl border border-destructive/30 bg-destructive/10 p-8 text-center">
               <WarningCircleIcon
                 weight="bold"
-                className="text-destructive mb-2 size-8"
+                className="mb-2 size-8 text-destructive"
               />
-              <h3 className="text-foreground text-base font-semibold">
+              <h3 className="text-base font-semibold text-foreground">
                 Falha ao carregar o cardápio da semana
               </h3>
-              <p className="text-muted-foreground mt-1 max-w-md text-xs">
+              <p className="mt-1 max-w-md text-xs text-muted-foreground">
                 {weekError?.message ||
                   'O servidor da UFC pode estar temporariamente indisponível.'}
               </p>
               <button
                 type="button"
                 onClick={() => refetchWeek()}
-                className="bg-primary text-primary-foreground hover:bg-primary/90 mt-4 rounded-xl px-4 py-2 text-xs font-medium transition-all"
+                className="mt-4 rounded-xl bg-primary px-4 py-2 text-xs font-medium text-primary-foreground transition-all hover:bg-primary/90"
               >
                 Tentar novamente
               </button>
@@ -538,7 +538,7 @@ export default function RestaurantePage() {
               </div>
 
               <div className="flex shrink-0 items-center gap-2">
-                <div className="bg-muted-foreground/50 h-4 w-px" />
+                <div className="h-4 w-px bg-muted-foreground/50" />
                 <button
                   type="button"
                   onClick={() => {
@@ -546,7 +546,7 @@ export default function RestaurantePage() {
                     setGlutenFree(false)
                     setLactoseFree(false)
                   }}
-                  className="text-foreground/90 hover:text-foreground transition-all ease-in-out not-disabled:active:scale-90 disabled:opacity-40"
+                  className="text-foreground/90 transition-all ease-in-out hover:text-foreground not-disabled:active:scale-90 disabled:opacity-40"
                   disabled={!onlyVegetarian && !glutenFree && !lactoseFree}
                   title="Limpar filtros"
                   aria-label="Limpar filtros de dieta"
@@ -558,7 +558,7 @@ export default function RestaurantePage() {
           }
         />
       </div>
-      <div className="to-background pointer-events-none fixed bottom-0 z-49 h-12 w-full bg-linear-to-b from-transparent" />
+      <div className="pointer-events-none fixed bottom-0 z-49 h-12 w-full bg-linear-to-b from-transparent to-background" />
     </div>
   )
 }

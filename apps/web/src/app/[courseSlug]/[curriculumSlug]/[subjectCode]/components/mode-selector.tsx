@@ -13,7 +13,7 @@ type ChangeModeButtonProps = ComponentProps<'button'> & {
 function ChangeModeButton({ isActive, ...props }: ChangeModeButtonProps) {
   return (
     <button
-      className="bg-accent text-foreground data-[state=active]:bg-foreground data-[state=active]:text-accent flex items-center gap-1 rounded-full px-2 py-1 text-sm text-nowrap transition-all duration-200"
+      className="flex items-center gap-1 rounded-full bg-accent px-2 py-1 text-sm text-nowrap text-foreground transition-all duration-200 data-[state=active]:bg-foreground data-[state=active]:text-accent"
       data-state={isActive ? 'active' : 'inactive'}
       {...props}
     />
@@ -22,7 +22,7 @@ function ChangeModeButton({ isActive, ...props }: ChangeModeButtonProps) {
 
 export function ModeSelector({ mode, setMode }: ModeSelectorProps) {
   return (
-    <div className="bg-accent/50 border-border absolute bottom-18 left-1/2 z-20 flex w-fit -translate-x-1/2 gap-1 rounded-full border px-2 py-1.5 shadow-lg backdrop-blur-md transition-colors duration-300">
+    <div className="absolute bottom-18 left-1/2 z-20 flex w-fit -translate-x-1/2 gap-1 rounded-full border border-border bg-accent/50 px-2 py-1.5 shadow-lg backdrop-blur-md transition-colors duration-300">
       <ChangeModeButton
         onClick={() => setMode('direct')}
         isActive={mode === 'direct'}

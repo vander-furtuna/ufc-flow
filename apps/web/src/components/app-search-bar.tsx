@@ -107,10 +107,10 @@ export function AppSearchBar({
         />
 
         {/* Pílula de Pesquisa */}
-        <div className="border-border bg-accent/70 relative flex h-12 w-full items-center justify-center gap-2 overflow-hidden rounded-full border px-3 shadow-lg backdrop-blur-md transition-all">
+        <div className="relative flex h-12 w-full items-center justify-center gap-2 overflow-hidden rounded-full border border-border bg-accent/70 px-3 shadow-lg backdrop-blur-md transition-all">
           <MagnifyingGlassIcon
             weight="bold"
-            className="text-muted-foreground size-5 shrink-0 sm:size-6"
+            className="size-5 shrink-0 text-muted-foreground sm:size-6"
           />
 
           <input
@@ -122,14 +122,14 @@ export function AppSearchBar({
             }}
             value={value}
             type="text"
-            className="placeholder:text-muted-foreground/70 h-full w-full border-0 bg-transparent text-sm outline-hidden transition-all"
+            className="h-full w-full border-0 bg-transparent text-sm outline-hidden transition-all placeholder:text-muted-foreground/70"
             placeholder={placeholder}
           />
 
           {value.length > 0 && onClear && (
             <button
               type="button"
-              className="text-muted-foreground hover:text-foreground cursor-pointer transition-all active:scale-90"
+              className="cursor-pointer text-muted-foreground transition-all hover:text-foreground active:scale-90"
               onClick={onClear}
               aria-label="Limpar pesquisa"
             >
@@ -139,11 +139,11 @@ export function AppSearchBar({
 
           {hasFilter && (
             <>
-              <div className="bg-muted-foreground/50 h-4 w-px shrink-0" />
+              <div className="h-4 w-px shrink-0 bg-muted-foreground/50" />
               <button
                 type="button"
                 onClick={handleFilterButtonClick}
-                className="text-accent-foreground/80 hover:text-accent-foreground cursor-pointer transition-all ease-in-out active:scale-90"
+                className="cursor-pointer text-accent-foreground/80 transition-all ease-in-out hover:text-accent-foreground active:scale-90"
                 aria-label="Opções de filtro"
               >
                 {filterIcon || (
@@ -154,7 +154,7 @@ export function AppSearchBar({
                         ? 'active'
                         : 'default'
                     }
-                    className="data-[state=active]:text-foreground size-5 sm:size-6"
+                    className="size-5 data-[state=active]:text-foreground sm:size-6"
                   />
                 )}
               </button>

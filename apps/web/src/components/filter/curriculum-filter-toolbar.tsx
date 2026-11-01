@@ -14,7 +14,7 @@ export function CurriculumFilterToolbar() {
       </div>
 
       <div className="flex shrink-0 items-center gap-2">
-        <div className="bg-muted-foreground/50 h-4 w-px" />
+        <div className="h-4 w-px bg-muted-foreground/50" />
         <button
           type="button"
           onClick={clearAllFilters}
@@ -22,7 +22,7 @@ export function CurriculumFilterToolbar() {
           disabled={!isFiltersActive}
           aria-label="Limpar todos os filtros"
         >
-          <BroomIcon weight="bold" className="text-foreground/90 size-5" />
+          <BroomIcon weight="bold" className="size-5 text-foreground/90" />
         </button>
       </div>
     </>

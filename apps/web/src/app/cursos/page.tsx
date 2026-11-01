@@ -24,13 +24,13 @@ export default function Home() {
         <article className="flex w-full flex-col items-center gap-4">
           <div className="flex w-full items-center gap-6">
             <Line />
-            <h1 className="font-clash text-foreground text-2xl font-semibold text-nowrap uppercase md:text-3xl">
+            <h1 className="font-clash text-2xl font-semibold text-nowrap text-foreground uppercase md:text-3xl">
               Escolha um curso
             </h1>
             <Line />
           </div>
           <div className="flex w-full items-center justify-start gap-1.5">
-            <StarIcon weight="bold" className="text-foreground size-5" />
+            <StarIcon weight="bold" className="size-5 text-foreground" />
             <span>Grade Vigente</span>
           </div>
           <div className="grid w-full grid-flow-row grid-cols-1 gap-4 lg:grid-cols-2">
@@ -50,7 +50,7 @@ export default function Home() {
           currentNavId="cursos"
         />
       </div>
-      <div className="to-background pointer-events-none fixed bottom-0 z-49 h-12 w-full bg-linear-to-b from-transparent" />
+      <div className="pointer-events-none fixed bottom-0 z-49 h-12 w-full bg-linear-to-b from-transparent to-background" />
     </main>
   )
 }

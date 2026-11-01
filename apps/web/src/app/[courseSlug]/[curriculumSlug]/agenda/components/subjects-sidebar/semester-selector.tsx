@@ -42,7 +42,7 @@ export function SemesterSelector() {
 
   return (
     <div className="flex w-full shrink-0 flex-col gap-1">
-      <span className="text-muted-foreground text-[10px] font-semibold tracking-wider uppercase">
+      <span className="text-[10px] font-semibold tracking-wider text-muted-foreground uppercase">
         Semestre Letivo
       </span>
       <Select
@@ -50,7 +50,7 @@ export function SemesterSelector() {
         onValueChange={handleSemesterChange}
         disabled={isClassLoading}
       >
-        <SelectTrigger className="bg-accent/40 border-border/70 h-9 w-full text-xs">
+        <SelectTrigger className="h-9 w-full border-border/70 bg-accent/40 text-xs">
           <SelectValue placeholder="Selecione o semestre" />
         </SelectTrigger>
         <SelectContent className="z-900">

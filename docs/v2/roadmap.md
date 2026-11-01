@@ -38,9 +38,9 @@ flowchart LR
 
 **Objetivo:** monorepo instalável e verde, com ferramentas finais (pnpm, Turborepo, oxlint) e banco de desenvolvimento.
 
-- [ ] `pnpm install` gera o `pnpm-lock.yaml`; `pnpm typecheck`, `pnpm lint` e `pnpm build` passam.
-- [ ] Corrigir `react-hooks/set-state-in-effect` em `apps/web/src/contexts/schedule.tsx`, por exemplo derivando o carregamento num `useEffect` assíncrono com flag de cancelamento, ou trocando por TanStack Query.
-- [ ] Migrar ESLint → oxlint (D19):
+- [x] `pnpm install` gera o `pnpm-lock.yaml`; `pnpm typecheck`, `pnpm lint` e `pnpm build` passam.
+- [x] Corrigir `react-hooks/set-state-in-effect` em `apps/web/src/contexts/schedule.tsx`, por exemplo derivando o carregamento num `useEffect` assíncrono com flag de cancelamento, ou trocando por TanStack Query. Corrigido também em `class.tsx` e, com a mudança mínima, em `calendar.tsx`.
+- [x] Migrar ESLint → oxlint (D19):
   - Rodar `pnpm dlx @oxlint/migrate apps/web/eslint.config.mjs`.
   - Criar a `.oxlintrc.json` na raiz com os plugins `typescript`, `react`, `nextjs`, `import` e `jsx-a11y`.
   - Ligar `eslint-plugin-react-hooks` como plugin JS e o type-aware com `oxlint-tsgolint`.
@@ -48,10 +48,12 @@ flowchart LR
   - Usar o Prettier só como formatador, com `prettier --check` no CI.
   - Script `lint` por pacote.
   - Confirmar a compatibilidade do tsgolint (TypeScript 7) com os tsconfig em TS 5.9.
-- [ ] `docker/compose.dev.yml` com PostgreSQL 17 (porta 5432, volume nomeado) e `.env.example` na raiz da API.
-- [ ] `main` × `master`: manter `main` como produção, apagar `master`, apontar Coolify e CI para `main`. CI em PRs para `develop` e `main`.
-- [ ] Unificar os bancos IndexedDB do web (`UFCFlowDB` + `ufc-flow-indexeddb`) num só, com migração dos dados existentes.
-- [ ] Vitest configurado no monorepo (`vitest.workspace` ou config por pacote) e tarefa `test` no `turbo.json`.
+- [x] `docker/compose.dev.yml` com PostgreSQL 17 (porta 5432, volume nomeado) e `.env.example` na raiz da API.
+- [ ] `main` × `master` (D20): `master` continua como produção.
+  - [x] CI em PRs para `develop` e `master`.
+  - [ ] Apagar `main` no remoto (`git push origin --delete main`) e conferir que o GitHub e o Coolify usam `master`.
+- [x] Unificar os bancos IndexedDB do web (`UFCFlowDB` + `ufc-flow-indexeddb`) num só, com migração dos dados existentes.
+- [x] Vitest configurado no monorepo (`vitest.workspace` ou config por pacote) e tarefa `test` no `turbo.json`.
 
 **Pronto quando:** CI verde em PR para `develop`; `docker compose -f docker/compose.dev.yml up` sobe o Postgres; nenhum dado local de usuário é perdido na unificação do IndexedDB.
 
@@ -268,4 +270,4 @@ flowchart LR
 - [ ] Termos de uso e política de privacidade versionados. `GET /me/export` e exclusão de conta com as regras de apagar e anonimizar da modelagem.
 - [ ] Coolify com três containers (`web`, `api`, `postgres`), volume de uploads e variáveis de ambiente documentadas.
 - [ ] Revisar os riscos em aberto: backup, identidade não verificada, dependência do HTML do SIGAA.
-- [ ] Release `release/v2.0.0` → `main` e `develop`, tag `v2.0.0`. Atualizar versão, README e documentos de GCS.
+- [ ] Release `release/v2.0.0` → `master` e `develop`, tag `v2.0.0`. Atualizar versão, README e documentos de GCS.

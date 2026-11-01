@@ -38,7 +38,7 @@ export function WeekBoard({
       {/* Sombra de overflow à esquerda para mobile e telas sem grid */}
       <div
         className={cn(
-          'from-background via-background/70 pointer-events-none absolute top-0 bottom-0 left-0 z-10 w-5 bg-linear-to-r to-transparent transition-opacity duration-300 lg:hidden',
+          'pointer-events-none absolute top-0 bottom-0 left-0 z-10 w-5 bg-linear-to-r from-background via-background/70 to-transparent transition-opacity duration-300 lg:hidden',
           showLeftShadow ? 'opacity-100' : 'opacity-0',
         )}
       />
@@ -46,7 +46,7 @@ export function WeekBoard({
       {/* Sombra de overflow à direita para mobile e telas sem grid */}
       <div
         className={cn(
-          'from-background via-background/70 pointer-events-none absolute top-0 right-0 bottom-0 z-10 w-5 bg-linear-to-l to-transparent transition-opacity duration-300 lg:hidden',
+          'pointer-events-none absolute top-0 right-0 bottom-0 z-10 w-5 bg-linear-to-l from-background via-background/70 to-transparent transition-opacity duration-300 lg:hidden',
           showRightShadow ? 'opacity-100' : 'opacity-0',
         )}
       />

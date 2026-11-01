@@ -25,13 +25,13 @@ export function SubjectTypeSubtitle() {
   return (
     <div className="relative w-full">
       <div
-        className="no-scrollbar relative flex w-full gap-2 overflow-x-auto"
+        className="relative flex w-full no-scrollbar gap-2 overflow-x-auto"
         ref={scrollRef}
       >
         {activeNatures.map((nature) => (
           <div
             key={nature.value}
-            className="bg-accent border-border flex shrink-0 items-center justify-center gap-1 rounded-full border px-2.5 py-1.5"
+            className="flex shrink-0 items-center justify-center gap-1 rounded-full border border-border bg-accent px-2.5 py-1.5"
           >
             <div
               className="size-3 rounded-full"
@@ -45,7 +45,7 @@ export function SubjectTypeSubtitle() {
         {selectedCurriculum?.branchs.map((branch) => (
           <div
             key={branch.id}
-            className="bg-accent border-border flex shrink-0 items-center justify-center gap-1 rounded-full border px-2.5 py-1.5"
+            className="flex shrink-0 items-center justify-center gap-1 rounded-full border border-border bg-accent px-2.5 py-1.5"
           >
             <div
               className="size-3 rounded-full"
@@ -63,14 +63,14 @@ export function SubjectTypeSubtitle() {
       <div
         aria-hidden="true"
         data-state={showLeftShadow ? 'visible' : 'hidden'}
-        className="from-background pointer-events-none absolute top-0 left-0 h-full w-16 bg-linear-to-r to-transparent transition-all duration-200 data-[state=hidden]:opacity-0 data-[state=visible]:opacity-100"
+        className="pointer-events-none absolute top-0 left-0 h-full w-16 bg-linear-to-r from-background to-transparent transition-all duration-200 data-[state=hidden]:opacity-0 data-[state=visible]:opacity-100"
       />
 
       {/* Sombra da Direita */}
       <div
         aria-hidden="true"
         data-state={showRightShadow ? 'visible' : 'hidden'}
-        className="from-background pointer-events-none absolute top-0 right-0 z-10 h-full w-16 bg-linear-to-l to-transparent transition-all duration-200 data-[state=hidden]:opacity-0 data-[state=visible]:opacity-100"
+        className="pointer-events-none absolute top-0 right-0 z-10 h-full w-16 bg-linear-to-l from-background to-transparent transition-all duration-200 data-[state=hidden]:opacity-0 data-[state=visible]:opacity-100"
       />
     </div>
   )
