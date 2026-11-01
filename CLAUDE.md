@@ -37,7 +37,7 @@ docs/v2/            documentação da v2 (este conjunto)
 
 ## Comandos
 
-Gerenciador: **pnpm 11** (versão fixada em `packageManager`). Node 22+. O usuário desenvolve no **Windows** (PowerShell); prefira comandos que funcionem lá.
+Gerenciador: **pnpm 11** (versão fixada em `packageManager`). Node 22 ou 24 (`engines`: `>=22 <25`). O usuário desenvolve no **Windows** (PowerShell); prefira comandos que funcionem lá.
 
 ```bash
 pnpm install                          # na raiz
