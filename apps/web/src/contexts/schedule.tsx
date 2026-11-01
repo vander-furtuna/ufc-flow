@@ -10,17 +10,11 @@ import type {
   ScheduledClass,
   ScheduledClassColor,
 } from '@/types/class'
+import type { Course, CurriculumStructure } from '@/types/course'
 import type { Schedule } from '@/types/schedule'
 import { checkTimeConflict } from '@/utils/check-time-conflict'
 import { resolveLegacyScheduleCourse } from '@/utils/resolve-schedule-course'
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react'
+import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import { toast } from 'sonner'
 import { useCourse } from './course'
 import { useClass } from './class'
@@ -49,6 +43,90 @@ const DISCIPLINE_COLORS: ScheduledClassColor[] = [
   'rose',
 ]
 
+type LoadCourseSchedulesParams = {
+  courses: Course[]
+  course: Course
+  curriculum: CurriculumStructure
+  year: number
+  semester: number
+}
+
+type LoadCourseSchedulesResult = {
+  // Agendas do curso e da EC, de todos os semestres
+  schedules: Schedule[]
+  // Agendas do semestre, da atualizada há mais tempo para a mais recente
+  termSchedules: Schedule[]
+  // Agenda padrão criada porque o semestre não tinha nenhuma
+  createdSchedule: Schedule | null
+}
+
+async function loadCourseSchedules({
+  courses,
+  course,
+  curriculum,
+  year,
+  semester,
+}: LoadCourseSchedulesParams): Promise<LoadCourseSchedulesResult> {
+  // Agendas antigas não guardavam o curso, só o id da estrutura curricular
+  // (que se repete entre cursos). Atribui o curso e persiste.
+  const storedSchedules = await getAllSchedules()
+  const resolvedSchedules = await Promise.all(
+    storedSchedules.map(async (schedule) => {
+      if (schedule.courseSlug && schedule.curriculumSlug) return schedule
+
+      const key = resolveLegacyScheduleCourse(schedule, courses, course.slug)
+      if (!key) return schedule
+
+      const migrated = { ...schedule, ...key }
+      await saveSchedule(migrated)
+      return migrated
+    }),
+  )
+
+  const normalizedSchedules = resolvedSchedules
+    .filter(
+      (s) =>
+        s.courseSlug === course.slug && s.curriculumSlug === curriculum.slug,
+    )
+    .map((s) => ({
+      ...s,
+      year: s.year ?? DEFAULT_YEAR,
+      semester: s.semester ?? DEFAULT_SEMESTER,
+    }))
+
+  const termSchedules = normalizedSchedules
+    .filter((s) => s.year === year && s.semester === semester)
+    .sort((a, b) => a.updatedAt - b.updatedAt)
+
+  if (termSchedules.length > 0) {
+    return {
+      schedules: normalizedSchedules,
+      termSchedules,
+      createdSchedule: null,
+    }
+  }
+
+  const defaultSchedule: Schedule = {
+    id: uuidv4(),
+    courseId: course.id,
+    courseSlug: course.slug,
+    curriculumSlug: curriculum.slug,
+    year,
+    semester,
+    name: 'Meu Cronograma',
+    createdAt: Date.now(),
+    updatedAt: Date.now(),
+    classes: [],
+  }
+
+  await saveSchedule(defaultSchedule)
+  return {
+    schedules: [...normalizedSchedules, defaultSchedule],
+    termSchedules: [defaultSchedule],
+    createdSchedule: defaultSchedule,
+  }
+}
+
 type ScheduleContextData = {
   currentSchedule: Schedule | null
   completedSubjects: string[]
@@ -75,10 +153,17 @@ export function ScheduleProvider({ children }: { children: React.ReactNode }) {
   const [allSchedules, setAllSchedules] = useState<Schedule[]>([])
   const [currentSchedule, setCurrentSchedule] = useState<Schedule | null>(null)
   const [completedSubjects, setCompletedSubjects] = useState<string[]>([])
-  const [isScheduleLoading, setIsScheduleLoading] = useState<boolean>(true)
+  const [loadedKey, setLoadedKey] = useState<string | null>(null)
 
   const activeYear = currentYear ?? DEFAULT_YEAR
   const activeSemester = currentSemester ?? DEFAULT_SEMESTER
+
+  // Carregando enquanto as agendas do curso e semestre atuais não chegaram
+  const scheduleKey =
+    selectedCourse && selectedCurriculum
+      ? `${selectedCourse.slug}/${selectedCurriculum.slug}/${activeYear}.${activeSemester}`
+      : null
+  const isScheduleLoading = scheduleKey !== null && loadedKey !== scheduleKey
 
   const schedules = useMemo(() => {
     return allSchedules.filter(
@@ -225,12 +310,12 @@ export function ScheduleProvider({ children }: { children: React.ReactNode }) {
           ])
 
     const newClasses = [...otherClasses, { ...section, color: newColor }]
-    updateCurrentSchedule(newClasses)
+    void updateCurrentSchedule(newClasses)
   }
 
   const removeClassFromSchedule = (section: ScheduledClass) => {
     const newClasses = scheduleClasses.filter((cls) => cls.id !== section.id)
-    updateCurrentSchedule(newClasses)
+    void updateCurrentSchedule(newClasses)
   }
 
   const deleteSchedule = async (id: string) => {
@@ -260,92 +345,54 @@ export function ScheduleProvider({ children }: { children: React.ReactNode }) {
         console.error('Failed to initialize global prefs:', error)
       }
     }
-    initGlobal()
+    void initGlobal()
   }, [])
 
-  const init = useCallback(async () => {
-    try {
-      setIsScheduleLoading(true)
-
-      if (!selectedCourse || !selectedCurriculum) {
-        console.warn('No curriculum selected, skipping schedule init.')
-        return
-      }
-
-      // Agendas antigas não guardavam o curso, só o id da estrutura curricular
-      // (que se repete entre cursos). Atribui o curso e persiste.
-      const storedSchedules = await getAllSchedules()
-      const resolvedSchedules = await Promise.all(
-        storedSchedules.map(async (schedule) => {
-          if (schedule.courseSlug && schedule.curriculumSlug) return schedule
-
-          const key = resolveLegacyScheduleCourse(
-            schedule,
-            courses,
-            selectedCourse.slug,
-          )
-          if (!key) return schedule
-
-          const migrated = { ...schedule, ...key }
-          await saveSchedule(migrated)
-          return migrated
-        }),
-      )
-
-      const savedSchedules = resolvedSchedules.filter(
-        (s) =>
-          s.courseSlug === selectedCourse.slug &&
-          s.curriculumSlug === selectedCurriculum.slug,
-      )
-
-      const normalizedSchedules = savedSchedules.map((s) => ({
-        ...s,
-        year: s.year ?? DEFAULT_YEAR,
-        semester: s.semester ?? DEFAULT_SEMESTER,
-      }))
-
-      const filtered = normalizedSchedules.filter(
-        (s) => s.year === activeYear && s.semester === activeSemester,
-      )
-
-      if (filtered.length === 0) {
-        const defaultSchedule: Schedule = {
-          id: uuidv4(),
-          courseId: selectedCourse.id,
-          courseSlug: selectedCourse.slug,
-          curriculumSlug: selectedCurriculum.slug,
-          year: activeYear,
-          semester: activeSemester,
-          name: 'Meu Cronograma',
-          createdAt: Date.now(),
-          updatedAt: Date.now(),
-          classes: [],
-        }
-
-        await saveSchedule(defaultSchedule)
-        setAllSchedules([...normalizedSchedules, defaultSchedule])
-        setCurrentSchedule(defaultSchedule)
-      } else {
-        const sortedSchedules = filtered.sort(
-          (a, b) => a.updatedAt - b.updatedAt,
-        )
-
-        setAllSchedules(normalizedSchedules)
-        setCurrentSchedule((prev) => {
-          const stillExists = sortedSchedules.find((s) => s.id === prev?.id)
-          return stillExists ? prev : sortedSchedules[0]
-        })
-      }
-    } catch (error) {
-      console.error('Error initializing schedule context:', error)
-    } finally {
-      setIsScheduleLoading(false)
-    }
-  }, [courses, selectedCourse, selectedCurriculum, activeYear, activeSemester])
-
   useEffect(() => {
-    init()
-  }, [init])
+    if (!selectedCourse || !selectedCurriculum || !scheduleKey) return
+
+    // Descarta o resultado se o curso ou o semestre mudarem antes dele chegar
+    let cancelled = false
+    void loadCourseSchedules({
+      courses,
+      course: selectedCourse,
+      curriculum: selectedCurriculum,
+      year: activeYear,
+      semester: activeSemester,
+    })
+      .then((result) => {
+        if (cancelled) return
+
+        setAllSchedules(result.schedules)
+        if (result.createdSchedule) {
+          setCurrentSchedule(result.createdSchedule)
+        } else {
+          setCurrentSchedule((prev) => {
+            const stillExists = result.termSchedules.find(
+              (s) => s.id === prev?.id,
+            )
+            return stillExists ? prev : (result.termSchedules[0] ?? null)
+          })
+        }
+      })
+      .catch((error: unknown) => {
+        console.error('Error initializing schedule context:', error)
+      })
+      .finally(() => {
+        if (!cancelled) setLoadedKey(scheduleKey)
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [
+    scheduleKey,
+    courses,
+    selectedCourse,
+    selectedCurriculum,
+    activeYear,
+    activeSemester,
+  ])
 
   const value = {
     schedules,

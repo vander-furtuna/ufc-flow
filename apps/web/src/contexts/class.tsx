@@ -43,10 +43,18 @@ export function ClassProvider({ children }: { children: ReactNode }) {
       ? parseInt(process.env.NEXT_PUBLIC_CURRENT_SEMESTER)
       : 2,
   )
-  const [isClassLoading, setIsClassLoading] = useState<boolean>(false)
+  const [isRefreshing, setIsRefreshing] = useState<boolean>(false)
+  const [loadedKey, setLoadedKey] = useState<string | null>(null)
 
   const [currentClassGroup, setCurrentClassGroup] =
     useState<StorageClass | null>(null)
+
+  // Carregando enquanto as turmas do curso e semestre atuais não chegaram
+  const classGroupKey = selectedCourse
+    ? `${selectedCourse.id}-${currentYear}-${currentSemester}`
+    : null
+  const isClassLoading =
+    isRefreshing || (classGroupKey !== null && loadedKey !== classGroupKey)
 
   // const handleSaveScheduleData = useCallback(async () => {
   //   const data = await fetchScheduleData(
@@ -79,27 +87,10 @@ export function ClassProvider({ children }: { children: ReactNode }) {
     [currentClassGroup],
   )
 
-  const handleFetchScheduleData = useCallback(
-    async (courseId: string, year: number, semester: number) => {
-      try {
-        if (!selectedCourse) return
-        setIsClassLoading(true)
-        const data = await fetchScheduleData(courseId, year, semester)
-        setCurrentClassGroup(data)
-      } catch (error) {
-        console.error('Error fetching schedule data:', error)
-        setCurrentClassGroup(null)
-      } finally {
-        setIsClassLoading(false)
-      }
-    },
-    [fetchScheduleData, selectedCourse],
-  )
-
   const handleRefreshSubjectInformations = useCallback(async () => {
     try {
       if (!selectedCourse) return
-      setIsClassLoading(true)
+      setIsRefreshing(true)
       const data = await refreshScheduleData(
         selectedCourse.id,
         currentYear,
@@ -110,17 +101,36 @@ export function ClassProvider({ children }: { children: ReactNode }) {
       console.error('Error refreshing schedule data:', error)
       setCurrentClassGroup(null)
     } finally {
-      setIsClassLoading(false)
+      setIsRefreshing(false)
     }
   }, [refreshScheduleData, currentYear, currentSemester, selectedCourse])
 
   useEffect(() => {
-    handleFetchScheduleData(
-      selectedCourse?.id ?? '',
-      currentYear,
-      currentSemester,
-    )
-  }, [currentYear, currentSemester, selectedCourse, handleFetchScheduleData])
+    if (!selectedCourse || !classGroupKey) return
+
+    // Descarta a resposta se o curso ou o semestre mudarem antes dela chegar
+    let cancelled = false
+    void fetchScheduleData(selectedCourse.id, currentYear, currentSemester)
+      .catch((error: unknown) => {
+        console.error('Error fetching schedule data:', error)
+        return null
+      })
+      .then((data) => {
+        if (cancelled) return
+        setCurrentClassGroup(data)
+        setLoadedKey(classGroupKey)
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [
+    classGroupKey,
+    currentYear,
+    currentSemester,
+    selectedCourse,
+    fetchScheduleData,
+  ])
 
   const value = useMemo(
     () => ({

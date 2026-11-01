@@ -64,10 +64,17 @@ export function CalendarProvider({ children }: { children: React.ReactNode }) {
 
   // Sincroniza a data da última atualização ao entrar na página do calendário
   useEffect(() => {
-    if (isCalendarPage && currentYear) {
-      updateLastUpdateTime()
+    if (!isCalendarPage || !currentYear) return
+
+    let cancelled = false
+    void getCalendarLastUpdateTime(currentYear).then((time) => {
+      if (!cancelled) setLastUpdatedAt(time)
+    })
+
+    return () => {
+      cancelled = true
     }
-  }, [isCalendarPage, currentYear, updateLastUpdateTime])
+  }, [isCalendarPage, currentYear, getCalendarLastUpdateTime])
 
   const refetchCalendar = useCallback(async () => {
     if (!currentYear) return
