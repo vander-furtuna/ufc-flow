@@ -1,6 +1,6 @@
 # Estado atual do repositório
 
-Retrato em 31/10/2026, ao fim da fase 0. Atualize este arquivo ao fim de cada fase do [roadmap](roadmap.md).
+Retrato em 01/11/2026, ao fim da fase 1. Atualize este arquivo ao fim de cada fase do [roadmap](roadmap.md).
 
 ## Branches
 
@@ -37,21 +37,22 @@ A `main` foi apagada no remoto (D20). As branches já mescladas ficam por enquan
   - IndexedDB unificado no `UFCFlowDB` v7, com migração e testes (`apps/web/src/lib/ufc-flow-db.test.ts`).
   - `docker/compose.dev.yml` (PostgreSQL 17) e `apps/api/.env.example`.
   - CI em PRs para `develop` e `master`, com formatação e testes.
-- **Modelagem v2 fechada** ([modelagem.md](modelagem.md)), com 20 decisões (D1–D20) e 11 lacunas resolvidas (L1–L11).
+- **Fase 1 — `packages/academic-core`** (branch `feature/fase-1-academic-core`):
+  - Requisitos (`RequirementExpr`): parse do texto do SIGAA, formatação, normalização, códigos citados, avaliação com equivalências e detecção de ciclos.
+  - Termo letivo, conflito de horário e regras da agenda.
+  - Regras do histórico, progresso de integralização e disciplinas liberadas.
+  - Menções `@CÓDIGO` e normalização de busca.
+  - 176 testes, cobertura acima de 90% (mínimo configurado no `vitest.config.ts` do pacote). Sem dependências de execução.
+  - O web usa o conflito de horário (`utils/check-time-conflict.ts` virou adaptador) e a normalização (`utils/normalize-words.ts` reexporta) do pacote.
+- **Modelagem v2 fechada** ([modelagem.md](modelagem.md)), com 29 decisões (D1–D29) e 11 lacunas resolvidas (L1–L11).
 - **39 telas desenhadas** para desktop, mobile e extensão ([telas.md](telas.md)).
 
 ## Pendências imediatas
 
-Nenhuma. A fase 0 está pronta:
+1. PR de `feature/fase-1-academic-core` para `develop`, com CI verde.
+2. Conferir no navegador a agenda (adicionar turmas com e sem conflito de horário) e a busca de disciplinas.
 
-- CI verde no PR #61 para `develop`.
-- `docker compose -f docker/compose.dev.yml up -d` sobe o PostgreSQL 17 (healthy, porta 5432).
-- No navegador, com dados reais, filtros, ferramentas e agendas continuam lá depois da migração para o `UFCFlowDB` v7.
-- O Vercel de testes publica com o Root Directory em `apps/web`.
-- A `main` foi apagada; produção segue em `master`.
-- Os avisos de acessibilidade foram corrigidos. Exceção pontual à D10: `calendario/components/calendar-view.tsx` passou a usar `<button>` na célula do dia, sem mudar o comportamento.
-
-Próximo passo: fases 1 (`packages/academic-core`) e 2 (`packages/contracts`), que dependem só da fase 0.
+Próximo passo: fase 2 (`packages/contracts`). Pela D29, os schemas Zod tipam contra os tipos do `academic-core`.
 
 ## Divergências entre a modelagem e o repositório
 

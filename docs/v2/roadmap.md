@@ -61,25 +61,25 @@ flowchart LR
 
 **Objetivo:** todas as regras acadêmicas puras, 100% testadas, usadas depois por web, API e extensão. Modelagem: Catálogo acadêmico (Requisitos como expressão), Turmas e agendas (Agenda), Vida acadêmica (Regras do histórico, Progresso), Fórum (Menções).
 
-- [ ] `RequirementExpr` (`subject` | `and` | `or`):
+- [x] `RequirementExpr` (`subject` | `and` | `or`):
   - Parse do texto do SIGAA (`( ECO0018 E ( SBL0084 OU CEC0022 ) )`) para árvore, respeitando parênteses e precedência.
   - Serialização de volta para texto.
   - Extração dos códigos citados.
   - Avaliação contra um conjunto de disciplinas cumpridas, considerando equivalências.
   - Detecção de ciclos num conjunto de disciplinas.
-- [ ] Termo letivo: parse e comparação de `"2026.1"`, próximo e anterior.
-- [ ] Conflito de horário entre slots (`weekday`, `start_time`, `end_time`). Portar e substituir `apps/web/src/utils/check-time-conflict`.
-- [ ] Regras do agregado de agenda: no máximo uma turma por disciplina e nenhum conflito.
-- [ ] Regras do histórico (tabela "Regras do histórico"):
+- [x] Termo letivo: parse e comparação de `"2026.1"`, próximo e anterior.
+- [x] Conflito de horário entre slots (`weekday`, `start_time`, `end_time`). Portar e substituir `apps/web/src/utils/check-time-conflict`.
+- [x] Regras do agregado de agenda: no máximo uma turma por disciplina e nenhum conflito.
+- [x] Regras do histórico (tabela "Regras do histórico"):
   - Uma tentativa em aberto por disciplina.
   - Fechamento de `CURSANDO`.
   - Nova tentativa só depois de `REPROVADO`, `TRANCADA` ou `SUPRIMIDA`, em semestre posterior.
   - `APROVEITADA` lançada direto.
-  - Faixa de nota por situação.
-- [ ] Cálculo de progresso de integralização: obrigatórias, optativas mais livres com teto, cada vertente (horas e componentes), complementares por categoria com teto, extensão e total.
-- [ ] Disciplinas liberadas para cursar, a partir do histórico e da EC.
-- [ ] Extração de menções `@([A-Z]{2,5}\d{3,5})`.
-- [ ] Normalização de busca (sem acento, minúsculas), compartilhada com o web.
+  - Faixa de nota por situação (D25: 0 a 10 com duas casas, sem mínimo ou máximo por situação).
+- [x] Cálculo de progresso de integralização: obrigatórias, optativas mais livres com teto, cada vertente (horas e componentes), complementares por categoria com teto, extensão e total.
+- [x] Disciplinas liberadas para cursar, a partir do histórico e da EC.
+- [x] Extração de menções `@([A-Z]{2,5}\d{3,5})`.
+- [x] Normalização de busca (sem acento, minúsculas), compartilhada com o web.
 
 **Pronto quando:** o pacote tem cobertura de pelo menos 90%, não depende de framework nem de I/O, e o web já usa o conflito de horário daqui.
 
