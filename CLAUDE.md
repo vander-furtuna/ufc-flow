@@ -24,7 +24,7 @@ Ao começar uma fase, leia a seção correspondente do roadmap, as seções da m
 apps/
   web/              Next.js 16 + React 19 (o front atual, @ufc-flow/web)
   api/              NestJS + Drizzle + PostgreSQL (@ufc-flow/api) — placeholder
-  extension/        extensão do SIGAA, Plasmo (@ufc-flow/extension) — placeholder
+  extension/        extensão do SIGAA, Plasmo (@ufc-flow/extension)
 packages/
   contracts/        schemas Zod compartilhados (@ufc-flow/contracts)
   academic-core/    regras acadêmicas puras, sem framework (@ufc-flow/academic-core)
@@ -51,6 +51,7 @@ pnpm --filter @ufc-flow/academic-core add -D vitest   # dependência num pacote
 
 - Rode `pnpm typecheck`, `pnpm lint` e os testes do pacote afetado antes de dizer que uma tarefa está pronta.
 - Variáveis do web: `apps/web/.env.local` (modelo em `apps/web/.env.example`).
+- Extensão: `pnpm --filter @ufc-flow/extension dev` ou `build` (gera o zod empacotado e o CSS do Tailwind antes do Plasmo). Carregue `apps/extension/build/chrome-mv3-prod` sem empacotar. HTML real do SIGAA para testes fica em `apps/extension/src/sigaa/__fixtures__`; nunca versione páginas com dados pessoais (a tela de busca traz o nome do usuário).
 - O CI (`.github/workflows/ci.yml`) roda em PRs para `develop` e `master`: install com `--frozen-lockfile`, `format:check`, lint (oxlint type-aware), typecheck, test e build.
 
 ## Regras do projeto
@@ -100,5 +101,5 @@ Comando: `/iniciar-fase <n>` prepara o trabalho de uma fase do roadmap (leitura,
 
 Ficam ao lado deste, em `C:\Users\furtu\www\`:
 
-- `sigaa-classes-scraping/` — extensão Plasmo atual. **Tem trabalho não commitado** (`parser.ts`, `scraping.ts`, `content.tsx`, `components/Dashboard.tsx`, fontes em `assets/`): migre a partir da cópia de trabalho, não do histórico do git. Contém o bug que transforma todo `OU` dos requisitos em `E`.
+- `sigaa-classes-scraping/` — extensão Plasmo antiga, já migrada e substituída por `apps/extension` (fase 3). Não é mais a referência.
 - `sigaa-course-maker/` — editor de grades (Vite + React). Suas funções viram a área `/admin` do web; não é migrado como app.

@@ -100,17 +100,18 @@ flowchart LR
 
 **Objetivo:** substituir a extensão atual por uma que lê requisitos como expressão, gera `CurriculumImportV1` e envia ao Flow. Modelagem: Importação e edição de grades (Fluxo). Telas: `Ext-*` (9).
 
-- [ ] Migrar a **cópia de trabalho** de `C:\Users\furtu\www\sigaa-classes-scraping` (inclui arquivos não commitados) para `apps/extension`, em Plasmo, dentro do workspace pnpm.
-- [ ] Trocar o parser de requisitos pelo do `academic-core`. Corrige o bug que transforma `OU` em `E`. Cobrir com testes usando HTML real salvo do SIGAA (`example.html` do repositório antigo) como fixture.
-- [ ] Gerar `CurriculumImportV1` validado com `packages/contracts` antes de oferecer envio ou download.
-- [ ] UI nova conforme as telas:
+- [x] Migrar a **cópia de trabalho** de `C:\Users\furtu\www\sigaa-classes-scraping` (inclui arquivos não commitados) para `apps/extension`, em Plasmo, dentro do workspace pnpm.
+- [x] Trocar o parser de requisitos pelo do `academic-core`. Corrige o bug que transforma `OU` em `E`. Cobrir com testes usando HTML real salvo do SIGAA (`example.html` do repositório antigo) como fixture. Cobre 11 ECs reais com ênfases, grupos, internatos e componentes anuais.
+- [x] Gerar `CurriculumImportV1` validado com `packages/contracts` antes de oferecer envio ou download.
+- [x] UI nova conforme as telas:
   - Popup fora do SIGAA, com login para moderadores e estado de estrutura detectada (claro e escuro).
   - Botão flutuante na página do SIGAA.
   - Painel com grade, vertentes, regras e revisão.
-  - Modais de envio concluído e de envio pendente (curso inexistente).
-- [ ] Login com e-mail e senha da API (Bearer em `chrome.storage`) e envio para `POST /ingestion/curriculum-imports`. Até a fase 5, o envio fica atrás de uma flag e só o download do JSON funciona.
+  - Os modais de envio concluído e pendente (`Ext-Envio-*`) foram para a fase 5, junto com o envio.
+- [x] Código do curso no SIGAA (D34): captura do curso selecionado na tela de busca, reconhecimento pelo cabeçalho (`matchSigaaCourse`) e escolha manual, com o catálogo da lista pública embutido até a fase 5.
+- [x] Telas de login e envio atrás da flag `PLASMO_PUBLIC_FLOW_SYNC`, desligada (D41). A ligação com a API foi para as fases 4 (login) e 5 (envio).
 
-**Pronto quando:** a extensão extrai Eng. de Computação 2025.1 do SIGAA e o JSON passa no schema, com as expressões `OU` preservadas.
+**Pronto quando:** a extensão extrai uma EC real do SIGAA e o JSON passa no schema, com as expressões `OU` preservadas. A 2025.1 de Eng. de Computação não existe (D33); a conferência foi feita com as 11 ECs salvas e com o fluxo completo simulado (tela de busca, lupa, estrutura).
 
 ## Fase 4 — API e identidade (`apps/api`)
 
@@ -129,6 +130,7 @@ flowchart LR
 - [ ] Recuperação de senha manual: o admin gera um link de uso único válido por 24 h.
 - [ ] Solicitação de moderação, com aprovação e rejeição pelo admin.
 - [ ] `AccessPolicy` com todas as linhas da Matriz de permissões, testadas sem banco.
+- [ ] Login da extensão: `POST /v1/auth/sign-in` com Bearer guardado no `chrome.storage`, ligando a tela que já existe atrás da flag (D41).
 - [ ] Seed do primeiro admin por comando (`pnpm --filter @ufc-flow/api seed:admin`).
 - [ ] Web como BFF: tokens em cookies httpOnly, chamadas à API feitas no servidor, telas `Main` e `Mobile-Entrar`, menu do usuário no header.
 - [ ] Testes: unitários no domínio, casos de uso com repositórios em memória, integração Drizzle com Testcontainers e e2e com supertest.
@@ -139,16 +141,18 @@ flowchart LR
 
 **Objetivo:** o catálogo sai do `courses.ts` e vai para o banco, com a área administrativa no lugar do course-maker. Modelagem: Catálogo acadêmico, Importação e edição de grades. Telas: `Admin-EC`, `Mobile-Admin-EC`, `Mobile-Admin-EC-Editar`, `Ext-Envio-*`.
 
+- [ ] Catálogo `sigaa_courses` (D34): tarefa agendada que lê a lista pública de cursos do SIGAA (windows-1252, sem login), com execução manual pelo admin; criar curso no Flow é escolher deste catálogo. A extensão passa a usar `GET` do catálogo no lugar do JSON embutido.
 - [ ] Tabelas do catálogo: `campuses`, `courses`, `curricula`, `subjects`, `curriculum_subjects`, os derivados `*_requirements`, `branches`, `curriculum_subject_branches`, `subject_equivalences` e `subject_equivalence_codes`.
 - [ ] Agregado `Curriculum` com o ciclo DRAFT → PUBLISHED e **todas** as linhas da tabela "Ciclo de vida e edição" como testes. Auditoria em `audit_logs`.
 - [ ] `is_current` manual, uma por curso, trocada numa transação.
 - [ ] `POST /ingestion/curriculum-imports`:
   - Validação pelo schema e JSON bruto guardado.
-  - Curso localizado por `sigaa_id`; se não existir, a importação fica pendente.
+  - Curso localizado por `sigaa_id` e conferido contra a matriz e a unidade do arquivo; se não existir, a importação fica pendente.
   - Disciplinas reaproveitadas, e divergências viram conflitos.
   - Diff ao reimportar.
   - Checagem de publicação: natureza, vertentes, ciclos e códigos.
 - [ ] Endpoints públicos de leitura do catálogo para o web, com cache.
+- [ ] Extensão: envio para `POST /ingestion/curriculum-imports` (ligar a flag `PLASMO_PUBLIC_FLOW_SYNC`), modais `Ext-Envio-Concluido` e `Ext-Envio-Pendente`, envios recentes no popup e aviso de nome diferente do catálogo do Flow na aba Revisar.
 - [ ] Seed: converter os 6 cursos e 9 ECs de `apps/web/src/data/courses.ts` em `CurriculumImportV1` e passar pelo mesmo pipeline. Os requisitos entram como `E` de todos os códigos e ficam marcados para reimportação.
 - [ ] Web `/admin`:
   - Cursos.
@@ -210,6 +214,7 @@ flowchart LR
 
 - [ ] `student_enrollments`, `student_subject_records`, `activity_categories` e `student_activity_records`.
 - [ ] Agregado `AcademicRecord` usando as regras do `academic-core`.
+- [ ] Progresso com a exigência de complementares lida do componente `COMPLEMENTARY_ACTIVITY` e o total da D27 revisto (D40); ênfases exigidas e permitidas e máximos de grupo (D37).
 - [ ] Troca de EC no mesmo curso, auditada, e transferência interna, que cria nova matrícula.
 - [ ] Lançamento de atividades com certificado (fase 8) e categorias por EC, cadastradas por moderadores.
 - [ ] Minha área:
