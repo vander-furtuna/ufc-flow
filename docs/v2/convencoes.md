@@ -33,19 +33,21 @@
 - **Swagger:** `@ApiTags` por módulo, `@ApiOperation` com resumo em português, exemplos e todas as respostas, inclusive as de erro.
 - **Migrations:** geradas com `drizzle-kit generate` e revisadas à mão. Nunca edite uma migration já mesclada em `develop`.
 - **Permissões:** checadas por `AccessPolicy` no caso de uso, não só no guard.
+- **Injeção de dependência:** todo construtor injetado usa `@Inject(token)` explícito, inclusive para classes (`@Inject(SignInUseCase)`). O projeto não liga `emitDecoratorMetadata`, porque tsx, esbuild e Vitest não geram esses metadados (D42); sem o `@Inject`, o Nest injeta `undefined`. Portas do domínio têm tokens `Symbol` declarados ao lado da interface.
+- **Validação:** `ZodValidationPipe` com o schema do `contracts` no `@Body`/`@Query`; nada de class-validator.
 
 ## Testes
 
-| Camada                           | Ferramenta                           | Regra                                                                             |
-| -------------------------------- | ------------------------------------ | --------------------------------------------------------------------------------- |
-| `academic-core` e domínio da API | Vitest                               | Escreva o teste antes; cada linha das tabelas de regras da modelagem vira um caso |
-| Casos de uso                     | Vitest + repositórios em memória     | Sem banco, sem Nest                                                               |
-| Repositórios Drizzle             | Vitest + Testcontainers (PostgreSQL) | Um container por arquivo de teste, com as migrations aplicadas                    |
-| HTTP                             | supertest sobre o app Nest           | Fluxo feliz e erros documentados no Swagger                                       |
-| Web                              | Vitest + Testing Library             | Componentes com lógica de estado (editor de expressão, formulários)               |
-| Extensão                         | Vitest com fixtures HTML do SIGAA    | O parser nunca é testado contra o SIGAA ao vivo                                   |
+| Camada                           | Ferramenta                           | Regra                                                                                   |
+| -------------------------------- | ------------------------------------ | --------------------------------------------------------------------------------------- |
+| `academic-core` e domínio da API | Vitest                               | Escreva o teste antes; cada linha das tabelas de regras da modelagem vira um caso       |
+| Casos de uso                     | Vitest + repositórios em memória     | Sem banco, sem Nest                                                                     |
+| Repositórios Drizzle             | Vitest + Testcontainers (PostgreSQL) | Um container por arquivo de teste, com as migrations aplicadas; arquivo `*.int.test.ts` |
+| HTTP                             | supertest sobre o app Nest           | Fluxo feliz e erros documentados no Swagger; arquivo `apps/api/test/*.e2e.test.ts`      |
+| Web                              | Vitest + Testing Library             | Componentes com lógica de estado (editor de expressão, formulários)                     |
+| Extensão                         | Vitest com fixtures HTML do SIGAA    | O parser nunca é testado contra o SIGAA ao vivo                                         |
 
-Arquivos de teste ficam ao lado do código: `*.test.ts`. Fixtures em `__fixtures__/` no pacote.
+Arquivos de teste ficam ao lado do código: `*.test.ts`. Fixtures em `__fixtures__/` no pacote. Na API, `pnpm test` roda só os unitários (sem Docker) e `pnpm test:integration` roda os `*.int.test.ts` e os e2e, que precisam do Docker ligado (D49).
 
 ## Git e PRs
 

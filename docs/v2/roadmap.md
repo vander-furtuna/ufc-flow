@@ -117,23 +117,23 @@ flowchart LR
 
 **Objetivo:** esqueleto NestJS completo e o módulo `identity`. Modelagem: Monorepo e arquitetura, Usuários papéis e permissões.
 
-- [ ] NestJS com a estrutura hexagonal por módulo, `shared/` (Result, DomainError, Clock, IdGenerator, paginação, guards) e `database/` (cliente Drizzle, migrations com `drizzle-kit`).
-- [ ] Swagger em `/docs`:
+- [x] NestJS com a estrutura hexagonal por módulo, `shared/` (Result, DomainError, Clock, IdGenerator, paginação, guards) e `database/` (cliente Drizzle, migrations com `drizzle-kit`).
+- [x] Swagger em `/docs`:
   - Um documento por versão (`/v1`).
   - Bearer auth.
   - Problem Details referenciado em todas as rotas.
   - Teste de CI que falha se uma operação não tiver resumo e respostas.
   - `openapi.json` versionado.
   - Basic Auth ou `SWAGGER_ENABLED=false` em produção.
-- [ ] Tabelas de identidade: `users`, `user_roles`, `course_moderators`, `moderator_requests`, `sessions`, `password_reset_tokens`, `user_preferences`, `user_consents` e `audit_logs`.
-- [ ] Cadastro com aceite de termos, login, refresh com rotação e revogação por família, logout, `GET /me`. Senhas com argon2id e limite de tentativas com `@nestjs/throttler`.
-- [ ] Recuperação de senha manual: o admin gera um link de uso único válido por 24 h.
-- [ ] Solicitação de moderação, com aprovação e rejeição pelo admin.
-- [ ] `AccessPolicy` com todas as linhas da Matriz de permissões, testadas sem banco.
-- [ ] Login da extensão: `POST /v1/auth/sign-in` com Bearer guardado no `chrome.storage`, ligando a tela que já existe atrás da flag (D41).
-- [ ] Seed do primeiro admin por comando (`pnpm --filter @ufc-flow/api seed:admin`).
-- [ ] Web como BFF: tokens em cookies httpOnly, chamadas à API feitas no servidor, telas `Main` e `Mobile-Entrar`, menu do usuário no header.
-- [ ] Testes: unitários no domínio, casos de uso com repositórios em memória, integração Drizzle com Testcontainers e e2e com supertest.
+- [x] Tabelas de identidade: `users`, `user_roles`, `course_moderators`, `moderator_requests`, `sessions`, `password_reset_tokens`, `user_preferences`, `user_consents` e `audit_logs`.
+- [x] Cadastro com aceite de termos, login, refresh com rotação e revogação por família, logout, `GET /me`. Senhas com argon2id e limite de tentativas com `@nestjs/throttler`.
+- [x] Recuperação de senha manual: o admin gera um link de uso único válido por 24 h.
+- [x] Solicitação de moderação, com aprovação e rejeição pelo admin.
+- [x] `AccessPolicy` com todas as linhas da Matriz de permissões, testadas sem banco.
+- [x] Login da extensão: `POST /v1/auth/sign-in` com Bearer guardado no `chrome.storage`, ligando a tela que já existe atrás da flag (D41).
+- [x] Seed do primeiro admin por comando (`pnpm --filter @ufc-flow/api seed:admin`).
+- [x] Web como BFF: tokens em cookies httpOnly, chamadas à API feitas no servidor, telas `Main` e `Mobile-Entrar`, menu do usuário no header.
+- [x] Testes: unitários no domínio, casos de uso com repositórios em memória, integração Drizzle com Testcontainers e e2e com supertest.
 
 **Pronto quando:** dá para criar conta, entrar, renovar a sessão e sair pelo web e pelo Swagger, e um admin aprova um pedido de moderação.
 
@@ -142,7 +142,7 @@ flowchart LR
 **Objetivo:** o catálogo sai do `courses.ts` e vai para o banco, com a área administrativa no lugar do course-maker. Modelagem: Catálogo acadêmico, Importação e edição de grades. Telas: `Admin-EC`, `Mobile-Admin-EC`, `Mobile-Admin-EC-Editar`, `Ext-Envio-*`.
 
 - [ ] Catálogo `sigaa_courses` (D34): tarefa agendada que lê a lista pública de cursos do SIGAA (windows-1252, sem login), com execução manual pelo admin; criar curso no Flow é escolher deste catálogo. A extensão passa a usar `GET` do catálogo no lugar do JSON embutido.
-- [ ] Tabelas do catálogo: `campuses`, `courses`, `curricula`, `subjects`, `curriculum_subjects`, os derivados `*_requirements`, `branches`, `curriculum_subject_branches`, `subject_equivalences` e `subject_equivalence_codes`.
+- [ ] Tabelas do catálogo: `campuses` e `courses` (já criadas na fase 4, D47, faltando a FK para `sigaa_courses`), `curricula`, `subjects`, `curriculum_subjects`, os derivados `*_requirements`, `branches`, `curriculum_subject_branches`, `subject_equivalences` e `subject_equivalence_codes`.
 - [ ] Agregado `Curriculum` com o ciclo DRAFT → PUBLISHED e **todas** as linhas da tabela "Ciclo de vida e edição" como testes. Auditoria em `audit_logs`.
 - [ ] `is_current` manual, uma por curso, trocada numa transação.
 - [ ] `POST /ingestion/curriculum-imports`:
@@ -273,7 +273,7 @@ flowchart LR
 
 **Objetivo:** pôr a v2 no ar com segurança. Modelagem: Usuários (LGPD), Lacunas e riscos.
 
-- [ ] Termos de uso e política de privacidade versionados. `GET /me/export` e exclusão de conta com as regras de apagar e anonimizar da modelagem.
+- [ ] Texto final dos Termos de uso e da Política de privacidade, com versão nova e novo aceite de quem aceitou a `0.1` (D46). `GET /me/export` e exclusão de conta com as regras de apagar e anonimizar da modelagem.
 - [ ] Coolify com três containers (`web`, `api`, `postgres`), volume de uploads e variáveis de ambiente documentadas.
 - [ ] Revisar os riscos em aberto: backup, identidade não verificada, dependência do HTML do SIGAA.
 - [ ] Release `release/v2.0.0` → `master` e `develop`, tag `v2.0.0`. Atualizar versão, README e documentos de GCS.

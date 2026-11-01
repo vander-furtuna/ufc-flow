@@ -23,7 +23,7 @@ Ao começar uma fase, leia a seção correspondente do roadmap, as seções da m
 ```
 apps/
   web/              Next.js 16 + React 19 (o front atual, @ufc-flow/web)
-  api/              NestJS + Drizzle + PostgreSQL (@ufc-flow/api) — placeholder
+  api/              NestJS 12 + Drizzle + PostgreSQL (@ufc-flow/api), módulos identity e catalog
   extension/        extensão do SIGAA, Plasmo (@ufc-flow/extension)
 packages/
   contracts/        schemas Zod compartilhados (@ufc-flow/contracts)
@@ -43,6 +43,7 @@ Gerenciador: **pnpm 11** (versão fixada em `packageManager`). Node 22 ou 24 (`e
 pnpm install                          # na raiz
 pnpm dev:web                          # front em http://localhost:3000
 pnpm build | pnpm lint | pnpm typecheck | pnpm test   # todos os pacotes, via Turborepo
+pnpm test:integration                 # testes da API contra Postgres (Testcontainers; precisa do Docker)
 pnpm format | pnpm format:check       # Prettier no repositório inteiro
 docker compose -f docker/compose.dev.yml up -d   # PostgreSQL de desenvolvimento
 pnpm --filter @ufc-flow/web <script>  # um pacote específico
@@ -50,7 +51,9 @@ pnpm --filter @ufc-flow/academic-core add -D vitest   # dependência num pacote
 ```
 
 - Rode `pnpm typecheck`, `pnpm lint` e os testes do pacote afetado antes de dizer que uma tarefa está pronta.
-- Variáveis do web: `apps/web/.env.local` (modelo em `apps/web/.env.example`).
+- Variáveis do web: `apps/web/.env.local` (modelo em `apps/web/.env.example`; `API_URL` aponta para a API).
+- API: `apps/api/.env` (modelo em `.env.example`). Com o Postgres do compose de pé: `pnpm --filter @ufc-flow/api db:migrate`, `seed:courses`, `seed:admin -- --email <e-mail> --name <nome>` e `dev` (porta 3333, Swagger em `/docs`). Mudou rota ou schema: `db:generate` (revise a migration) e `openapi` (regenera o `openapi.json` versionado).
+- Na API, todo construtor injetado usa `@Inject(token)` explícito: não há `emitDecoratorMetadata` (D42).
 - Extensão: `pnpm --filter @ufc-flow/extension dev` ou `build` (gera o zod empacotado e o CSS do Tailwind antes do Plasmo). Carregue `apps/extension/build/chrome-mv3-prod` sem empacotar. HTML real do SIGAA para testes fica em `apps/extension/src/sigaa/__fixtures__`; nunca versione páginas com dados pessoais (a tela de busca traz o nome do usuário).
 - O CI (`.github/workflows/ci.yml`) roda em PRs para `develop` e `master`: install com `--frozen-lockfile`, `format:check`, lint (oxlint type-aware), typecheck, test e build.
 
