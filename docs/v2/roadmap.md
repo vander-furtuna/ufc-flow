@@ -49,9 +49,9 @@ flowchart LR
   - Script `lint` por pacote.
   - Confirmar a compatibilidade do tsgolint (TypeScript 7) com os tsconfig em TS 5.9.
 - [x] `docker/compose.dev.yml` com PostgreSQL 17 (porta 5432, volume nomeado) e `.env.example` na raiz da API.
-- [ ] `main` × `master` (D20): `master` continua como produção.
+- [x] `main` × `master` (D20): `master` continua como produção.
   - [x] CI em PRs para `develop` e `master`.
-  - [ ] Apagar `main` no remoto (`git push origin --delete main`) e conferir que o GitHub e o Coolify usam `master`.
+  - [x] Apagar `main` no remoto (`git push origin --delete main`) e conferir que o GitHub e o Coolify usam `master`.
 - [x] Unificar os bancos IndexedDB do web (`UFCFlowDB` + `ufc-flow-indexeddb`) num só, com migração dos dados existentes.
 - [x] Vitest configurado no monorepo (`vitest.workspace` ou config por pacote) e tarefa `test` no `turbo.json`.
 

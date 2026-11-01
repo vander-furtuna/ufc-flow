@@ -95,7 +95,7 @@ Como ficou na fase 0:
 
 - O nome `react-hooks` é reservado para as regras nativas do oxlint, então o plugin JS entra com o alias `react-hooks-js`. Comentários de supressão usam esse nome: `// oxlint-disable-next-line react-hooks-js/exhaustive-deps`.
 - As regras nativas do React Compiler (`react/set-state-in-effect`, `react/purity`, etc.) ficam desligadas. Elas acusam mais do que o plugin oficial (por exemplo, `new Date()` no render como impuro), e o plugin JS reproduz exatamente o que o ESLint acusava.
-- A categoria `correctness` fica ligada. As regras de `jsx-a11y` que ela trouxe e que o ESLint não tinha (`click-events-have-key-events`, `no-noninteractive-element-interactions`, `no-static-element-interactions`, `prefer-tag-over-role`) valem como aviso até as telas serem corrigidas.
+- A categoria `correctness` fica ligada. As regras de `jsx-a11y` que ela trouxe e que o ESLint não tinha (`click-events-have-key-events`, `no-noninteractive-element-interactions`, `no-static-element-interactions`, `prefer-tag-over-role`) valem como erro. Em `apps/web/src/components/ui` (componentes do shadcn, regenerados pelo CLI), `prefer-tag-over-role` fica desligada: o `role="group"` do `Field` é ARIA válido.
 - O tsgolint lê os tsconfig em TS 5.9 sem erro.
 - Prettier e oxlint rodam a partir da raiz. As quebras de linha são LF em todo o repositório (`.gitattributes` e `endOfLine: "lf"`).
 
@@ -143,7 +143,7 @@ apps/api/src/
 - HTTP: e2e com supertest sobre o app Nest.
 - CI: lint, typecheck, testes e cobertura mínima como gate, só nos pacotes afetados (Turborepo).
 
-**Git flow.** `master` = produção, `develop` = integração, `feature/*`, `release/*`, `hotfix/*` (D20). A branch `main`, que existia junto com `master` e está desatualizada, deve ser apagada. O CI roda em PRs para `develop` e `master` e em push para `master`.
+**Git flow.** `master` = produção, `develop` = integração, `feature/*`, `release/*`, `hotfix/*` (D20). A branch `main`, que existia junto com `master` e estava desatualizada, foi apagada. O CI roda em PRs para `develop` e `master` e em push para `master`.
 
 **Execução na VM.** Três containers no Coolify: `web`, `api`, `postgres`. Sem Redis: jobs agendados via `@nestjs/schedule`, possível porque a API roda em instância única. Uploads num volume Docker montado na API.
 

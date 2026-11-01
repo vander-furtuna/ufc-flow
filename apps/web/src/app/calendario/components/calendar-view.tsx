@@ -93,11 +93,12 @@ export function CalendarView() {
       const isDayImportant = dayEvents.some((event) => event.isImportant)
 
       days.push(
-        <div
+        <button
           key={day}
+          type="button"
           onClick={() => handleDayClick(day)}
           className={cn(
-            'group relative h-full cursor-pointer overflow-hidden border border-border bg-card p-1 transition-all hover:bg-accent/60 sm:p-2 md:h-32',
+            'group relative flex h-full w-full cursor-pointer flex-col overflow-hidden border border-border bg-card p-1 text-left transition-all hover:bg-accent/60 focus-visible:z-20 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-hidden sm:p-2 md:h-32',
             isWeekend && 'bg-muted/30',
           )}
         >
@@ -150,7 +151,7 @@ export function CalendarView() {
               Ver Detalhes
             </span>
           </div>
-        </div>,
+        </button>,
       )
     }
 

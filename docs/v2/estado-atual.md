@@ -10,10 +10,9 @@ Retrato em 31/10/2026, ao fim da fase 0. Atualize este arquivo ao fim de cada fa
 | `develop`                    | Integração. Tem o monorepo e a fase 0 (PR #61, CI verde).                            |
 | `feature/fase-0-fundacao`    | Mesclada em `develop` pelo PR #61; pode ser apagada.                                 |
 | `feature/monorepo`           | Mesclada em `develop`; pode ser apagada.                                             |
-| `main`                       | Desatualizada em relação à `master`. Deve ser apagada no remoto (D20).               |
 | `hotfix/schedule-course-key` | Já mesclada em `master` e `develop`; pode ser apagada.                               |
 
-Falta apagar `main` no remoto (`git push origin --delete main`).
+A `main` foi apagada no remoto (D20). As branches já mescladas ficam por enquanto.
 
 ## Concluído
 
@@ -31,7 +30,7 @@ Falta apagar `main` no remoto (`git push origin --delete main`).
   - README, `CONFIGURATION_ITEMS.md` (IC-023 e IC-024) e `PLANO_GERENCIAMENTO_CONFIGURACAO.md` foram atualizados.
 - **Fase 0 — Fundação** (branch `feature/fase-0-fundacao`):
   - `pnpm-lock.yaml` commitado; `pnpm typecheck`, `pnpm lint`, `pnpm test`, `pnpm format:check` e `pnpm build` passam.
-  - Lint com oxlint e type-aware (`.oxlintrc.json` na raiz). As regras do React Compiler vêm do plugin JS `react-hooks-js`. Ficam 5 avisos de `jsx-a11y` (`vander-logo.tsx`, `ui/field.tsx`, `calendario/components/calendar-view.tsx`).
+  - Lint com oxlint e type-aware (`.oxlintrc.json` na raiz). As regras do React Compiler vêm do plugin JS `react-hooks-js`. Zero avisos: as regras de `jsx-a11y` valem como erro.
   - Prettier na raiz, com o repositório inteiro formatado e as quebras de linha normalizadas para LF.
   - Vitest com config por pacote e tarefa `test` no Turborepo.
   - `set-state-in-effect` corrigido nos contexts `schedule`, `class` e `calendar`.
@@ -43,11 +42,16 @@ Falta apagar `main` no remoto (`git push origin --delete main`).
 
 ## Pendências imediatas
 
-A fase 0 está pronta: CI verde no PR #61 para `develop`, `docker compose -f docker/compose.dev.yml up -d` sobe o PostgreSQL 17 (healthy, porta 5432) e o Vercel de testes voltou a publicar com o Root Directory em `apps/web`. Sobram:
+Nenhuma. A fase 0 está pronta:
 
-1. Apagar `main` no remoto e conferir que o GitHub (branch padrão) e o Coolify usam `master`.
-2. Conferir num navegador com dados reais que filtros, ferramentas e agendas continuam lá depois da migração para o `UFCFlowDB` v7.
-3. Corrigir os 5 avisos de `jsx-a11y` e passar essas regras para erro. Os de `calendario` dependem de uma exceção à D10.
+- CI verde no PR #61 para `develop`.
+- `docker compose -f docker/compose.dev.yml up -d` sobe o PostgreSQL 17 (healthy, porta 5432).
+- No navegador, com dados reais, filtros, ferramentas e agendas continuam lá depois da migração para o `UFCFlowDB` v7.
+- O Vercel de testes publica com o Root Directory em `apps/web`.
+- A `main` foi apagada; produção segue em `master`.
+- Os avisos de acessibilidade foram corrigidos. Exceção pontual à D10: `calendario/components/calendar-view.tsx` passou a usar `<button>` na célula do dia, sem mudar o comportamento.
+
+Próximo passo: fases 1 (`packages/academic-core`) e 2 (`packages/contracts`), que dependem só da fase 0.
 
 ## Divergências entre a modelagem e o repositório
 
