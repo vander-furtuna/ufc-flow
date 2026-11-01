@@ -1,3 +1,3 @@
-// Regras acadêmicas puras e testáveis: avaliação de pré-requisitos (RequirementExpr),
-// equivalências e progresso na estrutura curricular. Sem dependência de framework.
-export {}
+// Regras acadêmicas puras e testáveis, usadas pelo web, pela API e pela
+// extensão. Sem dependência de framework nem de I/O.
+export * from './search/normalize-search'
