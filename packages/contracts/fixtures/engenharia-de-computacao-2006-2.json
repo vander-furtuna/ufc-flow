@@ -1,0 +1,3378 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "extractedAt": "2026-05-29T23:23:12Z",
+    "url": null
+  },
+  "course": {
+    "sigaaId": "657484",
+    "name": "Engenharia de Computação"
+  },
+  "curriculum": {
+    "period": "2006.2",
+    "city": "SOBRAL - CE",
+    "minTotalHours": 3648,
+    "maxTotalHours": null,
+    "mandatoryHours": 2752,
+    "optativeHours": 896,
+    "extensionHours": 0,
+    "complementaryActivityHours": 560,
+    "maxFreeOptativeHours": 320,
+    "minPeriods": 7,
+    "avgPeriods": 10,
+    "maxPeriods": 15,
+    "periodMinHours": 64,
+    "periodAvgHours": 528,
+    "periodMaxHours": 640
+  },
+  "branches": [
+    {
+      "key": "slope-ciencias-de-computacao",
+      "parentKey": null,
+      "type": "SLOPE",
+      "name": "Ciências de Computação",
+      "description": null,
+      "color": "#22d3ee",
+      "minHours": null,
+      "minComponents": null
+    },
+    {
+      "key": "slope-automacao-e-controle",
+      "parentKey": null,
+      "type": "SLOPE",
+      "name": "Automação e Controle",
+      "description": null,
+      "color": "#ffb800",
+      "minHours": null,
+      "minComponents": null
+    },
+    {
+      "key": "slope-telecomunicacoes",
+      "parentKey": null,
+      "type": "SLOPE",
+      "name": "Telecomunicações",
+      "description": null,
+      "color": "#5be41b",
+      "minHours": null,
+      "minComponents": null
+    }
+  ],
+  "subjects": [
+    {
+      "code": "ECO0005",
+      "name": "INTRODUÇÃO A ENGENHARIA",
+      "type": "DISCIPLINE",
+      "semester": 1,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "MANDATORY",
+      "prerequisites": null,
+      "corequisites": null,
+      "equivalences": null,
+      "branches": []
+    },
+    {
+      "code": "ECO0025",
+      "name": "MATEMÁTICA DISCRETA PARA COMPUTAÇÃO",
+      "type": "DISCIPLINE",
+      "semester": 1,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "MANDATORY",
+      "prerequisites": null,
+      "corequisites": null,
+      "equivalences": null,
+      "branches": []
+    },
+    {
+      "code": "SBL0057",
+      "name": "CÁLCULO DIFERENCIAL E INTEGRAL I",
+      "type": "DISCIPLINE",
+      "semester": 1,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "MANDATORY",
+      "prerequisites": null,
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0001"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0001"
+          },
+          {
+            "kind": "subject",
+            "code": "CEC0058"
+          }
+        ]
+      },
+      "branches": []
+    },
+    {
+      "code": "SBL0074",
+      "name": "FÍSICA GERAL I",
+      "type": "DISCIPLINE",
+      "semester": 1,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "MANDATORY",
+      "prerequisites": null,
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0002"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0002"
+          }
+        ]
+      },
+      "branches": []
+    },
+    {
+      "code": "SBL0086",
+      "name": "PROGRAMAÇÃO COMPUTACIONAL",
+      "type": "DISCIPLINE",
+      "semester": 1,
+      "workloadHours": 96,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 6,
+      "nature": "MANDATORY",
+      "prerequisites": null,
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0004"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0004"
+          }
+        ]
+      },
+      "branches": []
+    },
+    {
+      "code": "ECO0015",
+      "name": "TÉCNICAS DE PROGRAMAÇÃO",
+      "type": "DISCIPLINE",
+      "semester": 2,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "MANDATORY",
+      "prerequisites": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0004"
+          },
+          {
+            "kind": "subject",
+            "code": "SBL0086"
+          }
+        ]
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": []
+    },
+    {
+      "code": "SBL0056",
+      "name": "ÁLGEBRA LINEAR",
+      "type": "DISCIPLINE",
+      "semester": 2,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "MANDATORY",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "SBL0057"
+      },
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0008"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0008"
+          }
+        ]
+      },
+      "branches": []
+    },
+    {
+      "code": "SBL0058",
+      "name": "CÁLCULO DIFERENCIAL E INTEGRAL II",
+      "type": "DISCIPLINE",
+      "semester": 2,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "MANDATORY",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "SBL0057"
+      },
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0006"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0006"
+          }
+        ]
+      },
+      "branches": []
+    },
+    {
+      "code": "SBL0066",
+      "name": "DESENHO PARA ENGENHARIA",
+      "type": "DISCIPLINE",
+      "semester": 2,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "MANDATORY",
+      "prerequisites": null,
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0010"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0011"
+          }
+        ]
+      },
+      "branches": []
+    },
+    {
+      "code": "SBL0072",
+      "name": "FÍSICA EXPERIMENTAL I",
+      "type": "DISCIPLINE",
+      "semester": 2,
+      "workloadHours": 32,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 2,
+      "nature": "MANDATORY",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "SBL0074"
+      },
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0009"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0010"
+          }
+        ]
+      },
+      "branches": []
+    },
+    {
+      "code": "SBL0075",
+      "name": "FÍSICA GERAL II",
+      "type": "DISCIPLINE",
+      "semester": 2,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "MANDATORY",
+      "prerequisites": {
+        "kind": "and",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "SBL0057"
+          },
+          {
+            "kind": "subject",
+            "code": "SBL0074"
+          }
+        ]
+      },
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0007"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0007"
+          }
+        ]
+      },
+      "branches": []
+    },
+    {
+      "code": "SBL0084",
+      "name": "PROBABILIDADE E ESTATÍSTICA",
+      "type": "DISCIPLINE",
+      "semester": 2,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "MANDATORY",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "SBL0057"
+      },
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0011"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0009"
+          }
+        ]
+      },
+      "branches": []
+    },
+    {
+      "code": "ECO0016",
+      "name": "ESTRUTURAS DE DADOS",
+      "type": "DISCIPLINE",
+      "semester": 3,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "MANDATORY",
+      "prerequisites": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0004"
+          },
+          {
+            "kind": "subject",
+            "code": "SBL0086"
+          }
+        ]
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": []
+    },
+    {
+      "code": "SBL0059",
+      "name": "CÁLCULO VETORIAL",
+      "type": "DISCIPLINE",
+      "semester": 3,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "MANDATORY",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "SBL0058"
+      },
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0012"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0012"
+          }
+        ]
+      },
+      "branches": []
+    },
+    {
+      "code": "SBL0067",
+      "name": "FÍSICA GERAL III",
+      "type": "DISCIPLINE",
+      "semester": 3,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "MANDATORY",
+      "prerequisites": {
+        "kind": "and",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "SBL0075"
+          },
+          {
+            "kind": "subject",
+            "code": "SBL0058"
+          }
+        ]
+      },
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0018"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0016"
+          }
+        ]
+      },
+      "branches": []
+    },
+    {
+      "code": "SBL0073",
+      "name": "FÍSICA EXPERIMENTAL II",
+      "type": "DISCIPLINE",
+      "semester": 3,
+      "workloadHours": 32,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 2,
+      "nature": "MANDATORY",
+      "prerequisites": {
+        "kind": "and",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "SBL0075"
+          },
+          {
+            "kind": "subject",
+            "code": "SBL0058"
+          }
+        ]
+      },
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0014"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0071"
+          }
+        ]
+      },
+      "branches": []
+    },
+    {
+      "code": "SBL0081",
+      "name": "MÉTODOS NUMÉRICOS",
+      "type": "DISCIPLINE",
+      "semester": 3,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "MANDATORY",
+      "prerequisites": {
+        "kind": "and",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "SBL0056"
+          },
+          {
+            "kind": "subject",
+            "code": "SBL0057"
+          },
+          {
+            "kind": "subject",
+            "code": "SBL0086"
+          }
+        ]
+      },
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0013"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0015"
+          }
+        ]
+      },
+      "branches": []
+    },
+    {
+      "code": "SBL0089",
+      "name": "SERIES E EQUAÇÕES DIFERENCIAIS",
+      "type": "DISCIPLINE",
+      "semester": 3,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "MANDATORY",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "SBL0058"
+      },
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0017"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0013"
+          }
+        ]
+      },
+      "branches": []
+    },
+    {
+      "code": "ECO0020",
+      "name": "PARADIGMAS DE LINGUAGEM DE PROGRAMAÇÃO",
+      "type": "DISCIPLINE",
+      "semester": 4,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "MANDATORY",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "ECO0015"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": []
+    },
+    {
+      "code": "ECO0021",
+      "name": "ARQUITETURA E ORGANIZACAO DE COMPUTADORES",
+      "type": "DISCIPLINE",
+      "semester": 4,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "MANDATORY",
+      "prerequisites": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0004"
+          },
+          {
+            "kind": "subject",
+            "code": "SBL0086"
+          }
+        ]
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": []
+    },
+    {
+      "code": "SBL0061",
+      "name": "CIRCUITOS ELÉTRICOS I",
+      "type": "DISCIPLINE",
+      "semester": 4,
+      "workloadHours": 96,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 6,
+      "nature": "MANDATORY",
+      "prerequisites": {
+        "kind": "and",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "SBL0067"
+          },
+          {
+            "kind": "subject",
+            "code": "SBL0081"
+          },
+          {
+            "kind": "subject",
+            "code": "SBL0089"
+          }
+        ]
+      },
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0023"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0021"
+          }
+        ]
+      },
+      "branches": []
+    },
+    {
+      "code": "SBL0068",
+      "name": "ELETROMAGNETISMO APLICADO",
+      "type": "DISCIPLINE",
+      "semester": 4,
+      "workloadHours": 96,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 6,
+      "nature": "MANDATORY",
+      "prerequisites": {
+        "kind": "and",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "SBL0059"
+          },
+          {
+            "kind": "subject",
+            "code": "SBL0067"
+          }
+        ]
+      },
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0019"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0024"
+          }
+        ]
+      },
+      "branches": []
+    },
+    {
+      "code": "SBL0069",
+      "name": "ELETRÔNICA DIGITAL",
+      "type": "DISCIPLINE",
+      "semester": 4,
+      "workloadHours": 96,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 6,
+      "nature": "MANDATORY",
+      "prerequisites": {
+        "kind": "and",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "SBL0067"
+          },
+          {
+            "kind": "subject",
+            "code": "SBL0073"
+          }
+        ]
+      },
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0024"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0019"
+          }
+        ]
+      },
+      "branches": []
+    },
+    {
+      "code": "ECO0022",
+      "name": "SISTEMAS OPERACIONAIS",
+      "type": "DISCIPLINE",
+      "semester": 5,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "MANDATORY",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "ECO0016"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": []
+    },
+    {
+      "code": "ECO0028",
+      "name": "ENGENHARIA DE SOFTWARE",
+      "type": "DISCIPLINE",
+      "semester": 5,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "MANDATORY",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "ECO0020"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": []
+    },
+    {
+      "code": "SBL0082",
+      "name": "MICROPROCESSADORES",
+      "type": "DISCIPLINE",
+      "semester": 5,
+      "workloadHours": 96,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 6,
+      "nature": "MANDATORY",
+      "prerequisites": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "SBL0069"
+          },
+          {
+            "kind": "subject",
+            "code": "ECO0024"
+          }
+        ]
+      },
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0026"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0022"
+          }
+        ]
+      },
+      "branches": []
+    },
+    {
+      "code": "SBL0088",
+      "name": "REDES DE COMPUTADORES",
+      "type": "DISCIPLINE",
+      "semester": 5,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "MANDATORY",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "ECO0021"
+      },
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0027"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0064"
+          }
+        ]
+      },
+      "branches": []
+    },
+    {
+      "code": "ECO0031",
+      "name": "BANCO DE DADOS",
+      "type": "DISCIPLINE",
+      "semester": 6,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "MANDATORY",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "ECO0016"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": []
+    },
+    {
+      "code": "SBL0080",
+      "name": "INTELIGÊNCIA COMPUTACIONAL",
+      "type": "DISCIPLINE",
+      "semester": 6,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "MANDATORY",
+      "prerequisites": {
+        "kind": "and",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0016"
+          },
+          {
+            "kind": "subject",
+            "code": "ECO0020"
+          },
+          {
+            "kind": "subject",
+            "code": "ECO0025"
+          }
+        ]
+      },
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0029"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0072"
+          }
+        ]
+      },
+      "branches": []
+    },
+    {
+      "code": "SBL0060",
+      "name": "CIÊNCIAS, TECNOLOGIA E SOCIEDADE",
+      "type": "DISCIPLINE",
+      "semester": 7,
+      "workloadHours": 32,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 2,
+      "nature": "MANDATORY",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "ECO0005"
+      },
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0032"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0036"
+          }
+        ]
+      },
+      "branches": []
+    },
+    {
+      "code": "SBL0092",
+      "name": "SOFTWARE EM TEMPO REAL",
+      "type": "DISCIPLINE",
+      "semester": 7,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "MANDATORY",
+      "prerequisites": {
+        "kind": "and",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0020"
+          },
+          {
+            "kind": "subject",
+            "code": "ECO0022"
+          }
+        ]
+      },
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0036"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0061"
+          }
+        ]
+      },
+      "branches": []
+    },
+    {
+      "code": "SBL0070",
+      "name": "ENGENHARIA AMBIENTAL",
+      "type": "DISCIPLINE",
+      "semester": 8,
+      "workloadHours": 48,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 3,
+      "nature": "MANDATORY",
+      "prerequisites": null,
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0034"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0040"
+          }
+        ]
+      },
+      "branches": []
+    },
+    {
+      "code": "SBL0077",
+      "name": "FUNDAMENTOS DE ADMINISTRAÇÃO",
+      "type": "DISCIPLINE",
+      "semester": 8,
+      "workloadHours": 32,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 2,
+      "nature": "MANDATORY",
+      "prerequisites": null,
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0035"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0039"
+          }
+        ]
+      },
+      "branches": []
+    },
+    {
+      "code": "ECO0037",
+      "name": "ESTÁGIO SUPERVISIONADO",
+      "type": "INTERNSHIP",
+      "semester": 9,
+      "workloadHours": 160,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 0,
+      "nature": "MANDATORY",
+      "prerequisites": null,
+      "corequisites": null,
+      "equivalences": null,
+      "branches": []
+    },
+    {
+      "code": "ECO0038",
+      "name": "SEMINÁRIO DE ESTÁGIO",
+      "type": "INTERNSHIP",
+      "semester": 9,
+      "workloadHours": 32,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 0,
+      "nature": "MANDATORY",
+      "prerequisites": null,
+      "corequisites": null,
+      "equivalences": null,
+      "branches": []
+    },
+    {
+      "code": "ECO0040",
+      "name": "SEMINÁRIO DE MONOGRAFIA",
+      "type": "FINAL_PROJECT",
+      "semester": 9,
+      "workloadHours": 32,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 0,
+      "nature": "MANDATORY",
+      "prerequisites": null,
+      "corequisites": null,
+      "equivalences": null,
+      "branches": []
+    },
+    {
+      "code": "ECO0039",
+      "name": "TRABALHO DE CONCLUSÃO DE CURSO",
+      "type": "FINAL_PROJECT",
+      "semester": 10,
+      "workloadHours": 160,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 0,
+      "nature": "MANDATORY",
+      "prerequisites": null,
+      "corequisites": null,
+      "equivalences": null,
+      "branches": []
+    },
+    {
+      "code": "ECO0105",
+      "name": "COMUNICAÇÃO E EXPRESSAO",
+      "type": "DISCIPLINE",
+      "semester": 10,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "MANDATORY",
+      "prerequisites": null,
+      "corequisites": null,
+      "equivalences": null,
+      "branches": []
+    },
+    {
+      "code": "ECOS0001",
+      "name": "ATIVIDADES COMPLEMENTARES",
+      "type": "COMPLEMENTARY_ACTIVITY",
+      "semester": 10,
+      "workloadHours": 176,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 0,
+      "nature": "MANDATORY",
+      "prerequisites": null,
+      "corequisites": null,
+      "equivalences": null,
+      "branches": []
+    },
+    {
+      "code": "ECO0042",
+      "name": "TEORIA DOS AUTOMATOS E LINGUAGENS FORMAIS",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "and",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0016"
+          },
+          {
+            "kind": "subject",
+            "code": "ECO0025"
+          }
+        ]
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-ciencias-de-computacao",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0043",
+      "name": "PESQUISA E ORDENACAO DE DADOS",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "ECO0016"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-ciencias-de-computacao",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0044",
+      "name": "LÓGICA MATEMÁTICA",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "ECO0025"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-ciencias-de-computacao",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0045",
+      "name": "TÓPICOS EM PROGRAMAÇÃO",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "ECO0015"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-ciencias-de-computacao",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0046",
+      "name": "ALGORITMOS EM GRAFOS",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "and",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0016"
+          },
+          {
+            "kind": "subject",
+            "code": "ECO0025"
+          }
+        ]
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-ciencias-de-computacao",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0047",
+      "name": "CONSTRUÇÃO E ANÁLISE DE ALGORITMOS",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "and",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0016"
+          },
+          {
+            "kind": "subject",
+            "code": "ECO0025"
+          }
+        ]
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-ciencias-de-computacao",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0048",
+      "name": "COMPUTAÇÃO GRÁFICA",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "and",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0015"
+          },
+          {
+            "kind": "subject",
+            "code": "SBL0056"
+          }
+        ]
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-ciencias-de-computacao",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0049",
+      "name": "SISTEMAS DE GERENCIAMENTO DE BANCO DE DADOS",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "ECO0031"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-ciencias-de-computacao",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0050",
+      "name": "CONSTRUÇÃO DE COMPILADORES",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "and",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0020"
+          },
+          {
+            "kind": "subject",
+            "code": "ECO0042"
+          }
+        ]
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-ciencias-de-computacao",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0051",
+      "name": "SISTEMAS DISTRIBUÍDOS",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "SBL0088"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-ciencias-de-computacao",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0052",
+      "name": "PROGRAMAÇÃO DISTRIBUÍDA E PARALELA",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "and",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0020"
+          },
+          {
+            "kind": "subject",
+            "code": "ECO0016"
+          }
+        ]
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-ciencias-de-computacao",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0053",
+      "name": "REDES DE PETRI",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "ECO0020"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-ciencias-de-computacao",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0054",
+      "name": "REDES DE ALTA VELOCIDADE",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0027"
+          },
+          {
+            "kind": "subject",
+            "code": "SBL0088"
+          }
+        ]
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-ciencias-de-computacao",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0055",
+      "name": "SISTEMAS TOLERANTES A FALHAS",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "ECO0028"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-ciencias-de-computacao",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0056",
+      "name": "TECNOLOGIAS WEB",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "ECO0015"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-ciencias-de-computacao",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0057",
+      "name": "QUALIDADE DE SOFTWARE",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "ECO0028"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-ciencias-de-computacao",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0058",
+      "name": "GERÊNCIA E CONFIGURACAO DE SOFTWARE",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "ECO0028"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-ciencias-de-computacao",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0059",
+      "name": "VERIFICAÇÃO DE SOFTWARE",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "ECO0028"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-ciencias-de-computacao",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0060",
+      "name": "METODOLOGIA CIENTÍFICA TECNOLÓGICA",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": null,
+      "corequisites": null,
+      "equivalences": null,
+      "branches": []
+    },
+    {
+      "code": "ECO0061",
+      "name": "SEMINÁRIOS DE COMPUTAÇÃO I",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 32,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 2,
+      "nature": "OPTATIVE",
+      "prerequisites": null,
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-ciencias-de-computacao",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0062",
+      "name": "SEMINÁRIOS DE COMPUTAÇÃO II",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 32,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 2,
+      "nature": "OPTATIVE",
+      "prerequisites": null,
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-ciencias-de-computacao",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0063",
+      "name": "TÓPICOS ESPECIAIS EM COMPUTAÇÃO I",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": null,
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-ciencias-de-computacao",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0064",
+      "name": "TÓPICOS ESPECIAIS EM COMPUTAÇÃO II",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": null,
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-ciencias-de-computacao",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0065",
+      "name": "COMUNICAÇÕES ANALÓGICAS E DIGITAIS",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "SBL0083"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-telecomunicacoes",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0066",
+      "name": "SISTEMAS DE COMUNICAÇÕES MÓVEIS",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "SBL0083"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-telecomunicacoes",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0067",
+      "name": "SISTEMAS DE COMUNICAÇÕES OPTICAS",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "SBL0083"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-telecomunicacoes",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0068",
+      "name": "SISTEMAS TELEFONICOS",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "SBL0083"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-telecomunicacoes",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0069",
+      "name": "TÓPICOS EM REDES DE COMUNICAÇÕES",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "SBL0083"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-telecomunicacoes",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0070",
+      "name": "ARQUITETURA E ORGANIZAÇÃO DAS REDES DE COMUNICAÇÕES",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "SBL0083"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-telecomunicacoes",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0071",
+      "name": "TÓPICOS EM SISTEMAS DE COMUNICAÇÕES MÓVEIS",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "ECO0066"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-telecomunicacoes",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0072",
+      "name": "TÓPICOS EM SISTEMAS DE COMUNICAÇÕES OPTICAS",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "ECO0067"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-telecomunicacoes",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0073",
+      "name": "SISTEMAS DE COMUNICAÇÕES VIA RÁDIO",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "SBL0083"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-telecomunicacoes",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0074",
+      "name": "LABORATÓRIO DE COMUNICAÇÕES I",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "SBL0083"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-telecomunicacoes",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0075",
+      "name": "COMUNICAÇÃO POR SATELITE",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "SBL0083"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-telecomunicacoes",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0076",
+      "name": "PROCESSOS ESTOCASTICOS",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "and",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "SBL0084"
+          },
+          {
+            "kind": "subject",
+            "code": "SBL0059"
+          }
+        ]
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-telecomunicacoes",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0078",
+      "name": "EMPREENDEDORISMO E ADMINISTRAÇÃO DE EMPRESAS",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "SBL0077"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-telecomunicacoes",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0079",
+      "name": "SEMINÁRIO DE TELECOMUNICAÇÕES I",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 32,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 2,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "ECO0065"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-telecomunicacoes",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0080",
+      "name": "TÓPICOS ESPECIAIS EM TELECOMUNICAÇÕES I",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "ECO0065"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-telecomunicacoes",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0081",
+      "name": "LINHA DE TRANSMISSAO E GUIAS DE ONDAS",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "SBL0068"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-telecomunicacoes",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0089",
+      "name": "MICROPROCESSADORES II",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "SBL0082"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-automacao-e-controle",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0090",
+      "name": "ELETRÔNICA INDUSTRIAL",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "SBL0069"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-automacao-e-controle",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0091",
+      "name": "TEORIA DO CONTROLE DISCRETO",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "SBL0064"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-automacao-e-controle",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0093",
+      "name": "SISTEMAS EMBARCADOS",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "SBL0082"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-ciencias-de-computacao",
+          "nature": "OPTATIVE"
+        },
+        {
+          "key": "slope-automacao-e-controle",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0097",
+      "name": "SEMINÁRIO EM AUTOMACAO E CONTROLE I",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 32,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 2,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "SBL0064"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-automacao-e-controle",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0098",
+      "name": "TÓPICOS ESPECIAIS EM AUTOMACAO E CONTROLE I",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "SBL0064"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-automacao-e-controle",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0099",
+      "name": "TEORIA DA COMPUTAÇÃO",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "ECO0042"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-ciencias-de-computacao",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0100",
+      "name": "ANÁLISE E PROJETOS DE SISTEMAS I",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "and",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0028"
+          },
+          {
+            "kind": "subject",
+            "code": "ECO0031"
+          }
+        ]
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-ciencias-de-computacao",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0101",
+      "name": "ANÁLISE E PROJETOS DE SISTEMAS II",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "ECO0100"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-ciencias-de-computacao",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0102",
+      "name": "PROGRAMAÇÃO LINEAR",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "SBL0081"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-ciencias-de-computacao",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0103",
+      "name": "TECNOLOGIAS WEB II",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "ECO0056"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-ciencias-de-computacao",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0104",
+      "name": "ALGORITMOS DISTRIBUÍDOS",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "and",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0016"
+          },
+          {
+            "kind": "subject",
+            "code": "ECO0047"
+          }
+        ]
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-ciencias-de-computacao",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0106",
+      "name": "TESTE DE SOFTWARE",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "ECO0028"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-ciencias-de-computacao",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "ECO0107",
+      "name": "DESENVOLVIMENTO PARA DISPOSITIVOS MÓVEIS",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "ECO0103"
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-ciencias-de-computacao",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "PRG0002",
+      "name": "RELAÇOES ETNICO-RACIAIS E AFRICANIDADES",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": null,
+      "corequisites": null,
+      "equivalences": null,
+      "branches": []
+    },
+    {
+      "code": "PRG0003",
+      "name": "EDUCAÇÃO AMBIENTAL",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": null,
+      "corequisites": null,
+      "equivalences": null,
+      "branches": []
+    },
+    {
+      "code": "PRG0004",
+      "name": "EDUCAÇÃO EM DIREITOS HUMANOS",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": null,
+      "corequisites": null,
+      "equivalences": null,
+      "branches": []
+    },
+    {
+      "code": "PRG0005",
+      "name": "DIFERENÇA E ENFRENTAMENTO PROFISSIONAL NAS DESIGUALDADES SOCIAIS",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": null,
+      "corequisites": null,
+      "equivalences": null,
+      "branches": []
+    },
+    {
+      "code": "SBL0062",
+      "name": "CIRCUITOS ELÉTRICOS II",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 96,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 6,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "SBL0061"
+      },
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0088"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0027"
+          }
+        ]
+      },
+      "branches": [
+        {
+          "key": "slope-automacao-e-controle",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "SBL0063",
+      "name": "CONTROLE ADAPTATIVO",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "SBL0064"
+      },
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0082"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0057"
+          }
+        ]
+      },
+      "branches": [
+        {
+          "key": "slope-automacao-e-controle",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "SBL0064",
+      "name": "CONTROLE DE SISTEMAS DINÂMICOS",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 96,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 6,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "SBL0091"
+      },
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0033"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0029"
+          }
+        ]
+      },
+      "branches": [
+        {
+          "key": "slope-automacao-e-controle",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "SBL0065",
+      "name": "CONTROLE E AUTOMAÇÃO INDUSTRIAL",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "SBL0064"
+      },
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0083"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0058"
+          }
+        ]
+      },
+      "branches": [
+        {
+          "key": "slope-automacao-e-controle",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "SBL0071",
+      "name": "ENGENHARIA ECONÔMICA",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 32,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 2,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "SBL0076"
+      },
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0096"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0023"
+          }
+        ]
+      },
+      "branches": [
+        {
+          "key": "slope-automacao-e-controle",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "SBL0076",
+      "name": "FUNDAMENTOS DE ECONOMIA",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 32,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 2,
+      "nature": "OPTATIVE",
+      "prerequisites": null,
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0095"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0038"
+          }
+        ]
+      },
+      "branches": [
+        {
+          "key": "slope-automacao-e-controle",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "SBL0078",
+      "name": "HIGIENE INDUSTRIAL E SEGURANÇA NO TRABALHO",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 32,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 2,
+      "nature": "OPTATIVE",
+      "prerequisites": null,
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0094"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0037"
+          }
+        ]
+      },
+      "branches": [
+        {
+          "key": "slope-automacao-e-controle",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "SBL0079",
+      "name": "IDENTIFICAÇÃO DE SISTEMAS",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "and",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "SBL0084"
+          },
+          {
+            "kind": "subject",
+            "code": "SBL0091"
+          },
+          {
+            "kind": "subject",
+            "code": "SBL0064"
+          }
+        ]
+      },
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0084"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0059"
+          }
+        ]
+      },
+      "branches": [
+        {
+          "key": "slope-automacao-e-controle",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "SBL0083",
+      "name": "PRINCÍPIOS DE COMUNICAÇÕES",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "and",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "SBL0084"
+          },
+          {
+            "kind": "subject",
+            "code": "SBL0091"
+          }
+        ]
+      },
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0030"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0031"
+          }
+        ]
+      },
+      "branches": [
+        {
+          "key": "slope-telecomunicacoes",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "SBL0085",
+      "name": "PROCESSAMENTO DIGITAL DE SINAIS",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "SBL0091"
+      },
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0077"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0070"
+          }
+        ]
+      },
+      "branches": [
+        {
+          "key": "slope-automacao-e-controle",
+          "nature": "OPTATIVE"
+        },
+        {
+          "key": "slope-telecomunicacoes",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "SBL0087",
+      "name": "QUÍMICA GERAL",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 96,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 6,
+      "nature": "OPTATIVE",
+      "prerequisites": null,
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0003"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0003"
+          }
+        ]
+      },
+      "branches": [
+        {
+          "key": "slope-automacao-e-controle",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "SBL0090",
+      "name": "SISTEMAS ELETRÔNICOS",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "SBL0069"
+      },
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0087"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0069"
+          }
+        ]
+      },
+      "branches": [
+        {
+          "key": "slope-automacao-e-controle",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "SBL0091",
+      "name": "SISTEMAS LINEARES",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "and",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "SBL0061"
+          },
+          {
+            "kind": "subject",
+            "code": "SBL0095"
+          }
+        ]
+      },
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0092"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0025"
+          }
+        ]
+      },
+      "branches": [
+        {
+          "key": "slope-automacao-e-controle",
+          "nature": "OPTATIVE"
+        },
+        {
+          "key": "slope-telecomunicacoes",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "SBL0093",
+      "name": "TÉCNICAS AVANÇADAS EM ELETRÔNICA DIGITAL",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "SBL0069"
+      },
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0086"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0063"
+          }
+        ]
+      },
+      "branches": [
+        {
+          "key": "slope-automacao-e-controle",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "SBL0094",
+      "name": "TÉCNICAS AVANÇADAS EM MICROPROCESSADORES",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "SBL0082"
+      },
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0085"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0062"
+          }
+        ]
+      },
+      "branches": [
+        {
+          "key": "slope-automacao-e-controle",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "SBL0095",
+      "name": "VARIAVEIS COMPLEXAS",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "subject",
+        "code": "SBL0059"
+      },
+      "corequisites": null,
+      "equivalences": {
+        "kind": "or",
+        "items": [
+          {
+            "kind": "subject",
+            "code": "ECO0041"
+          },
+          {
+            "kind": "subject",
+            "code": "EEL0017"
+          }
+        ]
+      },
+      "branches": [
+        {
+          "key": "slope-automacao-e-controle",
+          "nature": "OPTATIVE"
+        },
+        {
+          "key": "slope-telecomunicacoes",
+          "nature": "OPTATIVE"
+        }
+      ]
+    },
+    {
+      "code": "SBL0100",
+      "name": "LÍNGUA BRASILEIRA DE SINAIS - LIBRAS",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": null,
+      "corequisites": null,
+      "equivalences": null,
+      "branches": []
+    },
+    {
+      "code": "SBL0117",
+      "name": "APRENDIZAGEM PROFUNDA",
+      "type": "DISCIPLINE",
+      "semester": null,
+      "workloadHours": 64,
+      "theoryHours": 0,
+      "labHours": 0,
+      "eadHours": 0,
+      "extensionHours": 0,
+      "credits": 4,
+      "nature": "OPTATIVE",
+      "prerequisites": {
+        "kind": "and",
+        "items": [
+          {
+            "kind": "or",
+            "items": [
+              {
+                "kind": "subject",
+                "code": "SBL0080"
+              },
+              {
+                "kind": "subject",
+                "code": "EEL0072"
+              }
+            ]
+          },
+          {
+            "kind": "subject",
+            "code": "SBL0056"
+          },
+          {
+            "kind": "subject",
+            "code": "SBL0086"
+          }
+        ]
+      },
+      "corequisites": null,
+      "equivalences": null,
+      "branches": [
+        {
+          "key": "slope-ciencias-de-computacao",
+          "nature": "OPTATIVE"
+        }
+      ]
+    }
+  ]
+}
