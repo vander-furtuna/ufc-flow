@@ -87,14 +87,14 @@ flowchart LR
 
 **Objetivo:** os schemas Zod que web, API e extensão compartilham. Modelagem: Importação e edição de grades, Hub do curso, Página de links, Monorepo e arquitetura (Swagger).
 
-- [ ] Enums: naturezas, tipos de vertente, `record_status`, papéis, status de EC, tipos de post e de link, temas da página de links.
-- [ ] `CurriculumImportV1`: curso (`sigaaId`, nome), EC (período, cidade, cargas), disciplinas com `RequirementExpr`, vertentes com chaves locais e regras da EC. Versionado por `schemaVersion: 1`.
-- [ ] Problem Details (`type`, `title`, `status`, `detail`, `code`) e paginação por cursor.
-- [ ] União discriminada dos posts do hub por `type` (tabela de `attributes`).
-- [ ] Tokens dos temas da página de links (CIANO, LARANJA, VERDE, VIOLETA, BRANCO, ESCURO), com contraste AA verificado em teste.
-- [ ] Converter para JSON Schema com `z.toJSONSchema` (para o Swagger) e testar um exemplo válido e um inválido de cada schema.
+- [x] Enums: naturezas, tipos de vertente, `record_status`, papéis, status de EC, tipos de post e de link, temas da página de links.
+- [x] `CurriculumImportV1`: curso (`sigaaId`, nome), EC (período, cidade, cargas), disciplinas com `RequirementExpr`, vertentes com chaves locais e regras da EC. Versionado por `schemaVersion: 1`.
+- [x] Problem Details (`type`, `title`, `status`, `detail`, `code`) e paginação por cursor.
+- [x] União discriminada dos posts do hub por `type` (tabela de `attributes`).
+- [x] Tokens dos temas da página de links (CIANO, LARANJA, VERDE, VIOLETA, BRANCO, ESCURO), com contraste AA verificado em teste. Três destaques mudaram para passar (D31).
+- [x] Converter para JSON Schema com `z.toJSONSchema` (para o Swagger) e testar um exemplo válido e um inválido de cada schema.
 
-**Pronto quando:** um JSON de exemplo de EC real (Eng. de Computação 2025.1) passa no `CurriculumImportV1` e fica versionado como fixture em `packages/contracts/fixtures/`.
+**Pronto quando:** um JSON de exemplo de EC real passa no `CurriculumImportV1` e fica versionado como fixture em `packages/contracts/fixtures/`. A EC é a Eng. de Computação 2006.2, porque a 2025.1 não existe (D33).
 
 ## Fase 3 — Extensão (`apps/extension`)
 

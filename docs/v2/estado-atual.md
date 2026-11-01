@@ -1,16 +1,18 @@
 # Estado atual do repositório
 
-Retrato em 01/11/2026, ao fim da fase 1. Atualize este arquivo ao fim de cada fase do [roadmap](roadmap.md).
+Retrato em 31/10/2026, ao fim da fase 2. Atualize este arquivo ao fim de cada fase do [roadmap](roadmap.md).
 
 ## Branches
 
-| Branch                       | Situação                                                                             |
-| ---------------------------- | ------------------------------------------------------------------------------------ |
-| `master`                     | Produção (deploy no Coolify), e continua sendo (D20). `origin/HEAD` aponta para ela. |
-| `develop`                    | Integração. Tem o monorepo e a fase 0 (PR #61, CI verde).                            |
-| `feature/fase-0-fundacao`    | Mesclada em `develop` pelo PR #61; pode ser apagada.                                 |
-| `feature/monorepo`           | Mesclada em `develop`; pode ser apagada.                                             |
-| `hotfix/schedule-course-key` | Já mesclada em `master` e `develop`; pode ser apagada.                               |
+| Branch                         | Situação                                                                             |
+| ------------------------------ | ------------------------------------------------------------------------------------ |
+| `master`                       | Produção (deploy no Coolify), e continua sendo (D20). `origin/HEAD` aponta para ela. |
+| `develop`                      | Integração. Tem o monorepo e as fases 0 (PR #61) e 1 (PR #63), com CI verde.         |
+| `feature/fase-0-fundacao`      | Mesclada em `develop` pelo PR #61; pode ser apagada.                                 |
+| `feature/fase-1-academic-core` | Mesclada em `develop` pelo PR #63; pode ser apagada.                                 |
+| `feature/fase-2-contracts`     | Fase 2, aguardando PR para `develop`.                                                |
+| `feature/monorepo`             | Mesclada em `develop`; pode ser apagada.                                             |
+| `hotfix/schedule-course-key`   | Já mesclada em `master` e `develop`; pode ser apagada.                               |
 
 A `main` foi apagada no remoto (D20). As branches já mescladas ficam por enquanto.
 
@@ -44,15 +46,26 @@ A `main` foi apagada no remoto (D20). As branches já mescladas ficam por enquan
   - Menções `@CÓDIGO` e normalização de busca.
   - 176 testes, cobertura acima de 90% (mínimo configurado no `vitest.config.ts` do pacote). Sem dependências de execução.
   - O web usa o conflito de horário (`utils/check-time-conflict.ts` virou adaptador) e a normalização (`utils/normalize-words.ts` reexporta) do pacote.
-- **Modelagem v2 fechada** ([modelagem.md](modelagem.md)), com 29 decisões (D1–D29) e 11 lacunas resolvidas (L1–L11).
+  - Mesclada pelo PR #63 e conferida no navegador (agenda com e sem conflito, busca de disciplinas).
+- **Fase 2 — `packages/contracts`** (branch `feature/fase-2-contracts`):
+  - Enums da modelagem, com os do core tipados contra ele (D29), e o tipo de componente (D30).
+  - `RequirementExpr` recursivo, que só aceita a forma normalizada.
+  - `CurriculumImportV1` estrito, com checagem de coerência das vertentes (D33).
+  - Problem Details, `validationProblem` e paginação por cursor (D32).
+  - Posts do hub como união discriminada por `type`.
+  - Tokens dos temas da página de links, com contraste AA testado (D31).
+  - `toJsonSchema` e `toOpenApiComponents()` para o Swagger. O Ajv confere exemplos contra o JSON Schema gerado.
+  - Fixture `fixtures/engenharia-de-computacao-2006-2.json`, com os 114 componentes do HTML real do SIGAA e os `OU` preservados.
+  - 168 testes e cobertura acima de 90%. O `academic-core` passou a exportar `SUBJECT_CODE_PATTERN` e `TERM_PATTERN`.
+- **Modelagem v2 fechada** ([modelagem.md](modelagem.md)), com 33 decisões (D1–D33) e 11 lacunas resolvidas (L1–L11).
 - **39 telas desenhadas** para desktop, mobile e extensão ([telas.md](telas.md)).
 
 ## Pendências imediatas
 
-1. PR de `feature/fase-1-academic-core` para `develop`, com CI verde.
-2. Conferir no navegador a agenda (adicionar turmas com e sem conflito de horário) e a busca de disciplinas.
+1. PR de `feature/fase-2-contracts` para `develop`, com CI verde.
+2. Redesenhar as telas `Links-Pagina`, `Links-Editor` e `Mobile-Links-Editor` com os destaques novos (D31), fora do repositório.
 
-Próximo passo: fase 2 (`packages/contracts`). Pela D29, os schemas Zod tipam contra os tipos do `academic-core`.
+Próximo passo: fase 3 (extensão) ou fase 4 (API e identidade). As duas dependem só das fases 1 e 2.
 
 ## Divergências entre a modelagem e o repositório
 
