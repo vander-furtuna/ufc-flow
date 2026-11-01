@@ -6,7 +6,7 @@ export type Term = {
   period: TermPeriod
 }
 
-const TERM_PATTERN = /^([1-9]\d{3})\.([12])$/
+export const TERM_PATTERN = /^([1-9]\d{3})\.([12])$/
 
 export function parseTerm(code: string): Term | null {
   const match = TERM_PATTERN.exec(code)

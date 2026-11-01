@@ -21,8 +21,8 @@ type Token =
   | { type: 'code'; value: string; position: number }
   | { type: 'and' | 'or' | 'open' | 'close'; position: number }
 
-// Código de disciplina: letras seguidas de dígitos (ECO0001, CK0211)
-const CODE_PATTERN = /^[A-Z]+\d+$/
+// Código de disciplina: letras maiúsculas seguidas de dígitos (ECO0001, CK0211)
+export const SUBJECT_CODE_PATTERN = /^[A-Z]+\d+$/
 const WORD_PATTERN = /[A-Za-z0-9]+/y
 
 class RequirementParseError extends Error {
@@ -50,7 +50,7 @@ function tokenize(text: string): Token[] {
 
       if (upper === 'E' || upper === 'OU') {
         tokens.push({ type: upper === 'E' ? 'and' : 'or', position: index })
-      } else if (word && CODE_PATTERN.test(word)) {
+      } else if (word && SUBJECT_CODE_PATTERN.test(word)) {
         tokens.push({ type: 'code', value: word, position: index })
       } else {
         throw new RequirementParseError({
