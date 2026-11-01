@@ -13,6 +13,17 @@ catalog:
 overrides:
   '@types/react': 19.3.0
   '@types/react-dom': 19.3.0
+  # Correções de segurança na cadeia de build do Plasmo (pnpm audit de
+  # 01/11/2026). Nada disso entra no bundle da extensão.
+  'plasmo>sharp': ^0.35.5
+  'msgpackr@<1.10.1': ^1.12.1
+  'browserslist@<4.28.7': ^4.29.5
+  'content-security-policy-parser@<0.6.0': ^0.6.0
+  'fflate@<0.8.3': ^0.8.3
+  'tsup@<8.3.5': ^8.5.0
+  'esbuild@<0.28.1': ^0.28.2
+  'vue@<3.5.42': ^3.5.44
+  'svelte@<5.55.7': ^5.57.3
 
 # Pacotes autorizados a rodar scripts de instalação (o pnpm bloqueia por padrão)
 allowBuilds:
