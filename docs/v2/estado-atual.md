@@ -4,15 +4,15 @@ Retrato em 31/10/2026, ao fim da fase 2. Atualize este arquivo ao fim de cada fa
 
 ## Branches
 
-| Branch                         | Situação                                                                             |
-| ------------------------------ | ------------------------------------------------------------------------------------ |
-| `master`                       | Produção (deploy no Coolify), e continua sendo (D20). `origin/HEAD` aponta para ela. |
-| `develop`                      | Integração. Tem o monorepo e as fases 0 (PR #61) e 1 (PR #63), com CI verde.         |
-| `feature/fase-0-fundacao`      | Mesclada em `develop` pelo PR #61; pode ser apagada.                                 |
-| `feature/fase-1-academic-core` | Mesclada em `develop` pelo PR #63; pode ser apagada.                                 |
-| `feature/fase-2-contracts`     | Fase 2, aguardando PR para `develop`.                                                |
-| `feature/monorepo`             | Mesclada em `develop`; pode ser apagada.                                             |
-| `hotfix/schedule-course-key`   | Já mesclada em `master` e `develop`; pode ser apagada.                               |
+| Branch                         | Situação                                                                                 |
+| ------------------------------ | ---------------------------------------------------------------------------------------- |
+| `master`                       | Produção (deploy no Coolify), e continua sendo (D20). `origin/HEAD` aponta para ela.     |
+| `develop`                      | Integração. Tem o monorepo e as fases 0 (PR #61), 1 (PR #63) e 2 (PR #64), com CI verde. |
+| `feature/fase-0-fundacao`      | Mesclada em `develop` pelo PR #61; pode ser apagada.                                     |
+| `feature/fase-1-academic-core` | Mesclada em `develop` pelo PR #63; pode ser apagada.                                     |
+| `feature/fase-2-contracts`     | Mesclada em `develop` pelo PR #64; pode ser apagada.                                     |
+| `feature/monorepo`             | Mesclada em `develop`; pode ser apagada.                                                 |
+| `hotfix/schedule-course-key`   | Já mesclada em `master` e `develop`; pode ser apagada.                                   |
 
 A `main` foi apagada no remoto (D20). As branches já mescladas ficam por enquanto.
 
@@ -62,8 +62,7 @@ A `main` foi apagada no remoto (D20). As branches já mescladas ficam por enquan
 
 ## Pendências imediatas
 
-1. PR de `feature/fase-2-contracts` para `develop`, com CI verde.
-2. Redesenhar as telas `Links-Pagina`, `Links-Editor` e `Mobile-Links-Editor` com os destaques novos (D31), fora do repositório.
+Nenhuma. As telas de links (`Links-Pagina`, `Links-Editor`, `Mobile-Links` e `Mobile-Links-Editor`) ainda usam os destaques antigos e serão redesenhadas na implementação, na fase 10 (D31).
 
 Próximo passo: fase 3 (extensão) ou fase 4 (API e identidade). As duas dependem só das fases 1 e 2.
 
