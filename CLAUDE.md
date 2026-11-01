@@ -70,7 +70,10 @@ pnpm --filter @ufc-flow/academic-core add -D vitest   # dependência num pacote
 
 - Git flow: `feature/*` a partir de `develop`, com PR para `develop`; `hotfix/*` a partir da branch de produção (`master`, decisão D20), mesclada nela e em `develop`. Nunca commite direto na branch de produção.
 - Conventional Commits: `feat(scope): ...`, `fix`, `chore`, `refactor`, `docs`, `test`.
-- Faça commit só quando o usuário pedir ou quando a tarefa combinada incluir isso. Não faça push sem pedido explícito.
+- Faça commit só quando o usuário pedir ou quando a tarefa combinada incluir isso.
+- Antes de criar uma branch, atualize a `develop` local (`git pull --ff-only`).
+- Ao concluir uma fase ou tarefa combinada, com tudo verde, envie a branch (`git push -u origin <branch>`) e abra o PR para `develop` com o GitHub CLI (`gh pr create`), já autenticado na conta do usuário. A descrição segue `docs/v2/convencoes.md`. Commits novos na mesma branch vão para o PR aberto com `git push`.
+- O merge é sempre do usuário. Nunca faça merge, push direto em `develop` ou `master`, nem `push --force`.
 
 ## Skills e comandos
 

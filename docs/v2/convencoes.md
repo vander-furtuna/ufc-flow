@@ -52,7 +52,7 @@ Arquivos de teste ficam ao lado do código: `*.test.ts`. Fixtures em `__fixtures
 - Branches: `feature/<assunto>`, `fix/<assunto>`, `hotfix/<assunto>`, `release/vX.Y.Z`, sempre a partir de `develop` (hotfix a partir da branch de produção).
 - Commits em inglês, no padrão Conventional Commits, com escopo quando fizer sentido: `feat(catalog): publish curriculum with validation`.
 - Um PR por entrega coerente, mesclado em `develop`. A descrição diz o que mudou, como testar e quais caixas do roadmap fecha.
-- Não faça push nem abra PR sem pedido do usuário.
+- Ao concluir a entrega, com a definição de pronto cumprida, o agente envia a branch e abre o PR para `develop` com `gh pr create`. O merge é sempre do usuário; o agente nunca faz merge, push direto em `develop` ou `master`, nem `push --force`.
 
 ## Definição de pronto
 
