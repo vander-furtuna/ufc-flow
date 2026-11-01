@@ -85,6 +85,17 @@ As telas de links (`Links-Pagina`, `Links-Editor`, `Mobile-Links` e `Mobile-Link
 
 Próximo passo: fase 4 (API e identidade). A fase 5 depende dela.
 
+## Segurança das dependências
+
+Auditoria de 01/11/2026 (`pnpm audit` na `develop` e alertas do Dependabot na `master`):
+
+- **`develop`:** nada vulnerável no que vai para produção (site e bundle da extensão). Os overrides do `pnpm-workspace.yaml` sobem sharp, msgpackr, browserslist, content-security-policy-parser, fflate, tsup, esbuild, vue e svelte na cadeia de build do Plasmo. De 21 avisos (8 altos), sobraram 3, aceitos por não terem correção compatível:
+  - `@parcel/reporter-dev-server` (moderado): preso ao Parcel 2.9 do Plasmo. Só roda durante o `plasmo dev`; evite navegar em sites desconhecidos com o `pnpm dev` da extensão aberto.
+  - `deepmerge` (baixo): sem versão corrigida; usado só no build, com a configuração do projeto.
+  - `minimatch` 3 (moderado): vem do ESLint que o plugin de lint do React carrega; a correção (v11) muda a API que o ESLint usa. Só roda no lint, com globs do projeto.
+- **`master`:** os alertas do Dependabot vêm do `package-lock.json`, que o build de produção não usa (o Dockerfile instala pelo `bun.lock`). O `bun.lock` tem as mesmas versões vulneráveis de undici, zod e source-map-js; a correção vai num hotfix.
+- O Plasmo não tem versão nova desde maio de 2025 e prende o Parcel 2.9. Se a cadeia de build acumular avisos sem correção, vale avaliar trocar de framework de extensão (ver Lacunas na modelagem).
+
 ## Divergências entre a modelagem e o repositório
 
 | Modelagem diz                                      | Repositório hoje                                                                          | O que vale                   |
