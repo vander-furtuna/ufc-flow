@@ -1,18 +1,19 @@
 # Estado atual do repositório
 
-Retrato em 31/10/2026, no momento da migração do trabalho para o Claude Code. Atualize este arquivo ao fim de cada fase do [roadmap](roadmap.md).
+Retrato em 31/10/2026, ao fim da fase 0. Atualize este arquivo ao fim de cada fase do [roadmap](roadmap.md).
 
 ## Branches
 
-| Branch                       | Situação                                                                                           |
-| ---------------------------- | -------------------------------------------------------------------------------------------------- |
-| `master`                     | Produção (deploy no Coolify). Contém o hotfix das agendas locais. `origin/HEAD` aponta para ela.   |
-| `develop`                    | Integração. Sincronizada com `master` e com o hotfix.                                              |
-| `feature/monorepo`           | Monorepo pnpm + Turborepo, pnpm 11 e esta documentação. **Ainda sem `pnpm-lock.yaml` e sem PR.**   |
-| `main`                       | Existe junto com `master`. A modelagem decide manter só `main` como produção; ainda não foi feito. |
-| `hotfix/schedule-course-key` | Já mesclada em `master` e `develop`; pode ser apagada.                                             |
+| Branch                       | Situação                                                                             |
+| ---------------------------- | ------------------------------------------------------------------------------------ |
+| `master`                     | Produção (deploy no Coolify), e continua sendo (D20). `origin/HEAD` aponta para ela. |
+| `develop`                    | Integração. Já tem `feature/monorepo` mesclada (localmente).                         |
+| `feature/fase-0-fundacao`    | Fase 0 completa, a partir de `develop`. Aguarda PR para `develop`.                   |
+| `feature/monorepo`           | Mesclada em `develop`; pode ser apagada depois do push.                              |
+| `main`                       | Desatualizada em relação à `master`. Deve ser apagada no remoto (D20).               |
+| `hotfix/schedule-course-key` | Já mesclada em `master` e `develop`; pode ser apagada.                               |
 
-Nada do que está acima foi enviado ao GitHub (`git push origin master develop feature/monorepo` é responsabilidade do usuário). A branch `feat/users` foi descartada e apagada localmente; falta apagar no remoto (`git push origin --delete feat/users`).
+Nada disso foi enviado ao GitHub; o push é responsabilidade do usuário (`git push origin master develop feature/fase-0-fundacao`). Falta apagar no remoto `feat/users` e `main` (`git push origin --delete feat/users main`).
 
 ## Concluído
 
@@ -28,27 +29,32 @@ Nada do que está acima foi enviado ao GitHub (`git push origin master develop f
   - O `next.config.mjs` rastreia o build standalone a partir da raiz.
   - O Dockerfile usa pnpm e inicia o servidor em `apps/web/server.js`. O CI também usa pnpm.
   - README, `CONFIGURATION_ITEMS.md` (IC-023 e IC-024) e `PLANO_GERENCIAMENTO_CONFIGURACAO.md` foram atualizados.
-- **Modelagem v2 fechada** ([modelagem.md](modelagem.md)), com 19 decisões (D1–D19) e 11 lacunas resolvidas (L1–L11).
+- **Fase 0 — Fundação** (branch `feature/fase-0-fundacao`):
+  - `pnpm-lock.yaml` commitado; `pnpm typecheck`, `pnpm lint`, `pnpm test`, `pnpm format:check` e `pnpm build` passam.
+  - Lint com oxlint e type-aware (`.oxlintrc.json` na raiz). As regras do React Compiler vêm do plugin JS `react-hooks-js`. Ficam 5 avisos de `jsx-a11y` (`vander-logo.tsx`, `ui/field.tsx`, `calendario/components/calendar-view.tsx`).
+  - Prettier na raiz, com o repositório inteiro formatado e as quebras de linha normalizadas para LF.
+  - Vitest com config por pacote e tarefa `test` no Turborepo.
+  - `set-state-in-effect` corrigido nos contexts `schedule`, `class` e `calendar`.
+  - IndexedDB unificado no `UFCFlowDB` v7, com migração e testes (`apps/web/src/lib/ufc-flow-db.test.ts`).
+  - `docker/compose.dev.yml` (PostgreSQL 17) e `apps/api/.env.example`.
+  - CI em PRs para `develop` e `master`, com formatação e testes.
+- **Modelagem v2 fechada** ([modelagem.md](modelagem.md)), com 20 decisões (D1–D20) e 11 lacunas resolvidas (L1–L11).
 - **39 telas desenhadas** para desktop, mobile e extensão ([telas.md](telas.md)).
 
-## Pendências imediatas (fase 0 do roadmap)
+## Pendências imediatas
 
-1. Gerar `pnpm-lock.yaml` com `pnpm install` na raiz (não foi possível no ambiente anterior) e confirmar que `pnpm typecheck`, `pnpm lint` e `pnpm build` passam.
-2. Erro de lint conhecido e anterior ao monorepo: `react-hooks/set-state-in-effect` no `useEffect` que chama `init()` em `apps/web/src/contexts/schedule.tsx`. Ele quebra o passo de lint do CI.
-3. Migrar ESLint → oxlint (decisão D19).
-4. Decidir e executar `main` × `master` (a modelagem escolhe `main`), ajustando o CI e o Coolify.
-5. Criar `docker/compose.dev.yml` com o PostgreSQL de desenvolvimento.
-6. Unificar os dois bancos IndexedDB do web (`UFCFlowDB` e `ufc-flow-indexeddb`). É pré-requisito da importação de agendas.
+1. Push das branches e PR de `feature/fase-0-fundacao` para `develop`. O "pronto" da fase 0 é o CI verde nesse PR.
+2. Apagar `main` no remoto e conferir que o GitHub (branch padrão) e o Coolify usam `master`.
+3. Conferir `docker compose -f docker/compose.dev.yml up -d` com o Docker Desktop ligado (o arquivo foi validado com `docker compose config`, mas o container não foi iniciado).
+4. Conferir num navegador com dados reais que filtros, ferramentas e agendas continuam lá depois da migração para o `UFCFlowDB` v7.
+5. Corrigir os 5 avisos de `jsx-a11y` e passar essas regras para erro. Os de `calendario` dependem de uma exceção à D10.
 
 ## Divergências entre a modelagem e o repositório
 
-| Modelagem diz                                        | Repositório hoje                                            | O que vale                                                                           |
-| ---------------------------------------------------- | ----------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| `packages/eslint-config` e `packages/tsconfig`       | `tsconfig.base.json` na raiz; sem pacote de lint            | Raiz. Com o oxlint (D19), uma `.oxlintrc.json` na raiz substitui o pacote de ESLint. |
-| `docker/` com compose de desenvolvimento             | Não existe                                                  | Criar na fase 0.                                                                     |
-| `main` = produção; CI em PRs para `develop` e `main` | Produção em `master`; CI só em `master`                     | Seguir a modelagem quando a pendência 4 for feita.                                   |
-| Caminho `src/data/courses.ts`                        | `apps/web/src/data/courses.ts`                              | O novo caminho.                                                                      |
-| Extensão = Plasmo, "o atual sigaa-classes-scraping"  | O repositório irmão usa Plasmo e tem trabalho não commitado | Migrar a cópia de trabalho para `apps/extension` (fase 3).                           |
+| Modelagem diz                                       | Repositório hoje                                            | O que vale                                                 |
+| --------------------------------------------------- | ----------------------------------------------------------- | ---------------------------------------------------------- |
+| Caminho `src/data/courses.ts`                       | `apps/web/src/data/courses.ts`                              | O novo caminho.                                            |
+| Extensão = Plasmo, "o atual sigaa-classes-scraping" | O repositório irmão usa Plasmo e tem trabalho não commitado | Migrar a cópia de trabalho para `apps/extension` (fase 3). |
 
 ## Como o web funciona hoje (o que a v2 substitui)
 
@@ -62,6 +68,6 @@ Nada do que está acima foi enviado ao GitHub (`git push origin master develop f
 - **Dados acadêmicos:** estáticos em `apps/web/src/data/courses.ts`, com 6 cursos e 9 ECs. Os pré-requisitos são listas de códigos e perderam o `OU`. Tipos em `apps/web/src/types/course.ts`.
 - **Turmas:** `api/scrapping` faz o scraping do SIGAA (got + cheerio) a cada consulta. Cada turma ganha um `randomUUID()` novo a cada consulta, então não há IDs estáveis.
 - **Estado no cliente:** contexts em `apps/web/src/contexts` (`course`, `class`, `schedule`, `filter`, `calendar`, `tools`).
-- **Persistência local:** IndexedDB `UFCFlowDB` v6 (`apps/web/src/lib/indexeddb.ts`), com os stores `schedules` (cache de turmas), `user_schedules` (agendas), `user_preferences`, `academic_calendar` e `ru_menus`. Há um segundo banco, `ufc-flow-indexeddb` (`apps/web/src/storage/indexed-db`), com os stores de filtros e ferramentas.
+- **Persistência local:** IndexedDB `UFCFlowDB` v7, aberto por `apps/web/src/lib/ufc-flow-db.ts`, com os stores `schedules` (cache de turmas), `user_schedules` (agendas), `user_preferences`, `academic_calendar`, `ru_menus`, `filters` e `tools`. O acesso é feito por `apps/web/src/lib/indexeddb.ts` e `apps/web/src/storage/indexed-db`. O antigo `ufc-flow-indexeddb` é copiado e apagado na primeira abertura da v7.
 - **Semestre vigente:** variáveis `NEXT_PUBLIC_CURRENT_YEAR` e `NEXT_PUBLIC_CURRENT_SEMESTER`. Na v2 isso passa para `academic_terms.is_current`.
 - **Deploy:** o Coolify faz o build do `Dockerfile` da raiz. A saída é standalone do Next, na porta 3000.

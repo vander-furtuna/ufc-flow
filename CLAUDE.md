@@ -42,14 +42,16 @@ Gerenciador: **pnpm 11** (versão fixada em `packageManager`). Node 22+. O usuá
 ```bash
 pnpm install                          # na raiz
 pnpm dev:web                          # front em http://localhost:3000
-pnpm build | pnpm lint | pnpm typecheck   # todos os pacotes, via Turborepo
+pnpm build | pnpm lint | pnpm typecheck | pnpm test   # todos os pacotes, via Turborepo
+pnpm format | pnpm format:check       # Prettier no repositório inteiro
+docker compose -f docker/compose.dev.yml up -d   # PostgreSQL de desenvolvimento
 pnpm --filter @ufc-flow/web <script>  # um pacote específico
 pnpm --filter @ufc-flow/academic-core add -D vitest   # dependência num pacote
 ```
 
 - Rode `pnpm typecheck`, `pnpm lint` e os testes do pacote afetado antes de dizer que uma tarefa está pronta.
 - Variáveis do web: `apps/web/.env.local` (modelo em `apps/web/.env.example`).
-- O CI (`.github/workflows/ci.yml`) roda install com `--frozen-lockfile`, lint, typecheck e build.
+- O CI (`.github/workflows/ci.yml`) roda em PRs para `develop` e `master`: install com `--frozen-lockfile`, `format:check`, lint (oxlint type-aware), typecheck, test e build.
 
 ## Regras do projeto
 
@@ -66,7 +68,7 @@ pnpm --filter @ufc-flow/academic-core add -D vitest   # dependência num pacote
 
 ## Git
 
-- Git flow: `feature/*` a partir de `develop`, com PR para `develop`; `hotfix/*` a partir da branch de produção (hoje `master`; a modelagem prevê migrar para `main`), mesclada nela e em `develop`. Nunca commite direto na branch de produção.
+- Git flow: `feature/*` a partir de `develop`, com PR para `develop`; `hotfix/*` a partir da branch de produção (`master`, decisão D20), mesclada nela e em `develop`. Nunca commite direto na branch de produção.
 - Conventional Commits: `feat(scope): ...`, `fix`, `chore`, `refactor`, `docs`, `test`.
 - Faça commit só quando o usuário pedir ou quando a tarefa combinada incluir isso. Não faça push sem pedido explícito.
 

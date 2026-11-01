@@ -5,7 +5,7 @@ Tudo que um desenvolvedor (pessoa ou agente) precisa para continuar a v2 do UFC 
 ## Ordem de leitura
 
 1. [estado-atual.md](estado-atual.md): o que já foi feito, o que está pendente e onde o repositório diverge da modelagem.
-2. [modelagem.md](modelagem.md): a fonte de verdade da v2. Traz o escopo, o registro de decisões (D1–D19, L1–L11), a arquitetura e as tabelas, regras e endpoints de cada módulo.
+2. [modelagem.md](modelagem.md): a fonte de verdade da v2. Traz o escopo, o registro de decisões (D1–D20, L1–L11), a arquitetura e as tabelas, regras e endpoints de cada módulo.
 3. [roadmap.md](roadmap.md): as 14 fases (0 a 13), em ordem de dependência, com entregas em checklist e critérios de pronto.
 4. [telas.md](telas.md): as 39 telas (PNG + HTML), com o que cada uma mostra, seus estados e a fase em que entra.
 5. [design-system.md](design-system.md): como traduzir os mockups para os tokens Tailwind/shadcn do web.

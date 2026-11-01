@@ -64,6 +64,7 @@ Cada linha é uma decisão já tomada e onde ela aparece na modelagem. Mudar uma
 | D17 | Documentação da API      | Swagger em todas as rotas, com CI barrando rota sem documentação                              | Seção Monorepo e arquitetura                                                        |
 | D18 | Links do curso           | Página própria no estilo Linktree, com tema, seções, destaque, agendamento e cliques anônimos | Seção Página de links; course\_links substituída por 6 tabelas                      |
 | D19 | Lint                     | oxlint no lugar do ESLint, com lint type-aware e plugin JS para as regras do React Compiler   | Seção Monorepo e arquitetura; Prettier segue só como formatador                     |
+| D20 | Branch de produção       | `master` continua como produção; `main` é apagada                                             | Substitui a escolha de `main` no Git flow; CI em PRs para `develop` e `master`      |
 
 ## Monorepo e arquitetura
 
@@ -77,17 +78,26 @@ ufc-flow/
 │  └─ extension/      Plasmo — o atual sigaa-classes-scraping
 ├─ packages/
 │  ├─ contracts/      schemas Zod: DTOs da API, formato de importação de EC (v1), enums
-│  ├─ academic-core/  regras puras: expressão de requisitos, termo "2026.1", conflito de horário, progresso
-│  ├─ eslint-config/
-│  └─ tsconfig/
+│  └─ academic-core/  regras puras: expressão de requisitos, termo "2026.1", conflito de horário, progresso
 ├─ docker/            compose de desenvolvimento (Postgres)
+├─ .oxlintrc.json     lint de todo o monorepo
+├─ .prettierrc        formatação de todo o monorepo
+├─ tsconfig.base.json base dos tsconfig dos pacotes
 ├─ turbo.json
 └─ pnpm-workspace.yaml
 ```
 
 **Gerenciador de pacotes.** Decidido: pnpm + Turborepo. O Plasmo e o NestJS são documentados e testados com npm/pnpm. O front sai do bun: `bun.lock` e `package-lock.json` dão lugar a um único `pnpm-lock.yaml` na raiz, e o Dockerfile e o CI do web passam a usar pnpm.
 
-**Lint.** Decidido: o oxlint substitui o ESLint em todo o monorepo. Uma configuração na raiz (`.oxlintrc.json`) liga os plugins nativos `typescript`, `react`, `nextjs`, `import` e `jsx-a11y`, com `overrides` por pasta para o que vale só no web ou na extensão. O lint type-aware roda no CI com `oxlint-tsgolint`, que cobre 59 das 61 regras type-aware do typescript-eslint ([estável desde julho de 2026](https://oxc.rs/blog/2026-07-22-type-aware-linting-stable)). As regras do React Compiler, como `set-state-in-effect`, entram pelo `eslint-plugin-react-hooks` carregado como plugin JS, que passa em 100% dos testes desse plugin ([plugins JS, alpha](https://oxc.rs/blog/2026-03-11-oxlint-js-plugins-alpha)). A migração parte de `pnpm dlx @oxlint/migrate`, que lê o `eslint.config.mjs` e lista as regras sem equivalente. Saem `eslint`, `eslint-config-next`, `eslint-config-prettier` e `eslint-plugin-prettier`. O Prettier continua só como formatador, checado no CI com `prettier --check`; o oxfmt fica para quando sair do beta. A confirmar: o tsgolint usa o compilador do TypeScript 7, e o projeto está no 5.9.
+**Lint.** Decidido: o oxlint substitui o ESLint em todo o monorepo. Uma configuração na raiz (`.oxlintrc.json`) liga os plugins nativos `typescript`, `react`, `nextjs`, `import` e `jsx-a11y`, com `overrides` por pasta para o que vale só no web ou na extensão. O lint type-aware roda no CI com `oxlint-tsgolint`, que cobre 59 das 61 regras type-aware do typescript-eslint ([estável desde julho de 2026](https://oxc.rs/blog/2026-07-22-type-aware-linting-stable)). As regras do React Compiler, como `set-state-in-effect`, entram pelo `eslint-plugin-react-hooks` carregado como plugin JS, que passa em 100% dos testes desse plugin ([plugins JS, alpha](https://oxc.rs/blog/2026-03-11-oxlint-js-plugins-alpha)). A migração parte de `pnpm dlx @oxlint/migrate`, que lê o `eslint.config.mjs` e lista as regras sem equivalente. Saem `eslint`, `eslint-config-next`, `eslint-config-prettier` e `eslint-plugin-prettier`. O Prettier continua só como formatador, checado no CI com `prettier --check`; o oxfmt fica para quando sair do beta.
+
+Como ficou na fase 0:
+
+- O nome `react-hooks` é reservado para as regras nativas do oxlint, então o plugin JS entra com o alias `react-hooks-js`. Comentários de supressão usam esse nome: `// oxlint-disable-next-line react-hooks-js/exhaustive-deps`.
+- As regras nativas do React Compiler (`react/set-state-in-effect`, `react/purity`, etc.) ficam desligadas. Elas acusam mais do que o plugin oficial (por exemplo, `new Date()` no render como impuro), e o plugin JS reproduz exatamente o que o ESLint acusava.
+- A categoria `correctness` fica ligada. As regras de `jsx-a11y` que ela trouxe e que o ESLint não tinha (`click-events-have-key-events`, `no-noninteractive-element-interactions`, `no-static-element-interactions`, `prefer-tag-over-role`) valem como aviso até as telas serem corrigidas.
+- O tsgolint lê os tsconfig em TS 5.9 sem erro.
+- Prettier e oxlint rodam a partir da raiz. As quebras de linha são LF em todo o repositório (`.gitattributes` e `endOfLine: "lf"`).
 
 **Estrutura da API (hexagonal por módulo).** Cada módulo é um contexto delimitado com três camadas. O schema Drizzle de cada tabela mora no módulo dono dela; o `drizzle.config.ts` aponta para um glob.
 
@@ -133,7 +143,7 @@ apps/api/src/
 - HTTP: e2e com supertest sobre o app Nest.
 - CI: lint, typecheck, testes e cobertura mínima como gate, só nos pacotes afetados (Turborepo).
 
-**Git flow.** `main` = produção, `develop` = integração, `feature/*`, `release/*`, `hotfix/*`. O front hoje tem `main` e `master` ao mesmo tempo: escolher `main` e apagar a outra. O CI roda em PRs para `develop` e `main`.
+**Git flow.** `master` = produção, `develop` = integração, `feature/*`, `release/*`, `hotfix/*` (D20). A branch `main`, que existia junto com `master` e está desatualizada, deve ser apagada. O CI roda em PRs para `develop` e `master` e em push para `master`.
 
 **Execução na VM.** Três containers no Coolify: `web`, `api`, `postgres`. Sem Redis: jobs agendados via `@nestjs/schedule`, possível porque a API roda em instância única. Uploads num volume Docker montado na API.
 
@@ -309,7 +319,7 @@ schedule_items(schedule_id, class_section_id, subject_code, color, slots_fingerp
 2. Para cada agenda antiga, o curso é inferido no front: se um só curso tem EC com aquele id, é ele; se vários, vence o curso cujas disciplinas mais coincidem com os códigos das turmas da agenda; em empate ou agenda vazia, sugere o curso da matrícula atual e o usuário confirma no diálogo de importação.
 3. A API recebe sempre o `course_id` explícito. A inferência fica no front, onde estão os dados antigos.
 
-Antes disso, unificar os dois bancos IndexedDB do front (`UFCFlowDB` e `ufc-flow-indexeddb`).
+Antes disso, unificar os dois bancos IndexedDB do front (`UFCFlowDB` e `ufc-flow-indexeddb`). Feito na fase 0: tudo fica no `UFCFlowDB` v7, aberto por `apps/web/src/lib/ufc-flow-db.ts`.
 
 ## Vida acadêmica do aluno
 
