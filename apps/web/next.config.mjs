@@ -16,8 +16,11 @@ const nextConfig = {
   },
   reactCompiler: true,
   // Pacotes internos exportam TypeScript direto
-  transpilePackages: ['@ufc-flow/academic-core'],
+  transpilePackages: ['@ufc-flow/academic-core', '@ufc-flow/contracts'],
   allowedDevOrigins: ['192.168.18.*', '127.0.0.1'],
+  // O log de server actions do dev mostra os argumentos, e as de login
+  // recebem a senha
+  logging: { serverFunctions: false },
   experimental: {
     optimizePackageImports: ['@phosphor-icons/react'],
   },
