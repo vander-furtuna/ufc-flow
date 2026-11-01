@@ -1,0 +1,56 @@
+/* Estilos da extensão. A CLI do Tailwind 4 gera generated.css a partir deste
+   arquivo (pnpm css); o Plasmo só importa o resultado. Os valores seguem
+   docs/v2/design-system.md. */
+@import 'tailwindcss' source('../');
+
+@theme {
+  --font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
+  --font-clash: 'ClashDisplay', 'Geist', ui-sans-serif, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, monospace;
+
+  /* Naturezas (NATURE_COLORS do web) */
+  --color-mandatory: #f97316;
+  --color-optative: #c026d3;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+}
+
+/* slate do Tailwind, como no web */
+:root,
+:host {
+  --background: #ffffff;
+  --foreground: #020618;
+  --card: #f8fafc;
+  --muted: #f1f5f9;
+  --muted-foreground: #45556c;
+  --border: #e2e8f0;
+  --primary: #0f172b;
+  --primary-foreground: #f8fafc;
+}
+
+body {
+  background-color: var(--background);
+}
+
+/* O popup acompanha o tema do sistema; o painel no SIGAA fica claro */
+@media (prefers-color-scheme: dark) {
+  .theme-auto {
+    --background: #020618;
+    --foreground: #f8fafc;
+    --card: #0f172b;
+    --muted: #1d293d;
+    --muted-foreground: #90a1b9;
+    --border: #314158;
+    --primary: #f8fafc;
+    --primary-foreground: #0f172b;
+  }
+}

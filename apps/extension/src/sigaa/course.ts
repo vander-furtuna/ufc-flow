@@ -26,16 +26,19 @@ const PARTICLES = new Set([
   'para',
 ])
 
-// "ENGENHARIA DE COMPUTAÇÃO" vira "Engenharia de Computação" (D34). O admin
-// ajusta siglas e casos raros no Flow.
+// Numerais romanos de disciplinas em sequência (I a XIII)
+const ROMAN = /^(x{0,1}(i{1,3}|iv|v|vi{1,3}|ix)|x)$/
+
+// "ENGENHARIA DE COMPUTAÇÃO" vira "Engenharia de Computação" e "FÍSICA GERAL
+// III", "Física Geral III" (D34). O admin ajusta siglas e casos raros no Flow.
 export function formatCourseName(name: string): string {
   return name
     .toLocaleLowerCase('pt-BR')
-    .replace(/\p{L}+/gu, (word, offset: number) =>
-      offset > 0 && PARTICLES.has(word)
-        ? word
-        : word.charAt(0).toLocaleUpperCase('pt-BR') + word.slice(1),
-    )
+    .replace(/\p{L}+/gu, (word, offset: number) => {
+      if (offset > 0 && ROMAN.test(word)) return word.toUpperCase()
+      if (offset > 0 && PARTICLES.has(word)) return word
+      return word.charAt(0).toLocaleUpperCase('pt-BR') + word.slice(1)
+    })
 }
 
 // O catálogo embutido (lista pública, com modalidade e unidade) mais os

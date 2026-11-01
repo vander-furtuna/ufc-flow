@@ -1,113 +1,281 @@
-import React from "react"
-import { Sparkles, BookOpen, Download, HelpCircle, GraduationCap } from "lucide-react"
-import "./font.css"
+import '~styles/generated.css'
+import '~styles/fonts.css'
 
-function IndexPopup() {
-  const handleOpenSIGAA = () => {
-    window.open("https://si3.ufc.br/sigaa/graduacao/curriculo/lista.jsf", "_blank")
+import {
+  ChevronLeft,
+  ChevronRight,
+  Download,
+  ExternalLink,
+  LayoutGrid,
+  Lock,
+  Search,
+  Send,
+} from 'lucide-react'
+import { useEffect, useState, type FormEvent } from 'react'
+
+import { Button, Chip, Logo } from './components/ui'
+import { FLOW_SYNC_ENABLED, FLOW_URL, SIGAA_CURRICULA_URL } from './lib/config'
+import { downloadText } from './lib/download'
+import type {
+  ContentMessage,
+  JsonResponse,
+  SummaryResponse,
+} from './lib/messages'
+
+// O popup acompanha o tema do sistema (o painel no SIGAA fica claro)
+document.documentElement.classList.add('theme-auto')
+
+type Screen = 'loading' | 'start' | 'detected' | 'login'
+
+async function sendToTab<T>(message: ContentMessage): Promise<T | null> {
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true })
+  if (tab?.id === undefined) return null
+  try {
+    return (await chrome.tabs.sendMessage(tab.id, message)) as T
+  } catch {
+    // Aba sem o content script (fora do SIGAA)
+    return null
   }
+}
 
+function Header() {
   return (
-    <div
-      style={{
-        width: 320,
-        fontFamily: "'Geist', sans-serif",
-        background: "oklch(12.9% 0.02 264.695)", // Solid dark chumbo from CSS
-        color: "oklch(98.4% 0.003 247.858)",
-        padding: "1.25rem",
-        boxSizing: "border-box",
-        display: "flex",
-        flexDirection: "column",
-        gap: "1.1rem",
-        border: "1px solid oklch(24% 0.025 257.287)", // Solid border from CSS
-        boxShadow: "none" // No shadows
-      }}
-    >
-      {/* Header */}
-      <header style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-        <div
-          style={{
-            background: "oklch(24% 0.025 257.287)", // Flat solid border gray
-            border: "1px solid rgba(255, 255, 255, 0.1)",
-            padding: "0.45rem",
-            borderRadius: "6px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center"
-          }}
-        >
-          <Sparkles size={16} color="white" />
-        </div>
-        <div>
-          <h2 style={{ margin: 0, fontSize: "1rem", fontWeight: 700, color: "white", letterSpacing: "-0.015em", fontFamily: "'ClashDisplay', sans-serif" }}>
-            UFC FLOW
-          </h2>
-          <span style={{ fontSize: "0.7rem", color: "#64748b", display: "block", marginTop: "0.05rem" }}>
-            v0.0.1 • Vanderlei Furtuna
-          </span>
-        </div>
-      </header>
-
-      {/* Intro */}
-      <section style={{ fontSize: "0.75rem", color: "#cbd5e1", lineHeight: 1.4, background: "oklch(15.5% 0.02 260.031)", padding: "0.7rem", borderRadius: "6px", border: "1px solid oklch(24% 0.025 257.287)" }}>
-        Extraia e modernize a grade curricular da <strong>UFC</strong> com um painel Kanban plano de alta densidade informativa, busca instantânea e realce de pré-requisitos.
-      </section>
-
-      {/* How to use */}
-      <section style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-        <h3 style={{ margin: 0, fontSize: "0.75rem", fontWeight: 700, color: "#94a3b8", textTransform: "uppercase", letterSpacing: "0.04em", fontFamily: "'ClashDisplay', sans-serif" }}>
-          Como utilizar:
-        </h3>
-        
-        <div style={{ display: "flex", flexDirection: "column", gap: "0.45rem", fontSize: "0.725rem", color: "#64748b" }}>
-          <div style={{ display: "flex", gap: "0.45rem", alignItems: "flex-start" }}>
-            <GraduationCap size={13} style={{ color: "#94a3b8", flexShrink: 0, marginTop: "0.05rem" }} />
-            <span>Acesse a tela de lista de currículos no SIGAA UFC.</span>
-          </div>
-          <div style={{ display: "flex", gap: "0.45rem", alignItems: "flex-start" }}>
-            <BookOpen size={13} style={{ color: "#94a3b8", flexShrink: 0, marginTop: "0.05rem" }} />
-            <span>Clique na <strong>Lupa</strong> do seu curso para abrir os detalhes.</span>
-          </div>
-          <div style={{ display: "flex", gap: "0.45rem", alignItems: "flex-start" }}>
-            <Sparkles size={13} style={{ color: "#94a3b8", flexShrink: 0, marginTop: "0.05rem" }} />
-            <span>Clique no botão plano <strong>"Grade Moderna"</strong> no canto inferior.</span>
-          </div>
-        </div>
-      </section>
-
-      {/* Action Button */}
-      <button
-        onClick={handleOpenSIGAA}
-        style={{
-          background: "white",
-          border: "1px solid white",
-          color: "black",
-          padding: "0.6rem 1rem",
-          fontWeight: 600,
-          fontSize: "0.775rem",
-          borderRadius: "6px",
-          cursor: "pointer",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: "0.5rem",
-          boxShadow: "none",
-          transition: "all 0.15s ease-out",
-          fontFamily: "'Geist', sans-serif"
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.background = "#cbd5e1"
-          e.currentTarget.style.borderColor = "#cbd5e1"
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.background = "white"
-          e.currentTarget.style.borderColor = "white"
-        }}
-      >
-        <span>Abrir SIGAA UFC</span>
-      </button>
-    </div>
+    <header className="flex items-center gap-3">
+      <Logo />
+      <div>
+        <p className="font-clash text-lg leading-tight font-semibold">
+          UFC Flow
+        </p>
+        <p className="text-muted-foreground text-xs">
+          Extrator de grades do SIGAA
+        </p>
+      </div>
+    </header>
   )
 }
 
-export default IndexPopup
+function Footer() {
+  return (
+    <p className="text-muted-foreground mt-auto text-center text-xs">
+      v{chrome.runtime.getManifest().version} · os dados lidos ficam no seu
+      navegador até você enviar
+    </p>
+  )
+}
+
+const STEPS = [
+  'Entre no SIGAA com seu login.',
+  'Em Currículos, busque o curso e clique na lupa da estrutura.',
+  'Use o botão Extrair grade que aparece no canto da página.',
+]
+
+function Start({ onLogin }: { onLogin: () => void }) {
+  return (
+    <>
+      <Header />
+      <div className="border-border bg-card flex gap-3 rounded-2xl border p-4">
+        <span className="border-border bg-background flex size-10 shrink-0 items-center justify-center rounded-xl border">
+          <Search className="size-4" aria-hidden />
+        </span>
+        <p className="text-sm">
+          <strong>Nenhuma grade nesta aba.</strong> Abra a estrutura curricular
+          de um curso no SIGAA.
+        </p>
+      </div>
+      <ol className="flex flex-col gap-3">
+        {STEPS.map((step, index) => (
+          <li key={step} className="flex gap-3 text-sm">
+            <span className="bg-primary text-primary-foreground flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold">
+              {index + 1}
+            </span>
+            {step}
+          </li>
+        ))}
+      </ol>
+      <Button
+        onClick={() => {
+          void chrome.tabs.create({ url: SIGAA_CURRICULA_URL })
+        }}
+      >
+        Abrir currículos no SIGAA
+        <ExternalLink className="size-4" aria-hidden />
+      </Button>
+      {FLOW_SYNC_ENABLED && (
+        <button
+          type="button"
+          onClick={onLogin}
+          className="border-border hover:bg-muted mt-4 flex cursor-pointer items-center justify-between rounded-xl border px-4 py-3 text-sm font-medium"
+        >
+          Moderador? Entre para enviar ao Flow
+          <ChevronRight className="size-4" aria-hidden />
+        </button>
+      )}
+    </>
+  )
+}
+
+function Detected({ response }: { response: NonNullable<SummaryResponse> }) {
+  const { summary, exportable } = response
+  const stats = [
+    [summary.components, 'componentes', ''],
+    [summary.branches, 'vertentes', ''],
+    [summary.toReview, 'para revisar', 'text-orange-700'],
+  ] as const
+
+  const openPanel = async () => {
+    await sendToTab({ type: 'OPEN_PANEL' })
+    window.close()
+  }
+  const download = async () => {
+    const file = await sendToTab<JsonResponse>({ type: 'GET_JSON' })
+    if (file) downloadText(file.json, file.fileName)
+  }
+
+  return (
+    <>
+      <Header />
+      <section className="border-border bg-card flex flex-col gap-3 rounded-2xl border p-4">
+        <p className="flex items-center gap-2 text-xs font-medium text-green-700">
+          <span aria-hidden className="size-2 rounded-full bg-green-500" />
+          Estrutura curricular nesta aba
+        </p>
+        <h1 className="font-clash text-2xl leading-tight font-semibold">
+          {summary.courseName}
+        </h1>
+        <div className="flex flex-wrap gap-1.5">
+          <Chip>EC {summary.code}</Chip>
+          <Chip>{summary.city}</Chip>
+          {summary.sigaaId && <Chip mono>SIGAA {summary.sigaaId}</Chip>}
+        </div>
+        <dl className="grid grid-cols-3 gap-2">
+          {stats.map(([value, label, color]) => (
+            <div
+              key={label}
+              className="border-border bg-background rounded-xl border p-2.5"
+            >
+              <dd className="font-clash text-xl font-semibold">{value}</dd>
+              <dt className={`text-muted-foreground text-xs ${color}`}>
+                {label}
+              </dt>
+            </div>
+          ))}
+        </dl>
+      </section>
+      <Button onClick={openPanel}>
+        <LayoutGrid className="size-4" aria-hidden />
+        Abrir painel da grade
+      </Button>
+      <div className="grid grid-flow-col gap-2">
+        {FLOW_SYNC_ENABLED && (
+          <Button variant="outline" onClick={openPanel}>
+            <Send className="size-4" aria-hidden />
+            Enviar ao Flow
+          </Button>
+        )}
+        <Button variant="outline" disabled={!exportable} onClick={download}>
+          <Download className="size-4" aria-hidden />
+          Baixar JSON
+        </Button>
+      </div>
+      {!exportable && (
+        <p className="text-muted-foreground text-xs">
+          Abra o painel e resolva os itens da aba Revisar para liberar o JSON.
+        </p>
+      )}
+    </>
+  )
+}
+
+function Login({ onBack }: { onBack: () => void }) {
+  const [message, setMessage] = useState<string | null>(null)
+  const submit = (event: FormEvent) => {
+    event.preventDefault()
+    setMessage('O login chega junto com a API do Flow.')
+  }
+
+  return (
+    <>
+      <header className="flex items-center gap-2">
+        <Button
+          variant="ghost"
+          className="w-9 px-0"
+          onClick={onBack}
+          aria-label="Voltar"
+        >
+          <ChevronLeft className="size-5" aria-hidden />
+        </Button>
+        <Logo className="size-7" />
+        <span className="font-clash text-lg font-semibold">UFC Flow</span>
+      </header>
+      <div>
+        <h1 className="font-clash text-2xl font-semibold">
+          Entre com sua conta do Flow
+        </h1>
+        <p className="text-muted-foreground text-sm">
+          Só moderadores e administradores enviam grades. Sem conta, você ainda
+          pode baixar o JSON.
+        </p>
+      </div>
+      <form onSubmit={submit} className="flex flex-col gap-3">
+        <label className="flex flex-col gap-1.5 text-sm font-medium">
+          E-mail
+          <input
+            type="email"
+            required
+            autoComplete="email"
+            placeholder="voce@alu.ufc.br"
+            className="border-border bg-background h-11 rounded-xl border px-3 font-normal"
+          />
+        </label>
+        <label className="flex flex-col gap-1.5 text-sm font-medium">
+          Senha
+          <input
+            type="password"
+            required
+            autoComplete="current-password"
+            className="border-border bg-background h-11 rounded-xl border px-3 font-normal"
+          />
+        </label>
+        <Button type="submit" className="h-11">
+          Entrar
+        </Button>
+        {message && (
+          <output className="text-sm text-amber-700">{message}</output>
+        )}
+      </form>
+      <p className="bg-card text-muted-foreground flex gap-2 rounded-xl p-3 text-xs">
+        <Lock className="size-4 shrink-0" aria-hidden />A sessão fica guardada
+        só nesta extensão. Seu login do SIGAA nunca é lido nem enviado.
+      </p>
+      <a
+        href={FLOW_URL}
+        target="_blank"
+        rel="noreferrer"
+        className="mt-auto text-center text-sm underline"
+      >
+        Não tem conta? Crie em flow.ufc.br
+      </a>
+    </>
+  )
+}
+
+export default function Popup() {
+  const [screen, setScreen] = useState<Screen>('loading')
+  const [response, setResponse] = useState<SummaryResponse>(null)
+
+  useEffect(() => {
+    void sendToTab<SummaryResponse>({ type: 'GET_SUMMARY' }).then((result) => {
+      setResponse(result)
+      setScreen(result ? 'detected' : 'start')
+    })
+  }, [])
+
+  return (
+    <main className="bg-background text-foreground flex min-h-[560px] w-[360px] flex-col gap-4 p-5 font-sans">
+      {screen === 'start' && <Start onLogin={() => setScreen('login')} />}
+      {screen === 'detected' && response && <Detected response={response} />}
+      {screen === 'login' && <Login onBack={() => setScreen('start')} />}
+      {screen !== 'login' && screen !== 'loading' && <Footer />}
+    </main>
+  )
+}

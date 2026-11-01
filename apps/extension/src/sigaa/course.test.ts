@@ -32,6 +32,10 @@ describe('formatCourseName', () => {
     ['MATEMÁTICA - LICENCIATURA', 'Matemática - Licenciatura'],
     ['ADMINISTRAÇÃO (DIURNO)', 'Administração (Diurno)'],
     ['DE OLHO NO MAR', 'De Olho no Mar'],
+    ['FÍSICA GERAL III', 'Física Geral III'],
+    ['CÁLCULO DIFERENCIAL E INTEGRAL II', 'Cálculo Diferencial e Integral II'],
+    ['TÓPICOS ESPECIAIS IV', 'Tópicos Especiais IV'],
+    ['PRÁTICA DE ENSINO I', 'Prática de Ensino I'],
   ])('%s → %s', (name, formatted) => {
     expect(formatCourseName(name)).toBe(formatted)
   })

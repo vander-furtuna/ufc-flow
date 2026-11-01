@@ -45,3 +45,4 @@ pnpm-debug.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+apps/extension/src/vendor/

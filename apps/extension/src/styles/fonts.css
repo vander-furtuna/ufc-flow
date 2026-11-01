@@ -1,0 +1,24 @@
+/* Fontes do popup e da página de prévia, embutidas no CSS */
+@font-face {
+  font-family: 'ClashDisplay';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url(data-base64:../../assets/ClashDisplay-Variable.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url(data-base64:../../assets/Geist-Variable.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Geist Mono';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url(data-base64:../../assets/GeistMono-Variable.woff2) format('woff2');
+}
