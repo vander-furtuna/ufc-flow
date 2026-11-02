@@ -2,6 +2,7 @@ import type { CourseSummary, UserRole } from '@ufc-flow/contracts'
 
 import type { Clock } from '../../../../shared/domain/clock'
 import type { IdGenerator } from '../../../../shared/domain/id-generator'
+import type { FileRecord } from '../../../files/domain/file'
 import type { ModeratorRequest } from '../../domain/moderator-request'
 import type { PasswordResetToken } from '../../domain/password-reset-token'
 import type {
@@ -31,6 +32,7 @@ export class InMemoryIdentity implements IdentityUnitOfWork {
   moderators: (CourseModerator & { revokedAt: Date | null })[] = []
   courses = new Map<string, CourseSummary>()
   auditEntries: AuditEntry[] = []
+  files = new Map<string, FileRecord>()
 
   private record(request: ModeratorRequest): ModeratorRequestRecord {
     const user = this.users.get(request.userId)!
@@ -52,6 +54,10 @@ export class InMemoryIdentity implements IdentityUnitOfWork {
       updatePassword: async (userId, passwordHash, at) => {
         const user = this.users.get(userId)!
         this.users.set(userId, { ...user, passwordHash, updatedAt: at })
+      },
+      setAvatar: async (userId, avatarFileId, at) => {
+        const user = this.users.get(userId)!
+        this.users.set(userId, { ...user, avatarFileId, updatedAt: at })
       },
       rolesOf: async (userId) => this.roles.get(userId) ?? [],
       addRole: async (userId, role) => {
@@ -166,6 +172,12 @@ export class InMemoryIdentity implements IdentityUnitOfWork {
     },
     courses: {
       findById: async (id) => this.courses.get(id) ?? null,
+    },
+    files: {
+      findById: async (id) => this.files.get(id) ?? null,
+      save: async (file) => {
+        this.files.set(file.id, file)
+      },
     },
     audit: {
       record: async (entry) => {

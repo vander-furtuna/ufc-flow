@@ -14,6 +14,8 @@ const KINDS: Record<ErrorKind, { status: number; title: string }> = {
   FORBIDDEN: { status: 403, title: 'Sem permissão' },
   NOT_FOUND: { status: 404, title: 'Não encontrado' },
   CONFLICT: { status: 409, title: 'Conflito' },
+  TOO_LARGE: { status: 413, title: 'Requisição grande demais' },
+  RATE_LIMITED: { status: 429, title: 'Muitas tentativas' },
 }
 
 // Erros HTTP do Nest (rota inexistente, limite de tentativas...)

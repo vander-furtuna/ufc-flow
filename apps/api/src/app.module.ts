@@ -9,6 +9,7 @@ import { DatabaseModule } from './database/database.module'
 import { HealthController } from './health.controller'
 import { CatalogModule } from './modules/catalog/catalog.module'
 import { ClassesModule } from './modules/classes/classes.module'
+import { FilesModule } from './modules/files/files.module'
 import { IdentityModule } from './modules/identity/identity.module'
 import { NotificationsModule } from './modules/notifications/notifications.module'
 import { PlanningModule } from './modules/planning/planning.module'
@@ -33,6 +34,7 @@ export class AppModule {
         ClassesModule,
         PlanningModule,
         NotificationsModule,
+        FilesModule,
       ],
       controllers: [HealthController],
       providers: [{ provide: APP_GUARD, useClass: AppThrottlerGuard }],

@@ -23,6 +23,7 @@ const me = {
       name: 'Engenharia de Computação',
     },
   ],
+  avatarFileId: null,
   createdAt: '2026-11-01T12:00:00Z',
 }
 

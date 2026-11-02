@@ -207,13 +207,15 @@ flowchart LR
 
 ## Fase 8 — Arquivos
 
-**Objetivo:** upload seguro na VM atrás da porta `FileStorage`. Modelagem: Arquivos e imagens.
+**Objetivo:** upload seguro na VM atrás da porta `FileStorage`. Em dois PRs: 8.1 na API e 8.2 no web (rotas do BFF e foto de perfil). Modelagem: Arquivos e imagens.
 
-- [ ] Tabela `files`; `POST /files` multipart com finalidade, validação de tipo pelos bytes e limite por finalidade.
-- [ ] Reprocessamento com sharp: WebP, no máximo 2000 px e sem EXIF.
-- [ ] Ciclo PENDING → ATTACHED; job diário de limpeza.
-- [ ] `GET /files/:id`: públicos com cache longo; privados só para o dono.
-- [ ] Volume Docker montado em `/data/uploads`.
+- [x] Tabela `files`; `POST /files` multipart com finalidade, validação de tipo pelos bytes e limite por finalidade (D75).
+- [x] Reprocessamento com sharp: WebP, no máximo 2000 px e sem EXIF.
+- [x] Ciclo PENDING → ATTACHED; job diário de limpeza, inclusive de arquivos órfãos.
+- [x] `GET /files/:id`: públicos com cache longo; privados só para o dono.
+- [x] Foto de perfil como primeiro uso: `PUT`/`DELETE /me/avatar` e `avatarFileId` no `Me`.
+- [ ] Volume Docker montado em `/data/uploads`: a API já lê `UPLOADS_DIR`; o volume entra com o deploy, na fase 13.
+- [ ] Web: rotas do BFF para enviar e entregar arquivos e a troca da foto no menu da conta (PR 8.2).
 
 ## Fase 9 — Vida acadêmica do aluno
 

@@ -21,6 +21,7 @@ describe('parseEnv', () => {
       SIGAA_SYNC_ENABLED: true,
       CLASSES_SYNC_ENABLED: true,
       CLASSES_SYNC_PAUSE_MS: 5000,
+      UPLOADS_DIR: './data/uploads',
     })
   })
 

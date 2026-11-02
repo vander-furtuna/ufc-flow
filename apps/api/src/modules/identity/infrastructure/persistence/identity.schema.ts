@@ -19,6 +19,7 @@ import {
 } from 'drizzle-orm/pg-core'
 
 import { courses } from '../../../catalog/infrastructure/persistence/catalog.schema'
+import { files } from '../../../files/infrastructure/persistence/files.schema'
 
 // Os valores dos enums vêm do packages/contracts. O pgEnum pede uma tupla
 // não vazia, e o .options do Zod é tipado como array.
@@ -60,8 +61,11 @@ export const users = pgTable(
     email: text('email').notNull().unique(),
     passwordHash: text('password_hash').notNull(),
     emailVerifiedAt: instant('email_verified_at'),
-    // A FK para files entra na fase 8
-    avatarFileId: uuid('avatar_file_id'),
+    // Foto de perfil (arquivo AVATAR ligado)
+    avatarFileId: uuid('avatar_file_id').references(
+      (): AnyPgColumn => files.id,
+      { onDelete: 'set null' },
+    ),
     status: userStatus('status').notNull().default('ACTIVE'),
     createdAt: createdAt(),
     updatedAt: instant('updated_at')

@@ -21,6 +21,7 @@ export const toMe = (
   status: user.status,
   roles,
   moderatedCourses,
+  avatarFileId: user.avatarFileId ?? null,
   createdAt: user.createdAt.toISOString(),
 })
 
