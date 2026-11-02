@@ -39,6 +39,31 @@ export class AuthGuard implements CanActivate {
   }
 }
 
+// Rotas abertas que mudam com quem está logado (arquivo privado do dono):
+// lê o token se vier, sem exigir
+@Injectable()
+export class OptionalAuthGuard implements CanActivate {
+  constructor(
+    @Inject(ACCESS_TOKENS) private readonly accessTokens: AccessTokens,
+  ) {}
+
+  async canActivate(context: ExecutionContext) {
+    const request = context.switchToHttp().getRequest<AuthenticatedRequest>()
+    const [scheme, token] = (request.headers.authorization ?? '').split(' ')
+    if (scheme === 'Bearer' && token) {
+      const claims = await this.accessTokens.verify(token)
+      if (claims) request.userId = claims.userId
+    }
+    return true
+  }
+}
+
+// null quando a rota usa o OptionalAuthGuard e não há sessão
+export const OptionalUserId = createParamDecorator(
+  (_: unknown, context: ExecutionContext) =>
+    context.switchToHttp().getRequest<AuthenticatedRequest>().userId ?? null,
+)
+
 export const CurrentUserId = createParamDecorator(
   (_: unknown, context: ExecutionContext) =>
     context.switchToHttp().getRequest<AuthenticatedRequest>().userId!,

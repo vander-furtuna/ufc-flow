@@ -5,6 +5,7 @@ import type {
   UserStatus,
 } from '@ufc-flow/contracts'
 
+import type { FileAttachmentRepository } from '../../files/domain/ports'
 import type { ModeratorRequest } from './moderator-request'
 import type { PasswordResetToken } from './password-reset-token'
 import type { Session } from './session'
@@ -15,6 +16,8 @@ export type User = {
   email: string
   passwordHash: string
   status: UserStatus
+  // Foto de perfil (arquivo AVATAR ligado); ausente é sem foto
+  avatarFileId?: string | null
   createdAt: Date
   updatedAt: Date
 }
@@ -64,6 +67,7 @@ export interface UserRepository {
   findByEmail(email: string): Promise<User | null>
   insert(user: User): Promise<void>
   updatePassword(userId: string, passwordHash: string, at: Date): Promise<void>
+  setAvatar(userId: string, fileId: string | null, at: Date): Promise<void>
   rolesOf(userId: string): Promise<UserRole[]>
   addRole(
     userId: string,
@@ -117,6 +121,8 @@ export type IdentityRepositories = {
   moderation: ModerationRepository
   courses: CourseLookup
   audit: AuditLog
+  // Arquivos ligados na mesma transação (foto de perfil)
+  files: FileAttachmentRepository
 }
 
 // Tudo que um caso de uso grava dentro de run() é atômico

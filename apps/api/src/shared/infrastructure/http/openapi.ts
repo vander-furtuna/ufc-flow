@@ -24,6 +24,7 @@ const PROBLEMS: Record<number, string> = {
   403: 'Sem permissão para a ação',
   404: 'Recurso não encontrado',
   409: 'Conflito com o estado atual',
+  413: 'Arquivo ou requisição grande demais',
   429: 'Muitas tentativas; aguarde e tente de novo',
   503: 'Serviço indisponível',
 }

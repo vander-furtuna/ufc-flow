@@ -25,6 +25,9 @@ dist
 .plasmo
 apps/extension/src/styles/generated.css
 
+# uploads da API em desenvolvimento (UPLOADS_DIR)
+apps/api/data/
+
 # misc
 .DS_Store
 *.pem

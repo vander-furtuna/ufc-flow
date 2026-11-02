@@ -3,6 +3,10 @@ import { Module } from '@nestjs/common'
 import { ENV, type Env } from '../../config/env'
 import { CancelModeratorRequestUseCase } from './application/cancel-moderator-request.use-case'
 import { CreatePasswordResetLinkUseCase } from './application/create-password-reset-link.use-case'
+import {
+  RemoveAvatarUseCase,
+  SetAvatarUseCase,
+} from './application/avatar.use-cases'
 import { GetMeUseCase } from './application/get-me.use-case'
 import {
   CONSENT_VERSIONS,
@@ -28,7 +32,7 @@ import {
 } from './domain/ports'
 import { AdminUsersController } from './infrastructure/http/admin-users.controller'
 import { AuthController } from './infrastructure/http/auth.controller'
-import { AuthGuard } from './infrastructure/http/auth.guard'
+import { AuthGuard, OptionalAuthGuard } from './infrastructure/http/auth.guard'
 import { MeController } from './infrastructure/http/me.controller'
 import { ModerationController } from './infrastructure/http/moderation.controller'
 import { DrizzleIdentityUnitOfWork } from './infrastructure/persistence/drizzle-identity'
@@ -66,12 +70,15 @@ import {
       }),
     },
     AuthGuard,
+    OptionalAuthGuard,
     SessionIssuer,
     SignUpUseCase,
     SignInUseCase,
     RefreshSessionUseCase,
     SignOutUseCase,
     GetMeUseCase,
+    SetAvatarUseCase,
+    RemoveAvatarUseCase,
     LoadActorUseCase,
     CreatePasswordResetLinkUseCase,
     ResetPasswordUseCase,
@@ -81,6 +88,6 @@ import {
     ReviewModeratorRequestUseCase,
     CancelModeratorRequestUseCase,
   ],
-  exports: [AuthGuard, LoadActorUseCase, ACCESS_TOKENS],
+  exports: [AuthGuard, OptionalAuthGuard, LoadActorUseCase, ACCESS_TOKENS],
 })
 export class IdentityModule {}

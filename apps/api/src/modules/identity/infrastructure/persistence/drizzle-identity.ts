@@ -7,6 +7,7 @@ import {
   type Executor,
 } from '../../../../shared/infrastructure/persistence/drizzle-helpers'
 import { courses } from '../../../catalog/infrastructure/persistence/catalog.schema'
+import { fileAttachmentRepository } from '../../../files/infrastructure/persistence/drizzle-files'
 import { IdentityErrors } from '../../domain/errors'
 import type { ModeratorRequest } from '../../domain/moderator-request'
 import type {
@@ -87,6 +88,12 @@ export function identityRepositories(db: Executor): IdentityRepositories {
         await db
           .update(users)
           .set({ passwordHash, updatedAt: at })
+          .where(eq(users.id, userId))
+      },
+      setAvatar: async (userId, avatarFileId, at) => {
+        await db
+          .update(users)
+          .set({ avatarFileId, updatedAt: at })
           .where(eq(users.id, userId))
       },
       rolesOf: async (userId) =>
@@ -276,6 +283,7 @@ export function identityRepositories(db: Executor): IdentityRepositories {
             .where(eq(courses.id, id))
         )[0] ?? null,
     },
+    files: fileAttachmentRepository(db),
     audit: {
       record: async (entry) => {
         await db.insert(auditLogs).values(entry)
