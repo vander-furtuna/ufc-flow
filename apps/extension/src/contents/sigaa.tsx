@@ -1,3 +1,4 @@
+import type { SigaaCourse } from '@ufc-flow/academic-core'
 import cssText from 'data-text:~styles/generated.css'
 import type { PlasmoCSConfig, PlasmoGetStyle } from 'plasmo'
 import clashUrl from 'url:../../assets/ClashDisplay-Variable.woff2'
@@ -5,12 +6,14 @@ import geistMonoUrl from 'url:../../assets/GeistMono-Variable.woff2'
 import geistUrl from 'url:../../assets/Geist-Variable.woff2'
 import { useEffect, useRef, useState } from 'react'
 
+import { FLOW_SYNC_ENABLED } from '../lib/config'
 import { downloadText, importFileName, importJson } from '../lib/download'
 import { extractCurriculum, type Extraction } from '../lib/extraction'
-import type {
-  ContentMessage,
-  JsonResponse,
-  SummaryResponse,
+import {
+  askBackground,
+  type ContentMessage,
+  type JsonResponse,
+  type SummaryResponse,
 } from '../lib/messages'
 import {
   captureCurriculumClick,
@@ -53,7 +56,7 @@ function injectFonts() {
 
 const manualKey = (code: string) => `ufc-flow:manual-course:${code}`
 
-function extract(): Extraction | null {
+function extract(catalog: SigaaCourse[] | null = null): Extraction | null {
   const code =
     document.querySelector('table.formulario td')?.textContent?.trim() ?? ''
   return extractCurriculum({
@@ -62,6 +65,7 @@ function extract(): Extraction | null {
     manualCourseId: sessionStorage.getItem(manualKey(code)),
     now: new Date(),
     url: location.href.split('?')[0] ?? null,
+    catalog,
   })
 }
 
@@ -69,6 +73,8 @@ export default function SigaaContent() {
   const [extraction, setExtraction] = useState<Extraction | null>(extract)
   const [cardOpen, setCardOpen] = useState(true)
   const [panelOpen, setPanelOpen] = useState(false)
+  // Catálogo do SIGAA vindo da API (com cache de um dia no service worker)
+  const flowCatalog = useRef<SigaaCourse[] | null>(null)
   // O listener de mensagens é registrado uma vez e lê a extração mais recente
   const latest = useRef(extraction)
   useEffect(() => {
@@ -90,6 +96,19 @@ export default function SigaaContent() {
   useEffect(() => {
     if (extraction) injectFonts()
   }, [extraction])
+
+  const hasExtraction = extraction !== null
+  useEffect(() => {
+    if (!FLOW_SYNC_ENABLED || !hasExtraction) return
+    askBackground({ type: 'FLOW_SIGAA_CATALOG' })
+      .then((catalog) => {
+        if (!catalog) return
+        flowCatalog.current = catalog
+        setExtraction(extract(catalog))
+      })
+      // Sem service worker ou sem API, fica o catálogo embutido
+      .catch(() => undefined)
+  }, [hasExtraction])
 
   // Pedidos do popup
   useEffect(() => {
@@ -132,7 +151,7 @@ export default function SigaaContent() {
 
   const pickCourse = (sigaaId: string) => {
     sessionStorage.setItem(manualKey(extraction.summary.code), sigaaId)
-    setExtraction(extract())
+    setExtraction(extract(flowCatalog.current))
   }
 
   return (

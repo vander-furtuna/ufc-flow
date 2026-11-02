@@ -50,17 +50,23 @@ export function extractCurriculum({
   manualCourseId,
   now,
   url,
+  catalog: flowCatalog = null,
 }: {
   doc: Document
   search: SearchCapture
   manualCourseId: string | null
   now: Date
   url: string | null
+  // Catálogo do SIGAA lido da API do Flow; sem ele, vale o JSON embutido
+  catalog?: SigaaCourse[] | null
 }): Extraction | null {
   const page = readCurriculumPage(doc)
   if (!page) return null
 
-  const catalog = mergeCatalog(embeddedCatalog as SigaaCourse[], search.courses)
+  const catalog = mergeCatalog(
+    flowCatalog ?? (embeddedCatalog as SigaaCourse[]),
+    search.courses,
+  )
   const course = resolveCourse({
     header: page.header,
     catalog,

@@ -1,11 +1,17 @@
 import { Download, Info, Send } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Button, LevelIcon } from '../components/ui'
 import { FLOW_SYNC_ENABLED } from '../lib/config'
 import { importJson } from '../lib/download'
 import type { Extraction } from '../lib/extraction'
+import type { SendResult as SendOutcome } from '../lib/flow-api'
+import { nameMismatches } from '../lib/flow-store'
+import { askBackground } from '../lib/messages'
 import { CoursePicker } from './course-picker'
+import { SendResult } from './send-result'
+
+type Mismatch = ReturnType<typeof nameMismatches>[number]
 
 const PREVIEW_LINES = 40
 
@@ -24,6 +30,47 @@ export function ReviewTab({
   const json = data ? importJson(data) : ''
   const kb = Math.max(1, Math.round(new Blob([json]).size / 1024))
   const showPicker = picking || course.course === null
+  const [sending, setSending] = useState(false)
+  const [outcome, setOutcome] = useState<SendOutcome | null>(null)
+  const [mismatches, setMismatches] = useState<Mismatch[]>([])
+
+  // Nomes que divergem do catálogo do Flow viram pontos para revisar: avisa
+  // antes de enviar
+  const subjects = data?.subjects
+  useEffect(() => {
+    if (!FLOW_SYNC_ENABLED || !subjects) return
+    let active = true
+    askBackground({
+      type: 'FLOW_SUBJECT_NAMES',
+      codes: subjects.map((item) => item.code),
+    })
+      .then((names) => {
+        if (active && names) {
+          setMismatches(
+            nameMismatches(subjects, new Map(Object.entries(names))),
+          )
+        }
+      })
+      .catch(() => undefined)
+    return () => {
+      active = false
+    }
+  }, [subjects])
+
+  const send = async () => {
+    if (!data) return
+    setSending(true)
+    try {
+      setOutcome(await askBackground({ type: 'FLOW_SEND', payload: data }))
+    } catch {
+      setOutcome({
+        ok: false,
+        reason: 'UNAVAILABLE',
+        message: 'Não foi possível falar com o Flow. Tente de novo.',
+      })
+    }
+    setSending(false)
+  }
 
   const copy = async () => {
     await navigator.clipboard.writeText(json)
@@ -66,6 +113,33 @@ export function ReviewTab({
             </li>
           ))}
         </ul>
+
+        {mismatches.length > 0 && (
+          <section className="flex shrink-0 gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4">
+            <LevelIcon level="warning" />
+            <div className="flex min-w-0 flex-col gap-2">
+              <div>
+                <p className="text-sm font-semibold">
+                  {mismatches.length === 1
+                    ? '1 nome diferente do catálogo do Flow'
+                    : `${mismatches.length} nomes diferentes do catálogo do Flow`}
+                </p>
+                <p className="text-muted-foreground text-sm">
+                  Viram pontos para revisar no editor: lá dá para manter o nome
+                  do Flow ou usar o do SIGAA.
+                </p>
+              </div>
+              <ul className="flex flex-col gap-1 text-sm">
+                {mismatches.map((item) => (
+                  <li key={item.code}>
+                    <span className="font-mono">{item.code}</span> · SIGAA:{' '}
+                    <em>{item.sigaaName}</em> · Flow: <em>{item.flowName}</em>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        )}
 
         {data && (
           <section className="border-border shrink-0 overflow-hidden rounded-2xl border">
@@ -127,10 +201,18 @@ export function ReviewTab({
               Nada vai ao ar agora. A publicação acontece no editor do Flow,
               depois da sua revisão.
             </p>
-            <Button disabled title="O envio chega com a API do Flow">
+            <Button
+              disabled={!exportable || sending}
+              onClick={() => void send()}
+            >
               <Send className="size-4" aria-hidden />
-              Enviar ao UFC Flow
+              {sending ? 'Enviando…' : 'Enviar ao UFC Flow'}
             </Button>
+            {outcome && !outcome.ok && (
+              <p role="alert" className="text-sm text-red-700">
+                {outcome.message}
+              </p>
+            )}
           </>
         ) : (
           <p className="text-muted-foreground flex gap-2 text-xs">
@@ -153,6 +235,17 @@ export function ReviewTab({
           </p>
         )}
       </aside>
+
+      {outcome?.ok && (
+        <SendResult
+          view={outcome.view}
+          onClose={() => setOutcome(null)}
+          onDownload={() => {
+            onDownload()
+            setOutcome(null)
+          }}
+        />
+      )}
     </div>
   )
 }

@@ -41,6 +41,11 @@ body {
   background-color: var(--background);
 }
 
+/* Popup: a barra de rolagem vertical não pode empurrar a largura fixa */
+html {
+  overflow-x: hidden;
+}
+
 /* O popup acompanha o tema do sistema; o painel no SIGAA fica claro */
 @media (prefers-color-scheme: dark) {
   .theme-auto {
