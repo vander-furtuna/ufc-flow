@@ -193,14 +193,16 @@ flowchart LR
 
 ## Fase 7 — Notificações
 
-**Objetivo:** sino com contador e a infraestrutura de eventos, que as fases seguintes reutilizam. Modelagem: Notificações. Telas: `Agenda-Notificacoes` (painel), `Mobile-Notificacoes`.
+**Objetivo:** sino com contador e a infraestrutura de eventos, que as fases seguintes reutilizam. Em três PRs: 7.1 notificações na API, 7.2 sino e painel no web e 7.3 o redesenho da página da agenda (pendência da fase 6). Modelagem: Notificações. Telas: `Agenda-Notificacoes` (painel), `Mobile-Notificacoes`.
 
-- [ ] `notifications` e `hub_reads`; eventos de domínio publicados depois do commit com `@nestjs/event-emitter`.
-- [ ] Agrupamento por `group_key` com upsert. Nunca notificar a própria ação nem conteúdo que o usuário não pode ver.
-- [ ] Preferências: `notifications.muted` em `user_preferences`.
-- [ ] Endpoints: lista paginada, contagem de não lidas, marcar como lidas.
-- [ ] Polling de 60 s no web, compartilhado com o fórum, e retenção de 90 dias por job.
-- [ ] Tipos desta fase: `SCHEDULE_SECTION_CHANGED`, `SCHEDULE_SECTION_REMOVED`, `SCRAPE_FAILED`, `IMPORT_PENDING`, `MODERATOR_REQUEST_CREATED` e `MODERATOR_REQUEST_REVIEWED`. Os do fórum entram na fase 11.
+- [x] `notifications`; eventos de domínio publicados depois do commit com `@nestjs/event-emitter`. `hub_reads` foi para a fase 10 (D74).
+- [x] Agrupamento por `group_key` com upsert. Nunca notificar a própria ação nem conteúdo que o usuário não pode ver.
+- [x] Preferências: `notifications.muted` em `user_preferences`, com `GET`/`PUT /me/notification-preferences`.
+- [x] Endpoints: lista paginada, contagem de não lidas, marcar como lidas.
+- [ ] Polling de 60 s no web, compartilhado com o fórum.
+- [x] Retenção de 90 dias por job diário.
+- [x] Tipos desta fase: `SCHEDULE_SECTION_CHANGED`, `SCHEDULE_SECTION_REMOVED`, `SCRAPE_FAILED`, `IMPORT_PENDING`, `MODERATOR_REQUEST_CREATED` e `MODERATOR_REQUEST_REVIEWED`. Os do fórum entram na fase 11.
+- [ ] Web: sino com contador, painel (desktop), página `/notificacoes` (celular) e preferências.
 
 ## Fase 8 — Arquivos
 
@@ -233,7 +235,7 @@ flowchart LR
 
 - [ ] `posts` e `post_images`, com validação por tipo (união do `contracts`). Corpo em Markdown com lista restrita de elementos.
 - [ ] Feed com fixados primeiro e filtros por tipo, "próximos" e prazos encerrados. Posts institucionais (`course_id` nulo) só para admin.
-- [ ] Badge de novidades via `hub_reads`.
+- [ ] `hub_reads` (vinda da fase 7, D74) e o badge de novidades.
 - [ ] Página de links:
   - Seis tabelas (`course_link_pages`, `course_link_sections`, `course_links`, `course_social_links`, `link_clicks_daily`, `link_page_views_daily`).
   - Leitura pública em `GET /l/:slug`, com cache de 60 s.
