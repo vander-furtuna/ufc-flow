@@ -109,15 +109,15 @@ A `main` foi apagada no remoto (D20). As branches já mescladas ficam por enquan
 - **Fase 5 — PR 5.4, web público lendo a API** (branch `feature/fase-5-web-catalogo`):
   - O layout raiz carrega o catálogo no servidor (D65) e o `courses.ts` sai do bundle do cliente; sem `API_URL`, continua o `courses.ts` (D51).
   - Mapper das respostas da API para os tipos do front, com testes. As 9 URLs de hoje existem na API com as mesmas contagens (Eng. de Computação tem 114 componentes, dos dados reais do SIGAA).
+  - As optativas aparecem no período em que o SIGAA as põe, o último (D66).
   - Conferido contra a API local: lista de cursos, grades (inclusive `/ciencias-economicas/2005-1`), página da disciplina e agenda, sem erro no console.
-- **Modelagem v2 fechada** ([modelagem.md](modelagem.md)), com 65 decisões (D1–D65) e 11 lacunas resolvidas (L1–L11).
+- **Modelagem v2 fechada** ([modelagem.md](modelagem.md)), com 66 decisões (D1–D66) e 11 lacunas resolvidas (L1–L11).
 - **39 telas desenhadas** para desktop, mobile e extensão ([telas.md](telas.md)).
 
 ## Pendências imediatas
 
 1. Mesclar o PR 5.4, que fecha a fase 5.
-2. Ajustar no admin o semestre ideal das optativas de Eng. de Computação 2006.2, se a grade pública deve mantê-las nos períodos do `courses.ts` (ver Lacunas na modelagem).
-3. Testar localmente:
+2. Testar localmente:
    - `docker compose -f docker/compose.dev.yml up -d`;
    - na API, copiar `.env.example` para `.env`, `pnpm --filter @ufc-flow/api db:migrate`, `seed:admin -- --email <e-mail> --name <nome>` e `seed:catalog`;
    - `pnpm --filter @ufc-flow/api dev` (porta 3333, Swagger em `/docs`) e `pnpm dev:web`, com `API_URL` no `apps/web/.env.local`;
