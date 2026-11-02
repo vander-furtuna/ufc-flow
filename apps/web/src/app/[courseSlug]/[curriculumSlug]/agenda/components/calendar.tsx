@@ -23,6 +23,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { SelectedSubjectDialog } from './selected-subject-dialog'
 import type { Subject } from '@/types/course'
+import { cn } from '@/lib/utils'
 
 const ROW_HEIGHT = 60
 const HEADER_HEIGHT = 40
@@ -55,7 +56,7 @@ const cardContainerVariants = cva(
         blue: 'bg-blue-100 border-blue-300 text-blue-800 dark:bg-blue-900/90 dark:hover:bg-blue-900 dark:border-blue-700 dark:text-blue-200',
         violet:
           'bg-violet-100 border-violet-300 text-violet-800 dark:bg-violet-900/90 dark:hover:bg-violet-900 dark:border-violet-700 dark:text-violet-200',
-        fuschia:
+        fuchsia:
           'bg-fuchsia-100 border-fuchsia-300 text-fuchsia-800 dark:bg-fuchsia-900/90 dark:hover:bg-fuchsia-900 dark:border-fuchsia-700 dark:text-fuchsia-200',
         pink: 'bg-pink-100 border-pink-300 text-pink-800 dark:bg-pink-900/90 dark:hover:bg-pink-900 dark:border-pink-700 dark:text-pink-200',
         rose: 'bg-rose-100 border-rose-300 text-rose-800 dark:bg-rose-900/90 dark:hover:bg-rose-900 dark:border-rose-700 dark:text-rose-200',
@@ -186,9 +187,13 @@ export function Calendar({ ref, ...props }: CalendarProps) {
                   >
                     <DropdownMenuTrigger asChild>
                       <div
-                        className={cardContainerVariants({
-                          color: slot.classInfo.color,
-                        })}
+                        className={cn(
+                          cardContainerVariants({
+                            color: slot.classInfo.color,
+                          }),
+                          (slot.classInfo.changed || slot.classInfo.removed) &&
+                            'border-2 border-dashed border-amber-500 dark:border-amber-400',
+                        )}
                         style={{
                           top: `${topPx}px`,
                           height: `${heightPx}px`,
@@ -201,6 +206,13 @@ export function Calendar({ ref, ...props }: CalendarProps) {
                           {slot.classInfo.code} • Turma{' '}
                           {slot.classInfo.sectionId}
                         </div>
+                        {(slot.classInfo.changed || slot.classInfo.removed) && (
+                          <div className="truncate text-[10px] font-semibold text-inherit">
+                            {slot.classInfo.removed
+                              ? 'fora do SIGAA'
+                              : 'novo horário'}
+                          </div>
+                        )}
                       </div>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent

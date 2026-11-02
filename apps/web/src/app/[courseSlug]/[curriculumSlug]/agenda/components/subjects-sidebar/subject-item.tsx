@@ -46,7 +46,7 @@ export const cardContainerVariants = cva('', {
       blue: 'bg-blue-100 border-blue-200 text-blue-800 dark:bg-blue-900/90 dark:hover:bg-blue-900 dark:border-blue-700 dark:text-blue-300',
       violet:
         'bg-violet-100 border-violet-200 text-violet-800 dark:bg-violet-900/90 dark:hover:bg-violet-900 dark:border-violet-700 dark:text-violet-300',
-      fuschia:
+      fuchsia:
         'bg-fuchsia-100 border-fuchsia-200 text-fuchsia-800 dark:bg-fuchsia-900/90 dark:hover:bg-fuchsia-900 dark:border-fuchsia-700 dark:text-fuchsia-300',
       pink: 'bg-pink-100 border-pink-200 text-pink-800 dark:bg-pink-900/90 dark:hover:bg-pink-900 dark:border-pink-700 dark:text-pink-300',
       rose: 'bg-rose-100 border-rose-200 text-rose-800 dark:bg-rose-900/90 dark:hover:bg-rose-900 dark:border-rose-700 dark:text-rose-300',

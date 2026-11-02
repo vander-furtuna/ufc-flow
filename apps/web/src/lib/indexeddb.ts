@@ -593,12 +593,17 @@ export function useScheduleManager() {
       forceRefresh: boolean = false,
       // Com a API, as turmas são lidas pelo slug do curso
       courseSlug?: string,
+      // Agenda na conta: só serve o cache que veio da API (ids estáveis)
+      requireApiSource: boolean = false,
     ): Promise<StorageClass | null> => {
       try {
         // Se não é refresh forçado, tenta buscar do cache primeiro
         if (!forceRefresh) {
           const cachedData = await getScheduleData(courseId, year, semester)
-          if (cachedData) {
+          if (
+            cachedData &&
+            (!requireApiSource || cachedData.source === 'api')
+          ) {
             return cachedData
           }
         }

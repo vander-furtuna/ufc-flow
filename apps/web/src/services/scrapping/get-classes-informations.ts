@@ -31,6 +31,8 @@ export async function getClassesInformationsService({
     year,
     semester,
     classGroup: data,
+    source:
+      response.headers.get('x-classes-source') === 'api' ? 'api' : 'sigaa',
   }
 
   return formattedData
