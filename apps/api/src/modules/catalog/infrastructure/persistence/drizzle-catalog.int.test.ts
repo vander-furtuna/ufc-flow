@@ -7,6 +7,7 @@ import {
   startDatabase,
   type TestDatabase,
 } from '../../../../../test/support/database'
+import { RecordingEventPublisher } from '../../../../shared/domain/events'
 import { RandomIdGenerator } from '../../../../shared/infrastructure/random-id-generator'
 import { SystemClock } from '../../../../shared/infrastructure/system-clock'
 import {
@@ -82,7 +83,13 @@ function useCases() {
     createCourse: new CreateCourseUseCase(uow, clock, ids, applier),
     deleteCourse: new DeleteCourseUseCase(uow),
     publicCurriculum: new GetPublicCurriculumUseCase(uow),
-    createImport: new CreateImportUseCase(uow, clock, ids, applier),
+    createImport: new CreateImportUseCase(
+      uow,
+      clock,
+      ids,
+      applier,
+      new RecordingEventPublisher(),
+    ),
     listImports: new ListImportsUseCase(uow),
     getImport,
     applyImport: new ApplyImportUseCase(uow, applier, getImport),

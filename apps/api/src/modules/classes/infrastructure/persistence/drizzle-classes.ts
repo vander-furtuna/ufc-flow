@@ -336,7 +336,7 @@ function sections(db: Executor): SectionRepository {
           ),
         )
         .returning({ id: classSections.id })
-      return rows.length
+      return rows.map((row) => row.id)
     },
 
     async listOffered(termId, courseId) {

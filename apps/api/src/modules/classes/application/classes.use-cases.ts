@@ -11,6 +11,10 @@ import type {
 import { AccessPolicy, type Actor } from '../../../shared/domain/access-policy'
 import { CLOCK, type Clock } from '../../../shared/domain/clock'
 import {
+  EVENT_PUBLISHER,
+  type EventPublisher,
+} from '../../../shared/domain/events'
+import {
   ID_GENERATOR,
   type IdGenerator,
 } from '../../../shared/domain/id-generator'
@@ -232,6 +236,7 @@ export class CollectSectionsUseCase {
     @Inject(CLOCK) private readonly clock: Clock,
     @Inject(ID_GENERATOR) private readonly ids: IdGenerator,
     @Inject(SIGAA_SECTION_SOURCE) private readonly source: SigaaSectionSource,
+    @Inject(EVENT_PUBLISHER) private readonly events: EventPublisher,
   ) {}
 
   async execute(
@@ -265,6 +270,8 @@ export class CollectSectionsUseCase {
     })
 
     let finished: ScrapeRunRecord
+    let removedIds: string[] = []
+    let rescheduledIds: string[] = []
     try {
       const scraped = await this.source.fetch(
         course.sigaaId,
@@ -282,7 +289,8 @@ export class CollectSectionsUseCase {
         })
         await sections.saveAll(plan.sections)
         await sections.replaceOffers(term.id, course.id, plan.offers, now)
-        await sections.markOrphansRemoved(term.id, now)
+        removedIds = await sections.markOrphansRemoved(term.id, now)
+        rescheduledIds = plan.rescheduledIds
         const done: ScrapeRunRecord = {
           ...run,
           status: 'SUCCESS',
@@ -301,6 +309,30 @@ export class CollectSectionsUseCase {
         error: (error as Error).message.slice(0, 500),
       }
       await this.uow.run(({ runs }) => runs.update(finished))
+      this.events.publish([
+        {
+          type: 'ScrapeFailed',
+          runId: finished.id,
+          courseId: course.id,
+          termId: term.id,
+          error: finished.error ?? '',
+          actorId: actor?.userId ?? null,
+          occurredAt: finished.finishedAt!,
+        },
+      ])
+      return toRunView(finished, course, term)
+    }
+    // Depois do commit: quem tem essas turmas na agenda é avisado
+    if (rescheduledIds.length > 0 || removedIds.length > 0) {
+      this.events.publish([
+        {
+          type: 'SectionsChanged',
+          termId: term.id,
+          changedSectionIds: rescheduledIds,
+          removedSectionIds: removedIds,
+          occurredAt: finished.finishedAt!,
+        },
+      ])
     }
     return toRunView(finished, course, term)
   }

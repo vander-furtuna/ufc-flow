@@ -1,6 +1,7 @@
 import type { SigaaCourse } from '@ufc-flow/academic-core'
 
 import type { Actor } from '../../../../shared/domain/access-policy'
+import { RecordingEventPublisher } from '../../../../shared/domain/events'
 import type { Course } from '../../domain/course'
 import {
   ListCoursesUseCase,
@@ -93,6 +94,7 @@ export function harness() {
   const editor = new CurriculumEditor(catalog, clock, ids)
   const getImport = new GetImportUseCase(catalog)
   const updateSubject = new UpdateSubjectUseCase(catalog, clock, ids)
+  const events = new RecordingEventPublisher()
 
   catalog.admins.add(ADMIN_ID)
   catalog.userNames.set(ADMIN_ID, 'Admin')
@@ -124,7 +126,7 @@ export function harness() {
     markCurrent: new MarkCurrentCurriculumUseCase(editor),
     deleteCurriculum: new DeleteCurriculumUseCase(editor),
     exportCurriculum: new ExportCurriculumUseCase(editor),
-    createImport: new CreateImportUseCase(catalog, clock, ids, applier),
+    createImport: new CreateImportUseCase(catalog, clock, ids, applier, events),
     listImports: new ListImportsUseCase(catalog),
     getImport,
     applyImport: new ApplyImportUseCase(catalog, applier, getImport),
@@ -158,5 +160,5 @@ export function harness() {
     }
   }
 
-  return { catalog, clock, ids, source, admin, ...useCases, withCourse }
+  return { catalog, clock, ids, source, events, admin, ...useCases, withCourse }
 }

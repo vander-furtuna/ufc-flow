@@ -4,6 +4,10 @@ import type { ModeratorRequest } from '@ufc-flow/contracts'
 import { AccessPolicy, type Actor } from '../../../shared/domain/access-policy'
 import { CLOCK, type Clock } from '../../../shared/domain/clock'
 import {
+  EVENT_PUBLISHER,
+  type EventPublisher,
+} from '../../../shared/domain/events'
+import {
   ID_GENERATOR,
   type IdGenerator,
 } from '../../../shared/domain/id-generator'
@@ -25,6 +29,7 @@ export class ReviewModeratorRequestUseCase {
     @Inject(IDENTITY_UOW) private readonly uow: IdentityUnitOfWork,
     @Inject(CLOCK) private readonly clock: Clock,
     @Inject(ID_GENERATOR) private readonly ids: IdGenerator,
+    @Inject(EVENT_PUBLISHER) private readonly events: EventPublisher,
   ) {}
 
   async execute(
@@ -38,38 +43,53 @@ export class ReviewModeratorRequestUseCase {
     }
     const reviewerId = actor.userId
 
-    return this.uow.run(async ({ moderation, audit }) => {
-      const record = await moderation.findRequest(requestId)
-      if (!record) throw IdentityErrors.moderatorRequestNotFound()
-      const now = this.clock.now()
-      const review = { reviewerId, now, note }
-      const reviewed =
-        decision === 'APPROVED'
-          ? approveModeratorRequest(record, review)
-          : rejectModeratorRequest(record, review)
+    const { view, record } = await this.uow.run(
+      async ({ moderation, audit }) => {
+        const record = await moderation.findRequest(requestId)
+        if (!record) throw IdentityErrors.moderatorRequestNotFound()
+        const now = this.clock.now()
+        const review = { reviewerId, now, note }
+        const reviewed =
+          decision === 'APPROVED'
+            ? approveModeratorRequest(record, review)
+            : rejectModeratorRequest(record, review)
 
-      await moderation.updateRequest(reviewed)
-      if (decision === 'APPROVED') {
-        await moderation.insertModerator({
+        await moderation.updateRequest(reviewed)
+        if (decision === 'APPROVED') {
+          await moderation.insertModerator({
+            id: this.ids.next(),
+            userId: record.userId,
+            courseId: record.courseId,
+            requestId,
+            grantedBy: reviewerId,
+            grantedAt: now,
+          })
+        }
+        await audit.record({
           id: this.ids.next(),
-          userId: record.userId,
-          courseId: record.courseId,
-          requestId,
-          grantedBy: reviewerId,
-          grantedAt: now,
+          actorId: reviewerId,
+          module: 'identity',
+          entity: 'moderator_request',
+          entityId: requestId,
+          action: `moderator_request.${decision.toLowerCase()}`,
+          changes: { userId: record.userId, courseId: record.courseId, note },
+          createdAt: now,
         })
-      }
-      await audit.record({
-        id: this.ids.next(),
-        actorId: reviewerId,
-        module: 'identity',
-        entity: 'moderator_request',
-        entityId: requestId,
-        action: `moderator_request.${decision.toLowerCase()}`,
-        changes: { userId: record.userId, courseId: record.courseId, note },
-        createdAt: now,
-      })
-      return toModeratorRequest({ ...record, ...reviewed })
-    })
+        return { view: toModeratorRequest({ ...record, ...reviewed }), record }
+      },
+    )
+    this.events.publish([
+      {
+        type: 'ModeratorRequestReviewed',
+        requestId,
+        userId: record.userId,
+        courseId: record.courseId,
+        reviewerId,
+        decision,
+        note,
+        occurredAt: new Date(view.reviewedAt ?? view.createdAt),
+      },
+    ])
+    return view
   }
 }

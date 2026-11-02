@@ -118,6 +118,7 @@ Cada linha é uma decisão já tomada e onde ela aparece na modelagem. Mudar uma
 | D71 | Agenda por EC                           | `schedules` ganha `curriculum_id`: agendas são separadas por curso, EC e semestre, porque na transição entre ECs alunos do mesmo curso seguem grades diferentes                                                                                                                                                                                                                                                                                                                                                                         | Turmas e agendas                                                                    |
 | D72 | Regras da agenda no servidor            | As regras de disciplina repetida, conflito e turma removida valem para a turma que entra; as que já estavam ficam mesmo depois de uma mudança no SIGAA, com aviso. Vale a última escrita pela ordem de chegada. A cor `fuschia` do web vira `fuchsia`                                                                                                                                                                                                                                                                                   | Turmas e agendas                                                                    |
 | D73 | Agenda logada no web                    | O servidor é a fonte da verdade, com atualização otimista no contexto da agenda e reversão quando a API recusa; as agendas da conta não vão para o IndexedDB. O diálogo de importação abre só com agenda local importável, confere antes as turmas coletadas e pergunta o curso sempre que a EC antiga existe em mais de um curso                                                                                                                                                                                                       | Turmas e agendas; telas Importar-Agendas                                            |
+| D74 | Notificações da fase 7                  | Lista ordenada por `updated_at` (agrupada sobe ao somar); chaves de agrupamento por falha de coleta (curso e semestre), importação pendente (curso do SIGAA) e turma; dados como cópia do evento, tipados por tipo nos contratos; `hub_reads` fica para a fase 10, com o hub                                                                                                                                                                                                                                                            | Notificações                                                                        |
 
 ## Monorepo e arquitetura
 
@@ -710,9 +711,9 @@ As notificações existem só dentro da plataforma: um sino com contador, atuali
 ```
 notifications(id, user_id, type, actor_id NULL, course_id NULL, entity_type, entity_id,
       data JSONB, group_key NULL, read_at NULL, created_at, updated_at)
-      índice (user_id, created_at DESC) · índice parcial (user_id) WHERE read_at IS NULL
+      índice (user_id, updated_at DESC, id DESC) · índice parcial (user_id) WHERE read_at IS NULL
       UQ parcial (user_id, group_key) WHERE read_at IS NULL
-hub_reads(user_id, course_id, last_seen_at)                    PK(user_id, course_id)
+hub_reads(user_id, course_id, last_seen_at)                    PK(user_id, course_id)   -- fase 10
 ```
 
 | Tipo                         | Quem recebe                   | Disparado por                                 |
@@ -729,11 +730,17 @@ hub_reads(user_id, course_id, last_seen_at)                    PK(user_id, cours
 | `SCRAPE_FAILED`              | Moderadores do curso e admins | Coleta termina em `FAILED`                    |
 | `IMPORT_PENDING`             | Admins                        | Importação parada aguardando criação do curso |
 
-- **Agrupamento:** notificações com o mesmo `group_key` ainda não lidas viram uma só (ex.: `likes:<message_id>` mostra "Ana e mais 4 curtiram"). O handler faz upsert, atualizando `data` e `updated_at`.
+- **Agrupamento:** notificações com o mesmo `group_key` ainda não lidas viram uma só (ex.: `likes:<message_id>` mostra "Ana e mais 4 curtiram"). O handler faz upsert, atualizando `data` e `updated_at`. A lista segue `updated_at`, então a agrupada sobe quando soma (D74). Chaves da fase 7:
+  - `scrape-failed:<curso>:<semestre>`: a notificação soma as falhas seguidas (`failures`) em vez de gerar uma a cada 6 horas;
+  - `import-pending:<id do SIGAA>`: soma as importações que esperam o mesmo curso (`imports`);
+  - `section-changed:<turma>` e `section-removed:<turma>`: uma por pessoa e turma, citando as agendas onde ela está (`scheduleNames`); se mudar de novo antes da leitura, junta.
+- **Dados:** `data` é uma cópia do momento do evento (nomes, códigos, slugs), com o formato de cada tipo definido nos contratos. A notificação não depende de o curso ou a turma continuarem iguais.
+- **Turmas:** só turma que já existia e mudou de horário ou docentes avisa (não a nova nem a que voltou). Turma removida não gera também o aviso de horário.
 - **Sem fan-out do hub:** um post novo não gera uma notificação por aluno. O badge de novidades do hub compara `posts.published_at` com `hub_reads.last_seen_at`.
 - **Nunca notifica** a própria ação do usuário, nem conteúdo de quem ele não pode ver.
 - **Preferências:** tipos silenciados ficam em `user_preferences` (chave `notifications.muted`), checados pelo handler antes de gravar.
-- **API:** `GET /me/notifications?cursor=`, `GET /me/notifications/unread-count`, `POST /me/notifications/read` (uma, várias ou todas).
+- **API:** `GET /me/notifications?cursor=&unread=`, `GET /me/notifications/unread-count`, `POST /me/notifications/read` (`{ ids }` ou `{ all: true }`), e `GET`/`PUT /me/notification-preferences` com os tipos silenciados.
+- **Eventos:** os casos de uso publicam pela porta `EventPublisher` do `shared` depois do commit. Os eventos da fase 7 são `ModeratorRequestCreated`, `ModeratorRequestReviewed`, `CurriculumImportPending`, `ScrapeFailed` e `SectionsChanged`. Um handler que falha só vai para o log.
 - **Retenção:** o job diário apaga notificações lidas com mais de 90 dias.
 - **Perda aceitável:** sem outbox, uma notificação pode se perder se a API cair entre o commit e o handler. A ação principal nunca é afetada.
 

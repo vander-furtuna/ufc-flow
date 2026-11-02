@@ -206,6 +206,17 @@ describe('planSync', () => {
     )
     expect(result.changed).toBe(1)
     expect(result.sections[0]!.fingerprint).not.toBe(record().fingerprint)
+    // Só turma que já existia e mudou gera aviso para quem a tem na agenda
+    expect(result.rescheduledIds).toEqual(['s1'])
+  })
+
+  it('turma nova ou que voltou não conta como horário alterado', () => {
+    const result = planSync(
+      [scraped(), scraped({ sectionCode: '02' })],
+      ctx([record({ removedAt: new Date('2026-10-20T00:00:00Z') })]),
+    )
+    expect(result.changed).toBe(2)
+    expect(result.rescheduledIds).toEqual([])
   })
 
   it('nada mudou: zero alteradas; turma que volta perde o removed_at', () => {

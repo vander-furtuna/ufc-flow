@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 
 import type { Actor } from '../../../shared/domain/access-policy'
+import { RecordingEventPublisher } from '../../../shared/domain/events'
 import {
   SequentialIds,
   SteppingClock,
@@ -61,9 +62,11 @@ function harness() {
     },
     { id: 'c-old', slug: 'antigo', sigaaId: '1', isActive: false },
   ]
-  const collect = new CollectSectionsUseCase(store, clock, ids, source)
+  const events = new RecordingEventPublisher()
+  const collect = new CollectSectionsUseCase(store, clock, ids, source, events)
   return {
     store,
+    events,
     source,
     pause,
     listTerms: new ListTermsUseCase(store),
@@ -254,6 +257,29 @@ describe('coleta e turmas do curso', () => {
       (item) => item.removedAt !== null,
     )
     expect(removed.map((item) => item.sectionCode)).toEqual(['02'])
+    expect(h.events.events.at(-1)).toMatchObject({
+      type: 'SectionsChanged',
+      changedSectionIds: [],
+      removedSectionIds: [removed[0]!.id],
+    })
+
+    // Horário novo de uma turma que já existia
+    h.source.responses.set('657485', [
+      section({
+        reservedSeats: 10,
+        slots: [{ weekday: 2, startTime: '10:00', endTime: '12:00' }],
+      }),
+    ])
+    await h.collect.execute(null, '2026.2', 'engenharia-eletrica', 'SCHEDULED')
+    expect(h.events.events.at(-1)).toMatchObject({
+      type: 'SectionsChanged',
+      changedSectionIds: [
+        [...h.store.sections.values()].find(
+          (item) => item.sectionCode === '01',
+        )!.id,
+      ],
+      removedSectionIds: [],
+    })
     expect(
       (await h.sections.execute('2026.2', 'engenharia-eletrica')).subjects[0]!
         .sections[0],
@@ -273,6 +299,14 @@ describe('coleta e turmas do curso', () => {
       status: 'FAILED',
       error: 'SIGAA respondeu 503',
     })
+    expect(h.events.events).toEqual([
+      expect.objectContaining({
+        type: 'ScrapeFailed',
+        courseId: 'c-eng',
+        error: 'SIGAA respondeu 503',
+        actorId: null,
+      }),
+    ])
     expect(
       (await h.sections.execute('2026.2', 'engenharia-de-computacao'))
         .collectedAt,

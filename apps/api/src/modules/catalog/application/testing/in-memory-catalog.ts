@@ -248,6 +248,10 @@ export class SteppingClock implements Clock {
     this.current = new Date(value.getTime() + 1000)
     return value
   }
+
+  advance(ms: number) {
+    this.current = new Date(this.current.getTime() + ms)
+  }
 }
 
 export class SequentialIds implements IdGenerator {

@@ -15,6 +15,10 @@ import { AccessPolicy, type Actor } from '../../../shared/domain/access-policy'
 import { CLOCK, type Clock } from '../../../shared/domain/clock'
 import { decodeCursor, pageOf } from '../../../shared/domain/cursor'
 import {
+  EVENT_PUBLISHER,
+  type EventPublisher,
+} from '../../../shared/domain/events'
+import {
   ID_GENERATOR,
   type IdGenerator,
 } from '../../../shared/domain/id-generator'
@@ -84,14 +88,16 @@ export class CreateImportUseCase {
     @Inject(CLOCK) private readonly clock: Clock,
     @Inject(ID_GENERATOR) private readonly ids: IdGenerator,
     @Inject(ImportApplier) private readonly applier: ImportApplier,
+    @Inject(EVENT_PUBLISHER) private readonly events: EventPublisher,
   ) {}
 
-  execute(
+  async execute(
     actor: Actor,
     payload: CurriculumImportV1,
     source: CurriculumImportSource,
   ): Promise<CurriculumImportView> {
-    return this.uow.run(async (repos) => {
+    let pending: { courseName: string; importedBy: string } | null = null
+    const view = await this.uow.run(async (repos) => {
       const sigaaId = payload.course.sigaaId
       const course = await repos.courses.findBySigaaId(sigaaId)
       const allowed = course
@@ -101,6 +107,13 @@ export class CreateImportUseCase {
 
       const sigaaCourse = await repos.sigaaCourses.find(sigaaId)
       if (sigaaCourse) checkImportCourse(payload, sigaaCourse)
+      // Curso ainda não existe no Flow: a importação espera um admin
+      if (!course) {
+        pending = {
+          courseName: sigaaCourse?.name ?? payload.course.name,
+          importedBy: actor.userId,
+        }
+      }
 
       const now = this.clock.now()
       let record: CurriculumImport = {
@@ -145,6 +158,20 @@ export class CreateImportUseCase {
       })
       return viewOf(repos, record)
     })
+    if (pending) {
+      const { courseName, importedBy } = pending
+      this.events.publish([
+        {
+          type: 'CurriculumImportPending',
+          importId: view.id,
+          sigaaId: payload.course.sigaaId,
+          courseName,
+          importedBy,
+          occurredAt: new Date(view.createdAt),
+        },
+      ])
+    }
+    return view
   }
 }
 

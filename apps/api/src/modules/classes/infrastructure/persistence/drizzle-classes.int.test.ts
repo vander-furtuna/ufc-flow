@@ -8,6 +8,7 @@ import {
   startDatabase,
   type TestDatabase,
 } from '../../../../../test/support/database'
+import { RecordingEventPublisher } from '../../../../shared/domain/events'
 import { RandomIdGenerator } from '../../../../shared/infrastructure/random-id-generator'
 import { SystemClock } from '../../../../shared/infrastructure/system-clock'
 import { subjects } from '../../../catalog/infrastructure/persistence/catalog.schema'
@@ -59,7 +60,13 @@ function useCases(source: FakeSectionSource) {
     current: new GetCurrentTermUseCase(uow),
     deleteTerm: new DeleteTermUseCase(uow),
     sections: new ListCourseSectionsUseCase(uow),
-    collect: new CollectSectionsUseCase(uow, new SystemClock(), ids, source),
+    collect: new CollectSectionsUseCase(
+      uow,
+      new SystemClock(),
+      ids,
+      source,
+      new RecordingEventPublisher(),
+    ),
   }
 }
 
