@@ -215,7 +215,7 @@ flowchart LR
 - [x] `GET /files/:id`: públicos com cache longo; privados só para o dono.
 - [x] Foto de perfil como primeiro uso: `PUT`/`DELETE /me/avatar` e `avatarFileId` no `Me`.
 - [ ] Volume Docker montado em `/data/uploads`: a API já lê `UPLOADS_DIR`; o volume entra com o deploy, na fase 13.
-- [ ] Web: rotas do BFF para enviar e entregar arquivos e a troca da foto no menu da conta (PR 8.2).
+- [x] Web: rotas do BFF para enviar (`/api/files`) e entregar (`/arquivos/{id}`) arquivos e a troca da foto no menu da conta (PR 8.2).
 
 ## Fase 9 — Vida acadêmica do aluno
 

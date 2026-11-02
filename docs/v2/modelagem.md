@@ -610,6 +610,7 @@ files(id, owner_id NULL, course_id NULL,
 - **Limites de uso:** 60 envios por hora por conta, contados no banco. O `sha256` só fica registrado, sem deduplicar.
 - **Ligar:** só o dono liga um arquivo `PENDING` da finalidade certa. Os outros módulos fazem isso dentro da própria transação, pela porta `FileAttachmentRepository`. Trocar a foto marca a anterior com `deleted_at`.
 - **Exclusões:** `owner_id` e `course_id` ficam nulos quando a conta ou o curso some. Arquivo pessoal sem dono (LGPD) e arquivo de curso sem curso deixam de ser servidos, e a limpeza diária os apaga do disco.
+- **Web:** a API não fica exposta, então tudo passa pelo BFF. O navegador envia para `/api/files`, que repassa com o token do cookie (o `proxy.ts` renova a sessão também nessa rota), e lê os arquivos em `/arquivos/{id}`, com os mesmos cabeçalhos de cache da API. A foto de perfil se troca no menu da conta, que a mostra no lugar das iniciais.
 - **Pasta:** `UPLOADS_DIR` (`./data/uploads` em dev; `/data/uploads`, o volume, em produção).
 - **Foto de perfil:**
   - `users.avatar_file_id` tem FK para `files`;
