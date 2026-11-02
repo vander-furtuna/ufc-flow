@@ -115,8 +115,9 @@ function terms(db: Executor): TermRepository {
   }
 }
 
-// Monta as turmas com horários e docentes, numa consulta por tabela
-async function hydrate(
+// Monta as turmas com horários e docentes, numa consulta por tabela (a
+// agenda também usa)
+export async function hydrateSections(
   db: Executor,
   rows: readonly SectionRow[],
 ): Promise<SectionRecord[]> {
@@ -218,7 +219,7 @@ function sections(db: Executor): SectionRepository {
             inArray(classSections.subjectCode, codes),
           ),
         )
-      return hydrate(
+      return hydrateSections(
         db,
         rows.filter((row) =>
           wanted.has(`${row.subjectCode}|${row.sectionCode}`),
@@ -357,7 +358,7 @@ function sections(db: Executor): SectionRepository {
           ),
         )
       const seats = new Map(rows.map((row) => [row.section.id, row.seats]))
-      const records = await hydrate(
+      const records = await hydrateSections(
         db,
         rows.map((row) => row.section),
       )

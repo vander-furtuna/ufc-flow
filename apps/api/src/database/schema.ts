@@ -2,3 +2,4 @@
 export * from '../modules/catalog/infrastructure/persistence/catalog.schema'
 export * from '../modules/identity/infrastructure/persistence/identity.schema'
 export * from '../modules/classes/infrastructure/persistence/classes.schema'
+export * from '../modules/planning/infrastructure/persistence/planning.schema'
