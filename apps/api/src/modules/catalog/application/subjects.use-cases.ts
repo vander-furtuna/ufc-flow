@@ -27,6 +27,20 @@ async function findSubject(repos: CatalogRepositories, code: string) {
   return subject
 }
 
+// Disciplinas do catálogo pelos códigos (leitura pública)
+@Injectable()
+export class ListSubjectsByCodesUseCase {
+  constructor(@Inject(CATALOG_UOW) private readonly uow: CatalogUnitOfWork) {}
+
+  execute(codes: readonly string[]): Promise<SubjectView[]> {
+    return this.uow.run(async ({ subjects }) =>
+      [...(await subjects.findByCodes(codes)).values()]
+        .sort((a, b) => a.code.localeCompare(b.code))
+        .map(toSubjectView),
+    )
+  }
+}
+
 // Disciplina global: afeta todos os cursos, então só admin edita aqui.
 // Moderador corrige o nome pelos pontos para revisar da importação.
 @Injectable()

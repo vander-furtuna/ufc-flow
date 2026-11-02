@@ -1,6 +1,10 @@
-import { Controller, Get, Header, Inject, Param } from '@nestjs/common'
-import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger'
-import { slugSchema } from '@ufc-flow/contracts'
+import { Controller, Get, Header, Inject, Param, Query } from '@nestjs/common'
+import { ApiOperation, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger'
+import {
+  slugSchema,
+  subjectLookupQuerySchema,
+  type SubjectLookupQuery,
+} from '@ufc-flow/contracts'
 
 import {
   ApiJson,
@@ -15,6 +19,7 @@ import {
   ListCoursesUseCase,
   ListSigaaCoursesUseCase,
 } from '../../application/courses.use-cases'
+import { ListSubjectsByCodesUseCase } from '../../application/subjects.use-cases'
 
 // Leitura pública, sem login, com cache no navegador e no proxy. O Express
 // gera o ETag e responde 304 quando nada mudou.
@@ -34,7 +39,26 @@ export class PublicCatalogController {
     private readonly getCurriculum: GetPublicCurriculumUseCase,
     @Inject(ListSigaaCoursesUseCase)
     private readonly listSigaa: ListSigaaCoursesUseCase,
+    @Inject(ListSubjectsByCodesUseCase)
+    private readonly subjectsByCodes: ListSubjectsByCodesUseCase,
   ) {}
+
+  @Get('subjects')
+  @Header('Cache-Control', PUBLIC_CACHE)
+  @ApiOperation({
+    summary: 'Disciplinas do catálogo pelos códigos',
+    description:
+      'Até 300 códigos separados por vírgula. Códigos fora do catálogo não aparecem. A extensão usa para avisar nomes diferentes antes de enviar.',
+  })
+  @ApiQuery({ name: 'codes', required: true, example: 'ECO0083,SBL0084' })
+  @ApiJson(200, 'Disciplinas', arrayOf('Subject'))
+  @ApiProblems(400)
+  subjects(
+    @Query(new ZodValidationPipe(subjectLookupQuerySchema))
+    query: SubjectLookupQuery,
+  ) {
+    return this.subjectsByCodes.execute(query.codes)
+  }
 
   @Get('courses')
   @Header('Cache-Control', PUBLIC_CACHE)

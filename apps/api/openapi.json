@@ -955,6 +955,51 @@
         ]
       }
     },
+    "/v1/subjects": {
+      "get": {
+        "description": "Até 300 códigos separados por vírgula. Códigos fora do catálogo não aparecem. A extensão usa para avisar nomes diferentes antes de enviar.",
+        "operationId": "PublicCatalogController_subjects",
+        "parameters": [
+          {
+            "name": "codes",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "example": "ECO0083,SBL0084"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Disciplinas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Subject"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos (VALIDATION_FAILED) ou regra de domínio violada",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Disciplinas do catálogo pelos códigos",
+        "tags": [
+          "catalog"
+        ]
+      }
+    },
     "/v1/courses": {
       "get": {
         "operationId": "PublicCatalogController_courses",
