@@ -179,14 +179,15 @@ flowchart LR
 - [x] `GET /terms/:term/courses/:course/sections`. Semestre vigente vem de `academic_terms` (sai do `.env`), com a tela "Semestres e turmas" no admin (`/admin/semestres`).
 - [x] `schedules` (com `curriculum_id`, D71) e `schedule_items`; agregado `Schedule` usando o `academic-core` (D72).
 - [x] API das agendas: `GET`, `PUT` e `DELETE` em `/me/schedules` e `POST /me/schedules/import`.
-- [ ] Web logado:
-  - O servidor é a fonte da verdade, com atualização otimista via TanStack Query.
-  - Avisos de "horário mudou" (`slots_fingerprint`) e de "turma não ofertada" (`removed_at`).
-- [ ] Importação no primeiro login, com `POST /me/schedules/import`:
+- [x] Web logado (D73):
+  - O servidor é a fonte da verdade, com atualização otimista e reversão quando a API recusa.
+  - Avisos de "horário mudou" (`slots_fingerprint`) e de "turma não ofertada" (`removed_at`), na barra lateral e no calendário.
+- [x] Importação no primeiro login, com `POST /me/schedules/import` (telas `Importar-Agendas` e `Mobile-Importar-Agendas`):
   - O UUID local vira o id da agenda, então reenviar não duplica.
   - A resposta lista os itens não encontrados.
-  - O diálogo pede confirmação do curso quando a inferência do hotfix empatou.
-- [ ] Anônimo continua 100% local.
+  - O diálogo pede confirmação do curso quando a EC antiga existe em mais de um curso.
+- [x] Anônimo continua 100% local.
+- [ ] Redesenho da página da agenda conforme `Agenda-Notificacoes` e `Mobile-Agenda` (lista "Na agenda", bloco de semana do mockup). A fase 6 acrescentou à agenda atual só o status de sincronização, os avisos e a marcação no calendário; o resto pode ir junto do painel de notificações, na fase 7.
 
 **Pronto quando:** uma agenda criada anônima é importada no login sem duplicar, e uma mudança de horário no SIGAA aparece como aviso na agenda.
 

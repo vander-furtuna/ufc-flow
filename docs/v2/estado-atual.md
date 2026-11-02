@@ -1,6 +1,6 @@
 # Estado atual do repositório
 
-Retrato em 02/11/2026, na fase 6 (PR 6.2, agendas na API, em PR). Atualize este arquivo ao fim de cada fase do [roadmap](roadmap.md).
+Retrato em 02/11/2026, ao fim da fase 6 (PR 6.3, o último dos três, em PR). Atualize este arquivo ao fim de cada fase do [roadmap](roadmap.md).
 
 ## Branches
 
@@ -22,7 +22,8 @@ Retrato em 02/11/2026, na fase 6 (PR 6.2, agendas na API, em PR). Atualize este 
 | `feature/fase-5-admin-web`      | Mesclada em `develop` pelo PR #73; pode ser apagada.                                                                                |
 | `feature/fase-5-web-catalogo`   | Mesclada em `develop` pelo PR #74; pode ser apagada.                                                                                |
 | `feature/fase-6-turmas-api`     | Mesclada em `develop` pelo PR #75; pode ser apagada.                                                                                |
-| `feature/fase-6-agendas-api`    | Fase 6, PR 6.2 (agendas na API), em PR para `develop`.                                                                              |
+| `feature/fase-6-agendas-api`    | Mesclada em `develop` pelo PR #76; pode ser apagada.                                                                                |
+| `feature/fase-6-agenda-web`     | Fase 6, PR 6.3 (agenda logada e importação no web), em PR para `develop`.                                                           |
 | `feature/monorepo`              | Mesclada em `develop`; pode ser apagada.                                                                                            |
 | `hotfix/schedule-course-key`    | Já mesclada em `master` e `develop`; pode ser apagada.                                                                              |
 
@@ -125,12 +126,18 @@ A `main` foi apagada no remoto (D20). As branches já mescladas ficam por enquan
   - Agregado `Schedule` com as regras do `academic-core`: turma nova não repete disciplina, não conflita e não está removida; as que já estavam ficam, com aviso (D72).
   - Rotas `GET`, `PUT` e `DELETE` em `/v1/me/schedules` e `POST /v1/me/schedules/import`, com os avisos `changed` e `removed`.
   - E2e com a fixture do SIGAA: agenda inteira pelo id do cliente, conflito, agenda alheia, mudança de horário, importação repetida sem duplicar, separação por EC e exclusão em cascata com a conta.
-- **Modelagem v2 fechada** ([modelagem.md](modelagem.md)), com 72 decisões (D1–D72) e 11 lacunas resolvidas (L1–L11).
+- **Fase 6 — PR 6.3, agenda logada no web** (branch `feature/fase-6-agenda-web`):
+  - O contexto da agenda tem dois modos: anônimo (IndexedDB, como antes) e conta (API, com atualização otimista e reversão). Status de sincronização na barra lateral.
+  - Avisos de horário alterado ("Ciente" dispensa) e de turma fora do SIGAA ("Tirar da agenda"), com a turma marcada no calendário.
+  - Diálogo de importação no primeiro login (Dialog no desktop, folha inferior no celular), com a conferência prévia das turmas coletadas e o seletor de curso para EC antiga.
+  - A cor `fuschia` virou `fuchsia` (D72), com conversão das agendas locais antigas.
+  - Testes do mapeador, da inferência de curso, do diálogo e do contexto no modo conta. Conferido no Edge headless contra a API local, com turmas reais: importação, mudança de horário e remoção simuladas no banco, em 1440 e 390 px, claro e escuro.
+- **Modelagem v2 fechada** ([modelagem.md](modelagem.md)), com 73 decisões (D1–D73) e 11 lacunas resolvidas (L1–L11).
 - **39 telas desenhadas** para desktop, mobile e extensão ([telas.md](telas.md)).
 
 ## Pendências imediatas
 
-1. Mesclar o PR 6.2. Depois: PR 6.3 (agenda logada e importação no web), que fecha a fase 6.
+1. Mesclar o PR 6.3, que fecha a fase 6. O redesenho da página da agenda (mockups `Agenda-Notificacoes` e `Mobile-Agenda`) ficou pendente no roadmap e pode ir junto do painel de notificações, na fase 7.
 2. Testar localmente:
    - `docker compose -f docker/compose.dev.yml up -d`;
    - na API, copiar `.env.example` para `.env`, `pnpm --filter @ufc-flow/api db:migrate`, `seed:admin -- --email <e-mail> --name <nome>` e `seed:catalog`;
@@ -140,7 +147,7 @@ A `main` foi apagada no remoto (D20). As branches já mescladas ficam por enquan
 
 As telas de links (`Links-Pagina`, `Links-Editor`, `Mobile-Links` e `Mobile-Links-Editor`) ainda usam os destaques antigos e serão redesenhadas na implementação, na fase 10 (D31).
 
-Próximo passo: PR 6.3 (agenda logada e importação no web).
+Próximo passo: fase 7 (notificações).
 
 ## Segurança das dependências
 
