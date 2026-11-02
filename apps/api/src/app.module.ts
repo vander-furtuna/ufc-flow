@@ -1,5 +1,6 @@
 import { Module, type DynamicModule } from '@nestjs/common'
 import { APP_GUARD } from '@nestjs/core'
+import { ScheduleModule } from '@nestjs/schedule'
 import { ThrottlerModule } from '@nestjs/throttler'
 
 import type { Env } from './config/env'
@@ -20,6 +21,7 @@ export class AppModule {
         DatabaseModule.forRoot(env.DATABASE_URL),
         // Limite geral por IP; as rotas de login têm limites próprios
         ThrottlerModule.forRoot([{ name: 'default', ttl: 60_000, limit: 120 }]),
+        ScheduleModule.forRoot(),
         IdentityModule,
         CatalogModule,
       ],

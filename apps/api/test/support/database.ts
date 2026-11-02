@@ -43,9 +43,23 @@ export async function insertCourse(
     city: 'Sobral',
     state: 'CE',
   })
+  const sigaaId = overrides.sigaaId ?? String(Math.floor(Math.random() * 1e9))
+  await db
+    .insert(schema.sigaaCourses)
+    .values({
+      sigaaId,
+      name: 'ENGENHARIA DE COMPUTAÇÃO',
+      city: 'SOBRAL',
+      modality: 'IN_PERSON',
+      unitAcronym: 'CUFCSOBRAL',
+      unitName: 'CAMPUS DA UFC EM SOBRAL',
+      firstSeenAt: new Date(),
+      lastSeenAt: new Date(),
+    })
+    .onConflictDoNothing()
   const course = {
     id: randomUUID(),
-    sigaaId: String(Math.floor(Math.random() * 1e9)),
+    sigaaId,
     slug: `curso-${randomUUID().slice(0, 8)}`,
     name: 'Engenharia de Computação',
     icon: 'cpu',

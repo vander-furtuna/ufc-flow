@@ -18,6 +18,7 @@ describe('parseEnv', () => {
       REFRESH_TOKEN_TTL_DAYS: 30,
       WEB_URL: 'http://localhost:3000',
       SWAGGER_ENABLED: true,
+      SIGAA_SYNC_ENABLED: true,
     })
   })
 

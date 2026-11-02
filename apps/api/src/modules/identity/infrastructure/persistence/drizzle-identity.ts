@@ -2,6 +2,10 @@ import { Inject, Injectable } from '@nestjs/common'
 import { and, desc, eq, gt, isNull, lt, or, type SQL } from 'drizzle-orm'
 
 import { DATABASE, type Database } from '../../../../database/database.module'
+import {
+  mapUnique,
+  type Executor,
+} from '../../../../shared/infrastructure/persistence/drizzle-helpers'
 import { courses } from '../../../catalog/infrastructure/persistence/catalog.schema'
 import { IdentityErrors } from '../../domain/errors'
 import type { ModeratorRequest } from '../../domain/moderator-request'
@@ -20,31 +24,6 @@ import {
   userRoles,
   users,
 } from './identity.schema'
-
-type Executor = Database | Parameters<Parameters<Database['transaction']>[0]>[0]
-
-// Violação de UNIQUE do PostgreSQL (23505), vinda direto do pg ou embrulhada
-// pelo Drizzle
-function uniqueViolation(error: unknown): string | null {
-  for (const candidate of [error, (error as { cause?: unknown })?.cause]) {
-    const pgError = candidate as { code?: string; constraint?: string }
-    if (pgError?.code === '23505') return pgError.constraint ?? ''
-  }
-  return null
-}
-
-async function mapUnique<T>(
-  work: Promise<T>,
-  errors: Record<string, () => Error>,
-): Promise<T> {
-  try {
-    return await work
-  } catch (error) {
-    const constraint = uniqueViolation(error)
-    const mapped = constraint === null ? undefined : errors[constraint]
-    throw mapped ? mapped() : error
-  }
-}
 
 const requestColumns = {
   id: moderatorRequests.id,
