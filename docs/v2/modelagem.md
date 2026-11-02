@@ -111,6 +111,11 @@ Cada linha é uma decisão já tomada e onde ela aparece na modelagem. Mudar uma
 | D64 | Editor da EC                            | Painel lateral fixo a partir de 1024 px e folha inferior abaixo disso. A lista vira cartões quando fica estreita (container query, inclusive com o painel aberto). A EC de gestão traz `lastImportId` para o botão "Diferenças da importação"                                                                                                                                                                                                                                                                                           | Importação e edição de grades                                                       |
 | D65 | Web público lendo a API                 | O layout raiz carrega o catálogo no servidor (cache de 5 min com a tag `catalog`, invalidada pelas server actions do admin com `updateTag`) e o entrega ao contexto do cliente; um mapper converte para os tipos do front, com os requisitos como listas de códigos. Curso sem EC publicada não aparece; disciplina sem semestre vai para o último período da EC. O catálogo não vai para o IndexedDB: chega com a página. Com a API configurada e fora do ar sem cache, cai no `courses.ts`. O `API_URL` foi declarado no `turbo.json` | Catálogo acadêmico; D51                                                             |
 | D66 | Semestre das optativas na grade pública | A grade mostra o semestre como o SIGAA (optativas no último período, D39), sem ajuste manual para reproduzir o `courses.ts`                                                                                                                                                                                                                                                                                                                                                                                                             | Catálogo acadêmico; Lacunas                                                         |
+| D67 | Fase 6 em três PRs                      | 6.1: turmas na API, semestres no admin e o web lendo as turmas da API. 6.2: agendas na API. 6.3: agenda logada no web e importação das agendas locais                                                                                                                                                                                                                                                                                                                                                                                   | Roadmap fase 6                                                                      |
+| D68 | Semestres coletados                     | O vigente e todo semestre cadastrado que começa nos próximos 45 dias (matrícula), a partir das datas que o admin cadastra                                                                                                                                                                                                                                                                                                                                                                                                               | Turmas e agendas                                                                    |
+| D69 | Scraping do web até a fase 13           | Sem `API_URL`, o `/api/scrapping` continua lendo o SIGAA. Com ela, devolve as turmas da API no formato antigo e só cai no SIGAA quando a API não tem o curso, o semestre ou a coleta                                                                                                                                                                                                                                                                                                                                                    | Turmas e agendas; D51                                                               |
+| D70 | Turmas com vários blocos de datas       | Horários semanais sem repetição e vigência do primeiro ao último dia; o modelo não guarda os blocos separados                                                                                                                                                                                                                                                                                                                                                                                                                           | Turmas e agendas; Lacunas                                                           |
+| D71 | Agenda por EC                           | `schedules` ganha `curriculum_id`: agendas são separadas por curso, EC e semestre, porque na transição entre ECs alunos do mesmo curso seguem grades diferentes                                                                                                                                                                                                                                                                                                                                                                         | Turmas e agendas                                                                    |
 
 ## Monorepo e arquitetura
 
@@ -390,31 +395,38 @@ O backend coleta as turmas no SIGAA por curso e semestre e as guarda com chave n
 academic_terms(id, code '2026.1' UQ, year, period, starts_at, ends_at, is_current)
       UQ parcial WHERE is_current        -- substitui NEXT_PUBLIC_CURRENT_YEAR/SEMESTER
 instructors(id, siape UQ, name, profile_url)
-class_sections(id, term_id, subject_code, subject_id NULL, section_code,
-      valid_from, valid_to, fingerprint, first_seen_at, last_seen_at, removed_at NULL, updated_at)
+class_sections(id, term_id, subject_code, subject_name, subject_id NULL, section_code,
+      valid_from NULL, valid_to NULL, fingerprint, first_seen_at, last_seen_at, removed_at NULL, updated_at)
       UQ(term_id, subject_code, section_code)
 class_section_slots(id, class_section_id, weekday 1..7 (ISO: 1 = segunda, D24), start_time, end_time)
-class_section_instructors(class_section_id, instructor_id)        PK composta
+class_section_instructors(class_section_id, instructor_id, position)   PK composta
 class_section_offers(class_section_id, course_id, reserved_seats, last_seen_at)   PK composta
 scrape_runs(id, course_id, term_id, trigger[SCHEDULED|MANUAL], status[RUNNING|SUCCESS|FAILED],
       started_at, finished_at NULL, sections_seen, sections_changed, error NULL)
 
-schedules(id, user_id, course_id, term_id, name, position, created_at, updated_at)
+schedules(id, user_id, course_id, curriculum_id, term_id, name, position, created_at, updated_at)
 schedule_items(schedule_id, class_section_id, subject_code, color, slots_fingerprint, added_at)
       PK(schedule_id, class_section_id) · UQ(schedule_id, subject_code)
 ```
 
 **Coleta.**
 
-- Um job roda a cada 6 horas para cada curso ativo no semestre vigente, e também no seguinte durante o período de matrícula. Moderadores e admins podem disparar manualmente.
+- Um job roda a cada 6 horas para cada curso ativo no semestre vigente, e também em todo semestre cadastrado que começa nos próximos 45 dias, o período de matrícula (D68). Moderadores do curso e admins podem disparar manualmente em `/admin/semestres`.
 - Os cursos são processados em sequência, com pausa entre eles, para não sobrecarregar o SIGAA.
 - Cada turma é atualizada pela chave natural. `fingerprint` é um hash de horários e docentes e só muda quando algo relevante muda.
 - Turma que some numa coleta bem-sucedida recebe `removed_at`, sem ser apagada, para não quebrar agendas.
 - Uma turma pode atender vários cursos ao mesmo tempo, com parte das vagas reservada para cursos específicos. Por isso `reserved_seats` fica em `class_section_offers`, uma linha por curso: é a reserva daquele curso dentro do total da turma.
+- A coleta de um curso substitui as ofertas daquele curso no semestre. `removed_at` vai só para a turma que nenhum curso oferta mais, e sai quando ela volta.
+- `subject_name` guarda o nome como o SIGAA mostra, porque a disciplina pode não estar no catálogo; `subject_id` é ligado pelo código quando ela existe. `position` guarda a ordem dos docentes.
+- Internatos de Medicina têm vários blocos de datas com horários repetidos: viram horários semanais sem repetição e a vigência total, do primeiro ao último dia (D70). Docente repetido na mesma turma conta uma vez.
+- Semestre sem turmas no SIGAA devolve só o formulário de busca: é uma coleta vazia. Página sem o formulário é mudança de layout e vira `FAILED`, sem mexer nas turmas.
+- Toda execução fica em `scrape_runs`, inclusive as que falham. `CLASSES_SYNC_ENABLED` liga o job e `CLASSES_SYNC_PAUSE_MS` define a pausa entre cursos.
 
-**Front.** `GET /terms/:term/courses/:course/sections` substitui a rota `/api/scrapping` do Next. O IndexedDB vira só cache offline dessa resposta.
+**Semestres.** O admin cadastra os semestres com as datas do calendário e marca o vigente; a troca acontece numa transação. Rotas: `GET /terms`, `GET /terms/current` e `GET /terms/:term/courses/:course/sections` (públicas, com cache), `POST /terms/:term/courses/:course/collect` (moderador do curso ou admin) e `POST|PATCH|DELETE /admin/terms` com `POST /admin/terms/:term/make-current`. Semestre com turmas coletadas não pode ser excluído.
 
-**Agenda.** Uma agenda tem no máximo uma turma por disciplina e nenhum conflito de horário. As duas regras ficam no agregado `Schedule`, usando a função de conflito do `academic-core`.
+**Front.** `GET /terms/:term/courses/:course/sections` substitui a rota `/api/scrapping` do Next. O IndexedDB vira só cache offline dessa resposta. Até a fase 13 (D69), o route handler continua existindo: com `API_URL`, devolve as turmas da API no formato antigo, com os ids estáveis; sem `API_URL`, ou quando a API não conhece o curso ou o semestre, ainda não coletou ou está fora do ar, lê o SIGAA direto, como antes. O semestre vigente vem da API no layout raiz (mesma tag `catalog` do D65) e cai nas variáveis de ambiente sem ela.
+
+**Agenda.** Cada agenda pertence a um curso, a uma EC e a um semestre (D71): na transição entre ECs, alunos do mesmo curso seguem grades diferentes. Uma agenda tem no máximo uma turma por disciplina e nenhum conflito de horário. As duas regras ficam no agregado `Schedule`, usando a função de conflito do `academic-core`.
 
 - Se o `slots_fingerprint` do item difere do `fingerprint` atual da turma, o front avisa que o horário mudou.
 - Se a turma tem `removed_at`, o front avisa que ela não está mais ofertada.
@@ -802,7 +814,9 @@ O maior risco é a autenticidade: sem SMTP não dá para verificar e-mail instit
 - **Dependência do HTML do SIGAA.** Uma mudança de layout quebra a coleta de turmas e a extensão. Uma coleta com `FAILED` deve aparecer para os admins dentro da plataforma.
 - **Notificações.** Modeladas na seção Notificações, só dentro da plataforma. Avisos por e-mail ou push ficam para depois e podem ler da mesma tabela `notifications` quando existirem.
 - **Primeiro admin.** Precisa ser criado por um comando de seed na API, já que ninguém aprova o primeiro.
-- **Semestre vigente.** Passa a ser responsabilidade de um admin cadastrar o semestre e marcá-lo como vigente; antes era variável de ambiente.
+- **Semestre vigente.** Passa a ser responsabilidade de um admin cadastrar o semestre e marcá-lo como vigente em `/admin/semestres`; sem semestre marcado, o web usa as variáveis de ambiente.
+- **Blocos de datas (D70).** Num internato com vários blocos, a agenda mostra os horários semanais durante toda a vigência, mesmo nas semanas fora dos blocos. Se isso confundir, os blocos podem virar uma tabela própria.
+- **Coleta vazia por engano.** Se o SIGAA devolver o formulário sem a lista por um erro dele, as turmas do curso recebem `removed_at` até a próxima coleta bem-sucedida, que as devolve.
 - **Conteúdo a definir.** Lista final de critérios de avaliação e categorias de atividades complementares de cada curso, conforme os regulamentos.
 - **Horas complementares no progresso (D40).** A "Carga Horária Obrigatória de Atividade Acadêmica Específica" do SIGAA é a soma dos componentes obrigatórios que não são disciplina (estágio, TCC, unidade de extensão, tutoria e o componente de complementares), e não a exigência de horas complementares. O `computeProgress` do `academic-core` ainda recebe `complementaryActivityHours`; na fase 9, o progresso passa a ler a exigência do componente `COMPLEMENTARY_ACTIVITY` e o total da D27 é revisto para não contar esse componente duas vezes.
 - **Plasmo parado.** A última versão do Plasmo (0.90.5) é de maio de 2025 e prende o Parcel 2.9, que já exigiu dois contornos na fase 3 (Tailwind pela CLI e zod empacotado) e tem um aviso de segurança sem correção no servidor de desenvolvimento. Se isso crescer, a extensão pode migrar para outro framework (por exemplo, WXT, sobre Vite); o código em `src/sigaa` e `src/lib` não depende do Plasmo.

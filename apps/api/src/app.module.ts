@@ -7,6 +7,7 @@ import type { Env } from './config/env'
 import { DatabaseModule } from './database/database.module'
 import { HealthController } from './health.controller'
 import { CatalogModule } from './modules/catalog/catalog.module'
+import { ClassesModule } from './modules/classes/classes.module'
 import { IdentityModule } from './modules/identity/identity.module'
 import { AppThrottlerGuard } from './shared/infrastructure/http/app-throttler.guard'
 import { SharedModule } from './shared/shared.module'
@@ -24,6 +25,7 @@ export class AppModule {
         ScheduleModule.forRoot(),
         IdentityModule,
         CatalogModule,
+        ClassesModule,
       ],
       controllers: [HealthController],
       providers: [{ provide: APP_GUARD, useClass: AppThrottlerGuard }],

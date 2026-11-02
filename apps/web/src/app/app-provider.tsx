@@ -3,6 +3,7 @@
 import { QueryClientProvider } from '@tanstack/react-query'
 import type { ReactNode } from 'react'
 
+import type { CurrentTerm } from '@/lib/classes/classes-api'
 import type { Course } from '@/types/course'
 
 import { ClassProvider } from '@/contexts/class'
@@ -19,9 +20,11 @@ import { TooltipProvider } from '@/components/ui/tooltip'
 export function AppProvider({
   children,
   courses,
+  currentTerm,
 }: {
   children: ReactNode
   courses: Course[]
+  currentTerm: CurrentTerm
 }) {
   return (
     <IconContext.Provider value={{ weight: 'bold' }}>
@@ -30,7 +33,7 @@ export function AppProvider({
           <ToolsProvider>
             <FilterProvider>
               <CourseProvider courses={courses}>
-                <ClassProvider>
+                <ClassProvider initialTerm={currentTerm}>
                   <CalendarProvider>
                     <ScheduleProvider>{children}</ScheduleProvider>
                   </CalendarProvider>

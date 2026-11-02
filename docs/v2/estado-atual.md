@@ -1,28 +1,29 @@
 # Estado atual do repositório
 
-Retrato em 01/11/2026, ao fim da fase 5 (PR 5.4, o último dos quatro, em PR). Atualize este arquivo ao fim de cada fase do [roadmap](roadmap.md).
+Retrato em 02/11/2026, na fase 6 (PR 6.1, turmas na API, em PR). Atualize este arquivo ao fim de cada fase do [roadmap](roadmap.md).
 
 ## Branches
 
-| Branch                          | Situação                                                                                                         |
-| ------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `master`                        | Produção (deploy no Coolify), e continua sendo (D20). `origin/HEAD` aponta para ela.                             |
-| `develop`                       | Integração. Tem o monorepo e as fases 0 (PR #61), 1 (PR #63), 2 (PR #64), 3 (PR #66) e 4 (PR #70), com CI verde. |
-| `feature/fase-0-fundacao`       | Mesclada em `develop` pelo PR #61; pode ser apagada.                                                             |
-| `feature/fase-1-academic-core`  | Mesclada em `develop` pelo PR #63; pode ser apagada.                                                             |
-| `feature/fase-2-contracts`      | Mesclada em `develop` pelo PR #64; pode ser apagada.                                                             |
-| `feature/docs-redesenho-links`  | Mesclada em `develop` pelo PR #65; pode ser apagada.                                                             |
-| `feature/fase-3-extensao`       | Mesclada em `develop` pelo PR #66; pode ser apagada.                                                             |
-| `fix/dependency-audit`          | Mesclada em `develop` pelo PR #67; pode ser apagada.                                                             |
-| `hotfix/dependency-audit`       | Mesclada em `master` pelo PR #68; pode ser apagada.                                                              |
-| `chore/sync-master`             | Mesclada em `develop` pelo PR #69; pode ser apagada.                                                             |
-| `feature/fase-4-api-identidade` | Mesclada em `develop` pelo PR #70; pode ser apagada.                                                             |
-| `feature/fase-5-catalogo-api`   | Mesclada em `develop` pelo PR #71; pode ser apagada.                                                             |
-| `feature/fase-5-extensao-envio` | Mesclada em `develop` pelo PR #72; pode ser apagada.                                                             |
-| `feature/fase-5-admin-web`      | Mesclada em `develop` pelo PR #73; pode ser apagada.                                                             |
-| `feature/fase-5-web-catalogo`   | Fase 5, PR 5.4 (web público lendo a API), em PR para `develop`.                                                  |
-| `feature/monorepo`              | Mesclada em `develop`; pode ser apagada.                                                                         |
-| `hotfix/schedule-course-key`    | Já mesclada em `master` e `develop`; pode ser apagada.                                                           |
+| Branch                          | Situação                                                                                                                            |
+| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `master`                        | Produção (deploy no Coolify), e continua sendo (D20). `origin/HEAD` aponta para ela.                                                |
+| `develop`                       | Integração. Tem o monorepo e as fases 0 (PR #61), 1 (PR #63), 2 (PR #64), 3 (PR #66), 4 (PR #70) e 5 (PRs #71 a #74), com CI verde. |
+| `feature/fase-0-fundacao`       | Mesclada em `develop` pelo PR #61; pode ser apagada.                                                                                |
+| `feature/fase-1-academic-core`  | Mesclada em `develop` pelo PR #63; pode ser apagada.                                                                                |
+| `feature/fase-2-contracts`      | Mesclada em `develop` pelo PR #64; pode ser apagada.                                                                                |
+| `feature/docs-redesenho-links`  | Mesclada em `develop` pelo PR #65; pode ser apagada.                                                                                |
+| `feature/fase-3-extensao`       | Mesclada em `develop` pelo PR #66; pode ser apagada.                                                                                |
+| `fix/dependency-audit`          | Mesclada em `develop` pelo PR #67; pode ser apagada.                                                                                |
+| `hotfix/dependency-audit`       | Mesclada em `master` pelo PR #68; pode ser apagada.                                                                                 |
+| `chore/sync-master`             | Mesclada em `develop` pelo PR #69; pode ser apagada.                                                                                |
+| `feature/fase-4-api-identidade` | Mesclada em `develop` pelo PR #70; pode ser apagada.                                                                                |
+| `feature/fase-5-catalogo-api`   | Mesclada em `develop` pelo PR #71; pode ser apagada.                                                                                |
+| `feature/fase-5-extensao-envio` | Mesclada em `develop` pelo PR #72; pode ser apagada.                                                                                |
+| `feature/fase-5-admin-web`      | Mesclada em `develop` pelo PR #73; pode ser apagada.                                                                                |
+| `feature/fase-5-web-catalogo`   | Mesclada em `develop` pelo PR #74; pode ser apagada.                                                                                |
+| `feature/fase-6-turmas-api`     | Fase 6, PR 6.1 (turmas na API), em PR para `develop`.                                                                               |
+| `feature/monorepo`              | Mesclada em `develop`; pode ser apagada.                                                                                            |
+| `hotfix/schedule-course-key`    | Já mesclada em `master` e `develop`; pode ser apagada.                                                                              |
 
 A `main` foi apagada no remoto (D20). As branches já mescladas ficam por enquanto.
 
@@ -111,21 +112,29 @@ A `main` foi apagada no remoto (D20). As branches já mescladas ficam por enquan
   - Mapper das respostas da API para os tipos do front, com testes. As 9 URLs de hoje existem na API com as mesmas contagens (Eng. de Computação tem 114 componentes, dos dados reais do SIGAA).
   - As optativas aparecem no período em que o SIGAA as põe, o último (D66).
   - Conferido contra a API local: lista de cursos, grades (inclusive `/ciencias-economicas/2005-1`), página da disciplina e agenda, sem erro no console.
-- **Modelagem v2 fechada** ([modelagem.md](modelagem.md)), com 66 decisões (D1–D66) e 11 lacunas resolvidas (L1–L11).
+- **Fase 6 — PR 6.1, turmas na API** (branch `feature/fase-6-turmas-api`):
+  - Módulo `classes` na API: semestres letivos, turmas com chave natural e `fingerprint`, ofertas por curso com as vagas reservadas, `removed_at` e `scrape_runs`. Migration `0002_classes`.
+  - Coleta da página pública de turmas do SIGAA (sem login), a cada 6 horas, do vigente e dos semestres que começam nos próximos 45 dias (D68), com pausa entre cursos; disparo manual por moderador do curso ou admin.
+  - Rotas públicas `GET /v1/terms`, `/v1/terms/current` e `/v1/terms/{term}/courses/{course}/sections`; admin de semestres em `/v1/admin/terms`.
+  - Web: `/admin/semestres` (semestres e coleta manual), semestre vigente vindo da API e `/api/scrapping` lendo a API com o SIGAA como reserva (D69).
+  - Fixture anonimizada do SIGAA com dois docentes, aula partida no mesmo dia, internato com vários blocos de datas (D70) e sábado.
+  - Conferido contra o SIGAA real e a API local: coleta dos 7 cursos do dev (Eng. de Computação com 76 turmas), ids estáveis entre leituras e a página do admin em 1440 e 390 px, claro e escuro.
+- **Modelagem v2 fechada** ([modelagem.md](modelagem.md)), com 71 decisões (D1–D71) e 11 lacunas resolvidas (L1–L11).
 - **39 telas desenhadas** para desktop, mobile e extensão ([telas.md](telas.md)).
 
 ## Pendências imediatas
 
-1. Mesclar o PR 5.4, que fecha a fase 5.
+1. Mesclar o PR 6.1. Depois: PR 6.2 (agendas na API, por curso, EC e semestre) e PR 6.3 (agenda logada e importação no web).
 2. Testar localmente:
    - `docker compose -f docker/compose.dev.yml up -d`;
    - na API, copiar `.env.example` para `.env`, `pnpm --filter @ufc-flow/api db:migrate`, `seed:admin -- --email <e-mail> --name <nome>` e `seed:catalog`;
+   - em `/admin/semestres`, cadastrar o semestre, marcá-lo como vigente e coletar as turmas (ou esperar o job de 6 horas);
    - `pnpm --filter @ufc-flow/api dev` (porta 3333, Swagger em `/docs`) e `pnpm dev:web`, com `API_URL` no `apps/web/.env.local`;
    - extensão: `pnpm --filter @ufc-flow/extension build`, carregar `apps/extension/build/chrome-mv3-prod`, entrar pelo popup e enviar uma estrutura pelo painel no SIGAA.
 
 As telas de links (`Links-Pagina`, `Links-Editor`, `Mobile-Links` e `Mobile-Links-Editor`) ainda usam os destaques antigos e serão redesenhadas na implementação, na fase 10 (D31).
 
-Próximo passo: fase 6 (turmas e agendas).
+Próximo passo: PR 6.2 (agendas na API).
 
 ## Segurança das dependências
 

@@ -78,7 +78,7 @@ function Brand({ role }: { role: string }) {
 }
 
 // Menu lateral no desktop e folha no celular. Só os itens já existentes:
-// turmas, hub, moderação e o resto chegam nas próximas fases.
+// hub, moderação e o resto chegam nas próximas fases.
 export function AdminShell({
   role,
   isAdmin,
@@ -94,6 +94,7 @@ export function AdminShell({
   const items: NavItem[] = [
     { href: '/admin/estruturas', label: 'Estruturas curriculares' },
     { href: '/admin/importacoes', label: 'Importações', badge: pendingImports },
+    { href: '/admin/semestres', label: 'Semestres e turmas' },
     { href: '/admin/cursos', label: 'Cursos', adminOnly: true },
   ].filter((item) => isAdmin || !item.adminOnly)
 

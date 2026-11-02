@@ -19,6 +19,8 @@ describe('parseEnv', () => {
       WEB_URL: 'http://localhost:3000',
       SWAGGER_ENABLED: true,
       SIGAA_SYNC_ENABLED: true,
+      CLASSES_SYNC_ENABLED: true,
+      CLASSES_SYNC_PAUSE_MS: 5000,
     })
   })
 

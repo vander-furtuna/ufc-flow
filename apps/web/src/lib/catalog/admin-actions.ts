@@ -1,6 +1,7 @@
 'use server'
 
 import {
+  academicTermInputSchema,
   addCurriculumSubjectInputSchema,
   branchInputSchema,
   branchSubjectsInputSchema,
@@ -10,7 +11,10 @@ import {
   curriculumSubjectInputSchema,
   resolveReviewPointInputSchema,
   updateCourseInputSchema,
+  updateAcademicTermInputSchema,
   updateCurriculumInputSchema,
+  type AcademicTerm,
+  type AcademicTermInput,
   type AddCurriculumSubjectInput,
   type BranchInput,
   type BranchSubjectsInput,
@@ -23,8 +27,10 @@ import {
   type ManagedCurriculum,
   type ProblemDetails,
   type ReviewResolution,
+  type ScrapeRun,
   type SigaaCourseRefresh,
   type SubjectView,
+  type UpdateAcademicTermInput,
   type UpdateCourseInput,
   type UpdateCurriculumInput,
 } from '@ufc-flow/contracts'
@@ -249,4 +255,38 @@ export async function deleteCourseAction(id: string) {
 
 export async function refreshSigaaCatalogAction() {
   return call<SigaaCourseRefresh>('/v1/admin/sigaa-courses/refresh', 'POST')
+}
+
+const term = (code: string) => `/v1/admin/terms/${encodeURIComponent(code)}`
+export async function createTermAction(input: AcademicTermInput) {
+  return call<AcademicTerm>('/v1/admin/terms', 'POST', {
+    schema: academicTermInputSchema,
+    value: input,
+  })
+}
+
+export async function updateTermAction(
+  code: string,
+  input: UpdateAcademicTermInput,
+) {
+  return call<AcademicTerm>(term(code), 'PATCH', {
+    schema: updateAcademicTermInputSchema,
+    value: input,
+  })
+}
+
+export async function makeCurrentTermAction(code: string) {
+  return call<AcademicTerm>(`${term(code)}/make-current`, 'POST')
+}
+
+export async function deleteTermAction(code: string) {
+  return call<void>(term(code), 'DELETE')
+}
+
+// Coleta agora as turmas do curso (moderador do curso ou admin)
+export async function collectSectionsAction(code: string, courseSlug: string) {
+  return call<ScrapeRun>(
+    `/v1/terms/${encodeURIComponent(code)}/courses/${encodeURIComponent(courseSlug)}/collect`,
+    'POST',
+  )
 }

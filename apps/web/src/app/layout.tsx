@@ -9,6 +9,7 @@ import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/sonner'
 
 import { getPublicCatalog } from '@/lib/catalog/public-catalog'
+import { getCurrentTerm } from '@/lib/classes/classes-api'
 
 import { AppProvider } from './app-provider'
 
@@ -136,8 +137,12 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  // Catálogo das telas públicas: da API, ou do courses.ts sem API_URL (D51)
-  const courses = await getPublicCatalog()
+  // Catálogo das telas públicas: da API, ou do courses.ts sem API_URL (D51).
+  // O semestre vigente vem da API, ou das variáveis de ambiente sem ela.
+  const [courses, currentTerm] = await Promise.all([
+    getPublicCatalog(),
+    getCurrentTerm(),
+  ])
   return (
     <html lang="pt-br" suppressHydrationWarning>
       <Analytics />
@@ -175,7 +180,7 @@ export default async function RootLayout({
       <body
         className={`${clashDisplay.variable} ${poppins.variable} ${dmMono.variable} ${outfit.variable} ${geist.variable} max-h-full min-h-dvh bg-background font-sans antialiased`}
       >
-        <AppProvider courses={courses}>
+        <AppProvider courses={courses} currentTerm={currentTerm}>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"

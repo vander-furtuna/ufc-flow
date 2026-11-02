@@ -10,6 +10,7 @@ import {
   useState,
 } from 'react'
 
+import type { CurrentTerm } from '@/lib/classes/classes-api'
 import { useScheduleManager } from '@/lib/indexeddb'
 import type { StorageClass, SubjectGroup } from '@/types/class'
 import { useCourse } from './course'
@@ -29,19 +30,20 @@ export const ClassContext = createContext<ClassContextType>(
   {} as ClassContextType,
 )
 
-export function ClassProvider({ children }: { children: ReactNode }) {
+export function ClassProvider({
+  children,
+  initialTerm,
+}: {
+  children: ReactNode
+  // Semestre vigente lido no servidor (API ou variáveis de ambiente)
+  initialTerm: CurrentTerm
+}) {
   const { selectedCourse } = useCourse()
   const { fetchScheduleData, refreshScheduleData } = useScheduleManager()
 
-  const [currentYear, setCurrentYear] = useState<number>(
-    process.env.NEXT_PUBLIC_CURRENT_YEAR
-      ? parseInt(process.env.NEXT_PUBLIC_CURRENT_YEAR)
-      : new Date().getFullYear(),
-  )
+  const [currentYear, setCurrentYear] = useState<number>(initialTerm.year)
   const [currentSemester, setCurrentSemester] = useState<number>(
-    process.env.NEXT_PUBLIC_CURRENT_SEMESTER
-      ? parseInt(process.env.NEXT_PUBLIC_CURRENT_SEMESTER)
-      : 2,
+    initialTerm.semester,
   )
   const [isRefreshing, setIsRefreshing] = useState<boolean>(false)
   const [loadedKey, setLoadedKey] = useState<string | null>(null)
@@ -95,6 +97,7 @@ export function ClassProvider({ children }: { children: ReactNode }) {
         selectedCourse.id,
         currentYear,
         currentSemester,
+        selectedCourse.slug,
       )
       setCurrentClassGroup(data)
     } catch (error) {
@@ -110,7 +113,13 @@ export function ClassProvider({ children }: { children: ReactNode }) {
 
     // Descarta a resposta se o curso ou o semestre mudarem antes dela chegar
     let cancelled = false
-    void fetchScheduleData(selectedCourse.id, currentYear, currentSemester)
+    void fetchScheduleData(
+      selectedCourse.id,
+      currentYear,
+      currentSemester,
+      false,
+      selectedCourse.slug,
+    )
       .catch((error: unknown) => {
         console.error('Error fetching schedule data:', error)
         return null

@@ -591,6 +591,8 @@ export function useScheduleManager() {
       year: number,
       semester: number,
       forceRefresh: boolean = false,
+      // Com a API, as turmas são lidas pelo slug do curso
+      courseSlug?: string,
     ): Promise<StorageClass | null> => {
       try {
         // Se não é refresh forçado, tenta buscar do cache primeiro
@@ -604,6 +606,7 @@ export function useScheduleManager() {
         // Busca da API
         const apiData = await getClassesInformationsService({
           courseId,
+          courseSlug,
           year,
           semester,
         })
@@ -721,8 +724,9 @@ export function useScheduleManager() {
       courseId: string,
       year: number,
       semester: number,
+      courseSlug?: string,
     ): Promise<StorageClass | null> => {
-      return await fetchScheduleData(courseId, year, semester, true)
+      return await fetchScheduleData(courseId, year, semester, true, courseSlug)
     },
     [fetchScheduleData],
   )
