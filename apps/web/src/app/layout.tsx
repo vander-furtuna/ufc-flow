@@ -8,6 +8,8 @@ import { DM_Mono, Geist, Outfit } from 'next/font/google'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/sonner'
 
+import { getPublicCatalog } from '@/lib/catalog/public-catalog'
+
 import { AppProvider } from './app-provider'
 
 const poppins = localFont({
@@ -129,11 +131,13 @@ export const metadata: Metadata = {
   robots: 'index, follow',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  // Catálogo das telas públicas: da API, ou do courses.ts sem API_URL (D51)
+  const courses = await getPublicCatalog()
   return (
     <html lang="pt-br" suppressHydrationWarning>
       <Analytics />
@@ -171,7 +175,7 @@ export default function RootLayout({
       <body
         className={`${clashDisplay.variable} ${poppins.variable} ${dmMono.variable} ${outfit.variable} ${geist.variable} max-h-full min-h-dvh bg-background font-sans antialiased`}
       >
-        <AppProvider>
+        <AppProvider courses={courses}>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"

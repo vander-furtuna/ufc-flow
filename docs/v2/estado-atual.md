@@ -1,6 +1,6 @@
 # Estado atual do repositório
 
-Retrato em 01/11/2026, com a fase 5 em andamento (PR 5.3 de 4). Atualize este arquivo ao fim de cada fase do [roadmap](roadmap.md).
+Retrato em 01/11/2026, ao fim da fase 5 (PR 5.4, o último dos quatro, em PR). Atualize este arquivo ao fim de cada fase do [roadmap](roadmap.md).
 
 ## Branches
 
@@ -19,7 +19,8 @@ Retrato em 01/11/2026, com a fase 5 em andamento (PR 5.3 de 4). Atualize este ar
 | `feature/fase-4-api-identidade` | Mesclada em `develop` pelo PR #70; pode ser apagada.                                                             |
 | `feature/fase-5-catalogo-api`   | Mesclada em `develop` pelo PR #71; pode ser apagada.                                                             |
 | `feature/fase-5-extensao-envio` | Mesclada em `develop` pelo PR #72; pode ser apagada.                                                             |
-| `feature/fase-5-admin-web`      | Fase 5, PR 5.3 (área `/admin` no web), em PR para `develop`.                                                     |
+| `feature/fase-5-admin-web`      | Mesclada em `develop` pelo PR #73; pode ser apagada.                                                             |
+| `feature/fase-5-web-catalogo`   | Fase 5, PR 5.4 (web público lendo a API), em PR para `develop`.                                                  |
 | `feature/monorepo`              | Mesclada em `develop`; pode ser apagada.                                                                         |
 | `hotfix/schedule-course-key`    | Já mesclada em `master` e `develop`; pode ser apagada.                                                           |
 
@@ -105,12 +106,17 @@ A `main` foi apagada no remoto (D20). As branches já mescladas ficam por enquan
   - Estruturas (lista e editor), importações (lista, upload do JSON, diff, aplicar e descartar) e cursos (só admin: criar a partir do catálogo do SIGAA, ocultar, excluir, atualizar o catálogo).
   - Editor da EC: pontos para revisar, tabela por período (cartões no celular ou com o painel aberto), painel da disciplina com editor visual E/OU, vertentes, vínculo em lote, cabeçalho, exportação, publicação e vigente.
   - Testes do editor de expressão (modelo puro e componente com Testing Library). Conferido no Edge headless contra a API local, em 1440 e 390 px, nos temas claro e escuro.
-- **Modelagem v2 fechada** ([modelagem.md](modelagem.md)), com 64 decisões (D1–D64) e 11 lacunas resolvidas (L1–L11).
+- **Fase 5 — PR 5.4, web público lendo a API** (branch `feature/fase-5-web-catalogo`):
+  - O layout raiz carrega o catálogo no servidor (D65) e o `courses.ts` sai do bundle do cliente; sem `API_URL`, continua o `courses.ts` (D51).
+  - Mapper das respostas da API para os tipos do front, com testes. As 9 URLs de hoje existem na API com as mesmas contagens (Eng. de Computação tem 114 componentes, dos dados reais do SIGAA).
+  - As optativas aparecem no período em que o SIGAA as põe, o último (D66).
+  - Conferido contra a API local: lista de cursos, grades (inclusive `/ciencias-economicas/2005-1`), página da disciplina e agenda, sem erro no console.
+- **Modelagem v2 fechada** ([modelagem.md](modelagem.md)), com 66 decisões (D1–D66) e 11 lacunas resolvidas (L1–L11).
 - **39 telas desenhadas** para desktop, mobile e extensão ([telas.md](telas.md)).
 
 ## Pendências imediatas
 
-1. Mesclar o PR 5.3 e seguir com o 5.4 (web público lendo a API).
+1. Mesclar o PR 5.4, que fecha a fase 5.
 2. Testar localmente:
    - `docker compose -f docker/compose.dev.yml up -d`;
    - na API, copiar `.env.example` para `.env`, `pnpm --filter @ufc-flow/api db:migrate`, `seed:admin -- --email <e-mail> --name <nome>` e `seed:catalog`;
@@ -119,7 +125,7 @@ A `main` foi apagada no remoto (D20). As branches já mescladas ficam por enquan
 
 As telas de links (`Links-Pagina`, `Links-Editor`, `Mobile-Links` e `Mobile-Links-Editor`) ainda usam os destaques antigos e serão redesenhadas na implementação, na fase 10 (D31).
 
-Próximo passo: PR 5.4 (web público lendo o catálogo da API).
+Próximo passo: fase 6 (turmas e agendas).
 
 ## Segurança das dependências
 

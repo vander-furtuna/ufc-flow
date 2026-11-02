@@ -1,6 +1,6 @@
 # UFC Flow — guia para agentes
 
-UFC Flow é uma plataforma para estudantes da Universidade Federal do Ceará: grade curricular interativa com pré-requisitos, turmas do semestre, simulador de agenda, cardápio do RU e calendário acadêmico. É o TCC de Vanderlei Furtuna. Em produção hoje é só o front (Next.js, dados estáticos em `apps/web/src/data/courses.ts`).
+UFC Flow é uma plataforma para estudantes da Universidade Federal do Ceará: grade curricular interativa com pré-requisitos, turmas do semestre, simulador de agenda, cardápio do RU e calendário acadêmico. É o TCC de Vanderlei Furtuna. Em produção hoje é só o front (Next.js, dados estáticos em `apps/web/src/data/courses.ts`). Na `develop`, com `API_URL` configurada, o web lê o catálogo da API; sem ela, continua o `courses.ts`.
 
 O trabalho atual é a **v2**: API NestJS + PostgreSQL, contas de usuário, histórico acadêmico, agendas sincronizadas, hub do curso, página de links, fórum, avaliação de disciplinas, área administrativa de grades e uma extensão de navegador que extrai a estrutura curricular do SIGAA.
 

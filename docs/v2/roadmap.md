@@ -161,7 +161,7 @@ flowchart LR
   - Estruturas, com o editor da EC: tabela por período, painel lateral da disciplina e editor visual de expressão E/OU.
   - Vertentes e vínculo em lote.
   - Diferenças da importação, exportação em JSON, revisar e publicar.
-- [ ] Web público passa a ler o catálogo da API, com o IndexedDB só como cache offline. URLs e slugs atuais não mudam.
+- [x] Web público passa a ler o catálogo da API (D65), com o IndexedDB só como cache offline. URLs e slugs atuais não mudam.
 
 **Pronto quando:** a grade pública é servida pela API com as mesmas URLs, e um moderador importa pela extensão, revisa e publica uma EC.
 

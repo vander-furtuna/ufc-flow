@@ -9,7 +9,6 @@ import {
   useState,
 } from 'react'
 
-import { COURSES_DATA } from '@/data/courses'
 import type { Course, CurriculumStructure, Subject } from '@/types/course'
 import { normalizeWords } from '@/utils/normalize-words'
 
@@ -42,10 +41,13 @@ type HandleSelectProps = {
 
 const courseContext = createContext<CourseContextType>({} as CourseContextType)
 
+// O catálogo vem do servidor (layout raiz): da API ou do courses.ts (D51)
 export function CourseProvider({
   children,
+  courses,
 }: Readonly<{
   children: ReactNode
+  courses: Course[]
 }>) {
   const {
     branchFilter,
@@ -55,7 +57,6 @@ export function CourseProvider({
     durationFilter,
   } = useFilter()
 
-  const courses = COURSES_DATA
   const [isCourseLoading, setIsCourseLoading] = useState(true)
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null)
   const [selectedCurriculum, setSelectedCurriculum] =
