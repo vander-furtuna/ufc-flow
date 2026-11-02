@@ -21,6 +21,9 @@ const envSchema = z
     SWAGGER_PASSWORD: z.string().min(1).optional(),
     // Leitura semanal da lista pública de cursos do SIGAA
     SIGAA_SYNC_ENABLED: z.stringbool().default(true),
+    // Coleta das turmas a cada 6 horas, com pausa entre cursos
+    CLASSES_SYNC_ENABLED: z.stringbool().default(true),
+    CLASSES_SYNC_PAUSE_MS: z.coerce.number().int().nonnegative().default(5000),
   })
   .refine(
     (env) =>
