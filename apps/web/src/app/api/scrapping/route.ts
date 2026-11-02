@@ -6,6 +6,8 @@ import fetchCookie from 'fetch-cookie'
 import fetch from 'node-fetch'
 import { CookieJar } from 'tough-cookie'
 
+import { getCourseSections } from '@/lib/classes/classes-api'
+import { toLegacySubjectGroups } from '@/lib/classes/legacy-sections'
 import type {
   ClassSection,
   DateRange,
@@ -78,9 +80,31 @@ function parseTable(
     })
 }
 
-// --- Server Action ---
+// Turmas coletadas pela API (fase 6). Nulo quando a API não está
+// configurada, não conhece o curso ou o semestre, ainda não coletou ou está
+// fora do ar: aí o web lê o SIGAA direto, como antes
+async function fromApi(
+  year: number,
+  semester: number,
+  courseSlug: unknown,
+): Promise<SubjectGroup[] | null> {
+  if (typeof courseSlug !== 'string' || !courseSlug) return null
+  try {
+    const data = await getCourseSections(`${year}.${semester}`, courseSlug)
+    return data ? toLegacySubjectGroups(data) : null
+  } catch (error) {
+    console.error(
+      `Turmas da API indisponíveis; lendo o SIGAA: ${(error as Error).message}`,
+    )
+    return null
+  }
+}
+
 export async function POST(req: Request): Promise<Response> {
-  const { year, semester, courseId } = await req.json()
+  const { year, semester, courseId, courseSlug } = await req.json()
+
+  const collected = await fromApi(year, semester, courseSlug)
+  if (collected) return Response.json(collected)
 
   const baseURL = 'https://si3.ufc.br/sigaa/'
   const TURMAS_PATH = `public/curso/turmas.jsf?lc=pt_BR&id=${courseId}`

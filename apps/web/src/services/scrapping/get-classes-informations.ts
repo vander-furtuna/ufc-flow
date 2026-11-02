@@ -4,19 +4,21 @@ type GetClassesInformationsParams = {
   year: number
   semester: number
   courseId: string
+  courseSlug?: string
 }
 
 export async function getClassesInformationsService({
   year,
   semester,
   courseId,
+  courseSlug,
 }: GetClassesInformationsParams): Promise<StorageClass> {
   const response = await fetch('/api/scrapping', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ year, semester, courseId }),
+    body: JSON.stringify({ year, semester, courseId, courseSlug }),
   })
 
   if (!response.ok) {
