@@ -119,6 +119,7 @@ Cada linha é uma decisão já tomada e onde ela aparece na modelagem. Mudar uma
 | D72 | Regras da agenda no servidor            | As regras de disciplina repetida, conflito e turma removida valem para a turma que entra; as que já estavam ficam mesmo depois de uma mudança no SIGAA, com aviso. Vale a última escrita pela ordem de chegada. A cor `fuschia` do web vira `fuchsia`                                                                                                                                                                                                                                                                                   | Turmas e agendas                                                                    |
 | D73 | Agenda logada no web                    | O servidor é a fonte da verdade, com atualização otimista no contexto da agenda e reversão quando a API recusa; as agendas da conta não vão para o IndexedDB. O diálogo de importação abre só com agenda local importável, confere antes as turmas coletadas e pergunta o curso sempre que a EC antiga existe em mais de um curso                                                                                                                                                                                                       | Turmas e agendas; telas Importar-Agendas                                            |
 | D74 | Notificações da fase 7                  | Lista ordenada por `updated_at` (agrupada sobe ao somar); chaves de agrupamento por falha de coleta (curso e semestre), importação pendente (curso do SIGAA) e turma; dados como cópia do evento, tipados por tipo nos contratos; `hub_reads` fica para a fase 10, com o hub                                                                                                                                                                                                                                                            | Notificações                                                                        |
+| D75 | Arquivos da fase 8                      | Limites por finalidade (5, 8, 10 e 15 MB; 40 MP), tipo pela assinatura (sem HEIC), finalidades de curso só para quem o modera, 60 envios por hora por conta, sem deduplicar, órfãos (conta ou curso excluídos) apagados pela limpeza, foto de perfil como primeiro uso                                                                                                                                                                                                                                                                  | Arquivos e imagens                                                                  |
 
 ## Monorepo e arquitetura
 
@@ -588,6 +589,32 @@ files(id, owner_id NULL, course_id NULL,
 **Caminho no disco:** `/data/uploads/{finalidade}/{aaaa}/{mm}/{id}.{ext}`. O nome original nunca entra no caminho; fica só no banco.
 
 **Entrega:** `GET /files/:id`. Públicos saem com cache longo (o conteúdo de um id nunca muda). Privados exigem sessão do dono.
+
+**Regras da fase 8 (D75).**
+
+- **Limites do arquivo enviado:**
+
+  | Finalidade                            | Limite |
+  | ------------------------------------- | ------ |
+  | `AVATAR`                              | 5 MB   |
+  | Imagens de posts e da página de links | 8 MB   |
+  | `CERTIFICATE`                         | 10 MB  |
+  | `LINK_FILE`                           | 15 MB  |
+
+  Imagens acima de 40 megapixels são recusadas. O upload corta acima de 15 MB antes de ler tudo.
+
+- **Tipos aceitos:** JPEG, PNG, WebP, GIF (vira o primeiro quadro) e AVIF, reconhecidos pela assinatura dos bytes, e PDF. HEIC não é aceito, porque o sharp distribuído não o decodifica.
+- **Quem envia:**
+  - `AVATAR` e `CERTIFICATE` são pessoais: qualquer conta envia, sem curso;
+  - as finalidades de posts e links exigem `course_id` e moderação do curso (ou admin).
+- **Limites de uso:** 60 envios por hora por conta, contados no banco. O `sha256` só fica registrado, sem deduplicar.
+- **Ligar:** só o dono liga um arquivo `PENDING` da finalidade certa. Os outros módulos fazem isso dentro da própria transação, pela porta `FileAttachmentRepository`. Trocar a foto marca a anterior com `deleted_at`.
+- **Exclusões:** `owner_id` e `course_id` ficam nulos quando a conta ou o curso some. Arquivo pessoal sem dono (LGPD) e arquivo de curso sem curso deixam de ser servidos, e a limpeza diária os apaga do disco.
+- **Pasta:** `UPLOADS_DIR` (`./data/uploads` em dev; `/data/uploads`, o volume, em produção).
+- **Foto de perfil:**
+  - `users.avatar_file_id` tem FK para `files`;
+  - `PUT /me/avatar` com `{ fileId }` troca a foto e `DELETE /me/avatar` remove;
+  - o `Me` traz `avatarFileId`.
 
 ## Hub do curso
 
