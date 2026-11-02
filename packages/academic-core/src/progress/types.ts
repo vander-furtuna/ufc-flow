@@ -7,13 +7,21 @@ export type CurriculumNature = 'MANDATORY' | 'OPTATIVE'
 
 export type ActivityKind = 'COMPLEMENTARY' | 'EXTENSION'
 
+export type ProgressBranchType = 'SLOPE' | 'EMPHASIS' | 'SPECIFIC_GROUP'
+
 export type ProgressCurriculum = {
+  // Inclui o componente de complementares, como no SIGAA (D40)
   mandatoryHours: number
   optativeHours: number
   maxFreeOptativeHours: number
-  complementaryActivityHours: number
+  // Componente COMPLEMENTARY_ACTIVITY da EC: a carga dele é a exigência de
+  // atividades complementares, cumprida pelas atividades lançadas (D40)
+  complementaryComponentCode: string | null
   extensionHours: number
   minTotalHours: number
+  // Ênfases exigidas e permitidas (D37); nulos quando a EC não restringe
+  minEmphases?: number | null
+  maxEmphases?: number | null
   subjects: readonly {
     code: string
     nature: CurriculumNature
@@ -26,6 +34,9 @@ export type ProgressCurriculum = {
     parentId: string | null
     minHours: number | null
     minComponents: number | null
+    type?: ProgressBranchType
+    maxHours?: number | null
+    maxComponents?: number | null
   }[]
   activityCategories: readonly {
     id: string
@@ -74,11 +85,24 @@ export type IntegrationProgress = {
     branchId: string
     minHours: number | null
     minComponents: number | null
+    maxHours: number | null
+    maxComponents: number | null
     completedHours: number
     completedComponents: number
     met: boolean
+    // Passou do máximo do grupo: só aviso, as horas não são cortadas (D37)
+    overMax: boolean
   }[]
+  emphases: {
+    required: number | null
+    allowed: number | null
+    // Ênfases com os mínimos cumpridos
+    completed: number
+  }
   complementary: HoursProgress & {
+    // O componente foi registrado como cumprido (integralizado pela
+    // coordenação): as complementares ficam cumpridas
+    componentCompleted: boolean
     byCategory: {
       categoryId: string | null
       declaredHours: number

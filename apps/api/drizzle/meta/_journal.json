@@ -43,6 +43,13 @@
       "when": 1793651558529,
       "tag": "0005_files",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1793654634197,
+      "tag": "0006_academic_record",
+      "breakpoints": true
     }
   ]
 }

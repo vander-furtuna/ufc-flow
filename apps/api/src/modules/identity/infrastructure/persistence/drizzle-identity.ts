@@ -6,6 +6,7 @@ import {
   mapUnique,
   type Executor,
 } from '../../../../shared/infrastructure/persistence/drizzle-helpers'
+import { studentEnrollments } from '../../../academic-record/infrastructure/persistence/academic-record.schema'
 import { courses } from '../../../catalog/infrastructure/persistence/catalog.schema'
 import { fileAttachmentRepository } from '../../../files/infrastructure/persistence/drizzle-files'
 import { IdentityErrors } from '../../domain/errors'
@@ -103,6 +104,19 @@ export function identityRepositories(db: Executor): IdentityRepositories {
             .from(userRoles)
             .where(eq(userRoles.userId, userId))
         ).map((row) => row.role),
+      enrolledCourseIds: async (userId) =>
+        (
+          await db
+            .select({ courseId: studentEnrollments.courseId })
+            .from(studentEnrollments)
+            .where(
+              and(
+                eq(studentEnrollments.userId, userId),
+                eq(studentEnrollments.isCurrent, true),
+                eq(studentEnrollments.status, 'ACTIVE'),
+              ),
+            )
+        ).map((row) => row.courseId),
       addRole: async (userId, role, grantedBy, at) => {
         await db
           .insert(userRoles)

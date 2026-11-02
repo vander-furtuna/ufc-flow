@@ -119,7 +119,8 @@ export interface AuditLog {
   record(entry: AuditEntry): Promise<void>
 }
 
-// Matrículas vinculadas à EC. Chegam na fase 9; até lá nenhuma EC trava.
+// Matrículas vinculadas à EC (qualquer situação): EC publicada com matrícula
+// fica travada no editor
 export interface EnrollmentCounter {
   countForCurriculum(curriculumId: string): Promise<number>
 }
