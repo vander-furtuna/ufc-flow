@@ -1,6 +1,6 @@
 # Estado atual do repositório
 
-Retrato em 01/11/2026, com a fase 5 em andamento (PR 5.2 de 4). Atualize este arquivo ao fim de cada fase do [roadmap](roadmap.md).
+Retrato em 01/11/2026, com a fase 5 em andamento (PR 5.3 de 4). Atualize este arquivo ao fim de cada fase do [roadmap](roadmap.md).
 
 ## Branches
 
@@ -18,7 +18,8 @@ Retrato em 01/11/2026, com a fase 5 em andamento (PR 5.2 de 4). Atualize este ar
 | `chore/sync-master`             | Mesclada em `develop` pelo PR #69; pode ser apagada.                                                             |
 | `feature/fase-4-api-identidade` | Mesclada em `develop` pelo PR #70; pode ser apagada.                                                             |
 | `feature/fase-5-catalogo-api`   | Mesclada em `develop` pelo PR #71; pode ser apagada.                                                             |
-| `feature/fase-5-extensao-envio` | Fase 5, PR 5.2 (envio pela extensão), em PR para `develop`.                                                      |
+| `feature/fase-5-extensao-envio` | Mesclada em `develop` pelo PR #72; pode ser apagada.                                                             |
+| `feature/fase-5-admin-web`      | Fase 5, PR 5.3 (área `/admin` no web), em PR para `develop`.                                                     |
 | `feature/monorepo`              | Mesclada em `develop`; pode ser apagada.                                                                         |
 | `hotfix/schedule-course-key`    | Já mesclada em `master` e `develop`; pode ser apagada.                                                           |
 
@@ -100,12 +101,16 @@ A `main` foi apagada no remoto (D20). As branches já mescladas ficam por enquan
   - Catálogo do SIGAA lido da API, com cache de um dia e o JSON embutido como reserva; aviso na aba Revisar dos nomes diferentes do catálogo do Flow (rota nova `GET /v1/subjects?codes=`).
   - Conferido no Edge headless contra a API local, com o SIGAA simulado pelas fixtures: rascunho novo (Agronomia), curso pendente (Medicina - Sobral), reimportação (Música) e o aviso de nome divergente.
   - 201 testes na extensão (cobertura acima de 90% em `src/lib` e `src/sigaa`).
-- **Modelagem v2 fechada** ([modelagem.md](modelagem.md)), com 62 decisões (D1–D62) e 11 lacunas resolvidas (L1–L11).
+- **Fase 5 — PR 5.3, área `/admin` no web** (branch `feature/fase-5-admin-web`):
+  - Estruturas (lista e editor), importações (lista, upload do JSON, diff, aplicar e descartar) e cursos (só admin: criar a partir do catálogo do SIGAA, ocultar, excluir, atualizar o catálogo).
+  - Editor da EC: pontos para revisar, tabela por período (cartões no celular ou com o painel aberto), painel da disciplina com editor visual E/OU, vertentes, vínculo em lote, cabeçalho, exportação, publicação e vigente.
+  - Testes do editor de expressão (modelo puro e componente com Testing Library). Conferido no Edge headless contra a API local, em 1440 e 390 px, nos temas claro e escuro.
+- **Modelagem v2 fechada** ([modelagem.md](modelagem.md)), com 64 decisões (D1–D64) e 11 lacunas resolvidas (L1–L11).
 - **39 telas desenhadas** para desktop, mobile e extensão ([telas.md](telas.md)).
 
 ## Pendências imediatas
 
-1. Mesclar o PR 5.2 e seguir com o 5.3 (web `/admin`) e o 5.4 (web público lendo a API).
+1. Mesclar o PR 5.3 e seguir com o 5.4 (web público lendo a API).
 2. Testar localmente:
    - `docker compose -f docker/compose.dev.yml up -d`;
    - na API, copiar `.env.example` para `.env`, `pnpm --filter @ufc-flow/api db:migrate`, `seed:admin -- --email <e-mail> --name <nome>` e `seed:catalog`;
@@ -114,7 +119,7 @@ A `main` foi apagada no remoto (D20). As branches já mescladas ficam por enquan
 
 As telas de links (`Links-Pagina`, `Links-Editor`, `Mobile-Links` e `Mobile-Links-Editor`) ainda usam os destaques antigos e serão redesenhadas na implementação, na fase 10 (D31).
 
-Próximo passo: PR 5.3 (área `/admin` no web).
+Próximo passo: PR 5.4 (web público lendo o catálogo da API).
 
 ## Segurança das dependências
 
