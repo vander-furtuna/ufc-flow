@@ -19,7 +19,7 @@ import {
 import { PasswordInput } from '@/components/auth/password-input'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
-import { SESSION_QUERY_KEY } from '@/components/user-menu'
+import { SESSION_QUERY_KEY } from '@/lib/auth/use-session'
 import { resetPasswordAction } from '@/lib/auth/actions'
 
 export function ResetPasswordForm({ token }: { token: string }) {

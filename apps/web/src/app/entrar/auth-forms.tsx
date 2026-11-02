@@ -26,7 +26,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { signInAction, signUpAction } from '@/lib/auth/actions'
 
-import { SESSION_QUERY_KEY } from '@/components/user-menu'
+import { SESSION_QUERY_KEY } from '@/lib/auth/use-session'
 
 const inputClass = 'h-12 rounded-[12px]'
 
