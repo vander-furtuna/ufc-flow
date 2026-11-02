@@ -8,6 +8,8 @@ import Link from 'next/link'
 import { Logo } from '@/components/logo'
 import { Button } from '@/components/ui/button'
 import { ModeToggle } from '@/components/theme-toggle'
+import { NotificationBell } from '@/components/notifications/notification-bell'
+import { UserMenu } from '@/components/user-menu'
 import { useMediaQuery } from '@/hooks/use-media-query'
 import { SubjectsSearchBar } from './subjects-search-bar'
 import { SemesterSelector } from './semester-selector'
@@ -105,6 +107,8 @@ export function SubjectsSidebar({
             />
           </Button>
           <ModeToggle />
+          <NotificationBell align="start" />
+          <UserMenu />
         </div>
       </header>
       <div className="mt-8 flex w-full flex-col gap-3 border-b border-border/50 pb-3">

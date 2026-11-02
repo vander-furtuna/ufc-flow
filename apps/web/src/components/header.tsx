@@ -4,6 +4,7 @@ import { useClass } from '@/contexts/class'
 import SelectSemesterDialog from './dialogs/select-semester-dialog'
 import { Logo } from './logo'
 import { ModeToggle } from './theme-toggle'
+import { NotificationBell } from './notifications/notification-bell'
 import { UserMenu } from './user-menu'
 import { CalendarBlankIcon } from '@phosphor-icons/react'
 
@@ -37,6 +38,7 @@ export function Header() {
         </div>
 
         <ModeToggle />
+        <NotificationBell className="mx-1" />
         <UserMenu />
       </div>
     </header>
