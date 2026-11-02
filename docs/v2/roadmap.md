@@ -177,7 +177,8 @@ flowchart LR
   - Disparo manual para moderadores e admins.
 - [x] Portar o scraping de `apps/web/src/app/api/scrapping` para o módulo `classes`. O route handler do web passa a chamar a API, com o SIGAA como reserva até a fase 13 (D69).
 - [x] `GET /terms/:term/courses/:course/sections`. Semestre vigente vem de `academic_terms` (sai do `.env`), com a tela "Semestres e turmas" no admin (`/admin/semestres`).
-- [ ] `schedules` (com `curriculum_id`, D71) e `schedule_items`; agregado `Schedule` usando o `academic-core`.
+- [x] `schedules` (com `curriculum_id`, D71) e `schedule_items`; agregado `Schedule` usando o `academic-core` (D72).
+- [x] API das agendas: `GET`, `PUT` e `DELETE` em `/me/schedules` e `POST /me/schedules/import`.
 - [ ] Web logado:
   - O servidor é a fonte da verdade, com atualização otimista via TanStack Query.
   - Avisos de "horário mudou" (`slots_fingerprint`) e de "turma não ofertada" (`removed_at`).

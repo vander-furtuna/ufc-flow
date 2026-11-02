@@ -116,6 +116,7 @@ Cada linha é uma decisão já tomada e onde ela aparece na modelagem. Mudar uma
 | D69 | Scraping do web até a fase 13           | Sem `API_URL`, o `/api/scrapping` continua lendo o SIGAA. Com ela, devolve as turmas da API no formato antigo e só cai no SIGAA quando a API não tem o curso, o semestre ou a coleta                                                                                                                                                                                                                                                                                                                                                    | Turmas e agendas; D51                                                               |
 | D70 | Turmas com vários blocos de datas       | Horários semanais sem repetição e vigência do primeiro ao último dia; o modelo não guarda os blocos separados                                                                                                                                                                                                                                                                                                                                                                                                                           | Turmas e agendas; Lacunas                                                           |
 | D71 | Agenda por EC                           | `schedules` ganha `curriculum_id`: agendas são separadas por curso, EC e semestre, porque na transição entre ECs alunos do mesmo curso seguem grades diferentes                                                                                                                                                                                                                                                                                                                                                                         | Turmas e agendas                                                                    |
+| D72 | Regras da agenda no servidor            | As regras de disciplina repetida, conflito e turma removida valem para a turma que entra; as que já estavam ficam mesmo depois de uma mudança no SIGAA, com aviso. Vale a última escrita pela ordem de chegada. A cor `fuschia` do web vira `fuchsia`                                                                                                                                                                                                                                                                                   | Turmas e agendas                                                                    |
 
 ## Monorepo e arquitetura
 
@@ -428,15 +429,22 @@ schedule_items(schedule_id, class_section_id, subject_code, color, slots_fingerp
 
 **Agenda.** Cada agenda pertence a um curso, a uma EC e a um semestre (D71): na transição entre ECs, alunos do mesmo curso seguem grades diferentes. Uma agenda tem no máximo uma turma por disciplina e nenhum conflito de horário. As duas regras ficam no agregado `Schedule`, usando a função de conflito do `academic-core`.
 
-- Se o `slots_fingerprint` do item difere do `fingerprint` atual da turma, o front avisa que o horário mudou.
-- Se a turma tem `removed_at`, o front avisa que ela não está mais ofertada.
+- Se o `slots_fingerprint` do item difere do `fingerprint` atual da turma, o front avisa que o horário mudou (`changed` na resposta). O usuário dispensa o aviso regravando o item com `acknowledgeChange`, que copia o `fingerprint` atual.
+- Se a turma tem `removed_at`, o front avisa que ela não está mais ofertada (`removed`).
+- As regras valem para a turma que entra (D72). Turma que já estava fica mesmo que o SIGAA tenha mudado o horário para um conflito ou a tenha removido: o aviso cuida disso, e a agenda continua editável. Turma removida não entra nova.
+- Rotas, todas de quem está logado: `GET /me/schedules` (filtros opcionais `course`, `curriculum` e `term`), `PUT /me/schedules/:id` (cria ou substitui a agenda inteira pelo id do cliente), `DELETE /me/schedules/:id` e `POST /me/schedules/import`. Agenda de outra pessoa responde 404.
+- A cor é uma das 12 da paleta do web, em `schedule_color`. O web antigo grava `fuschia`; a grafia certa na API é `fuchsia`, e o web converte ao importar.
 
 **Anônimo e logado.**
 
 1. Sem login, a agenda continua no IndexedDB, como hoje.
-2. Logado, o servidor é a fonte da verdade. TanStack Query faz atualização otimista e o IndexedDB serve de cache. Em conflito vale a última escrita (`updated_at`); o agregado é pequeno e gravado inteiro.
-3. No primeiro login com agendas locais, o front oferece importá-las. `POST /me/schedules/import` recebe cada agenda com seu UUID local e itens `(termo, código, turma, cor)`. O servidor resolve cada item para `class_sections.id` e devolve os que não encontrou.
-4. O UUID local vira o `id` da agenda no servidor, então reenviar a importação não duplica nada.
+2. Logado, o servidor é a fonte da verdade. TanStack Query faz atualização otimista e o IndexedDB serve de cache. Em conflito vale a última escrita, pela ordem de chegada; o servidor carimba `updated_at`. O agregado é pequeno e gravado inteiro.
+3. No primeiro login com agendas locais, o front oferece importá-las. `POST /me/schedules/import` recebe até 50 agendas, cada uma com seu UUID local, curso, EC, semestre e itens `(código, turma, cor)`. O servidor resolve cada item pela chave natural e responde, por agenda:
+   - `status`: `IMPORTED`, `ALREADY_IMPORTED` ou `FAILED` (curso, EC ou semestre desconhecido, ou id já usado por outra pessoa), com o erro;
+   - `notFound`: turmas que não existem no semestre coletado;
+   - `skipped`: turmas que repetem a disciplina ou conflitam com as anteriores da mesma agenda, que ficam de fora;
+   - a agenda gravada.
+4. O UUID local vira o `id` da agenda no servidor, então reenviar a importação não duplica nada. Uma agenda que falha não impede as outras.
 
 **Agendas locais antigas.** Hoje a agenda do IndexedDB guarda em `courseId` o id da EC (ex.: `2006.2`), e esse id se repete entre cursos: Eng. de Computação, Eng. Elétrica e Psicologia têm uma EC `2006.2`. Isso já é um bug na versão atual, porque agendas de um curso aparecem nos outros cursos com EC de mesmo id, e deixa a importação ambígua. Solução:
 
