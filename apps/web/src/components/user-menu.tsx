@@ -1,10 +1,16 @@
 'use client'
 
-import { SignOutIcon, UserIcon } from '@phosphor-icons/react'
+import {
+  CameraIcon,
+  SignOutIcon,
+  TrashIcon,
+  UserIcon,
+} from '@phosphor-icons/react'
 import { useQueryClient } from '@tanstack/react-query'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { useTransition } from 'react'
+import { useRef, useTransition, type ChangeEvent } from 'react'
+import { toast } from 'sonner'
 
 import {
   DropdownMenu,
@@ -16,6 +22,12 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { signOutAction } from '@/lib/auth/actions'
 import { SESSION_QUERY_KEY, useSession } from '@/lib/auth/use-session'
+import { removeAvatarAction, setAvatarAction } from '@/lib/files/avatar-actions'
+import { fileUrl, uploadFile } from '@/lib/files/upload'
+
+// Conferido também na API; aqui só evita enviar o que vai ser recusado
+const AVATAR_MAX_BYTES = 5 * 1024 * 1024
+const AVATAR_TYPES = 'image/jpeg,image/png,image/webp,image/gif,image/avif'
 
 const initials = (name: string) =>
   name
@@ -32,6 +44,8 @@ export function UserMenu() {
   const router = useRouter()
   const queryClient = useQueryClient()
   const [isLeaving, startLeaving] = useTransition()
+  const [isSavingPhoto, startSavingPhoto] = useTransition()
+  const photoInput = useRef<HTMLInputElement>(null)
   const { data: user, isPending } = useSession()
 
   if (isPending) return <span className="size-9" aria-hidden />
@@ -48,6 +62,42 @@ export function UserMenu() {
     )
   }
 
+  const changePhoto = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    event.target.value = ''
+    if (!file) return
+    if (file.size > AVATAR_MAX_BYTES) {
+      toast.error('Foto grande demais', { description: 'Envie até 5 MB.' })
+      return
+    }
+    startSavingPhoto(async () => {
+      const uploaded = await uploadFile(file, 'AVATAR')
+      const saved = uploaded.ok
+        ? await setAvatarAction(uploaded.data.id)
+        : uploaded
+      if (!saved.ok) {
+        toast.error('Não foi possível trocar a foto', {
+          description: saved.problem.detail,
+        })
+        return
+      }
+      queryClient.setQueryData(SESSION_QUERY_KEY, saved.data)
+      toast.success('Foto atualizada')
+    })
+  }
+
+  const removePhoto = () =>
+    startSavingPhoto(async () => {
+      const result = await removeAvatarAction()
+      if (!result.ok) {
+        toast.error('Não foi possível remover a foto', {
+          description: result.problem.detail,
+        })
+        return
+      }
+      queryClient.setQueryData(SESSION_QUERY_KEY, result.data)
+    })
+
   const signOut = () =>
     startLeaving(async () => {
       await signOutAction()
@@ -57,11 +107,31 @@ export function UserMenu() {
 
   return (
     <DropdownMenu>
+      <input
+        ref={photoInput}
+        type="file"
+        accept={AVATAR_TYPES}
+        className="hidden"
+        aria-hidden
+        tabIndex={-1}
+        onChange={changePhoto}
+      />
       <DropdownMenuTrigger
         aria-label={`Conta de ${user.name}`}
-        className="flex size-9 items-center justify-center rounded-full bg-orange-500 text-xs font-semibold text-white hover:bg-orange-600 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
+        aria-busy={isSavingPhoto}
+        className="flex size-9 items-center justify-center overflow-hidden rounded-full bg-orange-500 text-xs font-semibold text-white hover:bg-orange-600 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none aria-busy:animate-pulse"
       >
-        {initials(user.name)}
+        {user.avatarFileId ? (
+          <img
+            src={fileUrl(user.avatarFileId)}
+            alt=""
+            width={36}
+            height={36}
+            className="size-full object-cover"
+          />
+        ) : (
+          initials(user.name)
+        )}
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-60">
         <DropdownMenuLabel className="flex flex-col gap-0.5">
@@ -71,7 +141,30 @@ export function UserMenu() {
           </span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem disabled={isLeaving} onSelect={signOut}>
+        <DropdownMenuItem
+          className="gap-2"
+          disabled={isSavingPhoto}
+          onSelect={() => photoInput.current?.click()}
+        >
+          <CameraIcon className="size-4" />
+          {user.avatarFileId ? 'Alterar foto' : 'Adicionar foto'}
+        </DropdownMenuItem>
+        {user.avatarFileId && (
+          <DropdownMenuItem
+            className="gap-2"
+            disabled={isSavingPhoto}
+            onSelect={removePhoto}
+          >
+            <TrashIcon className="size-4" />
+            Remover foto
+          </DropdownMenuItem>
+        )}
+        <DropdownMenuSeparator />
+        <DropdownMenuItem
+          className="gap-2"
+          disabled={isLeaving}
+          onSelect={signOut}
+        >
           <SignOutIcon className="size-4" />
           Sair
         </DropdownMenuItem>

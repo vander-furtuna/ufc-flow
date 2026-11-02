@@ -90,9 +90,9 @@ export async function proxy(request: NextRequest) {
 }
 
 // Rotas de API ficam de fora, menos /api/auth (o menu do usuário lê a
-// sessão por lá e também precisa da renovação)
+// sessão por lá) e /api/files (upload): as duas precisam da renovação
 export const config = {
   matcher: [
-    '/((?!api(?!/auth)|_next/static|_next/image|favicon.ico|icon.svg|banner.jpg).*)',
+    '/((?!api(?!/auth|/files)|_next/static|_next/image|favicon.ico|icon.svg|banner.jpg).*)',
   ],
 }
