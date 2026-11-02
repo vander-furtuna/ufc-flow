@@ -1,32 +1,33 @@
 # Estado atual do repositório
 
-Retrato em 02/11/2026, na fase 7 (PR 7.1, notificações na API, em PR). Atualize este arquivo ao fim de cada fase do [roadmap](roadmap.md).
+Retrato em 02/11/2026, na fase 7 (PR 7.2, sino e painel no web, em PR). Atualize este arquivo ao fim de cada fase do [roadmap](roadmap.md).
 
 ## Branches
 
-| Branch                            | Situação                                                                                                                                               |
-| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `master`                          | Produção (deploy no Coolify), e continua sendo (D20). `origin/HEAD` aponta para ela.                                                                   |
-| `develop`                         | Integração. Tem o monorepo e as fases 0 (PR #61), 1 (PR #63), 2 (PR #64), 3 (PR #66), 4 (PR #70), 5 (PRs #71 a #74) e 6 (PRs #75 a #77), com CI verde. |
-| `feature/fase-0-fundacao`         | Mesclada em `develop` pelo PR #61; pode ser apagada.                                                                                                   |
-| `feature/fase-1-academic-core`    | Mesclada em `develop` pelo PR #63; pode ser apagada.                                                                                                   |
-| `feature/fase-2-contracts`        | Mesclada em `develop` pelo PR #64; pode ser apagada.                                                                                                   |
-| `feature/docs-redesenho-links`    | Mesclada em `develop` pelo PR #65; pode ser apagada.                                                                                                   |
-| `feature/fase-3-extensao`         | Mesclada em `develop` pelo PR #66; pode ser apagada.                                                                                                   |
-| `fix/dependency-audit`            | Mesclada em `develop` pelo PR #67; pode ser apagada.                                                                                                   |
-| `hotfix/dependency-audit`         | Mesclada em `master` pelo PR #68; pode ser apagada.                                                                                                    |
-| `chore/sync-master`               | Mesclada em `develop` pelo PR #69; pode ser apagada.                                                                                                   |
-| `feature/fase-4-api-identidade`   | Mesclada em `develop` pelo PR #70; pode ser apagada.                                                                                                   |
-| `feature/fase-5-catalogo-api`     | Mesclada em `develop` pelo PR #71; pode ser apagada.                                                                                                   |
-| `feature/fase-5-extensao-envio`   | Mesclada em `develop` pelo PR #72; pode ser apagada.                                                                                                   |
-| `feature/fase-5-admin-web`        | Mesclada em `develop` pelo PR #73; pode ser apagada.                                                                                                   |
-| `feature/fase-5-web-catalogo`     | Mesclada em `develop` pelo PR #74; pode ser apagada.                                                                                                   |
-| `feature/fase-6-turmas-api`       | Mesclada em `develop` pelo PR #75; pode ser apagada.                                                                                                   |
-| `feature/fase-6-agendas-api`      | Mesclada em `develop` pelo PR #76; pode ser apagada.                                                                                                   |
-| `feature/fase-6-agenda-web`       | Mesclada em `develop` pelo PR #77; pode ser apagada.                                                                                                   |
-| `feature/fase-7-notificacoes-api` | Fase 7, PR 7.1 (notificações na API), em PR para `develop`.                                                                                            |
-| `feature/monorepo`                | Mesclada em `develop`; pode ser apagada.                                                                                                               |
-| `hotfix/schedule-course-key`      | Já mesclada em `master` e `develop`; pode ser apagada.                                                                                                 |
+| Branch                            | Situação                                                                                                                                                               |
+| --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `master`                          | Produção (deploy no Coolify), e continua sendo (D20). `origin/HEAD` aponta para ela.                                                                                   |
+| `develop`                         | Integração. Tem o monorepo e as fases 0 (PR #61), 1 (PR #63), 2 (PR #64), 3 (PR #66), 4 (PR #70), 5 (PRs #71 a #74), 6 (PRs #75 a #77) e o PR 7.1 (#78), com CI verde. |
+| `feature/fase-0-fundacao`         | Mesclada em `develop` pelo PR #61; pode ser apagada.                                                                                                                   |
+| `feature/fase-1-academic-core`    | Mesclada em `develop` pelo PR #63; pode ser apagada.                                                                                                                   |
+| `feature/fase-2-contracts`        | Mesclada em `develop` pelo PR #64; pode ser apagada.                                                                                                                   |
+| `feature/docs-redesenho-links`    | Mesclada em `develop` pelo PR #65; pode ser apagada.                                                                                                                   |
+| `feature/fase-3-extensao`         | Mesclada em `develop` pelo PR #66; pode ser apagada.                                                                                                                   |
+| `fix/dependency-audit`            | Mesclada em `develop` pelo PR #67; pode ser apagada.                                                                                                                   |
+| `hotfix/dependency-audit`         | Mesclada em `master` pelo PR #68; pode ser apagada.                                                                                                                    |
+| `chore/sync-master`               | Mesclada em `develop` pelo PR #69; pode ser apagada.                                                                                                                   |
+| `feature/fase-4-api-identidade`   | Mesclada em `develop` pelo PR #70; pode ser apagada.                                                                                                                   |
+| `feature/fase-5-catalogo-api`     | Mesclada em `develop` pelo PR #71; pode ser apagada.                                                                                                                   |
+| `feature/fase-5-extensao-envio`   | Mesclada em `develop` pelo PR #72; pode ser apagada.                                                                                                                   |
+| `feature/fase-5-admin-web`        | Mesclada em `develop` pelo PR #73; pode ser apagada.                                                                                                                   |
+| `feature/fase-5-web-catalogo`     | Mesclada em `develop` pelo PR #74; pode ser apagada.                                                                                                                   |
+| `feature/fase-6-turmas-api`       | Mesclada em `develop` pelo PR #75; pode ser apagada.                                                                                                                   |
+| `feature/fase-6-agendas-api`      | Mesclada em `develop` pelo PR #76; pode ser apagada.                                                                                                                   |
+| `feature/fase-6-agenda-web`       | Mesclada em `develop` pelo PR #77; pode ser apagada.                                                                                                                   |
+| `feature/fase-7-notificacoes-api` | Mesclada em `develop` pelo PR #78; pode ser apagada.                                                                                                                   |
+| `feature/fase-7-notificacoes-web` | Fase 7, PR 7.2 (sino e painel no web), em PR para `develop`.                                                                                                           |
+| `feature/monorepo`                | Mesclada em `develop`; pode ser apagada.                                                                                                                               |
+| `hotfix/schedule-course-key`      | Já mesclada em `master` e `develop`; pode ser apagada.                                                                                                                 |
 
 A `main` foi apagada no remoto (D20). As branches já mescladas ficam por enquanto.
 
@@ -137,12 +138,17 @@ A `main` foi apagada no remoto (D20). As branches já mescladas ficam por enquan
   - Porta `EventPublisher` no `shared`, com `@nestjs/event-emitter`. Publicam depois do commit: pedido e resposta de moderação, importação esperando curso, falha de coleta e turmas alteradas ou removidas (a coleta agora informa quais).
   - Módulo `notifications` (migration `0004_notifications`): os 6 tipos da fase, com agrupamento, sem notificar a própria ação e com tipos silenciados; lista paginada, contador, marcar como lidas, preferências e o job diário de retenção.
   - E2e do fluxo completo (moderação, agenda com turma alterada, falha de coleta e preferência silenciada) e integração com o Postgres.
+- **Fase 7 — PR 7.2, sino e painel no web** (branch `feature/fase-7-notificacoes-web`):
+  - Sino com contador no cabeçalho, na barra lateral da agenda (com o menu da conta) e no admin; contador relido a cada 60 s.
+  - Painel no desktop (mockup `Agenda-Notificacoes`) e página `/notificacoes` (mockup `Mobile-Notificacoes`), com marcar como lidas, filtro de não lidas e grupos por dia.
+  - Preferências por categoria, só com os tipos que a pessoa pode receber.
+  - Testes dos textos de cada tipo e do sino (Testing Library). Conferido no Edge headless contra a API local, em 1440 e 390 px, claro e escuro.
 - **Modelagem v2 fechada** ([modelagem.md](modelagem.md)), com 74 decisões (D1–D74) e 11 lacunas resolvidas (L1–L11).
 - **39 telas desenhadas** para desktop, mobile e extensão ([telas.md](telas.md)).
 
 ## Pendências imediatas
 
-1. Mesclar o PR 7.1. Depois: PR 7.2 (sino e painel de notificações no web) e PR 7.3 (redesenho da página da agenda, pendência da fase 6).
+1. Mesclar o PR 7.2. Depois: PR 7.3 (redesenho da página da agenda, pendência da fase 6), que fecha a fase 7.
 2. Testar localmente:
    - `docker compose -f docker/compose.dev.yml up -d`;
    - na API, copiar `.env.example` para `.env`, `pnpm --filter @ufc-flow/api db:migrate`, `seed:admin -- --email <e-mail> --name <nome>` e `seed:catalog`;
@@ -152,7 +158,7 @@ A `main` foi apagada no remoto (D20). As branches já mescladas ficam por enquan
 
 As telas de links (`Links-Pagina`, `Links-Editor`, `Mobile-Links` e `Mobile-Links-Editor`) ainda usam os destaques antigos e serão redesenhadas na implementação, na fase 10 (D31).
 
-Próximo passo: PR 7.2 (sino e painel no web).
+Próximo passo: PR 7.3 (redesenho da página da agenda).
 
 ## Segurança das dependências
 
