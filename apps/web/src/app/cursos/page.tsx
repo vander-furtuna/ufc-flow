@@ -3,15 +3,16 @@
 import { CourseLink } from '@/components/couse-link'
 import { Header } from '@/components/header'
 import { Line } from '@/components/title'
-import { COURSES_DATA } from '@/data/courses'
 import { StarIcon } from '@phosphor-icons/react'
 import { useState } from 'react'
 import { AppSearchBar } from '@/components/app-search-bar'
+import { useCourse } from '@/contexts/course'
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState('')
+  const { courses } = useCourse()
 
-  const filteredCourses = COURSES_DATA.filter((course) => {
+  const filteredCourses = courses.filter((course) => {
     const query = searchQuery.toLowerCase()
     return course.name.toLowerCase().includes(query) && course.isActive
   })

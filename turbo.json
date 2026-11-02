@@ -6,7 +6,7 @@
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**", "build/**"],
-      "env": ["NEXT_PUBLIC_*", "PLASMO_PUBLIC_*"]
+      "env": ["NEXT_PUBLIC_*", "PLASMO_PUBLIC_*", "API_URL"]
     },
     "typecheck": {
       "dependsOn": ["^typecheck"]
@@ -17,7 +17,8 @@
     "test": {},
     "dev": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "env": ["API_URL"]
     },
     "start": {
       "cache": false,

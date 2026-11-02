@@ -28,7 +28,10 @@ import {
   type UpdateCourseInput,
   type UpdateCurriculumInput,
 } from '@ufc-flow/contracts'
+import { updateTag } from 'next/cache'
 import type { z } from 'zod'
+
+import { CATALOG_TAG } from './public-catalog'
 
 import { adminFetch } from './admin-api'
 
@@ -54,6 +57,8 @@ async function call<T>(
     payload = parsed.data
   }
   const result = await adminFetch<T>(path, { method, body: payload })
+  // Mudou algo que pode estar publicado: as telas públicas releem a API
+  if (result.ok && method !== 'GET') updateTag(CATALOG_TAG)
   return result.ok
     ? { ok: true, data: result.data }
     : { ok: false, problem: result.problem }
