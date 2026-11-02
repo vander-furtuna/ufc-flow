@@ -187,7 +187,7 @@ flowchart LR
   - A resposta lista os itens não encontrados.
   - O diálogo pede confirmação do curso quando a EC antiga existe em mais de um curso.
 - [x] Anônimo continua 100% local.
-- [ ] Redesenho da página da agenda conforme `Agenda-Notificacoes` e `Mobile-Agenda` (lista "Na agenda", bloco de semana do mockup). A fase 6 acrescentou à agenda atual só o status de sincronização, os avisos e a marcação no calendário; o resto pode ir junto do painel de notificações, na fase 7.
+- [x] Redesenho da página da agenda conforme `Agenda-Notificacoes` e `Mobile-Agenda` (resumo "Na agenda", calendário da semana, aviso compacto e barra do celular), feito no PR 7.3. A lista de disciplinas do curso continua abaixo do resumo, porque é por ela que as turmas entram na agenda e o mockup não mostra outro caminho.
 
 **Pronto quando:** uma agenda criada anônima é importada no login sem duplicar, e uma mudança de horário no SIGAA aparece como aviso na agenda.
 
@@ -202,6 +202,7 @@ flowchart LR
 - [x] Polling de 60 s no web (o contador do sino; o fórum vai usar o mesmo intervalo).
 - [x] Retenção de 90 dias por job diário.
 - [x] Tipos desta fase: `SCHEDULE_SECTION_CHANGED`, `SCHEDULE_SECTION_REMOVED`, `SCRAPE_FAILED`, `IMPORT_PENDING`, `MODERATOR_REQUEST_CREATED` e `MODERATOR_REQUEST_REVIEWED`. Os do fórum entram na fase 11.
+- [x] Redesenho da página da agenda (pendência da fase 6), PR 7.3.
 - [x] Web: sino com contador (cabeçalho, agenda e admin), painel no desktop, página `/notificacoes` (Hoje, Ontem e Antes, filtro de não lidas) e preferências por categoria, conforme o papel.
 
 ## Fase 8 — Arquivos

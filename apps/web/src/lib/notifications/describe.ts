@@ -1,5 +1,7 @@
 import type { NotificationView } from '@ufc-flow/contracts'
 
+import { titleCase } from '@/utils/title-case'
+
 export type NotificationCategory =
   'Agenda' | 'Moderação' | 'Turmas' | 'Importações'
 
@@ -11,34 +13,6 @@ export type NotificationDescription = {
   parts: TextPart[]
   // Para onde a notificação leva; null quando ainda não há tela
   href: string | null
-}
-
-const LOWER = new Set([
-  'a',
-  'as',
-  'da',
-  'das',
-  'de',
-  'do',
-  'dos',
-  'e',
-  'em',
-  'o',
-  'os',
-])
-
-// O SIGAA escreve em maiúsculas ("MICROPROCESSADORES")
-export function titleCase(text: string): string {
-  if (text !== text.toUpperCase()) return text
-  return text
-    .toLowerCase()
-    .split(/\s+/)
-    .map((word, index) =>
-      index > 0 && LOWER.has(word)
-        ? word
-        : word.charAt(0).toUpperCase() + word.slice(1),
-    )
-    .join(' ')
 }
 
 const quoted = (names: readonly string[]) => {
@@ -157,3 +131,5 @@ export function dayGroup(iso: string, now: Date): 'Hoje' | 'Ontem' | 'Antes' {
   const days = Math.round((startOfDay(now) - startOfDay(new Date(iso))) / DAY)
   return days <= 0 ? 'Hoje' : days === 1 ? 'Ontem' : 'Antes'
 }
+
+export { titleCase }
