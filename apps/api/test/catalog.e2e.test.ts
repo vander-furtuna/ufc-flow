@@ -256,6 +256,14 @@ describe('catálogo de ponta a ponta', () => {
     await http
       .get('/v1/courses/engenharia-de-computacao/curricula/2099-1')
       .expect(404)
+    const known = fixture.subjects[0]!.code
+    const subjects = await http
+      .get(`/v1/subjects?codes=${known},XYZ0001`)
+      .expect(200)
+    expect(subjects.body.map((item: { code: string }) => item.code)).toEqual([
+      known,
+    ])
+    await http.get('/v1/subjects?codes=nada').expect(400)
     const sigaa = await http.get('/v1/sigaa-courses').expect(200)
     expect(sigaa.body[0]).toMatchObject({
       flowCourseId: courseId,

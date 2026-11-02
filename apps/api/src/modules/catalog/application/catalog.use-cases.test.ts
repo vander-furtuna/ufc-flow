@@ -452,6 +452,18 @@ describe('disciplina global', () => {
     return { ...h, moderator }
   }
 
+  it('busca pelos códigos, em ordem, ignorando os que não existem', async () => {
+    const h = await withSubject()
+    expect(
+      (await h.subjectsByCodes.execute(['ECO0002', 'XYZ0001', 'ECO0001'])).map(
+        (item) => [item.code, item.name],
+      ),
+    ).toEqual([
+      ['ECO0001', 'ALGORITMOS'],
+      ['ECO0002', 'ESTRUTURAS'],
+    ])
+  })
+
   it('só admin edita; código repetido não pode', async () => {
     const h = await withSubject()
     const updated = await h.updateSubject.execute(h.admin, 'ECO0001', {

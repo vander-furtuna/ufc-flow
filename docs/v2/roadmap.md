@@ -143,7 +143,7 @@ flowchart LR
 
 **Objetivo:** o catálogo sai do `courses.ts` e vai para o banco, com a área administrativa no lugar do course-maker. Modelagem: Catálogo acadêmico, Importação e edição de grades. Telas: `Admin-EC`, `Mobile-Admin-EC`, `Mobile-Admin-EC-Editar`, `Ext-Envio-*`.
 
-- [ ] Catálogo `sigaa_courses` (D34, API pronta no PR 5.1): tarefa agendada que lê a lista pública de cursos do SIGAA (windows-1252, sem login), com execução manual pelo admin; criar curso no Flow é escolher deste catálogo. A extensão passa a usar `GET` do catálogo no lugar do JSON embutido.
+- [x] Catálogo `sigaa_courses` (D34; API no PR 5.1, extensão no 5.2, D61): tarefa agendada que lê a lista pública de cursos do SIGAA (windows-1252, sem login), com execução manual pelo admin; criar curso no Flow é escolher deste catálogo. A extensão passa a usar `GET` do catálogo no lugar do JSON embutido.
 - [x] Tabelas do catálogo: `campuses` e `courses` (já criadas na fase 4, D47, faltando a FK para `sigaa_courses`), `curricula`, `subjects`, `curriculum_subjects`, os derivados `*_requirements`, `branches`, `curriculum_subject_branches`, `subject_equivalences` e `subject_equivalence_codes`.
 - [x] Agregado `Curriculum` com o ciclo DRAFT → PUBLISHED e **todas** as linhas da tabela "Ciclo de vida e edição" como testes. Auditoria em `audit_logs`.
 - [x] `is_current` manual, uma por curso, trocada numa transação.
@@ -154,7 +154,7 @@ flowchart LR
   - Diff ao reimportar.
   - Checagem de publicação: natureza, vertentes, ciclos e códigos.
 - [x] Endpoints públicos de leitura do catálogo para o web, com cache.
-- [ ] Extensão: envio para `POST /ingestion/curriculum-imports` (ligar a flag `PLASMO_PUBLIC_FLOW_SYNC`), modais `Ext-Envio-Concluido` e `Ext-Envio-Pendente`, envios recentes no popup e aviso de nome diferente do catálogo do Flow na aba Revisar.
+- [x] Extensão: envio para `POST /ingestion/curriculum-imports` (ligar a flag `PLASMO_PUBLIC_FLOW_SYNC`), modais `Ext-Envio-Concluido` e `Ext-Envio-Pendente`, envios recentes no popup e aviso de nome diferente do catálogo do Flow na aba Revisar.
 - [x] Seed: converter os 6 cursos e 9 ECs de `apps/web/src/data/courses.ts` em `CurriculumImportV1` e passar pelo mesmo pipeline. Os requisitos entram como `E` de todos os códigos e ficam marcados para reimportação.
 - [ ] Web `/admin`:
   - Cursos.

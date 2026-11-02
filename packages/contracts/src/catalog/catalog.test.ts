@@ -12,6 +12,7 @@ import {
   resolveReviewPointInputSchema,
   reviewPointSchema,
   sigaaCourseEntrySchema,
+  subjectLookupQuerySchema,
   subjectEquivalencesInputSchema,
   updateCourseInputSchema,
   updateCurriculumInputSchema,
@@ -309,6 +310,22 @@ describe('catálogo', () => {
         removed: false,
       }).success,
     ).toBe(true)
+  })
+})
+
+describe('busca de disciplinas', () => {
+  it('separa, normaliza e limita os códigos', () => {
+    expect(
+      subjectLookupQuerySchema.parse({ codes: 'eco0083, SBL0084,ECO0083' }),
+    ).toEqual({
+      codes: ['ECO0083', 'SBL0084'],
+    })
+    expect(subjectLookupQuerySchema.safeParse({ codes: 'x' }).success).toBe(
+      false,
+    )
+    expect(subjectLookupQuerySchema.safeParse({ codes: ' , ' }).success).toBe(
+      false,
+    )
   })
 })
 

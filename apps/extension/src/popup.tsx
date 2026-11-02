@@ -16,6 +16,7 @@ import type { Me } from '@ufc-flow/contracts'
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react'
 
 import { Button, Chip, Logo } from './components/ui'
+import { RecentSends } from './popup-recent-sends'
 import {
   FLOW_API_URL,
   FLOW_SYNC_ENABLED,
@@ -158,6 +159,7 @@ function Start({ account }: { account: ReactNode }) {
         <ExternalLink className="size-4" aria-hidden />
       </Button>
       {account}
+      {FLOW_SYNC_ENABLED && <RecentSends />}
     </>
   )
 }
@@ -230,6 +232,7 @@ function Detected({ response }: { response: NonNullable<SummaryResponse> }) {
           Abra o painel e resolva os itens da aba Revisar para liberar o JSON.
         </p>
       )}
+      {FLOW_SYNC_ENABLED && <RecentSends />}
     </>
   )
 }

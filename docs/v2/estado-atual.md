@@ -1,6 +1,6 @@
 # Estado atual do repositório
 
-Retrato em 01/11/2026, com a fase 5 em andamento (PR 5.1 de 4). Atualize este arquivo ao fim de cada fase do [roadmap](roadmap.md).
+Retrato em 01/11/2026, com a fase 5 em andamento (PR 5.2 de 4). Atualize este arquivo ao fim de cada fase do [roadmap](roadmap.md).
 
 ## Branches
 
@@ -17,7 +17,8 @@ Retrato em 01/11/2026, com a fase 5 em andamento (PR 5.1 de 4). Atualize este ar
 | `hotfix/dependency-audit`       | Mesclada em `master` pelo PR #68; pode ser apagada.                                                              |
 | `chore/sync-master`             | Mesclada em `develop` pelo PR #69; pode ser apagada.                                                             |
 | `feature/fase-4-api-identidade` | Mesclada em `develop` pelo PR #70; pode ser apagada.                                                             |
-| `feature/fase-5-catalogo-api`   | Fase 5, PR 5.1 (API do catálogo e da ingestão), em PR para `develop`.                                            |
+| `feature/fase-5-catalogo-api`   | Mesclada em `develop` pelo PR #71; pode ser apagada.                                                             |
+| `feature/fase-5-extensao-envio` | Fase 5, PR 5.2 (envio pela extensão), em PR para `develop`.                                                      |
 | `feature/monorepo`              | Mesclada em `develop`; pode ser apagada.                                                                         |
 | `hotfix/schedule-course-key`    | Já mesclada em `master` e `develop`; pode ser apagada.                                                           |
 
@@ -94,20 +95,26 @@ A `main` foi apagada no remoto (D20). As branches já mescladas ficam por enquan
   - Rotas: leitura pública com cache, gestão em `/v1/manage`, admin em `/v1/admin` e ingestão em `/v1/ingestion/curriculum-imports` (D52 a D59). Leitura semanal da lista pública do SIGAA.
   - `seed:catalog` no lugar do `seed:courses`: os 9 ECs do `courses.ts` publicados pelo pipeline, com os slugs de hoje (inclusive `/ciencias-economicas/2005-1`).
   - Testes: 188 unitários na API (cobertura de 99% em domínio e aplicação), 4 arquivos de integração e e2e com 25 testes (o e2e importa a EC real de 114 componentes e confere os `OU` e o 304 do cache), 251 no `contracts`.
-- **Modelagem v2 fechada** ([modelagem.md](modelagem.md)), com 59 decisões (D1–D59) e 11 lacunas resolvidas (L1–L11).
+- **Fase 5 — PR 5.2, envio pela extensão** (branch `feature/fase-5-extensao-envio`):
+  - Service worker com as chamadas à API; envio pelo painel com os modais de rascunho criado, curso pendente e diferenças a conferir; envios recentes no popup.
+  - Catálogo do SIGAA lido da API, com cache de um dia e o JSON embutido como reserva; aviso na aba Revisar dos nomes diferentes do catálogo do Flow (rota nova `GET /v1/subjects?codes=`).
+  - Conferido no Edge headless contra a API local, com o SIGAA simulado pelas fixtures: rascunho novo (Agronomia), curso pendente (Medicina - Sobral), reimportação (Música) e o aviso de nome divergente.
+  - 201 testes na extensão (cobertura acima de 90% em `src/lib` e `src/sigaa`).
+- **Modelagem v2 fechada** ([modelagem.md](modelagem.md)), com 62 decisões (D1–D62) e 11 lacunas resolvidas (L1–L11).
 - **39 telas desenhadas** para desktop, mobile e extensão ([telas.md](telas.md)).
 
 ## Pendências imediatas
 
-1. Mesclar o PR 5.1 e seguir com o 5.2 (extensão), 5.3 (web `/admin`) e 5.4 (web público lendo a API).
+1. Mesclar o PR 5.2 e seguir com o 5.3 (web `/admin`) e o 5.4 (web público lendo a API).
 2. Testar localmente:
    - `docker compose -f docker/compose.dev.yml up -d`;
    - na API, copiar `.env.example` para `.env`, `pnpm --filter @ufc-flow/api db:migrate`, `seed:admin -- --email <e-mail> --name <nome>` e `seed:catalog`;
-   - `pnpm --filter @ufc-flow/api dev` (porta 3333, Swagger em `/docs`) e `pnpm dev:web`, com `API_URL` no `apps/web/.env.local`.
+   - `pnpm --filter @ufc-flow/api dev` (porta 3333, Swagger em `/docs`) e `pnpm dev:web`, com `API_URL` no `apps/web/.env.local`;
+   - extensão: `pnpm --filter @ufc-flow/extension build`, carregar `apps/extension/build/chrome-mv3-prod`, entrar pelo popup e enviar uma estrutura pelo painel no SIGAA.
 
 As telas de links (`Links-Pagina`, `Links-Editor`, `Mobile-Links` e `Mobile-Links-Editor`) ainda usam os destaques antigos e serão redesenhadas na implementação, na fase 10 (D31).
 
-Próximo passo: PR 5.2 (envio pela extensão).
+Próximo passo: PR 5.3 (área `/admin` no web).
 
 ## Segurança das dependências
 

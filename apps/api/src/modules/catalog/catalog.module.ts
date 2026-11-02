@@ -39,6 +39,7 @@ import {
   ResolveReviewPointUseCase,
 } from './application/ingestion.use-cases'
 import {
+  ListSubjectsByCodesUseCase,
   SetSubjectEquivalencesUseCase,
   UpdateSubjectUseCase,
 } from './application/subjects.use-cases'
@@ -96,6 +97,7 @@ import { HttpSigaaCourseSource } from './infrastructure/sigaa/sigaa-course-list'
     ResolveReviewPointUseCase,
     UpdateSubjectUseCase,
     SetSubjectEquivalencesUseCase,
+    ListSubjectsByCodesUseCase,
   ],
 })
 export class CatalogModule {}

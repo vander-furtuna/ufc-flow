@@ -315,6 +315,19 @@ export const subjectSchema = z
   })
   .meta({ id: 'Subject' })
 
+// ?codes=ECO0083,SBL0084 (até 300): a extensão compara os nomes lidos no
+// SIGAA com os do catálogo do Flow antes de enviar
+export const subjectLookupQuerySchema = z.object({
+  codes: z
+    .string()
+    .transform((value) =>
+      [
+        ...new Set(value.split(',').map((code) => code.trim().toUpperCase())),
+      ].filter(Boolean),
+    )
+    .pipe(z.array(subjectCodeSchema).min(1).max(300)),
+})
+
 export const updateSubjectInputSchema = z
   .object({
     code: subjectCodeSchema,
@@ -397,6 +410,7 @@ export type BranchInput = z.infer<typeof branchInputSchema>
 export type BranchSubjectsInput = z.infer<typeof branchSubjectsInputSchema>
 export type SubjectView = z.infer<typeof subjectSchema>
 export type UpdateSubjectInput = z.infer<typeof updateSubjectInputSchema>
+export type SubjectLookupQuery = z.infer<typeof subjectLookupQuerySchema>
 export type SubjectEquivalencesInput = z.infer<
   typeof subjectEquivalencesInputSchema
 >

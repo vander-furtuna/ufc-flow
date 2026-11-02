@@ -40,6 +40,7 @@ import {
   ResolveReviewPointUseCase,
 } from '../ingestion.use-cases'
 import {
+  ListSubjectsByCodesUseCase,
   SetSubjectEquivalencesUseCase,
   UpdateSubjectUseCase,
 } from '../subjects.use-cases'
@@ -130,6 +131,7 @@ export function harness() {
     discardImport: new DiscardImportUseCase(catalog),
     resolve: new ResolveReviewPointUseCase(editor),
     updateSubject,
+    subjectsByCodes: new ListSubjectsByCodesUseCase(catalog),
     setEquivalences: new SetSubjectEquivalencesUseCase(
       catalog,
       clock,
