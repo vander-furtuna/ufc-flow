@@ -104,7 +104,9 @@ export async function POST(req: Request): Promise<Response> {
   const { year, semester, courseId, courseSlug } = await req.json()
 
   const collected = await fromApi(year, semester, courseSlug)
-  if (collected) return Response.json(collected)
+  if (collected) {
+    return Response.json(collected, { headers: { 'x-classes-source': 'api' } })
+  }
 
   const baseURL = 'https://si3.ufc.br/sigaa/'
   const TURMAS_PATH = `public/curso/turmas.jsf?lc=pt_BR&id=${courseId}`
@@ -159,5 +161,7 @@ export async function POST(req: Request): Promise<Response> {
     map.get(key)!.classes.push(section)
   }
 
-  return Response.json(Array.from(map.values()))
+  return Response.json(Array.from(map.values()), {
+    headers: { 'x-classes-source': 'sigaa' },
+  })
 }

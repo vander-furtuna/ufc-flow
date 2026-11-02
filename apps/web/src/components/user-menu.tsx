@@ -1,8 +1,7 @@
 'use client'
 
 import { SignOutIcon, UserIcon } from '@phosphor-icons/react'
-import type { Me } from '@ufc-flow/contracts'
-import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { useQueryClient } from '@tanstack/react-query'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useTransition } from 'react'
@@ -16,14 +15,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { signOutAction } from '@/lib/auth/actions'
-
-export const SESSION_QUERY_KEY = ['auth', 'session'] as const
-
-async function fetchSession(): Promise<Me | null> {
-  const response = await fetch('/api/auth/session', { cache: 'no-store' })
-  if (!response.ok) return null
-  return ((await response.json()) as { user: Me | null }).user
-}
+import { SESSION_QUERY_KEY, useSession } from '@/lib/auth/use-session'
 
 const initials = (name: string) =>
   name
@@ -40,11 +32,7 @@ export function UserMenu() {
   const router = useRouter()
   const queryClient = useQueryClient()
   const [isLeaving, startLeaving] = useTransition()
-  const { data: user, isPending } = useQuery({
-    queryKey: SESSION_QUERY_KEY,
-    queryFn: fetchSession,
-    staleTime: 60_000,
-  })
+  const { data: user, isPending } = useSession()
 
   if (isPending) return <span className="size-9" aria-hidden />
 

@@ -12,6 +12,7 @@ import { FilterProvider } from '@/contexts/filter'
 import { queryClient } from '@/lib/query-client'
 import { ToolsProvider } from '@/contexts/tools'
 import { ScheduleProvider } from '@/contexts/schedule'
+import { ScheduleImportPrompt } from '@/components/schedule-import/schedule-import-prompt'
 import { CalendarProvider } from '@/contexts/calendar'
 
 import { IconContext } from '@phosphor-icons/react'
@@ -35,7 +36,10 @@ export function AppProvider({
               <CourseProvider courses={courses}>
                 <ClassProvider initialTerm={currentTerm}>
                   <CalendarProvider>
-                    <ScheduleProvider>{children}</ScheduleProvider>
+                    <ScheduleProvider>
+                      {children}
+                      <ScheduleImportPrompt />
+                    </ScheduleProvider>
                   </CalendarProvider>
                 </ClassProvider>
               </CourseProvider>

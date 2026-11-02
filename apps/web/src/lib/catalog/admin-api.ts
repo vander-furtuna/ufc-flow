@@ -1,20 +1,11 @@
 import 'server-only'
 
-import { cookies } from 'next/headers'
 import { notFound, redirect } from 'next/navigation'
 
-import { callApi, type ApiResult } from '@/lib/auth/api'
-import { ACCESS_COOKIE } from '@/lib/auth/cookies'
-import { clientContext } from '@/lib/auth/session'
+import { userFetch } from '@/lib/auth/user-api'
 
 // Chamada à API em nome de quem está logado (área /admin)
-export async function adminFetch<T>(
-  path: string,
-  init: { method?: string; body?: unknown } = {},
-): Promise<ApiResult<T>> {
-  const accessToken = (await cookies()).get(ACCESS_COOKIE)?.value
-  return callApi<T>(path, { ...init, accessToken, ...(await clientContext()) })
-}
+export const adminFetch = userFetch
 
 // Para páginas: sem sessão vai para o login, recurso inexistente ou sem
 // permissão vira 404, e o resto (API fora do ar) vira erro da página

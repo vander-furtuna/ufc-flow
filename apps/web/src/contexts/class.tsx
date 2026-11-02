@@ -11,6 +11,7 @@ import {
 } from 'react'
 
 import type { CurrentTerm } from '@/lib/classes/classes-api'
+import { useSession } from '@/lib/auth/use-session'
 import { useScheduleManager } from '@/lib/indexeddb'
 import type { StorageClass, SubjectGroup } from '@/types/class'
 import { useCourse } from './course'
@@ -40,6 +41,8 @@ export function ClassProvider({
 }) {
   const { selectedCourse } = useCourse()
   const { fetchScheduleData, refreshScheduleData } = useScheduleManager()
+  // Logado, a agenda referencia as turmas pelos ids da API
+  const requireApiSource = Boolean(useSession().data)
 
   const [currentYear, setCurrentYear] = useState<number>(initialTerm.year)
   const [currentSemester, setCurrentSemester] = useState<number>(
@@ -119,6 +122,7 @@ export function ClassProvider({
       currentSemester,
       false,
       selectedCourse.slug,
+      requireApiSource,
     )
       .catch((error: unknown) => {
         console.error('Error fetching schedule data:', error)
@@ -139,6 +143,7 @@ export function ClassProvider({
     currentSemester,
     selectedCourse,
     fetchScheduleData,
+    requireApiSource,
   ])
 
   const value = useMemo(

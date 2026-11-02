@@ -13,6 +13,8 @@ import { SubjectsSearchBar } from './subjects-search-bar'
 import { SemesterSelector } from './semester-selector'
 import { ScheduleControls } from './schedule-controls'
 import { SubjectsList } from './subjects-list'
+import { ScheduleSyncStatus } from '../schedule-sync-status'
+import { ScheduleWarnings } from '../schedule-warnings'
 
 export function SubjectsSidebar({
   onDownloadSchedule,
@@ -31,21 +33,27 @@ export function SubjectsSidebar({
 
   return isMobile ? (
     <div className="absolute bottom-0 z-500 flex h-fit max-h-dvh w-full flex-col items-center justify-end transition-all">
-      <div className="flex w-full items-center gap-2 rounded-t-md border bg-card/70 px-3 py-3 backdrop-blur-md">
-        <Link href="/" aria-label="Home">
-          <Logo className="h-9" iconOnly />
-        </Link>
-        <ScheduleControls onDownloadSchedule={onDownloadSchedule} isMobile />
-        <button
-          className="group/mobile-menu relative flex size-10 shrink-0 items-center justify-center rounded-full border bg-accent text-foreground/90 transition-all hover:bg-accent/80"
-          data-state={isMobileMenuExpanded ? 'expanded' : 'collapsed'}
-          onClick={() => setIsMobileMenuExpanded(!isMobileMenuExpanded)}
-        >
-          <CaretUpIcon
-            weight="bold"
-            className="size-5 transition-all group-data-[state=expanded]/mobile-menu:rotate-180"
-          />
-        </button>
+      {!isMobileMenuExpanded && (
+        <ScheduleWarnings className="max-h-[30dvh] w-full overflow-y-auto px-2 pb-2" />
+      )}
+      <div className="flex w-full flex-col gap-1.5 rounded-t-md border bg-card/70 px-3 py-3 backdrop-blur-md">
+        <div className="flex w-full items-center gap-2">
+          <Link href="/" aria-label="Home">
+            <Logo className="h-9" iconOnly />
+          </Link>
+          <ScheduleControls onDownloadSchedule={onDownloadSchedule} isMobile />
+          <button
+            className="group/mobile-menu relative flex size-10 shrink-0 items-center justify-center rounded-full border bg-accent text-foreground/90 transition-all hover:bg-accent/80"
+            data-state={isMobileMenuExpanded ? 'expanded' : 'collapsed'}
+            onClick={() => setIsMobileMenuExpanded(!isMobileMenuExpanded)}
+          >
+            <CaretUpIcon
+              weight="bold"
+              className="size-5 transition-all group-data-[state=expanded]/mobile-menu:rotate-180"
+            />
+          </button>
+        </div>
+        <ScheduleSyncStatus />
       </div>
       <div
         className="relative flex h-0 w-full flex-col gap-4 overflow-y-auto bg-background/70 py-0 backdrop-blur-md transition-all duration-300 data-[state=expanded]:h-[75dvh]"
@@ -107,6 +115,8 @@ export function SubjectsSidebar({
 
         <div className="flex w-full flex-col gap-2">
           <ScheduleControls onDownloadSchedule={onDownloadSchedule} />
+          <ScheduleSyncStatus />
+          <ScheduleWarnings />
         </div>
       </div>
       <div className="relative flex h-full no-scrollbar flex-col gap-4 pb-20 md:overflow-y-auto">

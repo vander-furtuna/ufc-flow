@@ -3,7 +3,15 @@ import type { CourseSections } from '@ufc-flow/contracts'
 import type { SubjectGroup } from '@/types/class'
 
 // Dia ISO (1 = segunda, D24) para a sigla que a agenda local usa
-const WEEKDAYS = ['SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB', 'DOM'] as const
+export const WEEKDAYS = [
+  'SEG',
+  'TER',
+  'QUA',
+  'QUI',
+  'SEX',
+  'SAB',
+  'DOM',
+] as const
 
 // Turmas da API no formato que o /api/scrapping sempre devolveu. Os ids agora
 // são estáveis entre coletas (chave natural no banco).

@@ -38,12 +38,16 @@ export type ScheduledClassColor =
   | 'cyan'
   | 'blue'
   | 'violet'
-  | 'fuschia'
+  | 'fuchsia'
   | 'pink'
   | 'rose'
 
 export type ScheduledClass = ClassSection & {
   color: ScheduledClassColor
+  // Agenda na conta: horário ou docentes mudaram no SIGAA depois que a
+  // turma entrou, ou a turma saiu do SIGAA
+  changed?: boolean
+  removed?: boolean
 }
 
 export type SubjectGroup = {
@@ -56,4 +60,6 @@ export type StorageClass = {
   year: number
   semester: number
   classGroup: SubjectGroup[]
+  // De onde vieram as turmas: da coleta da API (ids estáveis) ou do SIGAA
+  source?: 'api' | 'sigaa'
 }
