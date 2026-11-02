@@ -79,6 +79,7 @@ describe('CreateImportUseCase', () => {
     )
 
     const managed = await h.getManaged.execute(h.moderator, ec!.id)
+    expect(managed.lastImportId).toBe(view.id)
     expect(managed.reviewPoints.map((point) => point.type)).toEqual([
       'SUBJECT_NAME_MISMATCH',
       'EQUIVALENCES_SUGGESTED',

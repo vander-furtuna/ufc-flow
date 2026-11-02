@@ -156,7 +156,7 @@ flowchart LR
 - [x] Endpoints públicos de leitura do catálogo para o web, com cache.
 - [x] Extensão: envio para `POST /ingestion/curriculum-imports` (ligar a flag `PLASMO_PUBLIC_FLOW_SYNC`), modais `Ext-Envio-Concluido` e `Ext-Envio-Pendente`, envios recentes no popup e aviso de nome diferente do catálogo do Flow na aba Revisar.
 - [x] Seed: converter os 6 cursos e 9 ECs de `apps/web/src/data/courses.ts` em `CurriculumImportV1` e passar pelo mesmo pipeline. Os requisitos entram como `E` de todos os códigos e ficam marcados para reimportação.
-- [ ] Web `/admin`:
+- [x] Web `/admin` (telas `Admin-EC`, `Mobile-Admin-EC` e `Mobile-Admin-EC-Editar`, D63):
   - Cursos.
   - Estruturas, com o editor da EC: tabela por período, painel lateral da disciplina e editor visual de expressão E/OU.
   - Vertentes e vínculo em lote.
