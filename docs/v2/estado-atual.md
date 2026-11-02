@@ -1,6 +1,6 @@
 # Estado atual do repositório
 
-Retrato em 02/11/2026, na fase 6 (PR 6.1, turmas na API, em PR). Atualize este arquivo ao fim de cada fase do [roadmap](roadmap.md).
+Retrato em 02/11/2026, na fase 6 (PR 6.2, agendas na API, em PR). Atualize este arquivo ao fim de cada fase do [roadmap](roadmap.md).
 
 ## Branches
 
@@ -21,7 +21,8 @@ Retrato em 02/11/2026, na fase 6 (PR 6.1, turmas na API, em PR). Atualize este a
 | `feature/fase-5-extensao-envio` | Mesclada em `develop` pelo PR #72; pode ser apagada.                                                                                |
 | `feature/fase-5-admin-web`      | Mesclada em `develop` pelo PR #73; pode ser apagada.                                                                                |
 | `feature/fase-5-web-catalogo`   | Mesclada em `develop` pelo PR #74; pode ser apagada.                                                                                |
-| `feature/fase-6-turmas-api`     | Fase 6, PR 6.1 (turmas na API), em PR para `develop`.                                                                               |
+| `feature/fase-6-turmas-api`     | Mesclada em `develop` pelo PR #75; pode ser apagada.                                                                                |
+| `feature/fase-6-agendas-api`    | Fase 6, PR 6.2 (agendas na API), em PR para `develop`.                                                                              |
 | `feature/monorepo`              | Mesclada em `develop`; pode ser apagada.                                                                                            |
 | `hotfix/schedule-course-key`    | Já mesclada em `master` e `develop`; pode ser apagada.                                                                              |
 
@@ -119,12 +120,17 @@ A `main` foi apagada no remoto (D20). As branches já mescladas ficam por enquan
   - Web: `/admin/semestres` (semestres e coleta manual), semestre vigente vindo da API e `/api/scrapping` lendo a API com o SIGAA como reserva (D69).
   - Fixture anonimizada do SIGAA com dois docentes, aula partida no mesmo dia, internato com vários blocos de datas (D70) e sábado.
   - Conferido contra o SIGAA real e a API local: coleta dos 7 cursos do dev (Eng. de Computação com 76 turmas), ids estáveis entre leituras e a página do admin em 1440 e 390 px, claro e escuro.
-- **Modelagem v2 fechada** ([modelagem.md](modelagem.md)), com 71 decisões (D1–D71) e 11 lacunas resolvidas (L1–L11).
+- **Fase 6 — PR 6.2, agendas na API** (branch `feature/fase-6-agendas-api`):
+  - Módulo `planning`: `schedules` (com curso, EC e semestre, D71) e `schedule_items`, migration `0003_planning`. Agenda some com a conta (LGPD).
+  - Agregado `Schedule` com as regras do `academic-core`: turma nova não repete disciplina, não conflita e não está removida; as que já estavam ficam, com aviso (D72).
+  - Rotas `GET`, `PUT` e `DELETE` em `/v1/me/schedules` e `POST /v1/me/schedules/import`, com os avisos `changed` e `removed`.
+  - E2e com a fixture do SIGAA: agenda inteira pelo id do cliente, conflito, agenda alheia, mudança de horário, importação repetida sem duplicar, separação por EC e exclusão em cascata com a conta.
+- **Modelagem v2 fechada** ([modelagem.md](modelagem.md)), com 72 decisões (D1–D72) e 11 lacunas resolvidas (L1–L11).
 - **39 telas desenhadas** para desktop, mobile e extensão ([telas.md](telas.md)).
 
 ## Pendências imediatas
 
-1. Mesclar o PR 6.1. Depois: PR 6.2 (agendas na API, por curso, EC e semestre) e PR 6.3 (agenda logada e importação no web).
+1. Mesclar o PR 6.2. Depois: PR 6.3 (agenda logada e importação no web), que fecha a fase 6.
 2. Testar localmente:
    - `docker compose -f docker/compose.dev.yml up -d`;
    - na API, copiar `.env.example` para `.env`, `pnpm --filter @ufc-flow/api db:migrate`, `seed:admin -- --email <e-mail> --name <nome>` e `seed:catalog`;
@@ -134,7 +140,7 @@ A `main` foi apagada no remoto (D20). As branches já mescladas ficam por enquan
 
 As telas de links (`Links-Pagina`, `Links-Editor`, `Mobile-Links` e `Mobile-Links-Editor`) ainda usam os destaques antigos e serão redesenhadas na implementação, na fase 10 (D31).
 
-Próximo passo: PR 6.2 (agendas na API).
+Próximo passo: PR 6.3 (agenda logada e importação no web).
 
 ## Segurança das dependências
 

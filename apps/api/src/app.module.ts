@@ -9,6 +9,7 @@ import { HealthController } from './health.controller'
 import { CatalogModule } from './modules/catalog/catalog.module'
 import { ClassesModule } from './modules/classes/classes.module'
 import { IdentityModule } from './modules/identity/identity.module'
+import { PlanningModule } from './modules/planning/planning.module'
 import { AppThrottlerGuard } from './shared/infrastructure/http/app-throttler.guard'
 import { SharedModule } from './shared/shared.module'
 
@@ -26,6 +27,7 @@ export class AppModule {
         IdentityModule,
         CatalogModule,
         ClassesModule,
+        PlanningModule,
       ],
       controllers: [HealthController],
       providers: [{ provide: APP_GUARD, useClass: AppThrottlerGuard }],

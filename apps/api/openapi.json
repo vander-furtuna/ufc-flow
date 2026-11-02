@@ -4040,6 +4040,284 @@
           "classes"
         ]
       }
+    },
+    "/v1/me/schedules": {
+      "get": {
+        "description": "Com as turmas atuais e os avisos de horário alterado (changed) e turma removida do SIGAA (removed). Os filtros são opcionais.",
+        "operationId": "SchedulesController_schedules",
+        "parameters": [
+          {
+            "name": "term",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "2026.2"
+            }
+          },
+          {
+            "name": "curriculum",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "2006-2"
+            }
+          },
+          {
+            "name": "course",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "engenharia-de-computacao"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Agendas em ordem",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Schedule"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos (VALIDATION_FAILED) ou regra de domínio violada",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sem token válido ou credenciais incorretas",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Minhas agendas",
+        "tags": [
+          "planning"
+        ]
+      }
+    },
+    "/v1/me/schedules/import": {
+      "post": {
+        "description": "Cada agenda vai com o UUID local, que vira o id no servidor: reenviar não duplica (ALREADY_IMPORTED). As turmas são achadas pela chave natural; as que não existem voltam em notFound e as que repetem disciplina ou conflitam, em skipped.",
+        "operationId": "SchedulesController_importSchedules",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScheduleImportInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Resultado por agenda",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScheduleImportResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos (VALIDATION_FAILED) ou regra de domínio violada",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sem token válido ou credenciais incorretas",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Importar as agendas locais",
+        "tags": [
+          "planning"
+        ]
+      }
+    },
+    "/v1/me/schedules/{id}": {
+      "put": {
+        "description": "O id é gerado no cliente. A agenda é gravada inteira e vale a última escrita. Turma nova não pode repetir disciplina, conflitar no horário nem estar removida; as que já estavam ficam mesmo se o horário mudou no SIGAA.",
+        "operationId": "SchedulesController_put",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScheduleInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Agenda gravada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Schedule"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos (VALIDATION_FAILED) ou regra de domínio violada",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sem token válido ou credenciais incorretas",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso não encontrado",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito com o estado atual",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Criar ou substituir uma agenda",
+        "tags": [
+          "planning"
+        ]
+      },
+      "delete": {
+        "operationId": "SchedulesController_delete",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Agenda excluída"
+          },
+          "400": {
+            "description": "Dados inválidos (VALIDATION_FAILED) ou regra de domínio violada",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sem token válido ou credenciais incorretas",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso não encontrado",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Excluir uma agenda",
+        "tags": [
+          "planning"
+        ]
+      }
     }
   },
   "info": {
@@ -7659,6 +7937,419 @@
           "sectionsSeen",
           "sectionsChanged",
           "error"
+        ]
+      },
+      "ScheduleColor": {
+        "type": "string",
+        "enum": [
+          "red",
+          "orange",
+          "lime",
+          "green",
+          "emerald",
+          "teal",
+          "cyan",
+          "blue",
+          "violet",
+          "fuchsia",
+          "pink",
+          "rose"
+        ]
+      },
+      "ScheduleItem": {
+        "type": "object",
+        "properties": {
+          "sectionId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "subjectCode": {
+            "type": "string",
+            "pattern": "^[A-Z]+\\d+$"
+          },
+          "subjectName": {
+            "type": "string"
+          },
+          "sectionCode": {
+            "type": "string"
+          },
+          "color": {
+            "$ref": "#/components/schemas/ScheduleColor"
+          },
+          "instructors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Instructor"
+            }
+          },
+          "slots": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SectionSlot"
+            }
+          },
+          "validFrom": {
+            "nullable": true,
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+          },
+          "validTo": {
+            "nullable": true,
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+          },
+          "addedAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+          },
+          "changed": {
+            "type": "boolean"
+          },
+          "removed": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "sectionId",
+          "subjectCode",
+          "subjectName",
+          "sectionCode",
+          "color",
+          "instructors",
+          "slots",
+          "validFrom",
+          "validTo",
+          "addedAt",
+          "changed",
+          "removed"
+        ]
+      },
+      "Schedule": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "courseSlug": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "curriculumSlug": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "term": {
+            "type": "string",
+            "pattern": "^([1-9]\\d{3})\\.([12])$"
+          },
+          "name": {
+            "type": "string"
+          },
+          "position": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ScheduleItem"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "courseSlug",
+          "curriculumSlug",
+          "term",
+          "name",
+          "position",
+          "createdAt",
+          "updatedAt",
+          "items"
+        ]
+      },
+      "ScheduleListQuery": {
+        "type": "object",
+        "properties": {
+          "course": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "curriculum": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "term": {
+            "type": "string",
+            "pattern": "^([1-9]\\d{3})\\.([12])$"
+          }
+        }
+      },
+      "ScheduleItemInput": {
+        "type": "object",
+        "properties": {
+          "sectionId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "color": {
+            "$ref": "#/components/schemas/ScheduleColor"
+          },
+          "acknowledgeChange": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "sectionId",
+          "color"
+        ]
+      },
+      "ScheduleInput": {
+        "type": "object",
+        "properties": {
+          "courseSlug": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "curriculumSlug": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "term": {
+            "type": "string",
+            "pattern": "^([1-9]\\d{3})\\.([12])$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 60
+          },
+          "position": {
+            "default": 0,
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "items": {
+            "maxItems": 40,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ScheduleItemInput"
+            }
+          }
+        },
+        "required": [
+          "courseSlug",
+          "curriculumSlug",
+          "term",
+          "name",
+          "items"
+        ]
+      },
+      "ScheduleImportItem": {
+        "type": "object",
+        "properties": {
+          "subjectCode": {
+            "type": "string",
+            "pattern": "^[A-Z]+\\d+$"
+          },
+          "sectionCode": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 10
+          },
+          "color": {
+            "$ref": "#/components/schemas/ScheduleColor"
+          }
+        },
+        "required": [
+          "subjectCode",
+          "sectionCode",
+          "color"
+        ]
+      },
+      "ScheduleImportEntry": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "courseSlug": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "curriculumSlug": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "term": {
+            "type": "string",
+            "pattern": "^([1-9]\\d{3})\\.([12])$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 60
+          },
+          "items": {
+            "maxItems": 40,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ScheduleImportItem"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "courseSlug",
+          "curriculumSlug",
+          "term",
+          "name",
+          "items"
+        ]
+      },
+      "ScheduleImportInput": {
+        "type": "object",
+        "properties": {
+          "schedules": {
+            "minItems": 1,
+            "maxItems": 50,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ScheduleImportEntry"
+            }
+          }
+        },
+        "required": [
+          "schedules"
+        ]
+      },
+      "ScheduleImportResult": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "IMPORTED",
+              "ALREADY_IMPORTED",
+              "FAILED"
+            ]
+          },
+          "error": {
+            "nullable": true,
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "detail": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "detail"
+            ]
+          },
+          "notFound": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "subjectCode": {
+                  "type": "string"
+                },
+                "sectionCode": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "subjectCode",
+                "sectionCode"
+              ]
+            }
+          },
+          "skipped": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "subjectCode": {
+                  "type": "string"
+                },
+                "sectionCode": {
+                  "type": "string"
+                },
+                "reason": {
+                  "type": "string",
+                  "enum": [
+                    "SCHEDULE_DUPLICATE_SUBJECT",
+                    "SCHEDULE_TIME_CONFLICT"
+                  ]
+                }
+              },
+              "required": [
+                "subjectCode",
+                "sectionCode",
+                "reason"
+              ]
+            }
+          },
+          "schedule": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Schedule"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "error",
+          "notFound",
+          "skipped",
+          "schedule"
+        ]
+      },
+      "ScheduleImportResponse": {
+        "type": "object",
+        "properties": {
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ScheduleImportResult"
+            }
+          }
+        },
+        "required": [
+          "results"
         ]
       },
       "PostInput": {
