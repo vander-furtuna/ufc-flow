@@ -144,6 +144,15 @@ describe('CreateImportUseCase', () => {
       pendingReason: 'COURSE_MISSING',
       course: { id: null },
     })
+    // Os admins são avisados (só da importação que espera curso)
+    expect(h.events.events).toEqual([
+      expect.objectContaining({
+        type: 'CurriculumImportPending',
+        importId: pending.id,
+        sigaaId: QUIMICA.sigaaId,
+        courseName: QUIMICA.name,
+      }),
+    ])
     await expect(
       h.applyImport.execute(h.moderator, pending.id),
     ).rejects.toMatchObject({

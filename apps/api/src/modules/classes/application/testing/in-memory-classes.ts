@@ -86,7 +86,7 @@ export class InMemoryClasses implements ClassesUnitOfWork {
         }
       },
       markOrphansRemoved: async (termId, now) => {
-        let count = 0
+        const removed: string[] = []
         for (const [id, section] of this.sections) {
           const offered = [...this.offers.values()].some(
             (offer) => offer.sectionId === id,
@@ -97,10 +97,10 @@ export class InMemoryClasses implements ClassesUnitOfWork {
             section.removedAt === null
           ) {
             this.sections.set(id, { ...section, removedAt: now })
-            count++
+            removed.push(id)
           }
         }
-        return count
+        return removed
       },
       listOffered: async (termId, courseId) =>
         [...this.offers.values()]

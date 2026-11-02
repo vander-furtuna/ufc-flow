@@ -83,7 +83,10 @@ try {
   const applier = new ImportApplier(clock, ids)
   const editor = new CurriculumEditor(uow, clock, ids)
   const createCourse = new CreateCourseUseCase(uow, clock, ids, applier)
-  const createImport = new CreateImportUseCase(uow, clock, ids, applier)
+  // O seed não notifica ninguém
+  const createImport = new CreateImportUseCase(uow, clock, ids, applier, {
+    publish: () => undefined,
+  })
   const resolve = new ResolveReviewPointUseCase(editor)
   const getManaged = new GetManagedCurriculumUseCase(editor)
   const publish = new PublishCurriculumUseCase(editor)

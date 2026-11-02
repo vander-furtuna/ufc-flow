@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import { ANONYMOUS, type Actor } from '../../../shared/domain/access-policy'
 import { DomainError } from '../../../shared/domain/domain-error'
+import { RecordingEventPublisher } from '../../../shared/domain/events'
 import { CancelModeratorRequestUseCase } from './cancel-moderator-request.use-case'
 import { ListModeratorRequestsUseCase } from './list-moderator-requests.use-case'
 import { ListMyModeratorRequestsUseCase } from './list-my-moderator-requests.use-case'
@@ -22,6 +23,7 @@ const actor = (userId: string, extra: Partial<Actor> = {}): Actor => ({
 
 function setup() {
   const t = identityTestbed()
+  const events = new RecordingEventPublisher()
   for (const [id, name] of [
     ['u1', 'Ana Souza'],
     ['u2', 'Bruno Lima'],
@@ -41,11 +43,12 @@ function setup() {
   t.store.courses.set('c2', { id: 'c2', slug: 'psi', name: 'Psicologia' })
   return {
     ...t,
+    events,
     admin: actor('admin', { isAdmin: true }),
-    request: new RequestModerationUseCase(t.store, t.clock, t.ids),
+    request: new RequestModerationUseCase(t.store, t.clock, t.ids, events),
     list: new ListModeratorRequestsUseCase(t.store),
     listMine: new ListMyModeratorRequestsUseCase(t.store),
-    review: new ReviewModeratorRequestUseCase(t.store, t.clock, t.ids),
+    review: new ReviewModeratorRequestUseCase(t.store, t.clock, t.ids, events),
     cancel: new CancelModeratorRequestUseCase(t.store),
   }
 }
@@ -150,6 +153,24 @@ describe('responder pedidos', () => {
         entity: 'moderator_request',
         entityId: id,
         action: 'moderator_request.approved',
+      }),
+    ])
+    // Depois do commit: os admins e o solicitante são avisados
+    expect(s.events.events).toEqual([
+      expect.objectContaining({
+        type: 'ModeratorRequestCreated',
+        requestId: id,
+        userId: 'u1',
+        courseId: 'c1',
+      }),
+      expect.objectContaining({
+        type: 'ModeratorRequestReviewed',
+        requestId: id,
+        userId: 'u1',
+        reviewerId: 'admin',
+        decision: 'APPROVED',
+        note: 'Bem-vinda',
+        occurredAt: new Date('2026-11-01T12:01:00.000Z'),
       }),
     ])
   })

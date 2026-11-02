@@ -31,6 +31,9 @@ export type SyncPlan = {
   offers: { sectionId: string; reservedSeats: number }[]
   // Turmas novas, que voltaram ou com horário ou docente diferente
   changed: number
+  // Turmas que já existiam e mudaram de horário ou docentes: avisam quem
+  // as tem na agenda
+  rescheduledIds: string[]
 }
 
 // FNV-1a de 32 bits: estável, curto e sem depender de crypto no domínio
@@ -76,7 +79,12 @@ export function planSync(
     ctx.existing.map((section) => [keyOf(section), section]),
   )
   const seen = new Set<string>()
-  const plan: SyncPlan = { sections: [], offers: [], changed: 0 }
+  const plan: SyncPlan = {
+    sections: [],
+    offers: [],
+    changed: 0,
+    rescheduledIds: [],
+  }
 
   for (const item of scraped) {
     const key = keyOf(item)
@@ -94,6 +102,13 @@ export function planSync(
       current.removedAt !== null
     ) {
       plan.changed++
+    }
+    if (
+      current &&
+      current.removedAt === null &&
+      current.fingerprint !== fingerprint
+    ) {
+      plan.rescheduledIds.push(current.id)
     }
     const section: SectionRecord = {
       ...data,

@@ -52,8 +52,8 @@ export interface SectionRepository {
     offers: readonly { sectionId: string; reservedSeats: number }[],
     now: Date,
   ): Promise<void>
-  // Turma que nenhum curso oferta mais recebe removed_at
-  markOrphansRemoved(termId: string, now: Date): Promise<number>
+  // Turma que nenhum curso oferta mais recebe removed_at; devolve os ids
+  markOrphansRemoved(termId: string, now: Date): Promise<string[]>
   listOffered(termId: string, courseId: string): Promise<OfferedSection[]>
 }
 

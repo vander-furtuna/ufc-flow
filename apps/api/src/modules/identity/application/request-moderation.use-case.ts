@@ -7,6 +7,10 @@ import type {
 import { AccessPolicy, type Actor } from '../../../shared/domain/access-policy'
 import { CLOCK, type Clock } from '../../../shared/domain/clock'
 import {
+  EVENT_PUBLISHER,
+  type EventPublisher,
+} from '../../../shared/domain/events'
+import {
   ID_GENERATOR,
   type IdGenerator,
 } from '../../../shared/domain/id-generator'
@@ -21,6 +25,7 @@ export class RequestModerationUseCase {
     @Inject(IDENTITY_UOW) private readonly uow: IdentityUnitOfWork,
     @Inject(CLOCK) private readonly clock: Clock,
     @Inject(ID_GENERATOR) private readonly ids: IdGenerator,
+    @Inject(EVENT_PUBLISHER) private readonly events: EventPublisher,
   ) {}
 
   async execute(
@@ -30,7 +35,7 @@ export class RequestModerationUseCase {
     const userId = actor.userId
     if (userId === null || actor.isAdmin) throw IdentityErrors.accessDenied()
 
-    return this.uow.run(async ({ courses, moderation }) => {
+    const request = await this.uow.run(async ({ courses, moderation }) => {
       if (!(await courses.findById(input.courseId))) {
         throw IdentityErrors.courseNotFound()
       }
@@ -54,5 +59,15 @@ export class RequestModerationUseCase {
       })
       return toModeratorRequest((await moderation.findRequest(id))!)
     })
+    this.events.publish([
+      {
+        type: 'ModeratorRequestCreated',
+        requestId: request.id,
+        userId,
+        courseId: input.courseId,
+        occurredAt: new Date(request.createdAt),
+      },
+    ])
+    return request
   }
 }
