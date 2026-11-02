@@ -56,6 +56,8 @@ export const meSchema = z
     status: userStatusSchema,
     roles: z.array(userRoleSchema),
     moderatedCourses: z.array(courseSummarySchema),
+    // Foto de perfil (arquivo público); null mostra as iniciais
+    avatarFileId: uuidSchema.nullable(),
     createdAt: isoDateTimeSchema,
   })
   .meta({ id: 'Me' })
