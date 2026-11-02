@@ -247,6 +247,7 @@ describe('edição da EC', () => {
     expect(managed).toMatchObject({
       status: 'DRAFT',
       locked: false,
+      lastImportId: null,
       subjects: [],
     })
     expect(managed.publicationCheck.errors.map((item) => item.code)).toEqual([

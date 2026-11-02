@@ -164,6 +164,7 @@ describe('catálogo', () => {
       ...detail,
       status: 'DRAFT',
       locked: false,
+      lastImportId: ID,
       reviewPoints: [
         reviewPoint,
         {

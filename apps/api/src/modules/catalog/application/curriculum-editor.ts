@@ -75,6 +75,7 @@ export class CurriculumEditor {
     return {
       ...toCurriculumDetail(c, course, subjects),
       locked: await this.isLocked(repos, c),
+      lastImportId: latest?.id ?? null,
       reviewPoints: reviewPoints.map(toReviewPointView),
       publicationCheck: checkPublication(c, {
         knownCodes: new Set(known.keys()),

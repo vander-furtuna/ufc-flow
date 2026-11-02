@@ -236,6 +236,8 @@ export const publicationCheckSchema = z
 export const managedCurriculumSchema = curriculumDetailSchema
   .extend({
     locked: z.boolean(),
+    // Última importação aplicada (botão "Diferenças da importação")
+    lastImportId: uuidSchema.nullable(),
     reviewPoints: z.array(reviewPointSchema),
     publicationCheck: publicationCheckSchema,
   })
