@@ -24,9 +24,11 @@ import {
 import { SelectedSubjectDialog } from './selected-subject-dialog'
 import type { Subject } from '@/types/course'
 import { cn } from '@/lib/utils'
+import { titleCase } from '@/utils/title-case'
 
-const ROW_HEIGHT = 60
-const HEADER_HEIGHT = 40
+// Medidas do mockup Agenda-Notificacoes
+const ROW_HEIGHT = 56
+const HEADER_HEIGHT = 44
 const startHour = 7
 const endHour = 22
 
@@ -38,33 +40,53 @@ const hourSlots = Array.from(
   (_, i) => i + startHour,
 )
 
+// Fundo -100 e texto -900, como no mockup
 const cardContainerVariants = cva(
-  'pointer-events-auto absolute right-0.5 left-0.5 z-10 flex cursor-pointer flex-col overflow-hidden rounded border p-1.5 text-xs transition-colors',
+  'pointer-events-auto absolute right-0.5 left-0.5 z-10 flex cursor-pointer flex-col gap-0.5 overflow-hidden rounded-[10px] p-1.5 text-[11px] leading-[1.3] transition-colors md:right-1.5 md:left-1.5 md:rounded-xl md:p-2.5 md:text-xs',
   {
     variants: {
       color: {
-        red: 'bg-red-100 border-red-300 text-red-800 dark:bg-red-900/90 dark:hover:bg-red-900 dark:border-red-700 dark:text-red-300',
+        red: 'bg-red-100 text-red-900 hover:bg-red-200/70 dark:bg-red-500/20 dark:text-red-100 dark:hover:bg-red-500/30',
         orange:
-          'bg-amber-100 border-amber-300 text-amber-800 dark:bg-amber-900/90 dark:hover:bg-amber-900 dark:border-amber-700 dark:text-amber-300',
-        lime: 'bg-lime-100 border-lime-300 text-lime-800 dark:bg-lime-900/90 dark:hover:bg-lime-900 dark:border-lime-700 dark:text-lime-300',
+          'bg-orange-100 text-orange-900 hover:bg-orange-200/70 dark:bg-orange-500/20 dark:text-orange-100 dark:hover:bg-orange-500/30',
+        lime: 'bg-lime-100 text-lime-900 hover:bg-lime-200/70 dark:bg-lime-500/20 dark:text-lime-100 dark:hover:bg-lime-500/30',
         green:
-          'bg-green-100 border-green-300 text-green-800 dark:bg-green-900/90 dark:hover:bg-green-900 dark:border-green-700 dark:text-green-200',
+          'bg-green-100 text-green-900 hover:bg-green-200/70 dark:bg-green-500/20 dark:text-green-100 dark:hover:bg-green-500/30',
         emerald:
-          'bg-emerald-100 border-emerald-300 text-emerald-800 dark:bg-emerald-900/90 dark:hover:bg-emerald-900 dark:border-emerald-700 dark:text-emerald-200',
-        teal: 'bg-teal-100 border-teal-300 text-teal-800 dark:bg-teal-900/90 dark:hover:bg-teal-900 dark:border-teal-700 dark:text-teal-200',
-        cyan: 'bg-cyan-100 border-cyan-300 text-cyan-800 dark:bg-cyan-900/90 dark:hover:bg-cyan-900 dark:border-cyan-700 dark:text-cyan-200',
-        blue: 'bg-blue-100 border-blue-300 text-blue-800 dark:bg-blue-900/90 dark:hover:bg-blue-900 dark:border-blue-700 dark:text-blue-200',
+          'bg-emerald-100 text-emerald-900 hover:bg-emerald-200/70 dark:bg-emerald-500/20 dark:text-emerald-100 dark:hover:bg-emerald-500/30',
+        teal: 'bg-teal-100 text-teal-900 hover:bg-teal-200/70 dark:bg-teal-500/20 dark:text-teal-100 dark:hover:bg-teal-500/30',
+        cyan: 'bg-cyan-100 text-cyan-900 hover:bg-cyan-200/70 dark:bg-cyan-500/20 dark:text-cyan-100 dark:hover:bg-cyan-500/30',
+        blue: 'bg-blue-100 text-blue-900 hover:bg-blue-200/70 dark:bg-blue-500/20 dark:text-blue-100 dark:hover:bg-blue-500/30',
         violet:
-          'bg-violet-100 border-violet-300 text-violet-800 dark:bg-violet-900/90 dark:hover:bg-violet-900 dark:border-violet-700 dark:text-violet-200',
+          'bg-violet-100 text-violet-900 hover:bg-violet-200/70 dark:bg-violet-500/20 dark:text-violet-100 dark:hover:bg-violet-500/30',
         fuchsia:
-          'bg-fuchsia-100 border-fuchsia-300 text-fuchsia-800 dark:bg-fuchsia-900/90 dark:hover:bg-fuchsia-900 dark:border-fuchsia-700 dark:text-fuchsia-200',
-        pink: 'bg-pink-100 border-pink-300 text-pink-800 dark:bg-pink-900/90 dark:hover:bg-pink-900 dark:border-pink-700 dark:text-pink-200',
-        rose: 'bg-rose-100 border-rose-300 text-rose-800 dark:bg-rose-900/90 dark:hover:bg-rose-900 dark:border-rose-700 dark:text-rose-200',
+          'bg-fuchsia-100 text-fuchsia-900 hover:bg-fuchsia-200/70 dark:bg-fuchsia-500/20 dark:text-fuchsia-100 dark:hover:bg-fuchsia-500/30',
+        pink: 'bg-pink-100 text-pink-900 hover:bg-pink-200/70 dark:bg-pink-500/20 dark:text-pink-100 dark:hover:bg-pink-500/30',
+        rose: 'bg-rose-100 text-rose-900 hover:bg-rose-200/70 dark:bg-rose-500/20 dark:text-rose-100 dark:hover:bg-rose-500/30',
       },
     },
     defaultVariants: { color: 'blue' },
   },
 )
+
+// Blocos estreitos do celular: palavras longas abreviadas, como no mockup
+// Mobile-Agenda ("Sistemas Operac.", "Intelig. Computac.")
+const abbreviate = (name: string) =>
+  titleCase(name)
+    .split(' ')
+    .map((word) => (word.length > 9 ? `${word.slice(0, 7)}.` : word))
+    .join(' ')
+
+// "08:00" vira "8"; "13:30" fica igual (blocos estreitos do celular)
+const compactHour = (time: string) =>
+  time.endsWith(':00') ? String(Number(time.slice(0, 2))) : time
+
+const slotLabel = (start: string, end: string, isMobile: boolean) =>
+  isMobile
+    ? start.endsWith(':00') && end.endsWith(':00')
+      ? `${compactHour(start)}–${compactHour(end)}h`
+      : start
+    : `${start}–${end}`
 
 type CalendarProps = ComponentProps<'div'>
 
@@ -82,7 +104,8 @@ export function Calendar({ ref, ...props }: CalendarProps) {
 
   return (
     <section
-      className="flex h-full flex-col overflow-hidden rounded-b-md border border-border/80 bg-background md:rounded-lg"
+      aria-label="Semana"
+      className="flex h-full flex-col overflow-hidden rounded-b-md border bg-background md:rounded-3xl"
       id="tour-calendar"
     >
       <div
@@ -94,17 +117,17 @@ export function Calendar({ ref, ...props }: CalendarProps) {
           gridTemplateRows: `${HEADER_HEIGHT}px repeat(${hourSlots.length}, ${ROW_HEIGHT}px)`,
         }}
       >
-        <div className="sticky top-0 left-0 z-40 flex h-full items-center justify-center border-r border-b border-border/80 bg-accent/70 backdrop-blur-lg">
+        <div className="sticky top-0 left-0 z-40 flex h-full items-center justify-center border-r border-b bg-muted/80 backdrop-blur-lg">
           <ClockIcon weight="bold" className="size-5 text-gray-400" />
         </div>
 
         {(isMobile ? shortDays : days).map((d, i) => (
           <div
             key={d}
-            className="sticky top-0 z-30 flex items-center justify-center border-r border-b border-border/80 bg-accent/70 backdrop-blur-lg last:border-r-0"
+            className="sticky top-0 z-30 flex items-center justify-center border-r border-b bg-muted/80 backdrop-blur-lg last:border-r-0"
             style={{ gridRow: 1, gridColumn: i + 2 }}
           >
-            <span className="text-xs font-bold tracking-wide text-foreground/90 uppercase">
+            <span className="text-xs font-semibold tracking-[0.06em] text-foreground/90 uppercase">
               {d}
             </span>
           </div>
@@ -113,7 +136,7 @@ export function Calendar({ ref, ...props }: CalendarProps) {
         {hourSlots.map((h, rowIdx) => (
           <Fragment key={h}>
             <div
-              className="sticky left-0 z-30 border-r border-b border-border/70 bg-accent/70 p-2 text-right text-xs text-foreground/80 backdrop-blur-[2px]"
+              className="sticky left-0 z-30 border-r border-b border-border/60 bg-muted/80 p-1.5 text-right text-xs text-muted-foreground backdrop-blur-[2px] md:pr-2.5"
               style={{ gridRow: rowIdx + 2, gridColumn: 1 }}
             >
               {isMobile ? `${h}h` : `${h}:00`}
@@ -121,7 +144,7 @@ export function Calendar({ ref, ...props }: CalendarProps) {
             {days.map((_, colIdx) => (
               <div
                 key={`cell-${rowIdx}-${colIdx}`}
-                className="border-r border-b border-border/70 bg-background last:border-r-0"
+                className="border-r border-b border-border/60 bg-background last:border-r-0"
                 style={{ gridRow: rowIdx + 2, gridColumn: colIdx + 2 }}
               />
             ))}
@@ -199,20 +222,23 @@ export function Calendar({ ref, ...props }: CalendarProps) {
                           height: `${heightPx}px`,
                         }}
                       >
-                        <div className="leading-tight font-bold text-inherit">
-                          {slot.classInfo.name}
+                        <div
+                          title={titleCase(slot.classInfo.name)}
+                          className="line-clamp-3 font-semibold md:text-[13px] md:leading-tight"
+                        >
+                          {isMobile
+                            ? abbreviate(slot.classInfo.name)
+                            : titleCase(slot.classInfo.name)}
                         </div>
-                        <div className="truncate text-[10px] text-inherit">
-                          {slot.classInfo.code} • Turma{' '}
-                          {slot.classInfo.sectionId}
+                        <div className="truncate">
+                          {slotLabel(slot.startTime, slot.endTime, isMobile)}
+                          {!isMobile &&
+                            (slot.classInfo.removed
+                              ? ' · fora do SIGAA'
+                              : slot.classInfo.changed
+                                ? ' · novo horário'
+                                : ` · T${slot.classInfo.sectionId}`)}
                         </div>
-                        {(slot.classInfo.changed || slot.classInfo.removed) && (
-                          <div className="truncate text-[10px] font-semibold text-inherit">
-                            {slot.classInfo.removed
-                              ? 'fora do SIGAA'
-                              : 'novo horário'}
-                          </div>
-                        )}
                       </div>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent
