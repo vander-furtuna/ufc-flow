@@ -167,17 +167,17 @@ flowchart LR
 
 ## Fase 6 — Turmas e agendas
 
-**Objetivo:** turmas coletadas pelo backend com IDs estáveis, agendas sincronizadas para logados e importação das agendas locais. Modelagem: Turmas e agendas. Telas: `Agenda-Notificacoes` (agenda), `Mobile-Agenda`, `Importar-Agendas`, `Mobile-Importar-Agendas`.
+**Objetivo:** turmas coletadas pelo backend com IDs estáveis, agendas sincronizadas para logados e importação das agendas locais. Em três PRs (D67): 6.1 turmas, 6.2 agendas na API e 6.3 agenda no web. Modelagem: Turmas e agendas. Telas: `Agenda-Notificacoes` (agenda), `Mobile-Agenda`, `Importar-Agendas`, `Mobile-Importar-Agendas`.
 
-- [ ] Tabelas: `academic_terms`, `instructors`, `class_sections`, `class_section_slots`, `class_section_instructors`, `class_section_offers` (com `reserved_seats` por curso) e `scrape_runs`.
-- [ ] Job de coleta com `@nestjs/schedule`:
-  - A cada 6 h, para cada curso ativo no semestre vigente e no seguinte durante a matrícula.
+- [x] Tabelas: `academic_terms`, `instructors`, `class_sections`, `class_section_slots`, `class_section_instructors`, `class_section_offers` (com `reserved_seats` por curso) e `scrape_runs`.
+- [x] Job de coleta com `@nestjs/schedule`:
+  - A cada 6 h, para cada curso ativo no semestre vigente e nos que começam nos próximos 45 dias (D68).
   - Cursos em sequência, com pausa entre eles.
   - Atualização pela chave natural, `fingerprint`, e `removed_at` para turmas que somem.
   - Disparo manual para moderadores e admins.
-- [ ] Portar o scraping de `apps/web/src/app/api/scrapping` para o módulo `classes`. O route handler do web passa a chamar a API.
-- [ ] `GET /terms/:term/courses/:course/sections`. Semestre vigente vem de `academic_terms` (sai do `.env`), com tela de "Semestres letivos" no admin.
-- [ ] `schedules` e `schedule_items`; agregado `Schedule` usando o `academic-core`.
+- [x] Portar o scraping de `apps/web/src/app/api/scrapping` para o módulo `classes`. O route handler do web passa a chamar a API, com o SIGAA como reserva até a fase 13 (D69).
+- [x] `GET /terms/:term/courses/:course/sections`. Semestre vigente vem de `academic_terms` (sai do `.env`), com a tela "Semestres e turmas" no admin (`/admin/semestres`).
+- [ ] `schedules` (com `curriculum_id`, D71) e `schedule_items`; agregado `Schedule` usando o `academic-core`.
 - [ ] Web logado:
   - O servidor é a fonte da verdade, com atualização otimista via TanStack Query.
   - Avisos de "horário mudou" (`slots_fingerprint`) e de "turma não ofertada" (`removed_at`).
