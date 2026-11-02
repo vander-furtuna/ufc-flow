@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 import { useState, type ReactNode } from 'react'
 
 import { Logo } from '@/components/logo'
+import { NotificationBell } from '@/components/notifications/notification-bell'
 import { ModeToggle } from '@/components/theme-toggle'
 import {
   Sheet,
@@ -103,8 +104,9 @@ export function AdminShell({
       <aside className="sticky top-0 hidden h-dvh w-60 shrink-0 flex-col gap-8 border-r bg-background px-4 py-6 lg:flex">
         <Brand role={role} />
         <Nav items={items} />
-        <div className="mt-auto">
+        <div className="mt-auto flex items-center gap-2">
           <ModeToggle />
+          <NotificationBell side="top" align="start" />
         </div>
       </aside>
 
@@ -124,7 +126,10 @@ export function AdminShell({
             </SheetContent>
           </Sheet>
           <Brand role={role} />
-          <ModeToggle />
+          <div className="flex items-center gap-1">
+            <ModeToggle />
+            <NotificationBell />
+          </div>
         </header>
         {/* O layout raiz já tem o <main> da página */}
         <div className="flex w-full min-w-0 flex-1 flex-col px-4 py-6 sm:px-6 lg:px-8">

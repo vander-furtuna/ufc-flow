@@ -199,10 +199,10 @@ flowchart LR
 - [x] Agrupamento por `group_key` com upsert. Nunca notificar a própria ação nem conteúdo que o usuário não pode ver.
 - [x] Preferências: `notifications.muted` em `user_preferences`, com `GET`/`PUT /me/notification-preferences`.
 - [x] Endpoints: lista paginada, contagem de não lidas, marcar como lidas.
-- [ ] Polling de 60 s no web, compartilhado com o fórum.
+- [x] Polling de 60 s no web (o contador do sino; o fórum vai usar o mesmo intervalo).
 - [x] Retenção de 90 dias por job diário.
 - [x] Tipos desta fase: `SCHEDULE_SECTION_CHANGED`, `SCHEDULE_SECTION_REMOVED`, `SCRAPE_FAILED`, `IMPORT_PENDING`, `MODERATOR_REQUEST_CREATED` e `MODERATOR_REQUEST_REVIEWED`. Os do fórum entram na fase 11.
-- [ ] Web: sino com contador, painel (desktop), página `/notificacoes` (celular) e preferências.
+- [x] Web: sino com contador (cabeçalho, agenda e admin), painel no desktop, página `/notificacoes` (Hoje, Ontem e Antes, filtro de não lidas) e preferências por categoria, conforme o papel.
 
 ## Fase 8 — Arquivos
 

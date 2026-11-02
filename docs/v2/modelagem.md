@@ -740,6 +740,7 @@ hub_reads(user_id, course_id, last_seen_at)                    PK(user_id, cours
 - **Nunca notifica** a própria ação do usuário, nem conteúdo de quem ele não pode ver.
 - **Preferências:** tipos silenciados ficam em `user_preferences` (chave `notifications.muted`), checados pelo handler antes de gravar.
 - **API:** `GET /me/notifications?cursor=&unread=`, `GET /me/notifications/unread-count`, `POST /me/notifications/read` (`{ ids }` ou `{ all: true }`), e `GET`/`PUT /me/notification-preferences` com os tipos silenciados.
+- **Web:** o sino (cabeçalho, agenda e admin) só aparece logado e relê o contador a cada 60 s com a aba visível. No desktop abre o painel com as mais recentes; no celular leva a `/notificacoes`. Os textos são montados no web a partir do tipo e dos dados. Cada notificação leva à tela correspondente (agenda, `/admin/semestres`, `/admin/cursos?sigaa=` ou `/admin/estruturas`); o pedido de moderação ganha link na fase 11, com a tela de moderação. As preferências mostram só os tipos que a pessoa pode receber.
 - **Eventos:** os casos de uso publicam pela porta `EventPublisher` do `shared` depois do commit. Os eventos da fase 7 são `ModeratorRequestCreated`, `ModeratorRequestReviewed`, `CurriculumImportPending`, `ScrapeFailed` e `SectionsChanged`. Um handler que falha só vai para o log.
 - **Retenção:** o job diário apaga notificações lidas com mais de 90 dias.
 - **Perda aceitável:** sem outbox, uma notificação pode se perder se a API cair entre o commit e o handler. A ação principal nunca é afetada.
