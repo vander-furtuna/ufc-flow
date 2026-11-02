@@ -19,6 +19,8 @@ const envSchema = z
     SWAGGER_ENABLED: z.stringbool().default(true),
     SWAGGER_USER: z.string().min(1).optional(),
     SWAGGER_PASSWORD: z.string().min(1).optional(),
+    // Leitura semanal da lista pública de cursos do SIGAA
+    SIGAA_SYNC_ENABLED: z.stringbool().default(true),
   })
   .refine(
     (env) =>

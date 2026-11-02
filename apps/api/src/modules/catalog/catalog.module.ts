@@ -1,41 +1,101 @@
-import { Controller, Get, Inject, Injectable, Module } from '@nestjs/common'
-import { ApiOperation, ApiTags } from '@nestjs/swagger'
-import type { CourseSummary } from '@ufc-flow/contracts'
-import { asc, eq } from 'drizzle-orm'
+import { Module } from '@nestjs/common'
 
-import { DATABASE, type Database } from '../../database/database.module'
-import { ApiJson, arrayOf } from '../../shared/infrastructure/http/openapi'
-import { courses } from './infrastructure/persistence/catalog.schema'
+import { IdentityModule } from '../identity/identity.module'
+import {
+  CreateCourseUseCase,
+  DeleteCourseUseCase,
+  GetPublicCourseUseCase,
+  GetPublicCurriculumUseCase,
+  ListCoursesUseCase,
+  ListManagedCoursesUseCase,
+  ListSigaaCoursesUseCase,
+  RefreshSigaaCoursesUseCase,
+  UpdateCourseUseCase,
+} from './application/courses.use-cases'
+import { CurriculumEditor } from './application/curriculum-editor'
+import {
+  AddCurriculumSubjectUseCase,
+  CreateBranchUseCase,
+  CreateCurriculumUseCase,
+  DeleteCurriculumUseCase,
+  ExportCurriculumUseCase,
+  GetManagedCurriculumUseCase,
+  MarkCurrentCurriculumUseCase,
+  PublishCurriculumUseCase,
+  RemoveBranchUseCase,
+  RemoveCurriculumSubjectUseCase,
+  SetBranchSubjectsUseCase,
+  UpdateBranchUseCase,
+  UpdateCurriculumSubjectUseCase,
+  UpdateCurriculumUseCase,
+} from './application/curriculum-editing.use-cases'
+import { ImportApplier } from './application/import-applier'
+import {
+  ApplyImportUseCase,
+  CreateImportUseCase,
+  DiscardImportUseCase,
+  GetImportUseCase,
+  ListImportsUseCase,
+  ResolveReviewPointUseCase,
+} from './application/ingestion.use-cases'
+import {
+  SetSubjectEquivalencesUseCase,
+  UpdateSubjectUseCase,
+} from './application/subjects.use-cases'
+import { CATALOG_UOW, SIGAA_COURSE_SOURCE } from './domain/ports'
+import { AdminCatalogController } from './infrastructure/http/admin-catalog.controller'
+import { IngestionController } from './infrastructure/http/ingestion.controller'
+import { ManageCurriculaController } from './infrastructure/http/manage-curricula.controller'
+import { PublicCatalogController } from './infrastructure/http/public-catalog.controller'
+import { DrizzleCatalogUnitOfWork } from './infrastructure/persistence/drizzle-catalog'
+import { SigaaCourseSync } from './infrastructure/scheduling/sigaa-course-sync'
+import { HttpSigaaCourseSource } from './infrastructure/sigaa/sigaa-course-list'
 
-// Catálogo mínimo da fase 4: a lista de cursos, para o pedido de moderação.
-// A fase 5 traz o módulo completo, com as camadas da arquitetura.
-@Injectable()
-export class ListCoursesQuery {
-  constructor(@Inject(DATABASE) private readonly db: Database) {}
-
-  execute(): Promise<CourseSummary[]> {
-    return this.db
-      .select({ id: courses.id, slug: courses.slug, name: courses.name })
-      .from(courses)
-      .where(eq(courses.isActive, true))
-      .orderBy(asc(courses.name))
-  }
-}
-
-@ApiTags('catalog')
-@Controller('v1/courses')
-export class CoursesController {
-  constructor(
-    @Inject(ListCoursesQuery) private readonly listCourses: ListCoursesQuery,
-  ) {}
-
-  @Get()
-  @ApiOperation({ summary: 'Cursos ativos no Flow' })
-  @ApiJson(200, 'Cursos em ordem alfabética', arrayOf('CourseSummary'))
-  list() {
-    return this.listCourses.execute()
-  }
-}
-
-@Module({ controllers: [CoursesController], providers: [ListCoursesQuery] })
+@Module({
+  imports: [IdentityModule],
+  controllers: [
+    PublicCatalogController,
+    AdminCatalogController,
+    ManageCurriculaController,
+    IngestionController,
+  ],
+  providers: [
+    { provide: CATALOG_UOW, useClass: DrizzleCatalogUnitOfWork },
+    { provide: SIGAA_COURSE_SOURCE, useClass: HttpSigaaCourseSource },
+    ImportApplier,
+    CurriculumEditor,
+    SigaaCourseSync,
+    ListCoursesUseCase,
+    GetPublicCourseUseCase,
+    GetPublicCurriculumUseCase,
+    ListSigaaCoursesUseCase,
+    RefreshSigaaCoursesUseCase,
+    CreateCourseUseCase,
+    UpdateCourseUseCase,
+    DeleteCourseUseCase,
+    ListManagedCoursesUseCase,
+    GetManagedCurriculumUseCase,
+    CreateCurriculumUseCase,
+    UpdateCurriculumUseCase,
+    DeleteCurriculumUseCase,
+    AddCurriculumSubjectUseCase,
+    UpdateCurriculumSubjectUseCase,
+    RemoveCurriculumSubjectUseCase,
+    CreateBranchUseCase,
+    UpdateBranchUseCase,
+    RemoveBranchUseCase,
+    SetBranchSubjectsUseCase,
+    PublishCurriculumUseCase,
+    MarkCurrentCurriculumUseCase,
+    ExportCurriculumUseCase,
+    CreateImportUseCase,
+    ListImportsUseCase,
+    GetImportUseCase,
+    ApplyImportUseCase,
+    DiscardImportUseCase,
+    ResolveReviewPointUseCase,
+    UpdateSubjectUseCase,
+    SetSubjectEquivalencesUseCase,
+  ],
+})
 export class CatalogModule {}

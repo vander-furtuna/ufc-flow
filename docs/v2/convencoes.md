@@ -3,7 +3,7 @@
 ## Código
 
 - **TypeScript estrito** em todos os pacotes. Nada de `any` sem comentário explicando o motivo.
-- **Formatação:** Prettier com `singleQuote`, sem ponto e vírgula, `trailingComma: all`, 80 colunas e `prettier-plugin-tailwindcss` (config em `.prettierrc` na raiz). Quebras de linha LF. `pnpm format` formata e `pnpm format:check` confere.
+- **Formatação:** Prettier com `singleQuote`, sem ponto e vírgula, `trailingComma: all`, 80 colunas e `prettier-plugin-tailwindcss` (config em `.prettierrc` na raiz). Quebras de linha LF. `pnpm format` formata e `pnpm format:check` confere. Rode o Prettier sempre da raiz: o `.prettierignore` fica lá e protege as fixtures HTML do SIGAA, que estão em windows-1252.
 - **Lint:** oxlint com a config `.oxlintrc.json` da raiz, rodado por `pnpm lint` em cada pacote, sem `--fix`. Para suprimir uma regra do React Compiler, use o alias do plugin JS: `// oxlint-disable-next-line react-hooks-js/<regra>`.
 - **Nomes de arquivo** em kebab-case (`app-search-bar.tsx`, `resolve-schedule-course.ts`). Componentes React em PascalCase no código.
 - **Imports no web:** alias `@/` → `apps/web/src`. Pacotes internos por nome (`@ufc-flow/academic-core`).

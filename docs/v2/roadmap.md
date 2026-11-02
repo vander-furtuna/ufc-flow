@@ -139,21 +139,23 @@ flowchart LR
 
 ## Fase 5 — Catálogo, ingestão e admin de ECs
 
+**Entregue em 4 PRs:** 5.1 API do catálogo e da ingestão, 5.2 extensão, 5.3 web `/admin` e 5.4 web público lendo a API.
+
 **Objetivo:** o catálogo sai do `courses.ts` e vai para o banco, com a área administrativa no lugar do course-maker. Modelagem: Catálogo acadêmico, Importação e edição de grades. Telas: `Admin-EC`, `Mobile-Admin-EC`, `Mobile-Admin-EC-Editar`, `Ext-Envio-*`.
 
-- [ ] Catálogo `sigaa_courses` (D34): tarefa agendada que lê a lista pública de cursos do SIGAA (windows-1252, sem login), com execução manual pelo admin; criar curso no Flow é escolher deste catálogo. A extensão passa a usar `GET` do catálogo no lugar do JSON embutido.
-- [ ] Tabelas do catálogo: `campuses` e `courses` (já criadas na fase 4, D47, faltando a FK para `sigaa_courses`), `curricula`, `subjects`, `curriculum_subjects`, os derivados `*_requirements`, `branches`, `curriculum_subject_branches`, `subject_equivalences` e `subject_equivalence_codes`.
-- [ ] Agregado `Curriculum` com o ciclo DRAFT → PUBLISHED e **todas** as linhas da tabela "Ciclo de vida e edição" como testes. Auditoria em `audit_logs`.
-- [ ] `is_current` manual, uma por curso, trocada numa transação.
-- [ ] `POST /ingestion/curriculum-imports`:
+- [ ] Catálogo `sigaa_courses` (D34, API pronta no PR 5.1): tarefa agendada que lê a lista pública de cursos do SIGAA (windows-1252, sem login), com execução manual pelo admin; criar curso no Flow é escolher deste catálogo. A extensão passa a usar `GET` do catálogo no lugar do JSON embutido.
+- [x] Tabelas do catálogo: `campuses` e `courses` (já criadas na fase 4, D47, faltando a FK para `sigaa_courses`), `curricula`, `subjects`, `curriculum_subjects`, os derivados `*_requirements`, `branches`, `curriculum_subject_branches`, `subject_equivalences` e `subject_equivalence_codes`.
+- [x] Agregado `Curriculum` com o ciclo DRAFT → PUBLISHED e **todas** as linhas da tabela "Ciclo de vida e edição" como testes. Auditoria em `audit_logs`.
+- [x] `is_current` manual, uma por curso, trocada numa transação.
+- [x] `POST /ingestion/curriculum-imports`:
   - Validação pelo schema e JSON bruto guardado.
   - Curso localizado por `sigaa_id` e conferido contra a matriz e a unidade do arquivo; se não existir, a importação fica pendente.
   - Disciplinas reaproveitadas, e divergências viram conflitos.
   - Diff ao reimportar.
   - Checagem de publicação: natureza, vertentes, ciclos e códigos.
-- [ ] Endpoints públicos de leitura do catálogo para o web, com cache.
+- [x] Endpoints públicos de leitura do catálogo para o web, com cache.
 - [ ] Extensão: envio para `POST /ingestion/curriculum-imports` (ligar a flag `PLASMO_PUBLIC_FLOW_SYNC`), modais `Ext-Envio-Concluido` e `Ext-Envio-Pendente`, envios recentes no popup e aviso de nome diferente do catálogo do Flow na aba Revisar.
-- [ ] Seed: converter os 6 cursos e 9 ECs de `apps/web/src/data/courses.ts` em `CurriculumImportV1` e passar pelo mesmo pipeline. Os requisitos entram como `E` de todos os códigos e ficam marcados para reimportação.
+- [x] Seed: converter os 6 cursos e 9 ECs de `apps/web/src/data/courses.ts` em `CurriculumImportV1` e passar pelo mesmo pipeline. Os requisitos entram como `E` de todos os códigos e ficam marcados para reimportação.
 - [ ] Web `/admin`:
   - Cursos.
   - Estruturas, com o editor da EC: tabela por período, painel lateral da disciplina e editor visual de expressão E/OU.

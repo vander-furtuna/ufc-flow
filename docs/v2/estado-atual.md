@@ -1,24 +1,25 @@
 # Estado atual do repositório
 
-Retrato em 01/11/2026, ao fim da fase 4. Atualize este arquivo ao fim de cada fase do [roadmap](roadmap.md).
+Retrato em 01/11/2026, com a fase 5 em andamento (PR 5.1 de 4). Atualize este arquivo ao fim de cada fase do [roadmap](roadmap.md).
 
 ## Branches
 
-| Branch                          | Situação                                                                                             |
-| ------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| `master`                        | Produção (deploy no Coolify), e continua sendo (D20). `origin/HEAD` aponta para ela.                 |
-| `develop`                       | Integração. Tem o monorepo e as fases 0 (PR #61), 1 (PR #63), 2 (PR #64) e 3 (PR #66), com CI verde. |
-| `feature/fase-0-fundacao`       | Mesclada em `develop` pelo PR #61; pode ser apagada.                                                 |
-| `feature/fase-1-academic-core`  | Mesclada em `develop` pelo PR #63; pode ser apagada.                                                 |
-| `feature/fase-2-contracts`      | Mesclada em `develop` pelo PR #64; pode ser apagada.                                                 |
-| `feature/docs-redesenho-links`  | Mesclada em `develop` pelo PR #65; pode ser apagada.                                                 |
-| `feature/fase-3-extensao`       | Mesclada em `develop` pelo PR #66; pode ser apagada.                                                 |
-| `fix/dependency-audit`          | Mesclada em `develop` pelo PR #67; pode ser apagada.                                                 |
-| `hotfix/dependency-audit`       | Mesclada em `master` pelo PR #68; pode ser apagada.                                                  |
-| `chore/sync-master`             | Traz o hotfix da `master` para a `develop` (PR #69, aberto, sem diferença de código).                |
-| `feature/fase-4-api-identidade` | Fase 4, em PR para `develop`.                                                                        |
-| `feature/monorepo`              | Mesclada em `develop`; pode ser apagada.                                                             |
-| `hotfix/schedule-course-key`    | Já mesclada em `master` e `develop`; pode ser apagada.                                               |
+| Branch                          | Situação                                                                                                         |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `master`                        | Produção (deploy no Coolify), e continua sendo (D20). `origin/HEAD` aponta para ela.                             |
+| `develop`                       | Integração. Tem o monorepo e as fases 0 (PR #61), 1 (PR #63), 2 (PR #64), 3 (PR #66) e 4 (PR #70), com CI verde. |
+| `feature/fase-0-fundacao`       | Mesclada em `develop` pelo PR #61; pode ser apagada.                                                             |
+| `feature/fase-1-academic-core`  | Mesclada em `develop` pelo PR #63; pode ser apagada.                                                             |
+| `feature/fase-2-contracts`      | Mesclada em `develop` pelo PR #64; pode ser apagada.                                                             |
+| `feature/docs-redesenho-links`  | Mesclada em `develop` pelo PR #65; pode ser apagada.                                                             |
+| `feature/fase-3-extensao`       | Mesclada em `develop` pelo PR #66; pode ser apagada.                                                             |
+| `fix/dependency-audit`          | Mesclada em `develop` pelo PR #67; pode ser apagada.                                                             |
+| `hotfix/dependency-audit`       | Mesclada em `master` pelo PR #68; pode ser apagada.                                                              |
+| `chore/sync-master`             | Mesclada em `develop` pelo PR #69; pode ser apagada.                                                             |
+| `feature/fase-4-api-identidade` | Mesclada em `develop` pelo PR #70; pode ser apagada.                                                             |
+| `feature/fase-5-catalogo-api`   | Fase 5, PR 5.1 (API do catálogo e da ingestão), em PR para `develop`.                                            |
+| `feature/monorepo`              | Mesclada em `develop`; pode ser apagada.                                                                         |
+| `hotfix/schedule-course-key`    | Já mesclada em `master` e `develop`; pode ser apagada.                                                           |
 
 A `main` foi apagada no remoto (D20). As branches já mescladas ficam por enquanto.
 
@@ -82,25 +83,31 @@ A `main` foi apagada no remoto (D20). As branches já mescladas ficam por enquan
   - Módulo `identity`: as 9 tabelas da modelagem, cadastro com aceite (versão `0.1`, D46), login, refresh com rotação e revogação por família, saída, `GET /me`, link de redefinição gerado pelo admin, pedidos de moderação com aprovação, rejeição e cancelamento, e auditoria.
   - `catalog` mínimo: `campuses` e `courses` com `GET /v1/courses` e o seed dos 6 cursos (D47).
   - Swagger em `/docs` com Bearer, Problem Details em todas as rotas, `openapi.json` versionado e teste que exige resumo, respostas e 401 documentado. Basic Auth ou `SWAGGER_ENABLED=false` em produção.
-  - Comandos: `db:migrate`, `seed:courses`, `seed:admin --email --name` e `openapi`.
+  - Comandos: `db:migrate`, `seed:courses` (trocado pelo `seed:catalog` na fase 5), `seed:admin --email --name` e `openapi`.
   - Testes: 82 unitários (cobertura de 99% em domínio e aplicação) e 18 de integração (repositórios e e2e com supertest) contra Postgres no Testcontainers, os dois no CI.
   - Web como BFF (D48): `/entrar` (telas `Main` e `Mobile-Entrar`), `/redefinir-senha`, `/termos` e `/privacidade`, menu do usuário no header e renovação da sessão no `proxy.ts`. Testes de formulário com Testing Library. Fluxo conferido no Edge headless contra a API local: cadastro, menu, renovação sem o access token, saída, senha errada e link inválido.
   - Extensão: login do popup ligado à API, com a sessão em `chrome.storage.local` (D50); continua atrás de `PLASMO_PUBLIC_FLOW_SYNC`.
-- **Modelagem v2 fechada** ([modelagem.md](modelagem.md)), com 50 decisões (D1–D50) e 11 lacunas resolvidas (L1–L11).
+- **Fase 5 — PR 5.1, API do catálogo e da ingestão** (branch `feature/fase-5-catalogo-api`):
+  - Contratos novos no `contracts`: curso e EC (pública e de gestão), pontos para revisar, checagem de publicação, entradas de edição, catálogo do SIGAA e ingestão (diff, página, detalhe).
+  - Domínio do `catalog`: agregado `Curriculum` com uma linha de teste por regra da tabela "Ciclo de vida e edição", disciplina global, checagem de publicação, pontos para revisar, plano de importação, diff e aplicação sob as mesmas travas.
+  - 11 tabelas novas e a FK `courses.sigaa_id → sigaa_courses` (migration `0001_catalog`, com `pg_trgm` e preenchimento provisório dos cursos da fase 4).
+  - Rotas: leitura pública com cache, gestão em `/v1/manage`, admin em `/v1/admin` e ingestão em `/v1/ingestion/curriculum-imports` (D52 a D59). Leitura semanal da lista pública do SIGAA.
+  - `seed:catalog` no lugar do `seed:courses`: os 9 ECs do `courses.ts` publicados pelo pipeline, com os slugs de hoje (inclusive `/ciencias-economicas/2005-1`).
+  - Testes: 188 unitários na API (cobertura de 99% em domínio e aplicação), 4 arquivos de integração e e2e com 25 testes (o e2e importa a EC real de 114 componentes e confere os `OU` e o 304 do cache), 251 no `contracts`.
+- **Modelagem v2 fechada** ([modelagem.md](modelagem.md)), com 59 decisões (D1–D59) e 11 lacunas resolvidas (L1–L11).
 - **39 telas desenhadas** para desktop, mobile e extensão ([telas.md](telas.md)).
 
 ## Pendências imediatas
 
-1. Mesclar o PR #69 (`master` → `develop`) e o PR da fase 4.
-2. Testar a fase 4 localmente:
+1. Mesclar o PR 5.1 e seguir com o 5.2 (extensão), 5.3 (web `/admin`) e 5.4 (web público lendo a API).
+2. Testar localmente:
    - `docker compose -f docker/compose.dev.yml up -d`;
-   - na API, copiar `.env.example` para `.env`, `pnpm --filter @ufc-flow/api db:migrate`, `seed:courses` e `seed:admin -- --email <e-mail> --name <nome>`;
+   - na API, copiar `.env.example` para `.env`, `pnpm --filter @ufc-flow/api db:migrate`, `seed:admin -- --email <e-mail> --name <nome>` e `seed:catalog`;
    - `pnpm --filter @ufc-flow/api dev` (porta 3333, Swagger em `/docs`) e `pnpm dev:web`, com `API_URL` no `apps/web/.env.local`.
-3. Login da extensão: `PLASMO_PUBLIC_FLOW_SYNC=true pnpm --filter @ufc-flow/extension build` e entrar pelo popup com a API rodando.
 
 As telas de links (`Links-Pagina`, `Links-Editor`, `Mobile-Links` e `Mobile-Links-Editor`) ainda usam os destaques antigos e serão redesenhadas na implementação, na fase 10 (D31).
 
-Próximo passo: fase 5 (catálogo, ingestão e admin de ECs).
+Próximo passo: PR 5.2 (envio pela extensão).
 
 ## Segurança das dependências
 

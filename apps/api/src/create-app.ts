@@ -22,6 +22,8 @@ export async function createApp(env: Env, { logger = true } = {}) {
   // Atrás do proxy do Coolify, o IP real vem do X-Forwarded-For
   app.set('trust proxy', 1)
   app.disable('x-powered-by')
+  // Uma estrutura curricular grande passa dos 100 KB do padrão
+  app.useBodyParser('json', { limit: '2mb' })
   app.useGlobalFilters(new ProblemDetailsFilter())
   app.enableShutdownHooks()
   setupSwagger(app, env)
