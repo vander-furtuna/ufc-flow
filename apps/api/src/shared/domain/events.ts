@@ -47,6 +47,28 @@ export type DomainEvent =
       removedSectionIds: string[]
       occurredAt: Date
     }
+  | {
+      type: 'MessageReplied'
+      messageId: string
+      rootId: string
+      courseId: string
+      authorId: string
+      // Autor da mensagem respondida (FORUM_REPLY)
+      parentAuthorId: string | null
+      // Quem já escreveu na conversa (FORUM_THREAD_REPLY)
+      threadAuthorIds: string[]
+      excerpt: string
+      occurredAt: Date
+    }
+  | {
+      type: 'MessageLiked'
+      messageId: string
+      courseId: string
+      likerId: string
+      messageAuthorId: string | null
+      excerpt: string
+      occurredAt: Date
+    }
 
 export type DomainEventType = DomainEvent['type']
 

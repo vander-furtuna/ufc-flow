@@ -3,7 +3,7 @@ import type { NotificationView } from '@ufc-flow/contracts'
 import { titleCase } from '@/utils/title-case'
 
 export type NotificationCategory =
-  'Agenda' | 'Moderação' | 'Turmas' | 'Importações'
+  'Agenda' | 'Fórum' | 'Moderação' | 'Turmas' | 'Importações'
 
 // Trechos do texto; os em negrito são nomes (pessoa, disciplina, curso)
 export type TextPart = { text: string; bold?: boolean }
@@ -82,6 +82,41 @@ export function describeNotification(
           ),
         ],
         href: '/admin/semestres',
+      }
+    }
+    case 'FORUM_REPLY':
+    case 'FORUM_THREAD_REPLY': {
+      const { data } = notification
+      return {
+        category: 'Fórum',
+        parts: [
+          b(data.authorName),
+          t(
+            notification.type === 'FORUM_REPLY'
+              ? ' respondeu sua mensagem: '
+              : ' respondeu numa conversa em que você está: ',
+          ),
+          t(`“${data.excerpt}”`),
+        ],
+        href: `/${data.courseSlug}/forum/${data.messageId}`,
+      }
+    }
+    case 'FORUM_LIKES': {
+      const { data } = notification
+      const [first] = data.likerNames
+      const others = data.likes - 1
+      return {
+        category: 'Fórum',
+        parts: [
+          b(first ?? 'Alguém'),
+          t(
+            others > 0
+              ? ` e mais ${others} curtiram sua mensagem: `
+              : ' curtiu sua mensagem: ',
+          ),
+          t(`“${data.excerpt}”`),
+        ],
+        href: `/${data.courseSlug}/forum/${data.messageId}`,
       }
     }
     case 'IMPORT_PENDING': {

@@ -26,6 +26,10 @@ const envSchema = z
     CLASSES_SYNC_PAUSE_MS: z.coerce.number().int().nonnegative().default(5000),
     // Pasta dos uploads (volume Docker montado em /data/uploads em produção)
     UPLOADS_DIR: z.string().min(1).default('./data/uploads'),
+    // Limite de envio no fórum: mensagens a cada N segundos e por hora
+    FORUM_RATE_BURST: z.coerce.number().int().positive().default(1),
+    FORUM_RATE_BURST_SECONDS: z.coerce.number().int().positive().default(10),
+    FORUM_RATE_HOURLY: z.coerce.number().int().positive().default(30),
   })
   .refine(
     (env) =>

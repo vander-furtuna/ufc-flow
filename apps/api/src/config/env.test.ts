@@ -22,6 +22,9 @@ describe('parseEnv', () => {
       CLASSES_SYNC_ENABLED: true,
       CLASSES_SYNC_PAUSE_MS: 5000,
       UPLOADS_DIR: './data/uploads',
+      FORUM_RATE_BURST: 1,
+      FORUM_RATE_BURST_SECONDS: 10,
+      FORUM_RATE_HOURLY: 30,
     })
   })
 

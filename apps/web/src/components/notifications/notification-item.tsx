@@ -2,6 +2,7 @@
 
 import {
   CalendarBlankIcon,
+  ChatCircleIcon,
   ShieldCheckIcon,
   TrayArrowDownIcon,
   WarningIcon,
@@ -27,6 +28,11 @@ const CATEGORY_STYLES: Record<
     icon: CalendarBlankIcon,
     className:
       'bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300',
+  },
+  Fórum: {
+    icon: ChatCircleIcon,
+    className:
+      'bg-orange-50 text-orange-700 dark:bg-orange-500/15 dark:text-orange-300',
   },
   Moderação: {
     icon: ShieldCheckIcon,

@@ -19,6 +19,8 @@ export class NotificationListener {
   @OnEvent('CurriculumImportPending', { async: true })
   @OnEvent('ScrapeFailed', { async: true })
   @OnEvent('SectionsChanged', { async: true })
+  @OnEvent('MessageReplied', { async: true })
+  @OnEvent('MessageLiked', { async: true })
   async handle(event: DomainEvent): Promise<void> {
     try {
       await this.notifier.handle(event)

@@ -39,6 +39,15 @@ export function mergeNotification(
     existing.type === 'IMPORT_PENDING'
   ) {
     data = { ...draft.data, imports: existing.data.imports + 1 }
+  } else if (draft.type === 'FORUM_LIKES' && existing.type === 'FORUM_LIKES') {
+    // "Ana e mais 4 curtiram": os nomes mais recentes primeiro
+    data = {
+      ...draft.data,
+      likes: existing.data.likes + 1,
+      likerNames: [
+        ...new Set([...draft.data.likerNames, ...existing.data.likerNames]),
+      ].slice(0, 3),
+    }
   } else if (
     (draft.type === 'SCHEDULE_SECTION_CHANGED' ||
       draft.type === 'SCHEDULE_SECTION_REMOVED') &&
