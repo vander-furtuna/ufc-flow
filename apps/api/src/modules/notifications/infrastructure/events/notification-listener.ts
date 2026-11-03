@@ -21,6 +21,8 @@ export class NotificationListener {
   @OnEvent('SectionsChanged', { async: true })
   @OnEvent('MessageReplied', { async: true })
   @OnEvent('MessageLiked', { async: true })
+  @OnEvent('MessageModerated', { async: true })
+  @OnEvent('UserRestricted', { async: true })
   async handle(event: DomainEvent): Promise<void> {
     try {
       await this.notifier.handle(event)

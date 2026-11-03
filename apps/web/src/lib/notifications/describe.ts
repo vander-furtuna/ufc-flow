@@ -1,5 +1,6 @@
 import type { NotificationView } from '@ufc-flow/contracts'
 
+import { REPORT_REASONS } from '@/data/report-reasons'
 import { titleCase } from '@/utils/title-case'
 
 export type NotificationCategory =
@@ -117,6 +118,47 @@ export function describeNotification(
           t(`“${data.excerpt}”`),
         ],
         href: `/${data.courseSlug}/forum/${data.messageId}`,
+      }
+    }
+    case 'MESSAGE_MODERATED': {
+      const { data } = notification
+      const what = {
+        HIDE: ' foi ocultada pela moderação de ',
+        REMOVE: ' foi removida pela moderação de ',
+        RESTORE: ' voltou ao ar no fórum de ',
+      }[data.action]
+      return {
+        category: 'Fórum',
+        parts: [
+          t(`Sua mensagem “${data.excerpt}”`),
+          t(what),
+          b(data.courseName),
+          ...(data.category
+            ? [t(` · ${REPORT_REASONS[data.category].toLowerCase()}`)]
+            : []),
+        ],
+        href: `/${data.courseSlug}/forum/${data.messageId}`,
+      }
+    }
+    case 'USER_RESTRICTED': {
+      const { data } = notification
+      const until = data.expiresAt
+        ? ` até ${new Date(data.expiresAt).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })}`
+        : ''
+      return {
+        category: 'Moderação',
+        parts: data.lifted
+          ? [t('Sua restrição no fórum de '), b(data.courseName), t(' acabou')]
+          : [
+              t(
+                data.restriction === 'MUTE'
+                  ? 'Você foi silenciado no fórum de '
+                  : 'Você perdeu o acesso ao fórum de ',
+              ),
+              b(data.courseName),
+              t(until),
+            ],
+        href: `/${data.courseSlug}/forum`,
       }
     }
     case 'IMPORT_PENDING': {

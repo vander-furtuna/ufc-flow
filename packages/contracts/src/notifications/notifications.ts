@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
 import { cursorPage, cursorPageQuerySchema } from '../common/pagination'
+import { reportReasonSchema } from '../forum/forum'
 import {
   isoDateTimeSchema,
   slugSchema,
@@ -9,8 +10,7 @@ import {
   uuidSchema,
 } from '../common/primitives'
 
-// Tipos da fase 7 e os do fórum (fase 11); os da moderação do fórum entram
-// no PR 11.2 (modelagem, Notificações)
+// Tipos da fase 7 e os do fórum e da moderação dele (fase 11)
 export const notificationTypeSchema = z
   .enum([
     'MODERATOR_REQUEST_CREATED',
@@ -22,6 +22,8 @@ export const notificationTypeSchema = z
     'FORUM_REPLY',
     'FORUM_THREAD_REPLY',
     'FORUM_LIKES',
+    'MESSAGE_MODERATED',
+    'USER_RESTRICTED',
   ])
   .meta({ id: 'NotificationType' })
 
@@ -123,6 +125,30 @@ export const notificationSchema = z
         likerNames: z.array(z.string()).max(3),
         // Curtidas somadas enquanto a notificação não foi lida
         likes: z.int().positive(),
+      }),
+    }),
+    z.object({
+      ...base,
+      type: z.literal('MESSAGE_MODERATED'),
+      data: z.object({
+        messageId: uuidSchema,
+        courseSlug: slugSchema,
+        courseName: z.string(),
+        action: z.enum(['HIDE', 'REMOVE', 'RESTORE']),
+        category: reportReasonSchema.nullable(),
+        excerpt: z.string(),
+      }),
+    }),
+    z.object({
+      ...base,
+      type: z.literal('USER_RESTRICTED'),
+      data: z.object({
+        courseSlug: slugSchema,
+        courseName: z.string(),
+        restriction: z.enum(['MUTE', 'BAN']),
+        // A restrição acabou (suspensa pela moderação)
+        lifted: z.boolean(),
+        expiresAt: isoDateTimeSchema.nullable(),
       }),
     }),
     z.object({

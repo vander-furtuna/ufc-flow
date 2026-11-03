@@ -9196,6 +9196,714 @@
           "forum"
         ]
       }
+    },
+    "/v1/forum/messages/{id}/reports": {
+      "post": {
+        "description": "Uma vez por pessoa, com motivo. Com 3 denúncias abertas de pessoas diferentes, a mensagem fica oculta até a moderação decidir.",
+        "operationId": "ModerationController_reportMessage",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReportInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Denúncia registrada"
+          },
+          "400": {
+            "description": "Dados inválidos (VALIDATION_FAILED) ou regra de domínio violada",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sem token válido ou credenciais incorretas",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão para a ação",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso não encontrado",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito com o estado atual",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Denunciar mensagem",
+        "tags": [
+          "moderation"
+        ]
+      }
+    },
+    "/v1/forum/messages/{id}/moderation": {
+      "post": {
+        "description": "Moderação do curso ou admin, com motivo. Ocultar ou remover aceita as denúncias abertas; restaurar as descarta. A remoção mostra só a categoria para os leitores.",
+        "operationId": "ModerationController_moderateMessage",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MessageModerationInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Mensagem moderada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Message"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos (VALIDATION_FAILED) ou regra de domínio violada",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sem token válido ou credenciais incorretas",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão para a ação",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso não encontrado",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito com o estado atual",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Ocultar, remover ou restaurar mensagem",
+        "tags": [
+          "moderation"
+        ]
+      }
+    },
+    "/v1/forum/messages/{id}/reports/dismiss": {
+      "post": {
+        "description": "Fecha as denúncias abertas; a mensagem oculta volta ao ar.",
+        "operationId": "ModerationController_dismiss",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DismissReportsInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Denúncias descartadas"
+          },
+          "400": {
+            "description": "Dados inválidos (VALIDATION_FAILED) ou regra de domínio violada",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sem token válido ou credenciais incorretas",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão para a ação",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso não encontrado",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito com o estado atual",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Descartar denúncias",
+        "tags": [
+          "moderation"
+        ]
+      }
+    },
+    "/v1/moderation/restrictions": {
+      "post": {
+        "description": "MUTE: lê, mas não escreve nem curte. BAN: não acessa o fórum do curso. Prazo em dias ou sem prazo; a nova substitui a ativa. Moderadores do curso e admins não podem ser restringidos.",
+        "operationId": "ModerationController_restrictUser",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RestrictionInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Restrição criada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Restriction"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos (VALIDATION_FAILED) ou regra de domínio violada",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sem token válido ou credenciais incorretas",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão para a ação",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso não encontrado",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Silenciar ou banir no fórum do curso",
+        "tags": [
+          "moderation"
+        ]
+      },
+      "get": {
+        "operationId": "ModerationController_restrictions",
+        "parameters": [
+          {
+            "name": "course",
+            "required": false,
+            "in": "query",
+            "description": "Só um curso; sem ele, todos os que a pessoa modera",
+            "schema": {
+              "example": "engenharia-de-computacao"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Restrições",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Restriction"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos (VALIDATION_FAILED) ou regra de domínio violada",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sem token válido ou credenciais incorretas",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão para a ação",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso não encontrado",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Restrições ativas",
+        "tags": [
+          "moderation"
+        ]
+      }
+    },
+    "/v1/moderation/restrictions/{id}/lift": {
+      "post": {
+        "operationId": "ModerationController_lift",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LiftRestrictionInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Restrição suspensa"
+          },
+          "400": {
+            "description": "Dados inválidos (VALIDATION_FAILED) ou regra de domínio violada",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sem token válido ou credenciais incorretas",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão para a ação",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso não encontrado",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Suspender restrição",
+        "tags": [
+          "moderation"
+        ]
+      }
+    },
+    "/v1/moderation/reports": {
+      "get": {
+        "description": "Mensagens com denúncias abertas, agrupadas por motivo, com o texto do momento da denúncia. As ocultas automaticamente primeiro.",
+        "operationId": "ModerationController_reports",
+        "parameters": [
+          {
+            "name": "course",
+            "required": false,
+            "in": "query",
+            "description": "Só um curso; sem ele, todos os que a pessoa modera",
+            "schema": {
+              "example": "engenharia-de-computacao"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Fila",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ReportQueueItem"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos (VALIDATION_FAILED) ou regra de domínio violada",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sem token válido ou credenciais incorretas",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão para a ação",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso não encontrado",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Fila de denúncias",
+        "tags": [
+          "moderation"
+        ]
+      }
+    },
+    "/v1/moderation/summary": {
+      "get": {
+        "description": "Denúncias abertas e restrições ativas dos cursos moderados; pedidos de moderação pendentes só para admin.",
+        "operationId": "ModerationController_summary",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Contadores",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModerationSummary"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sem token válido ou credenciais incorretas",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão para a ação",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Contadores da moderação",
+        "tags": [
+          "moderation"
+        ]
+      }
+    },
+    "/v1/courses/{course}/forum/my-restriction": {
+      "get": {
+        "description": "Nulo quando a pessoa não está silenciada nem banida.",
+        "operationId": "ModerationController_mine",
+        "parameters": [
+          {
+            "name": "course",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "example": "engenharia-de-computacao"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Restrição ou nulo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MyRestriction"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos (VALIDATION_FAILED) ou regra de domínio violada",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sem token válido ou credenciais incorretas",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso não encontrado",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Minha restrição no fórum do curso",
+        "tags": [
+          "moderation"
+        ]
+      }
     }
   },
   "info": {
@@ -13237,6 +13945,353 @@
           "results"
         ]
       },
+      "MessageStatus": {
+        "type": "string",
+        "enum": [
+          "VISIBLE",
+          "HIDDEN",
+          "REMOVED"
+        ]
+      },
+      "ReportReason": {
+        "type": "string",
+        "enum": [
+          "SPAM",
+          "OFFENSIVE",
+          "HARASSMENT",
+          "PERSONAL_DATA",
+          "OFF_TOPIC",
+          "OTHER"
+        ]
+      },
+      "MessageInput": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "content"
+        ]
+      },
+      "MessageMention": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "pattern": "^[A-Z]+\\d+$"
+          },
+          "name": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          }
+        },
+        "required": [
+          "code",
+          "name",
+          "slug"
+        ]
+      },
+      "Message": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "courseId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "parentId": {
+            "nullable": true,
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "rootId": {
+            "nullable": true,
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "author": {
+            "nullable": true,
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
+              "name": {
+                "type": "string"
+              },
+              "avatarFileId": {
+                "nullable": true,
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "avatarFileId"
+            ]
+          },
+          "replyingTo": {
+            "nullable": true,
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
+              "authorName": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "authorName"
+            ]
+          },
+          "content": {
+            "nullable": true,
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/MessageStatus"
+          },
+          "removedBy": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "AUTHOR",
+              "MODERATION"
+            ]
+          },
+          "removalCategory": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ReportReason"
+              }
+            ]
+          },
+          "replyCount": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "likeCount": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "likedByMe": {
+            "type": "boolean"
+          },
+          "mentions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MessageMention"
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+          },
+          "editedAt": {
+            "nullable": true,
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+          },
+          "editableUntil": {
+            "nullable": true,
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+          }
+        },
+        "required": [
+          "id",
+          "courseId",
+          "parentId",
+          "rootId",
+          "author",
+          "replyingTo",
+          "content",
+          "status",
+          "removedBy",
+          "removalCategory",
+          "replyCount",
+          "likeCount",
+          "likedByMe",
+          "mentions",
+          "createdAt",
+          "editedAt",
+          "editableUntil"
+        ]
+      },
+      "MessagePage": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Message"
+            }
+          },
+          "nextCursor": {
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "items",
+          "nextCursor"
+        ]
+      },
+      "NewMessagesCount": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "count"
+        ]
+      },
+      "Conversation": {
+        "type": "object",
+        "properties": {
+          "ancestors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Message"
+            }
+          },
+          "message": {
+            "$ref": "#/components/schemas/Message"
+          },
+          "replies": {
+            "$ref": "#/components/schemas/MessagePage"
+          }
+        },
+        "required": [
+          "ancestors",
+          "message",
+          "replies"
+        ]
+      },
+      "LikeState": {
+        "type": "object",
+        "properties": {
+          "likeCount": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "likedByMe": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "likeCount",
+          "likedByMe"
+        ]
+      },
+      "SubjectSearchResult": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "pattern": "^[A-Z]+\\d+$"
+          },
+          "name": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "inCurriculum": {
+            "type": "boolean"
+          },
+          "semester": {
+            "nullable": true,
+            "type": "integer",
+            "minimum": 0,
+            "exclusiveMinimum": true,
+            "maximum": 9007199254740991
+          },
+          "nature": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CurriculumNature"
+              }
+            ]
+          },
+          "courseName": {
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "name",
+          "slug",
+          "inCurriculum",
+          "semester",
+          "nature",
+          "courseName"
+        ]
+      },
+      "TrendingSubject": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "pattern": "^[A-Z]+\\d+$"
+          },
+          "name": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "count": {
+            "type": "integer",
+            "minimum": 0,
+            "exclusiveMinimum": true,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "code",
+          "name",
+          "slug",
+          "count"
+        ]
+      },
       "NotificationType": {
         "type": "string",
         "enum": [
@@ -13248,7 +14303,9 @@
           "IMPORT_PENDING",
           "FORUM_REPLY",
           "FORUM_THREAD_REPLY",
-          "FORUM_LIKES"
+          "FORUM_LIKES",
+          "MESSAGE_MODERATED",
+          "USER_RESTRICTED"
         ]
       },
       "Notification": {
@@ -13854,6 +14911,165 @@
                   "excerpt",
                   "likerNames",
                   "likes"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "readAt",
+              "createdAt",
+              "updatedAt",
+              "type",
+              "data"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
+              "readAt": {
+                "nullable": true,
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              },
+              "updatedAt": {
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "MESSAGE_MODERATED"
+                ]
+              },
+              "data": {
+                "type": "object",
+                "properties": {
+                  "messageId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "courseSlug": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                  },
+                  "courseName": {
+                    "type": "string"
+                  },
+                  "action": {
+                    "type": "string",
+                    "enum": [
+                      "HIDE",
+                      "REMOVE",
+                      "RESTORE"
+                    ]
+                  },
+                  "category": {
+                    "nullable": true,
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/ReportReason"
+                      }
+                    ]
+                  },
+                  "excerpt": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "messageId",
+                  "courseSlug",
+                  "courseName",
+                  "action",
+                  "category",
+                  "excerpt"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "readAt",
+              "createdAt",
+              "updatedAt",
+              "type",
+              "data"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
+              "readAt": {
+                "nullable": true,
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              },
+              "updatedAt": {
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "USER_RESTRICTED"
+                ]
+              },
+              "data": {
+                "type": "object",
+                "properties": {
+                  "courseSlug": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                  },
+                  "courseName": {
+                    "type": "string"
+                  },
+                  "restriction": {
+                    "type": "string",
+                    "enum": [
+                      "MUTE",
+                      "BAN"
+                    ]
+                  },
+                  "lifted": {
+                    "type": "boolean"
+                  },
+                  "expiresAt": {
+                    "nullable": true,
+                    "type": "string",
+                    "format": "date-time",
+                    "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+                  }
+                },
+                "required": [
+                  "courseSlug",
+                  "courseName",
+                  "restriction",
+                  "lifted",
+                  "expiresAt"
                 ]
               }
             },
@@ -15872,72 +17088,181 @@
           "count"
         ]
       },
-      "MessageStatus": {
+      "ReportStatus": {
         "type": "string",
         "enum": [
-          "VISIBLE",
-          "HIDDEN",
-          "REMOVED"
+          "OPEN",
+          "ACCEPTED",
+          "DISMISSED"
         ]
       },
-      "MessageInput": {
+      "RestrictionType": {
+        "type": "string",
+        "enum": [
+          "MUTE",
+          "BAN"
+        ]
+      },
+      "ReportInput": {
         "type": "object",
         "properties": {
-          "content": {
+          "reason": {
+            "$ref": "#/components/schemas/ReportReason"
+          },
+          "details": {
+            "nullable": true,
             "type": "string",
-            "minLength": 1,
             "maxLength": 500
           }
         },
         "required": [
-          "content"
+          "reason"
         ]
       },
-      "MessageMention": {
+      "MessageModerationInput": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "action": {
+                "type": "string",
+                "enum": [
+                  "HIDE"
+                ]
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 3,
+                "maxLength": 300
+              }
+            },
+            "required": [
+              "action",
+              "reason"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "action": {
+                "type": "string",
+                "enum": [
+                  "REMOVE"
+                ]
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 3,
+                "maxLength": 300
+              },
+              "category": {
+                "$ref": "#/components/schemas/ReportReason"
+              }
+            },
+            "required": [
+              "action",
+              "reason",
+              "category"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "action": {
+                "type": "string",
+                "enum": [
+                  "RESTORE"
+                ]
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 3,
+                "maxLength": 300
+              }
+            },
+            "required": [
+              "action",
+              "reason"
+            ]
+          }
+        ]
+      },
+      "DismissReportsInput": {
         "type": "object",
         "properties": {
-          "code": {
+          "reason": {
             "type": "string",
-            "pattern": "^[A-Z]+\\d+$"
-          },
-          "name": {
-            "type": "string"
-          },
-          "slug": {
-            "type": "string",
-            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+            "minLength": 3,
+            "maxLength": 300
           }
         },
         "required": [
-          "code",
-          "name",
-          "slug"
+          "reason"
         ]
       },
-      "Message": {
+      "RestrictionInput": {
         "type": "object",
         "properties": {
-          "id": {
+          "userId": {
             "type": "string",
             "format": "uuid",
             "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
           },
-          "courseId": {
+          "courseSlug": {
             "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
           },
-          "parentId": {
+          "type": {
+            "$ref": "#/components/schemas/RestrictionType"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 300
+          },
+          "days": {
             "nullable": true,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 365
+          }
+        },
+        "required": [
+          "userId",
+          "courseSlug",
+          "type",
+          "reason",
+          "days"
+        ]
+      },
+      "LiftRestrictionInput": {
+        "type": "object",
+        "properties": {
+          "reason": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 300
+          }
+        },
+        "required": [
+          "reason"
+        ]
+      },
+      "ReportQueueItem": {
+        "type": "object",
+        "properties": {
+          "messageId": {
             "type": "string",
             "format": "uuid",
             "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
           },
           "rootId": {
-            "nullable": true,
             "type": "string",
             "format": "uuid",
             "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "course": {
+            "$ref": "#/components/schemas/CourseSummary"
           },
           "author": {
             "nullable": true,
@@ -15950,21 +17275,110 @@
               },
               "name": {
                 "type": "string"
-              },
-              "avatarFileId": {
-                "nullable": true,
-                "type": "string",
-                "format": "uuid",
-                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
               }
             },
             "required": [
               "id",
-              "name",
-              "avatarFileId"
+              "name"
             ]
           },
-          "replyingTo": {
+          "snapshot": {
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/MessageStatus"
+          },
+          "autoHidden": {
+            "type": "boolean"
+          },
+          "reasons": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "reason": {
+                  "$ref": "#/components/schemas/ReportReason"
+                },
+                "count": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "exclusiveMinimum": true,
+                  "maximum": 9007199254740991
+                }
+              },
+              "required": [
+                "reason",
+                "count"
+              ]
+            }
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "reportCount": {
+            "type": "integer",
+            "minimum": 0,
+            "exclusiveMinimum": true,
+            "maximum": 9007199254740991
+          },
+          "firstReportedAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+          }
+        },
+        "required": [
+          "messageId",
+          "rootId",
+          "course",
+          "author",
+          "snapshot",
+          "status",
+          "autoHidden",
+          "reasons",
+          "details",
+          "reportCount",
+          "firstReportedAt"
+        ]
+      },
+      "Restriction": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          },
+          "course": {
+            "$ref": "#/components/schemas/CourseSummary"
+          },
+          "type": {
+            "$ref": "#/components/schemas/RestrictionType"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "createdBy": {
             "nullable": true,
             "type": "object",
             "properties": {
@@ -15973,61 +17387,21 @@
                 "format": "uuid",
                 "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
               },
-              "authorName": {
+              "name": {
                 "type": "string"
               }
             },
             "required": [
               "id",
-              "authorName"
+              "name"
             ]
-          },
-          "content": {
-            "nullable": true,
-            "type": "string"
-          },
-          "status": {
-            "$ref": "#/components/schemas/MessageStatus"
-          },
-          "removedBy": {
-            "nullable": true,
-            "type": "string",
-            "enum": [
-              "AUTHOR",
-              "MODERATION"
-            ]
-          },
-          "replyCount": {
-            "type": "integer",
-            "minimum": 0,
-            "maximum": 9007199254740991
-          },
-          "likeCount": {
-            "type": "integer",
-            "minimum": 0,
-            "maximum": 9007199254740991
-          },
-          "likedByMe": {
-            "type": "boolean"
-          },
-          "mentions": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/MessageMention"
-            }
           },
           "createdAt": {
             "type": "string",
             "format": "date-time",
             "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
           },
-          "editedAt": {
-            "nullable": true,
-            "type": "string",
-            "format": "date-time",
-            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
-          },
-          "editableUntil": {
+          "expiresAt": {
             "nullable": true,
             "type": "string",
             "format": "date-time",
@@ -16036,167 +17410,58 @@
         },
         "required": [
           "id",
-          "courseId",
-          "parentId",
-          "rootId",
-          "author",
-          "replyingTo",
-          "content",
-          "status",
-          "removedBy",
-          "replyCount",
-          "likeCount",
-          "likedByMe",
-          "mentions",
+          "user",
+          "course",
+          "type",
+          "reason",
+          "createdBy",
           "createdAt",
-          "editedAt",
-          "editableUntil"
+          "expiresAt"
         ]
       },
-      "MessagePage": {
+      "ModerationSummary": {
         "type": "object",
         "properties": {
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Message"
-            }
+          "openReports": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
           },
-          "nextCursor": {
+          "activeRestrictions": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "pendingRequests": {
             "nullable": true,
-            "type": "string"
-          }
-        },
-        "required": [
-          "items",
-          "nextCursor"
-        ]
-      },
-      "NewMessagesCount": {
-        "type": "object",
-        "properties": {
-          "count": {
             "type": "integer",
             "minimum": 0,
             "maximum": 9007199254740991
           }
         },
         "required": [
-          "count"
+          "openReports",
+          "activeRestrictions",
+          "pendingRequests"
         ]
       },
-      "Conversation": {
+      "MyRestriction": {
+        "nullable": true,
         "type": "object",
         "properties": {
-          "ancestors": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Message"
-            }
+          "type": {
+            "$ref": "#/components/schemas/RestrictionType"
           },
-          "message": {
-            "$ref": "#/components/schemas/Message"
-          },
-          "replies": {
-            "$ref": "#/components/schemas/MessagePage"
-          }
-        },
-        "required": [
-          "ancestors",
-          "message",
-          "replies"
-        ]
-      },
-      "LikeState": {
-        "type": "object",
-        "properties": {
-          "likeCount": {
-            "type": "integer",
-            "minimum": 0,
-            "maximum": 9007199254740991
-          },
-          "likedByMe": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "likeCount",
-          "likedByMe"
-        ]
-      },
-      "SubjectSearchResult": {
-        "type": "object",
-        "properties": {
-          "code": {
-            "type": "string",
-            "pattern": "^[A-Z]+\\d+$"
-          },
-          "name": {
-            "type": "string"
-          },
-          "slug": {
-            "type": "string",
-            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
-          },
-          "inCurriculum": {
-            "type": "boolean"
-          },
-          "semester": {
+          "expiresAt": {
             "nullable": true,
-            "type": "integer",
-            "minimum": 0,
-            "exclusiveMinimum": true,
-            "maximum": 9007199254740991
-          },
-          "nature": {
-            "nullable": true,
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/CurriculumNature"
-              }
-            ]
-          },
-          "courseName": {
-            "nullable": true,
-            "type": "string"
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
           }
         },
         "required": [
-          "code",
-          "name",
-          "slug",
-          "inCurriculum",
-          "semester",
-          "nature",
-          "courseName"
-        ]
-      },
-      "TrendingSubject": {
-        "type": "object",
-        "properties": {
-          "code": {
-            "type": "string",
-            "pattern": "^[A-Z]+\\d+$"
-          },
-          "name": {
-            "type": "string"
-          },
-          "slug": {
-            "type": "string",
-            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
-          },
-          "count": {
-            "type": "integer",
-            "minimum": 0,
-            "exclusiveMinimum": true,
-            "maximum": 9007199254740991
-          }
-        },
-        "required": [
-          "code",
-          "name",
-          "slug",
-          "count"
+          "type",
+          "expiresAt"
         ]
       },
       "CreateModeratorRequestInput": {

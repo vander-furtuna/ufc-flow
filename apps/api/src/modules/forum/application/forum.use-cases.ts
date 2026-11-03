@@ -8,6 +8,7 @@ import type {
   MessageView,
   NewMessagesCount,
   ParsedMessageInput,
+  ReportReason,
   SubjectSearchQuery,
   SubjectSearchResult,
   TrendingSubject,
@@ -26,6 +27,7 @@ import {
   type IdGenerator,
 } from '../../../shared/domain/id-generator'
 import { ForumErrors } from '../domain/errors'
+import { blocks } from '../domain/moderation'
 import {
   assertRate,
   deletionOf,
@@ -87,6 +89,12 @@ export function toMessageView(
         : row.removedBy !== null && row.removedBy === row.authorId
           ? 'AUTHOR'
           : 'MODERATION',
+    removalCategory:
+      row.status === 'REMOVED' &&
+      row.removedBy !== row.authorId &&
+      row.removalReason
+        ? (row.removalReason as ReportReason)
+        : null,
     replyCount: row.replyCount,
     likeCount: row.likeCount,
     likedByMe: row.likedByMe,
@@ -115,20 +123,43 @@ function assertCanPost(actor: Actor, courseId: string): string {
   return actor.userId
 }
 
+// Restrição da moderação no curso: BAN não lê; MUTE lê, mas não escreve
+// nem curte. Moderação e admin nunca são restringidos.
+export async function assertAccess(
+  repos: ForumRepositories,
+  actor: Actor,
+  courseId: string,
+  action: 'READ' | 'WRITE',
+  now: Date,
+) {
+  if (!actor.userId || AccessPolicy.canModerateForum(actor, courseId)) return
+  const restriction = await repos.restrictions.active(
+    actor.userId,
+    courseId,
+    now,
+  )
+  if (blocks(restriction, 'READ')) throw ForumErrors.banned()
+  if (action === 'WRITE' && blocks(restriction, 'WRITE')) {
+    throw ForumErrors.muted()
+  }
+}
+
 const viewerOf = (actor: Actor, courseId: string): Viewer => ({
   userId: actor.userId,
   canModerate: AccessPolicy.canModerateForum(actor, courseId),
 })
 
 // Mensagem que quem lê pode alcançar, com o curso dela (ativo)
-async function reachable(
+export async function reachable(
   repos: ForumRepositories,
   actor: Actor,
   id: string,
+  now: Date,
 ): Promise<{ message: Message; course: ForumCourse; viewer: Viewer }> {
   const message = await repos.messages.findById(id)
   const course = message && (await repos.catalog.courseById(message.courseId))
   if (!message || !course?.isActive) throw ForumErrors.messageNotFound()
+  await assertAccess(repos, actor, course.id, 'READ', now)
   const viewer = viewerOf(actor, course.id)
   if (visibilityOf(message, viewer) === 'NONE') {
     throw ForumErrors.messageNotFound()
@@ -180,6 +211,7 @@ export class ReadForumUseCase {
     const after = decodeCursor(query.cursor)
     return this.uow.run(async (repos) => {
       const course = await activeCourse(repos, courseSlug)
+      await assertAccess(repos, actor, course.id, 'READ', this.clock.now())
       const viewer = viewerOf(actor, course.id)
       const rows = await repos.reader.timeline(
         course.id,
@@ -199,6 +231,7 @@ export class ReadForumUseCase {
     assertCanRead(actor)
     return this.uow.run(async (repos) => {
       const course = await activeCourse(repos, courseSlug)
+      await assertAccess(repos, actor, course.id, 'READ', this.clock.now())
       return {
         count: await repos.reader.countNewRoots(course.id, since, actor.userId),
       }
@@ -208,7 +241,12 @@ export class ReadForumUseCase {
   async conversation(actor: Actor, id: string): Promise<ConversationView> {
     assertCanRead(actor)
     return this.uow.run(async (repos) => {
-      const { message, viewer } = await reachable(repos, actor, id)
+      const { message, viewer } = await reachable(
+        repos,
+        actor,
+        id,
+        this.clock.now(),
+      )
       const now = this.clock.now()
       // A cadeia até a raiz, da raiz para baixo
       const ancestors: Message[] = []
@@ -249,7 +287,12 @@ export class ReadForumUseCase {
     assertCanRead(actor)
     const after = decodeCursor(query.cursor)
     return this.uow.run(async (repos) => {
-      const { message, viewer } = await reachable(repos, actor, id)
+      const { message, viewer } = await reachable(
+        repos,
+        actor,
+        id,
+        this.clock.now(),
+      )
       const rows = await repos.reader.replies(
         message.id,
         viewer,
@@ -271,6 +314,7 @@ export class ReadForumUseCase {
     const after = decodeCursor(query.cursor)
     return this.uow.run(async (repos) => {
       const course = await activeCourse(repos, courseSlug)
+      await assertAccess(repos, actor, course.id, 'READ', this.clock.now())
       const subject = await repos.catalog.subjectByCode(code)
       if (!subject) throw ForumErrors.subjectNotFound()
       const viewer = viewerOf(actor, course.id)
@@ -289,6 +333,7 @@ export class ReadForumUseCase {
     assertCanRead(actor)
     return this.uow.run(async (repos) => {
       const course = await activeCourse(repos, courseSlug)
+      await assertAccess(repos, actor, course.id, 'READ', this.clock.now())
       const since = new Date(
         this.clock.now().getTime() - TRENDING_DAYS * 24 * HOUR_MS,
       )
@@ -358,6 +403,7 @@ export class WriteForumUseCase {
         repos,
         actor,
         parentId,
+        this.clock.now(),
       )
       return this.write(repos, actor, course, parent, input.content)
     })
@@ -373,6 +419,7 @@ export class WriteForumUseCase {
     content: string,
   ): Promise<{ view: MessageView; event: DomainEvent | null }> {
     const authorId = assertCanPost(actor, course.id)
+    await assertAccess(repos, actor, course.id, 'WRITE', this.clock.now())
     const subjectIds = await mentionIds(repos, content)
     await this.checkRate(repos, authorId)
     const now = this.clock.now()
@@ -415,8 +462,20 @@ export class WriteForumUseCase {
     input: ParsedMessageInput,
   ): Promise<MessageView> {
     return this.uow.run(async (repos) => {
-      const { message, viewer } = await reachable(repos, actor, id)
+      const { message, viewer } = await reachable(
+        repos,
+        actor,
+        id,
+        this.clock.now(),
+      )
       if (!actor.userId) throw ForumErrors.notAuthor()
+      await assertAccess(
+        repos,
+        actor,
+        message.courseId,
+        'WRITE',
+        this.clock.now(),
+      )
       const now = this.clock.now()
       const edited = editMessage(message, actor.userId, input.content, now)
       await repos.messages.save(edited, await mentionIds(repos, edited.content))
@@ -426,7 +485,7 @@ export class WriteForumUseCase {
 
   async remove(actor: Actor, id: string): Promise<void> {
     return this.uow.run(async (repos) => {
-      const { message } = await reachable(repos, actor, id)
+      const { message } = await reachable(repos, actor, id, this.clock.now())
       if (!actor.userId) throw ForumErrors.notAuthor()
       const result = deletionOf(message, actor.userId, this.clock.now())
       if (result.kind === 'REMOVE') {
@@ -442,8 +501,15 @@ export class WriteForumUseCase {
 
   async like(actor: Actor, id: string): Promise<LikeState> {
     const { state, event } = await this.uow.run(async (repos) => {
-      const { message } = await reachable(repos, actor, id)
+      const { message } = await reachable(repos, actor, id, this.clock.now())
       const userId = assertCanPost(actor, message.courseId)
+      await assertAccess(
+        repos,
+        actor,
+        message.courseId,
+        'WRITE',
+        this.clock.now(),
+      )
       if (message.status !== 'VISIBLE') throw ForumErrors.unavailable()
       const now = this.clock.now()
       const added = await repos.likes.add(message.id, userId, now)
@@ -469,8 +535,15 @@ export class WriteForumUseCase {
 
   async unlike(actor: Actor, id: string): Promise<LikeState> {
     return this.uow.run(async (repos) => {
-      const { message } = await reachable(repos, actor, id)
+      const { message } = await reachable(repos, actor, id, this.clock.now())
       const userId = assertCanPost(actor, message.courseId)
+      await assertAccess(
+        repos,
+        actor,
+        message.courseId,
+        'WRITE',
+        this.clock.now(),
+      )
       const removed = await repos.likes.remove(message.id, userId)
       const likeCount = removed
         ? await repos.messages.addLikes(message.id, -1)

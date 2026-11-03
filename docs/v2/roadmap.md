@@ -252,7 +252,7 @@ flowchart LR
 
 **Objetivo:** fórum estilo X por curso, com menções e moderação. Modelagem: Fórum do curso. Telas: `Forum`, `Mobile-Forum`, `Mobile-Forum-Escrever`, `Forum-Mobile`, `Admin-Moderacao`, `Mobile-Admin-Moderacao`.
 
-- [ ] `messages`, `message_likes`, `message_subject_mentions`, `message_reports`, `moderation_actions` e `user_course_restrictions`.
+- [x] `messages`, `message_likes`, `message_subject_mentions`, `message_reports`, `moderation_actions` e `user_course_restrictions`.
 - [x] Timeline de mensagens raiz com cursor `(created_at, id)`, conversa com a cadeia até a raiz e contadores atualizados na mesma transação.
 - [x] "N novas mensagens" por polling, edição em até 15 min e regras de exclusão da própria mensagem.
 - [ ] Popover de `@`:
@@ -260,14 +260,14 @@ flowchart LR
   - Token `@CÓDIGO` gravado no texto.
   - Chips clicáveis na leitura.
   - Aba "Discussões" na disciplina.
-- [ ] Denúncias:
+- [x] Denúncias:
   - Uma por pessoa, com motivo.
   - Ocultação automática com 3 denúncias.
   - Ações de moderação com motivo.
   - MUTE e BAN com prazo.
   - Limite de envio por usuário.
 - [ ] Admin › Moderação com três abas: denúncias, pedidos de moderação e restrições ativas.
-- [ ] Notificações do fórum: `FORUM_REPLY`, `FORUM_THREAD_REPLY`, `FORUM_LIKES`, `MESSAGE_MODERATED` e `USER_RESTRICTED`.
+- [x] Notificações do fórum: `FORUM_REPLY`, `FORUM_THREAD_REPLY`, `FORUM_LIKES`, `MESSAGE_MODERATED` e `USER_RESTRICTED`.
 
 ## Fase 12 — Avaliação de disciplinas
 

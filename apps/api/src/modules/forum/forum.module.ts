@@ -7,17 +7,24 @@ import {
   SearchSubjectsUseCase,
   WriteForumUseCase,
 } from './application/forum.use-cases'
+import {
+  ModerateMessageUseCase,
+  ModerationQueueUseCase,
+  ReportMessageUseCase,
+  RestrictUserUseCase,
+} from './application/moderation.use-cases'
 import type { RateLimits } from './domain/message'
 import { FORUM_RATE_LIMITS, FORUM_UOW } from './domain/ports'
 import {
   ForumController,
   SubjectSearchController,
 } from './infrastructure/http/forum.controller'
+import { ModerationController } from './infrastructure/http/moderation.controller'
 import { DrizzleForumUnitOfWork } from './infrastructure/persistence/drizzle-forum'
 
 @Module({
   imports: [IdentityModule],
-  controllers: [ForumController, SubjectSearchController],
+  controllers: [ForumController, SubjectSearchController, ModerationController],
   providers: [
     { provide: FORUM_UOW, useClass: DrizzleForumUnitOfWork },
     {
@@ -32,6 +39,10 @@ import { DrizzleForumUnitOfWork } from './infrastructure/persistence/drizzle-for
     ReadForumUseCase,
     WriteForumUseCase,
     SearchSubjectsUseCase,
+    ReportMessageUseCase,
+    ModerateMessageUseCase,
+    RestrictUserUseCase,
+    ModerationQueueUseCase,
   ],
 })
 export class ForumModule {}

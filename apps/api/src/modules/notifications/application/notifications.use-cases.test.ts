@@ -207,6 +207,65 @@ describe('eventos viram notificações', () => {
     expect(of(h, 'u1').filter((item) => item.entityId === 'm9')).toEqual([])
   })
 
+  it('moderação avisa o autor; restrição avisa quem foi restringido', async () => {
+    const h = harness()
+    await h.notifier.handle({
+      type: 'MessageModerated',
+      messageId: 'm1',
+      courseId: 'c1',
+      authorId: 'u1',
+      moderatorId: null,
+      action: 'HIDE',
+      category: null,
+      excerpt: 'Telefone',
+      occurredAt: AT,
+    })
+    await h.notifier.handle({
+      type: 'UserRestricted',
+      userId: 'u1',
+      courseId: 'c1',
+      moderatorId: 'mod1',
+      restriction: 'MUTE',
+      lifted: false,
+      expiresAt: new Date('2026-11-09T12:00:00.000Z'),
+      occurredAt: AT,
+    })
+    expect(of(h, 'u1')).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          type: 'MESSAGE_MODERATED',
+          actorId: null,
+          data: expect.objectContaining({
+            action: 'HIDE',
+            courseSlug: 'eng-comp',
+          }),
+        }),
+        expect.objectContaining({
+          type: 'USER_RESTRICTED',
+          data: expect.objectContaining({
+            restriction: 'MUTE',
+            expiresAt: '2026-11-09T12:00:00.000Z',
+          }),
+        }),
+      ]),
+    )
+    // Mensagem de conta excluída: ninguém a avisar
+    await h.notifier.handle({
+      type: 'MessageModerated',
+      messageId: 'm2',
+      courseId: 'c1',
+      authorId: null,
+      moderatorId: 'mod1',
+      action: 'REMOVE',
+      category: 'SPAM',
+      excerpt: 'x',
+      occurredAt: AT,
+    })
+    expect(
+      [...h.store.notifications.values()].filter((n) => n.entityId === 'm2'),
+    ).toEqual([])
+  })
+
   it('mudança na coleta avisa quem tem a turma na agenda', async () => {
     const h = harness()
     h.store.holders = [

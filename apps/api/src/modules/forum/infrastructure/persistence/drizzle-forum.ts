@@ -1,5 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common'
-import type { MessageMention, SubjectSearchResult } from '@ufc-flow/contracts'
+import type {
+  MessageMention,
+  MessageStatus,
+  ReportQueueItem,
+  RestrictionView,
+  SubjectSearchResult,
+} from '@ufc-flow/contracts'
 import {
   and,
   asc,
@@ -15,6 +21,7 @@ import {
   ne,
   or,
   sql,
+  type AnyColumn,
   type SQL,
 } from 'drizzle-orm'
 import { alias } from 'drizzle-orm/pg-core'
@@ -28,14 +35,27 @@ import {
   curriculumSubjects,
   subjects,
 } from '../../../catalog/infrastructure/persistence/catalog.schema'
-import { users } from '../../../identity/infrastructure/persistence/identity.schema'
+import {
+  courseModerators,
+  moderatorRequests,
+  userRoles,
+  users,
+} from '../../../identity/infrastructure/persistence/identity.schema'
 import type { Message, Viewer } from '../../domain/message'
 import type {
+  CourseScope,
   ForumRepositories,
   ForumUnitOfWork,
   MessageRow,
 } from '../../domain/ports'
-import { messageLikes, messageSubjectMentions, messages } from './forum.schema'
+import {
+  messageLikes,
+  messageReports,
+  messageSubjectMentions,
+  messages,
+  moderationActions,
+  userCourseRestrictions,
+} from './forum.schema'
 
 type MessageRecord = typeof messages.$inferSelect
 
@@ -436,8 +456,259 @@ function forumRepositories(db: Executor): ForumRepositories {
           }))
       },
     },
+    reports: {
+      async insert(report) {
+        const rows = await db
+          .insert(messageReports)
+          .values(report)
+          .onConflictDoNothing()
+          .returning({ id: messageReports.id })
+        return rows.length > 0
+      },
+      async openReporters(messageId) {
+        const [row] = await db
+          .select({
+            total: sql<number>`count(distinct ${messageReports.reporterId})::int`,
+          })
+          .from(messageReports)
+          .where(
+            and(
+              eq(messageReports.messageId, messageId),
+              eq(messageReports.status, 'OPEN'),
+            ),
+          )
+        return row?.total ?? 0
+      },
+      async resolveOpen(messageId, status, by, at) {
+        const rows = await db
+          .update(messageReports)
+          .set({ status, resolvedBy: by, resolvedAt: at })
+          .where(
+            and(
+              eq(messageReports.messageId, messageId),
+              eq(messageReports.status, 'OPEN'),
+            ),
+          )
+          .returning({ id: messageReports.id })
+        return rows.length
+      },
+    },
+    moderationLog: {
+      async record(entry) {
+        await db.insert(moderationActions).values(entry)
+      },
+    },
+    restrictions: {
+      async active(userId, courseId, now) {
+        const [row] = await db
+          .select()
+          .from(userCourseRestrictions)
+          .where(
+            and(
+              eq(userCourseRestrictions.userId, userId),
+              eq(userCourseRestrictions.courseId, courseId),
+              activeAt(now),
+            ),
+          )
+          .orderBy(desc(userCourseRestrictions.createdAt))
+          .limit(1)
+        return row ?? null
+      },
+      async findById(id) {
+        const [row] = await db
+          .select()
+          .from(userCourseRestrictions)
+          .where(eq(userCourseRestrictions.id, id))
+        return row ?? null
+      },
+      async save(restriction) {
+        await db
+          .insert(userCourseRestrictions)
+          .values(restriction)
+          .onConflictDoUpdate({
+            target: userCourseRestrictions.id,
+            set: { liftedAt: restriction.liftedAt },
+          })
+      },
+    },
+    moderation: {
+      async queue(scope, limit) {
+        const rows = await db
+          .select({
+            report: messageReports,
+            message: messages,
+            authorName: authors.name,
+            course: { id: courses.id, slug: courses.slug, name: courses.name },
+          })
+          .from(messageReports)
+          .innerJoin(messages, eq(messages.id, messageReports.messageId))
+          .innerJoin(courses, eq(courses.id, messages.courseId))
+          .leftJoin(authors, eq(authors.id, messages.authorId))
+          .where(
+            and(
+              eq(messageReports.status, 'OPEN'),
+              inScope(messages.courseId, scope),
+            ),
+          )
+          .orderBy(asc(messageReports.createdAt))
+        const messageIds = [...new Set(rows.map((row) => row.message.id))]
+        // Oculta à mão (HIDE_MESSAGE) não conta como automática
+        const hiddenByHand = new Set(
+          messageIds.length === 0
+            ? []
+            : (
+                await db
+                  .select({ id: moderationActions.targetMessageId })
+                  .from(moderationActions)
+                  .where(
+                    and(
+                      eq(moderationActions.action, 'HIDE_MESSAGE'),
+                      inArray(moderationActions.targetMessageId, messageIds),
+                    ),
+                  )
+              ).map((row) => row.id),
+        )
+        const items = new Map<string, ReportQueueItem>()
+        for (const { report, message, authorName, course } of rows) {
+          const item: ReportQueueItem = items.get(message.id) ?? {
+            messageId: message.id,
+            rootId: message.rootId ?? message.id,
+            course,
+            author:
+              message.authorId && authorName
+                ? { id: message.authorId, name: authorName }
+                : null,
+            snapshot: report.contentSnapshot,
+            status: message.status as MessageStatus,
+            autoHidden:
+              message.status === 'HIDDEN' && !hiddenByHand.has(message.id),
+            reasons: [],
+            details: [],
+            reportCount: 0,
+            firstReportedAt: report.createdAt.toISOString(),
+          }
+          const reason = item.reasons.find(
+            (entry) => entry.reason === report.reason,
+          )
+          if (reason) reason.count++
+          else item.reasons.push({ reason: report.reason, count: 1 })
+          if (report.details) item.details.push(report.details)
+          item.reportCount++
+          items.set(message.id, item)
+        }
+        // As ocultas sozinhas primeiro, depois as mais denunciadas
+        return [...items.values()]
+          .sort(
+            (a, b) =>
+              Number(b.autoHidden) - Number(a.autoHidden) ||
+              b.reportCount - a.reportCount ||
+              a.firstReportedAt.localeCompare(b.firstReportedAt),
+          )
+          .slice(0, limit)
+      },
+      activeRestrictions: (scope, now) =>
+        restrictionViews(
+          and(activeAt(now), inScope(userCourseRestrictions.courseId, scope))!,
+        ),
+      async restrictionView(id) {
+        const [view] = await restrictionViews(eq(userCourseRestrictions.id, id))
+        return view ?? null
+      },
+      async openReportCount(scope) {
+        const [row] = await db
+          .select({
+            total: sql<number>`count(distinct ${messageReports.messageId})::int`,
+          })
+          .from(messageReports)
+          .innerJoin(messages, eq(messages.id, messageReports.messageId))
+          .where(
+            and(
+              eq(messageReports.status, 'OPEN'),
+              inScope(messages.courseId, scope),
+            ),
+          )
+        return row?.total ?? 0
+      },
+      async pendingModeratorRequests() {
+        const [row] = await db
+          .select({ total: count() })
+          .from(moderatorRequests)
+          .where(eq(moderatorRequests.status, 'PENDING'))
+        return row?.total ?? 0
+      },
+      async target(userId, courseId) {
+        const [user] = await db
+          .select({ id: users.id })
+          .from(users)
+          .where(eq(users.id, userId))
+        if (!user) return null
+        const [admin] = await db
+          .select({ role: userRoles.role })
+          .from(userRoles)
+          .where(and(eq(userRoles.userId, userId), eq(userRoles.role, 'ADMIN')))
+        const [moderator] = await db
+          .select({ id: courseModerators.id })
+          .from(courseModerators)
+          .where(
+            and(
+              eq(courseModerators.userId, userId),
+              eq(courseModerators.courseId, courseId),
+              isNull(courseModerators.revokedAt),
+            ),
+          )
+        return {
+          userId,
+          isAdmin: Boolean(admin),
+          moderatesCourse: Boolean(moderator),
+        }
+      },
+    },
+  }
+
+  async function restrictionViews(where: SQL): Promise<RestrictionView[]> {
+    const rows = await db
+      .select({
+        restriction: userCourseRestrictions,
+        userName: users.name,
+        creatorName: creators.name,
+        course: { id: courses.id, slug: courses.slug, name: courses.name },
+      })
+      .from(userCourseRestrictions)
+      .innerJoin(users, eq(users.id, userCourseRestrictions.userId))
+      .innerJoin(courses, eq(courses.id, userCourseRestrictions.courseId))
+      .leftJoin(creators, eq(creators.id, userCourseRestrictions.createdBy))
+      .where(where)
+      .orderBy(desc(userCourseRestrictions.createdAt))
+    return rows.map(({ restriction, userName, creatorName, course }) => ({
+      id: restriction.id,
+      user: { id: restriction.userId, name: userName },
+      course,
+      type: restriction.type,
+      reason: restriction.reason,
+      createdBy:
+        restriction.createdBy && creatorName
+          ? { id: restriction.createdBy, name: creatorName }
+          : null,
+      createdAt: restriction.createdAt.toISOString(),
+      expiresAt: restriction.expiresAt?.toISOString() ?? null,
+    }))
   }
 }
+
+const creators = alias(users, 'creators')
+
+// Restrição em vigor: não suspensa e dentro do prazo
+const activeAt = (now: Date) =>
+  and(
+    isNull(userCourseRestrictions.liftedAt),
+    or(
+      isNull(userCourseRestrictions.expiresAt),
+      gt(userCourseRestrictions.expiresAt, now),
+    ),
+  )
+
+const inScope = (column: AnyColumn, scope: CourseScope) =>
+  scope === 'ALL' ? undefined : inArray(column, [...scope])
 
 @Injectable()
 export class DrizzleForumUnitOfWork implements ForumUnitOfWork {
