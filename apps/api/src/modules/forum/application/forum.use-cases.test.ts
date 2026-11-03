@@ -291,5 +291,22 @@ describe('busca de disciplinas para o @', () => {
       ['ECN0012', false],
     ])
     expect(await search.execute('eng', { q: '@', limit: 8 })).toEqual([])
+    // Quem começa com o termo vem antes de quem só o contém
+    const { search: other, store } = setup()
+    store.subjects.push({
+      id: 's-ap',
+      code: 'ECO0100',
+      name: 'Análise de Sistemas',
+      slug: 'ap',
+      semesterIn: { [COURSE]: 9 },
+    })
+    store.subjects.find((item) => item.id === 's-so')!.semesterIn = {
+      [COURSE]: 5,
+    }
+    expect(
+      (await other.execute('eng', { q: 'sist', limit: 8 })).map(
+        (item) => item.code,
+      ),
+    ).toEqual(['ECO0036', 'ECO0100'])
   })
 })

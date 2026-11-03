@@ -1,14 +1,18 @@
 'use client'
 
-import { NewspaperIcon, SquaresFourIcon } from '@phosphor-icons/react'
+import {
+  ChatCircleIcon,
+  NewspaperIcon,
+  SquaresFourIcon,
+} from '@phosphor-icons/react'
 import Link from 'next/link'
 
 import { useFeatures } from '@/contexts/features'
 import { useHubUnread } from '@/lib/hub/use-hub'
 import { cn } from '@/lib/utils'
 
-// Abas do curso (mockup Hub). O Fórum entra na fase 11. Sem a API, só existe
-// a grade e as abas somem.
+// Abas do curso (mockups Hub e Forum). Sem a API, só existe a grade e as
+// abas somem.
 export function CourseTabs({
   courseSlug,
   curriculumSlug,
@@ -17,7 +21,7 @@ export function CourseTabs({
 }: {
   courseSlug: string
   curriculumSlug?: string
-  current: 'grade' | 'hub'
+  current: 'grade' | 'hub' | 'forum'
   className?: string
 }) {
   const features = useFeatures()
@@ -39,6 +43,12 @@ export function CourseTabs({
       href: `/${courseSlug}/hub`,
       icon: <NewspaperIcon className="size-4" />,
       badge: current !== 'hub' && unread > 0 ? unread : 0,
+    },
+    {
+      id: 'forum',
+      label: 'Fórum',
+      href: `/${courseSlug}/forum`,
+      icon: <ChatCircleIcon className="size-4" />,
     },
   ]
 

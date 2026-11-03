@@ -11,3 +11,20 @@ export function extractMentions(text: string): string[] {
   }
   return [...codes]
 }
+
+export type MentionSegment = { text: string } | { code: string }
+
+// O texto em trechos e tokens @CÓDIGO, na ordem, para a leitura trocar o
+// token por um chip. Usa o mesmo padrão de extractMentions.
+export function splitMentions(text: string): MentionSegment[] {
+  const segments: MentionSegment[] = []
+  let last = 0
+  for (const match of text.matchAll(MENTION_PATTERN)) {
+    const start = match.index
+    if (start > last) segments.push({ text: text.slice(last, start) })
+    segments.push({ code: match[1] as string })
+    last = start + match[0].length
+  }
+  if (last < text.length) segments.push({ text: text.slice(last) })
+  return segments
+}

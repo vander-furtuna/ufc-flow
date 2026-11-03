@@ -1,5 +1,6 @@
 import {
   CalendarCheckIcon,
+  ChatCircleIcon,
   CalendarDotsIcon,
   ForkKnifeIcon,
   GraduationCapIcon,
@@ -33,7 +34,12 @@ export function hubHref(baseHref?: string) {
   return courseSlug ? `/${courseSlug}/hub` : '/'
 }
 
-// O Fórum entra aqui na fase 11
+// Fórum do curso a partir do endereço da grade
+export function forumHref(baseHref?: string) {
+  const courseSlug = baseHref?.split('/')[1]
+  return courseSlug ? `/${courseSlug}/forum` : '/'
+}
+
 export const navItems: NavItem[] = [
   {
     id: 'grade',
@@ -51,6 +57,16 @@ export const navItems: NavItem[] = [
     group: 'course',
     requiresCourse: true,
     requiresApi: true,
+  },
+  {
+    id: 'forum',
+    label: 'Fórum do curso',
+    icon: <ChatCircleIcon weight="bold" className="size-6 text-inherit" />,
+    href: forumHref,
+    group: 'course',
+    requiresCourse: true,
+    requiresApi: true,
+    requiresLogin: true,
   },
   {
     id: 'agenda',

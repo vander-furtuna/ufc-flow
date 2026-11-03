@@ -1,18 +1,15 @@
 'use client'
 
 import type { PostStatus, PostType } from '@ufc-flow/contracts'
-import {
-  CaretUpDownIcon,
-  HourglassIcon,
-  MapPinIcon,
-  PlusIcon,
-  ShieldCheckIcon,
-} from '@phosphor-icons/react'
+import { PlusIcon, ShieldCheckIcon } from '@phosphor-icons/react'
 import Link from 'next/link'
 import { useState } from 'react'
 
 import { AppSearchBar } from '@/components/app-search-bar'
-import { CourseTabs } from '@/components/course-tabs'
+import {
+  CourseHeading,
+  type CourseHeadingData,
+} from '@/components/course-heading'
 import { Header } from '@/components/header'
 import { ImportantLinks, NextDeadlines } from '@/components/hub/hub-aside'
 import { PinnedPost, PostCard } from '@/components/hub/post-card'
@@ -27,22 +24,9 @@ import { useDebounce } from '@/hooks/use-debounce'
 import { useCanManageHub, useHubFeed, useMarkHubRead } from '@/lib/hub/use-hub'
 import { cn } from '@/lib/utils'
 
-export type HubCourse = {
-  slug: string
-  name: string
-  curriculum: { slug: string; period: string; city: string } | null
-}
+export type HubCourse = CourseHeadingData
 
 const STATUSES: PostStatus[] = ['PUBLISHED', 'DRAFT', 'ARCHIVED']
-
-function Pill({ icon, label }: { icon: React.ReactNode; label: string }) {
-  return (
-    <span className="inline-flex h-8 items-center gap-1.5 rounded-full border bg-accent px-2.5 text-sm font-medium">
-      {icon}
-      {label}
-    </span>
-  )
-}
 
 // Hub do curso (mockups Hub e Mobile-Hub). Público: o anônimo lê o feed; a
 // moderação vê também rascunhos e arquivados e escreve.
@@ -81,40 +65,7 @@ export function HubPage({ course }: { course: HubCourse }) {
       <div className="flex w-full max-w-6xl flex-col gap-6 sm:gap-8">
         <Header />
 
-        <div className="flex flex-col gap-3">
-          <span className="text-xs font-medium uppercase">Curso:</span>
-          <div className="flex items-start justify-between gap-2 sm:justify-start">
-            <h1 className="font-clash text-3xl font-semibold text-accent-foreground">
-              {course.name}
-            </h1>
-            <Link
-              href="/cursos"
-              aria-label="Trocar curso"
-              className="flex size-11 shrink-0 items-center justify-center rounded-xl text-muted-foreground hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
-            >
-              <CaretUpDownIcon className="size-5" />
-            </Link>
-          </div>
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            {course.curriculum && (
-              <div className="flex flex-wrap gap-2">
-                <Pill
-                  icon={<HourglassIcon aria-hidden className="size-4" />}
-                  label={course.curriculum.period}
-                />
-                <Pill
-                  icon={<MapPinIcon aria-hidden className="size-4" />}
-                  label={course.curriculum.city}
-                />
-              </div>
-            )}
-            <CourseTabs
-              courseSlug={course.slug}
-              curriculumSlug={course.curriculum?.slug}
-              current="hub"
-            />
-          </div>
-        </div>
+        <CourseHeading course={course} current="hub" />
 
         <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_18.5rem]">
           <section aria-label="Posts" className="flex min-w-0 flex-col gap-5">

@@ -25,6 +25,15 @@ type Subject = {
   semesterIn?: Record<string, number>
 }
 
+// Começa com o termo (0), uma palavra começa com ele (1) ou só contém (2)
+const rank = (subject: { code: string; name: string }, query: string) => {
+  const name = normalizeSearchText(subject.name)
+  if (subject.code.toLowerCase().startsWith(query) || name.startsWith(query)) {
+    return 0
+  }
+  return name.includes(` ${query}`) ? 1 : 2
+}
+
 const clone = <T>(value: T): T => structuredClone(value)
 
 const newer = (a: Message, b: Message) =>
@@ -260,6 +269,7 @@ export class InMemoryForum implements ForumUnitOfWork {
             .sort(
               (a, b) =>
                 Number(b.inCurriculum) - Number(a.inCurriculum) ||
+                rank(a, query) - rank(b, query) ||
                 a.name.localeCompare(b.name),
             )
             .slice(0, limit),
