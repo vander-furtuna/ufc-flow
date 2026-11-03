@@ -45,7 +45,10 @@ vi.mock('sonner', () => ({ toast: { success: vi.fn(), error: vi.fn() } }))
 
 import { NotificationBell } from './notification-bell'
 
-const AT = new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString()
+// Meio-dia local: "há 2 h" não pode cair no dia anterior, como acontecia
+// quando o CI rodava de madrugada
+const NOW = new Date(2026, 10, 2, 12, 0, 0)
+const AT = new Date(NOW.getTime() - 2 * 60 * 60 * 1000).toISOString()
 
 const changed: NotificationView = {
   id: '0b6f9a54-3c1e-4c55-9d43-0f8f1d1c2a10',
@@ -78,6 +81,7 @@ function setup() {
 }
 
 beforeEach(() => {
+  vi.useFakeTimers({ toFake: ['Date'], now: NOW })
   vi.clearAllMocks()
   mocks.session.data = { id: 'u1', roles: [], moderatedCourses: [] }
   mocks.isMobile = false
@@ -91,7 +95,10 @@ beforeEach(() => {
     data: undefined,
   })
 })
-afterEach(cleanup)
+afterEach(() => {
+  cleanup()
+  vi.useRealTimers()
+})
 
 describe('NotificationBell', () => {
   it('não aparece no modo anônimo', () => {
