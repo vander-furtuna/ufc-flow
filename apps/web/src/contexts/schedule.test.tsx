@@ -170,14 +170,17 @@ describe('ScheduleProvider na conta', () => {
     )
     await waitFor(() => expect(probe()).toContain('Plano A'))
     act(() => current.api.addClassToSchedule(section))
-    await waitFor(() => expect(probe()).toContain('[account/error]'))
-    expect(probe()).not.toContain('SBL0056')
-    expect(mocks.toastError).toHaveBeenCalledWith(
-      'Não foi possível salvar na sua conta',
-      expect.objectContaining({
-        description: expect.stringContaining('ainda não foram coletadas'),
-      }),
+    // O toast é o sinal estável da recusa: o status "error" pode voltar a
+    // "idle" se a lista for relida logo depois (acontecia no CI, mais lento)
+    await waitFor(() =>
+      expect(mocks.toastError).toHaveBeenCalledWith(
+        'Não foi possível salvar na sua conta',
+        expect.objectContaining({
+          description: expect.stringContaining('ainda não foram coletadas'),
+        }),
+      ),
     )
+    await waitFor(() => expect(probe()).not.toContain('SBL0056'))
   })
 
   it('dispensar o aviso grava a turma com acknowledgeChange', async () => {
