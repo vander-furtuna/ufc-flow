@@ -12,6 +12,7 @@ import { CatalogModule } from './modules/catalog/catalog.module'
 import { ClassesModule } from './modules/classes/classes.module'
 import { FilesModule } from './modules/files/files.module'
 import { HubModule } from './modules/hub/hub.module'
+import { LinkPageModule } from './modules/link-page/link-page.module'
 import { IdentityModule } from './modules/identity/identity.module'
 import { NotificationsModule } from './modules/notifications/notifications.module'
 import { PlanningModule } from './modules/planning/planning.module'
@@ -39,6 +40,7 @@ export class AppModule {
         FilesModule,
         AcademicRecordModule,
         HubModule,
+        LinkPageModule,
       ],
       controllers: [HealthController],
       providers: [{ provide: APP_GUARD, useClass: AppThrottlerGuard }],
