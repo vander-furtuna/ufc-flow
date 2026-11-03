@@ -191,6 +191,71 @@ export class EventNotifier {
             })),
           }
         }
+        case 'MessageReplied': {
+          const course = await directory.course(event.courseId)
+          const data = {
+            messageId: event.messageId,
+            rootId: event.rootId,
+            courseSlug: course?.slug ?? '',
+            courseName: course?.name ?? '',
+            authorName: (await directory.userName(event.authorId)) ?? '',
+            excerpt: event.excerpt,
+          }
+          const base = {
+            actorId: event.authorId,
+            courseId: event.courseId,
+            entityType: 'message',
+            entityId: event.messageId,
+          }
+          const drafts: NotificationDraft[] = []
+          if (event.parentAuthorId) {
+            drafts.push({
+              ...base,
+              userId: event.parentAuthorId,
+              type: 'FORUM_REPLY',
+              groupKey: null,
+              data,
+            })
+          }
+          // Quem já escreveu na conversa; uma por conversa enquanto não lida
+          for (const userId of event.threadAuthorIds) {
+            if (userId === event.parentAuthorId) continue
+            drafts.push({
+              ...base,
+              userId,
+              type: 'FORUM_THREAD_REPLY',
+              groupKey: `thread:${event.rootId}`,
+              data,
+            })
+          }
+          return { actorId: event.authorId, drafts }
+        }
+        case 'MessageLiked': {
+          if (!event.messageAuthorId)
+            return { actorId: event.likerId, drafts: [] }
+          const course = await directory.course(event.courseId)
+          return {
+            actorId: event.likerId,
+            drafts: [
+              {
+                userId: event.messageAuthorId,
+                type: 'FORUM_LIKES',
+                actorId: event.likerId,
+                courseId: event.courseId,
+                entityType: 'message',
+                entityId: event.messageId,
+                groupKey: `likes:${event.messageId}`,
+                data: {
+                  messageId: event.messageId,
+                  courseSlug: course?.slug ?? '',
+                  excerpt: event.excerpt,
+                  likerNames: [(await directory.userName(event.likerId)) ?? ''],
+                  likes: 1,
+                },
+              },
+            ] satisfies NotificationDraft[],
+          }
+        }
         case 'SectionsChanged':
           return {
             actorId: null,

@@ -146,6 +146,67 @@ describe('eventos viram notificações', () => {
     ])
   })
 
+  it('resposta avisa o autor e a conversa; curtidas se somam', async () => {
+    const h = harness()
+    h.store.names.set('u2', 'Bruno Lima')
+    h.store.names.set('u3', 'Carla Mendes')
+    const replied = {
+      type: 'MessageReplied' as const,
+      messageId: 'm3',
+      rootId: 'm1',
+      courseId: 'c1',
+      authorId: 'u3',
+      parentAuthorId: 'u2',
+      threadAuthorIds: ['u1', 'u2', 'u3'],
+      excerpt: 'Valeu!',
+      occurredAt: AT,
+    }
+    await h.notifier.handle(replied)
+    expect(of(h, 'u2')).toEqual([
+      expect.objectContaining({
+        type: 'FORUM_REPLY',
+        data: expect.objectContaining({
+          authorName: 'Carla Mendes',
+          courseSlug: 'eng-comp',
+          rootId: 'm1',
+        }),
+      }),
+    ])
+    expect(of(h, 'u1').map((item) => item.type)).toEqual(['FORUM_THREAD_REPLY'])
+    // Quem respondeu não é avisado da própria resposta
+    expect(of(h, 'u3')).toEqual([])
+    // Outra resposta na conversa junta com a não lida
+    await h.notifier.handle({ ...replied, messageId: 'm4', authorId: 'u2' })
+    expect(of(h, 'u1')).toHaveLength(1)
+
+    const liked = {
+      type: 'MessageLiked' as const,
+      messageId: 'm1',
+      courseId: 'c1',
+      likerId: 'u2',
+      messageAuthorId: 'u1',
+      excerpt: 'Prova de SO?',
+      occurredAt: AT,
+    }
+    await h.notifier.handle(liked)
+    await h.notifier.handle({ ...liked, likerId: 'u3' })
+    expect(of(h, 'u1').filter((item) => item.type === 'FORUM_LIKES')).toEqual([
+      expect.objectContaining({
+        data: expect.objectContaining({
+          likes: 2,
+          likerNames: ['Carla Mendes', 'Bruno Lima'],
+        }),
+      }),
+    ])
+    // Conta excluída: ninguém para avisar
+    await h.notifier.handle({
+      ...liked,
+      messageId: 'm9',
+      messageAuthorId: null,
+    })
+    expect(of(h, 'u1').filter((item) => item.entityId === 'm9')).toEqual([])
+  })
+
   it('mudança na coleta avisa quem tem a turma na agenda', async () => {
     const h = harness()
     h.store.holders = [

@@ -121,6 +121,39 @@ describe('describeNotification', () => {
       '/admin/cursos?sigaa=657494',
     )
   })
+
+  it('fórum: respostas e curtidas levam à conversa', () => {
+    const reply = {
+      messageId: ID,
+      rootId: ID,
+      courseSlug: 'eng-comp',
+      courseName: 'Engenharia de Computação',
+      authorName: 'Carla Mendes',
+      excerpt: 'Cobrou Round Robin',
+    }
+    expect(text(notification('FORUM_REPLY', reply))).toBe(
+      '**Carla Mendes** respondeu sua mensagem: “Cobrou Round Robin”',
+    )
+    expect(text(notification('FORUM_THREAD_REPLY', reply))).toBe(
+      '**Carla Mendes** respondeu numa conversa em que você está: “Cobrou Round Robin”',
+    )
+    const likes = (count: number) =>
+      notification('FORUM_LIKES', {
+        messageId: ID,
+        courseSlug: 'eng-comp',
+        excerpt: 'Prova de SO?',
+        likerNames: ['Ana'],
+        likes: count,
+      })
+    expect(text(likes(1))).toBe('**Ana** curtiu sua mensagem: “Prova de SO?”')
+    expect(text(likes(5))).toBe(
+      '**Ana** e mais 4 curtiram sua mensagem: “Prova de SO?”',
+    )
+    expect(describeNotification(likes(1))).toMatchObject({
+      category: 'Fórum',
+      href: `/eng-comp/forum/${ID}`,
+    })
+  })
 })
 
 describe('textos auxiliares', () => {

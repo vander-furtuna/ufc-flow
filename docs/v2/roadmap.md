@@ -253,8 +253,8 @@ flowchart LR
 **Objetivo:** fórum estilo X por curso, com menções e moderação. Modelagem: Fórum do curso. Telas: `Forum`, `Mobile-Forum`, `Mobile-Forum-Escrever`, `Forum-Mobile`, `Admin-Moderacao`, `Mobile-Admin-Moderacao`.
 
 - [ ] `messages`, `message_likes`, `message_subject_mentions`, `message_reports`, `moderation_actions` e `user_course_restrictions`.
-- [ ] Timeline de mensagens raiz com cursor `(created_at, id)`, conversa com a cadeia até a raiz e contadores atualizados na mesma transação.
-- [ ] "N novas mensagens" por polling, edição em até 15 min e regras de exclusão da própria mensagem.
+- [x] Timeline de mensagens raiz com cursor `(created_at, id)`, conversa com a cadeia até a raiz e contadores atualizados na mesma transação.
+- [x] "N novas mensagens" por polling, edição em até 15 min e regras de exclusão da própria mensagem.
 - [ ] Popover de `@`:
   - Busca em `GET /courses/:course/subjects/search` com trigram e debounce de 150 ms.
   - Token `@CÓDIGO` gravado no texto.

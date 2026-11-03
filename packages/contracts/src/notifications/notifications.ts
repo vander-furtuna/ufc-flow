@@ -9,7 +9,8 @@ import {
   uuidSchema,
 } from '../common/primitives'
 
-// Tipos da fase 7; os do fórum entram na fase 11 (modelagem, Notificações)
+// Tipos da fase 7 e os do fórum (fase 11); os da moderação do fórum entram
+// no PR 11.2 (modelagem, Notificações)
 export const notificationTypeSchema = z
   .enum([
     'MODERATOR_REQUEST_CREATED',
@@ -18,6 +19,9 @@ export const notificationTypeSchema = z
     'SCHEDULE_SECTION_REMOVED',
     'SCRAPE_FAILED',
     'IMPORT_PENDING',
+    'FORUM_REPLY',
+    'FORUM_THREAD_REPLY',
+    'FORUM_LIKES',
   ])
   .meta({ id: 'NotificationType' })
 
@@ -33,6 +37,17 @@ const sectionData = z.object({
   curriculumSlug: slugSchema,
   // Agendas da pessoa que têm a turma
   scheduleNames: z.array(z.string()),
+})
+
+// Resposta no fórum: o trecho é do momento, para a notificação não depender
+// de a mensagem continuar igual
+const forumReplyData = z.object({
+  messageId: uuidSchema,
+  rootId: uuidSchema,
+  courseSlug: slugSchema,
+  courseName: z.string(),
+  authorName: z.string(),
+  excerpt: z.string(),
 })
 
 const base = {
@@ -85,6 +100,29 @@ export const notificationSchema = z
         error: z.string(),
         // Falhas seguidas enquanto a notificação não foi lida
         failures: z.int().positive(),
+      }),
+    }),
+    z.object({
+      ...base,
+      type: z.literal('FORUM_REPLY'),
+      data: forumReplyData,
+    }),
+    z.object({
+      ...base,
+      type: z.literal('FORUM_THREAD_REPLY'),
+      data: forumReplyData,
+    }),
+    z.object({
+      ...base,
+      type: z.literal('FORUM_LIKES'),
+      data: z.object({
+        messageId: uuidSchema,
+        courseSlug: slugSchema,
+        excerpt: z.string(),
+        // As últimas pessoas que curtiram ("Ana e mais 4")
+        likerNames: z.array(z.string()).max(3),
+        // Curtidas somadas enquanto a notificação não foi lida
+        likes: z.int().positive(),
       }),
     }),
     z.object({

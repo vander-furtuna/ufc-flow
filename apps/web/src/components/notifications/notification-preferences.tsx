@@ -42,6 +42,23 @@ function groupsFor(isAdmin: boolean, isModerator: boolean): Group[] {
       ],
     },
     {
+      title: 'Fórum',
+      options: [
+        {
+          type: 'FORUM_REPLY' as const,
+          label: 'Respostas às minhas mensagens',
+        },
+        {
+          type: 'FORUM_THREAD_REPLY' as const,
+          label: 'Respostas nas conversas em que estou',
+        },
+        {
+          type: 'FORUM_LIKES' as const,
+          label: 'Curtidas nas minhas mensagens',
+        },
+      ],
+    },
+    {
       title: 'Moderação',
       options: [
         {
