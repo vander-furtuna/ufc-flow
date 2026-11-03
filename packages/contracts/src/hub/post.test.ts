@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { postInputSchema } from './post'
+import { hubQuerySchema, postInputSchema } from './post'
 
 const base = {
   title: 'Semana da Computação',
@@ -63,7 +63,7 @@ const pathsOf = (value: unknown) =>
 
 describe('postInputSchema', () => {
   it.each(Object.entries(examples))('aceita %s', (_, value) => {
-    expect(postInputSchema.parse(value)).toEqual(value)
+    expect(postInputSchema.parse(value)).toEqual({ ...value, imageFileIds: [] })
   })
 
   it('recusa tipo desconhecido', () => {
@@ -119,5 +119,35 @@ describe('postInputSchema', () => {
       ['title'],
       ['bodyMd'],
     ])
+  })
+
+  it('resumo e local vazios viram nulo; galeria até 10 imagens', () => {
+    const parsed = postInputSchema.parse({
+      ...examples.NEWS,
+      summary: '  ',
+      location: '',
+    })
+    expect(parsed).toMatchObject({ summary: null, location: null })
+    const id = '0b6f9a54-3c1e-4c55-9d43-0f8f1d1c2a10'
+    expect(
+      pathsOf({ ...examples.NEWS, imageFileIds: Array(11).fill(id) }),
+    ).toEqual([['imageFileIds']])
+    expect(pathsOf({ ...examples.NEWS, title: 'x'.repeat(141) })).toEqual([
+      ['title'],
+    ])
+  })
+})
+
+describe('hubQuerySchema', () => {
+  it('publicados por padrão e próximos como booleano', () => {
+    expect(hubQuerySchema.parse({})).toMatchObject({
+      status: 'PUBLISHED',
+      limit: 20,
+    })
+    expect(
+      hubQuerySchema.parse({ type: 'EVENT', upcoming: 'true' }).upcoming,
+    ).toBe(true)
+    expect(hubQuerySchema.safeParse({ upcoming: 'sim' }).success).toBe(false)
+    expect(hubQuerySchema.safeParse({ q: 'a' }).success).toBe(false)
   })
 })

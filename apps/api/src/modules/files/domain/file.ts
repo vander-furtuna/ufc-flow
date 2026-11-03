@@ -18,6 +18,8 @@ type FilePolicy = {
   maxBytes: number
   // Arquivo de um curso (posts e página de links): exige quem o gerencia
   courseScoped: boolean
+  // Também serve a post institucional, sem curso: só admin envia assim (D82)
+  institutional?: true
 }
 
 // Regras por finalidade (modelagem, Arquivos e imagens; limites da fase 8)
@@ -33,12 +35,14 @@ export const FILE_POLICIES: Record<FilePurpose, FilePolicy> = {
     kinds: ['image'],
     maxBytes: 8 * MB,
     courseScoped: true,
+    institutional: true,
   },
   POST_IMAGE: {
     visibility: 'PUBLIC',
     kinds: ['image'],
     maxBytes: 8 * MB,
     courseScoped: true,
+    institutional: true,
   },
   CERTIFICATE: {
     visibility: 'PRIVATE',
@@ -72,11 +76,12 @@ export const PERSONAL_PURPOSES = (
 ).filter((purpose) => !FILE_POLICIES[purpose].courseScoped)
 
 // Sem dono (pessoal de conta excluída) ou sem curso (curso excluído): não é
-// mais servido e a limpeza apaga
+// mais servido e a limpeza apaga. Imagem de post sem curso pode ser de post
+// institucional e fica (D82).
 export const isOrphaned = (file: FileRecord) =>
   PERSONAL_PURPOSES.includes(file.purpose)
     ? file.ownerId === null
-    : file.courseId === null
+    : file.courseId === null && !FILE_POLICIES[file.purpose].institutional
 
 // O maior limite: o upload é recusado antes de ler tudo para a memória
 export const MAX_UPLOAD_BYTES = Math.max(
@@ -169,8 +174,11 @@ export function checkUpload(input: {
   const policy = FILE_POLICIES[input.purpose]
   if (input.actor.userId === null) throw FilesErrors.accessDenied()
   if (policy.courseScoped) {
-    if (!input.courseId) throw FilesErrors.courseRequired()
-    if (!AccessPolicy.canManageCurricula(input.actor, input.courseId)) {
+    if (!input.courseId) {
+      if (!(policy.institutional && input.actor.isAdmin)) {
+        throw FilesErrors.courseRequired()
+      }
+    } else if (!AccessPolicy.canManageCurricula(input.actor, input.courseId)) {
       throw FilesErrors.accessDenied()
     }
   } else if (input.courseId) {

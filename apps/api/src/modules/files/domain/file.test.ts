@@ -148,6 +148,16 @@ describe('checkUpload', () => {
     )
   })
 
+  it('capa e imagem de post institucional: admin envia sem curso (D82)', () => {
+    const admin = actor({ isAdmin: true })
+    for (const purpose of ['POST_COVER', 'POST_IMAGE'] as const) {
+      expect(checkUpload(upload({ purpose, actor: admin })).kind).toBe('image')
+    }
+    expect(() =>
+      checkUpload(upload({ purpose: 'LINK_FILE', actor: admin })),
+    ).toThrow(expect.objectContaining({ code: 'FILE_COURSE_REQUIRED' }))
+  })
+
   it('exige login e limita 60 envios por hora', () => {
     expect(() =>
       checkUpload(upload({ actor: actor({ userId: null }) })),
@@ -198,7 +208,10 @@ describe('caminho e ciclo de vida', () => {
     expect(isOrphaned(record({ ownerId: null }))).toBe(true)
     const cover = { purpose: 'POST_COVER' as const, ownerId: null }
     expect(isOrphaned(record({ ...cover, courseId: 'c1' }))).toBe(false)
-    expect(isOrphaned(record({ ...cover, courseId: null }))).toBe(true)
+    // Capa sem curso é de post institucional, não de curso excluído (D82)
+    expect(isOrphaned(record({ ...cover, courseId: null }))).toBe(false)
+    const thumbnail = { purpose: 'LINK_THUMBNAIL' as const, ownerId: null }
+    expect(isOrphaned(record({ ...thumbnail, courseId: null }))).toBe(true)
   })
 
   it('marcar como apagado não apaga de novo', () => {

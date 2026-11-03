@@ -11,6 +11,7 @@ import { AcademicRecordModule } from './modules/academic-record/academic-record.
 import { CatalogModule } from './modules/catalog/catalog.module'
 import { ClassesModule } from './modules/classes/classes.module'
 import { FilesModule } from './modules/files/files.module'
+import { HubModule } from './modules/hub/hub.module'
 import { IdentityModule } from './modules/identity/identity.module'
 import { NotificationsModule } from './modules/notifications/notifications.module'
 import { PlanningModule } from './modules/planning/planning.module'
@@ -37,6 +38,7 @@ export class AppModule {
         NotificationsModule,
         FilesModule,
         AcademicRecordModule,
+        HubModule,
       ],
       controllers: [HealthController],
       providers: [{ provide: APP_GUARD, useClass: AppThrottlerGuard }],
