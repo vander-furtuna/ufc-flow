@@ -2,8 +2,15 @@ import { normalizeSearchText } from '@ufc-flow/academic-core'
 
 import type { CursorPosition } from '../../../../shared/domain/cursor'
 import { visibilityOf, type Message, type Viewer } from '../../domain/message'
+import {
+  isActive,
+  type Report,
+  type Restriction,
+} from '../../domain/moderation'
 import type {
+  CourseScope,
   ForumCourse,
+  ModerationRecord,
   ForumRepositories,
   ForumUnitOfWork,
   MessageRow,
@@ -43,6 +50,26 @@ export class InMemoryForum implements ForumUnitOfWork {
   courses: ForumCourse[] = []
   subjects: Subject[] = []
   names = new Map<string, string>()
+  reports: Report[] = []
+  log: ModerationRecord[] = []
+  restrictions: Restriction[] = []
+  admins = new Set<string>()
+  // curso -> moderadores
+  moderators = new Map<string, string[]>()
+  pendingRequests = 0
+
+  private inScope(scope: CourseScope, courseId: string) {
+    return scope === 'ALL' || scope.includes(courseId)
+  }
+
+  private course(id: string) {
+    const course = this.courses.find((item) => item.id === id)!
+    return { id: course.id, slug: course.slug, name: course.name }
+  }
+
+  private person(id: string | null) {
+    return id ? { id, name: this.names.get(id) ?? '' } : null
+  }
 
   private row(message: Message, viewerId: string | null): MessageRow {
     const parent = message.parentId
@@ -237,6 +264,167 @@ export class InMemoryForum implements ForumUnitOfWork {
             )
             .slice(0, limit),
       },
+      reports: {
+        insert: async (report) => {
+          if (
+            this.reports.some(
+              (item) =>
+                item.messageId === report.messageId &&
+                item.reporterId === report.reporterId,
+            )
+          ) {
+            return false
+          }
+          this.reports.push(clone(report))
+          return true
+        },
+        openReporters: async (messageId) =>
+          new Set(
+            this.reports
+              .filter(
+                (item) =>
+                  item.messageId === messageId && item.status === 'OPEN',
+              )
+              .map((item) => item.reporterId),
+          ).size,
+        resolveOpen: async (messageId, status, by, at) => {
+          let closed = 0
+          for (const report of this.reports) {
+            if (report.messageId === messageId && report.status === 'OPEN') {
+              Object.assign(report, { status, resolvedBy: by, resolvedAt: at })
+              closed++
+            }
+          }
+          return closed
+        },
+      },
+      moderationLog: {
+        record: async (entry) => {
+          this.log.push(clone(entry))
+        },
+      },
+      restrictions: {
+        active: async (userId, courseId, now) =>
+          clone(
+            this.restrictions.find(
+              (item) =>
+                item.userId === userId &&
+                item.courseId === courseId &&
+                isActive(item, now),
+            ) ?? null,
+          ),
+        findById: async (id) =>
+          clone(this.restrictions.find((item) => item.id === id) ?? null),
+        save: async (restriction) => {
+          this.restrictions = [
+            ...this.restrictions.filter((item) => item.id !== restriction.id),
+            clone(restriction),
+          ]
+        },
+      },
+      moderation: {
+        queue: async (scope, limit) => {
+          const open = this.reports.filter((item) => item.status === 'OPEN')
+          const ids = [...new Set(open.map((item) => item.messageId))]
+          return ids
+            .map((id) => {
+              const message = this.messages.get(id)!
+              const reports = open
+                .filter((item) => item.messageId === id)
+                .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime())
+              const reasons = new Map<string, number>()
+              for (const report of reports) {
+                reasons.set(
+                  report.reason,
+                  (reasons.get(report.reason) ?? 0) + 1,
+                )
+              }
+              return {
+                message,
+                item: {
+                  messageId: id,
+                  rootId: message.rootId ?? message.id,
+                  course: this.course(message.courseId),
+                  author: this.person(message.authorId),
+                  snapshot: reports[0]!.contentSnapshot,
+                  status: message.status,
+                  autoHidden:
+                    message.status === 'HIDDEN' &&
+                    !this.log.some(
+                      (entry) =>
+                        entry.targetMessageId === id &&
+                        entry.action === 'HIDE_MESSAGE',
+                    ),
+                  reasons: [...reasons].map(([reason, count]) => ({
+                    reason: reason as Report['reason'],
+                    count,
+                  })),
+                  details: reports.flatMap((item) =>
+                    item.details ? [item.details] : [],
+                  ),
+                  reportCount: reports.length,
+                  firstReportedAt: reports[0]!.createdAt.toISOString(),
+                },
+              }
+            })
+            .filter(({ message }) => this.inScope(scope, message.courseId))
+            .map(({ item }) => item)
+            .sort(
+              (a, b) =>
+                Number(b.autoHidden) - Number(a.autoHidden) ||
+                b.reportCount - a.reportCount,
+            )
+            .slice(0, limit)
+        },
+        activeRestrictions: async (scope, now) =>
+          this.restrictions
+            .filter(
+              (item) =>
+                isActive(item, now) && this.inScope(scope, item.courseId),
+            )
+            .map((item) => this.restrictionView(item)),
+        restrictionView: async (id) => {
+          const item = this.restrictions.find((entry) => entry.id === id)
+          return item ? this.restrictionView(item) : null
+        },
+        openReportCount: async (scope) =>
+          new Set(
+            this.reports
+              .filter(
+                (item) =>
+                  item.status === 'OPEN' &&
+                  this.inScope(
+                    scope,
+                    this.messages.get(item.messageId)!.courseId,
+                  ),
+              )
+              .map((item) => item.messageId),
+          ).size,
+        pendingModeratorRequests: async () => this.pendingRequests,
+        target: async (userId, courseId) =>
+          this.names.has(userId)
+            ? {
+                userId,
+                isAdmin: this.admins.has(userId),
+                moderatesCourse: (this.moderators.get(courseId) ?? []).includes(
+                  userId,
+                ),
+              }
+            : null,
+      },
+    }
+  }
+
+  private restrictionView(item: Restriction) {
+    return {
+      id: item.id,
+      user: this.person(item.userId)!,
+      course: this.course(item.courseId),
+      type: item.type,
+      reason: item.reason,
+      createdBy: this.person(item.createdBy),
+      createdAt: item.createdAt.toISOString(),
+      expiresAt: item.expiresAt?.toISOString() ?? null,
     }
   }
 

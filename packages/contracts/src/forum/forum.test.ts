@@ -35,6 +35,7 @@ describe('fórum', () => {
       content: null,
       status: 'REMOVED',
       removedBy: 'AUTHOR',
+      removalCategory: null,
       replyCount: 2,
       likeCount: 0,
       likedByMe: false,

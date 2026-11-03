@@ -1,11 +1,15 @@
 import type {
   MessageMention,
+  ReportQueueItem,
+  ReportStatus,
+  RestrictionView,
   SubjectSearchResult,
   TrendingSubject,
 } from '@ufc-flow/contracts'
 
 import type { CursorPosition } from '../../../shared/domain/cursor'
 import type { Message, RateLimits, Viewer } from './message'
+import type { ModerationAction, Report, Restriction } from './moderation'
 
 // Mensagem com o que a tela precisa: autor, a quem responde, curtida de quem
 // lê e as disciplinas citadas
@@ -98,11 +102,74 @@ export interface ForumCatalog {
   ): Promise<SubjectSearchResult[]>
 }
 
+export interface ReportRepository {
+  // false quando a pessoa já denunciou a mensagem
+  insert(report: Report): Promise<boolean>
+  // Pessoas diferentes com denúncia aberta na mensagem
+  openReporters(messageId: string): Promise<number>
+  // Fecha as abertas; devolve quantas
+  resolveOpen(
+    messageId: string,
+    status: Exclude<ReportStatus, 'OPEN'>,
+    by: string,
+    at: Date,
+  ): Promise<number>
+}
+
+export type ModerationRecord = {
+  id: string
+  courseId: string
+  moderatorId: string
+  action: ModerationAction
+  targetMessageId: string | null
+  targetUserId: string | null
+  reason: string
+  createdAt: Date
+}
+
+export interface ModerationLog {
+  record(entry: ModerationRecord): Promise<void>
+}
+
+export interface RestrictionRepository {
+  active(
+    userId: string,
+    courseId: string,
+    now: Date,
+  ): Promise<Restriction | null>
+  findById(id: string): Promise<Restriction | null>
+  save(restriction: Restriction): Promise<void>
+}
+
+// Cursos que a fila mostra: todos (admin) ou os moderados
+export type CourseScope = readonly string[] | 'ALL'
+
+export interface ModerationReader {
+  queue(scope: CourseScope, limit: number): Promise<ReportQueueItem[]>
+  activeRestrictions(scope: CourseScope, now: Date): Promise<RestrictionView[]>
+  restrictionView(id: string): Promise<RestrictionView | null>
+  openReportCount(scope: CourseScope): Promise<number>
+  pendingModeratorRequests(): Promise<number>
+  // Quem a moderação quer restringir, com o papel dele no curso
+  target(
+    userId: string,
+    courseId: string,
+  ): Promise<{
+    userId: string
+    isAdmin: boolean
+    moderatesCourse: boolean
+  } | null>
+}
+
 export type ForumRepositories = {
   messages: MessageRepository
   likes: LikeRepository
   reader: ForumReader
   catalog: ForumCatalog
+  reports: ReportRepository
+  moderationLog: ModerationLog
+  restrictions: RestrictionRepository
+  moderation: ModerationReader
 }
 
 export interface ForumUnitOfWork {

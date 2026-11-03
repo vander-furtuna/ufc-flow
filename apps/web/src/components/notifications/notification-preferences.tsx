@@ -56,6 +56,11 @@ function groupsFor(isAdmin: boolean, isModerator: boolean): Group[] {
           type: 'FORUM_LIKES' as const,
           label: 'Curtidas nas minhas mensagens',
         },
+        {
+          type: 'MESSAGE_MODERATED' as const,
+          label: 'Moderação das minhas mensagens',
+        },
+        { type: 'USER_RESTRICTED' as const, label: 'Restrições no fórum' },
       ],
     },
     {

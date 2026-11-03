@@ -149,6 +149,34 @@ describe('describeNotification', () => {
     expect(text(likes(5))).toBe(
       '**Ana** e mais 4 curtiram sua mensagem: “Prova de SO?”',
     )
+    expect(
+      text(
+        notification('MESSAGE_MODERATED', {
+          messageId: ID,
+          courseSlug: 'eng-comp',
+          courseName: 'Engenharia de Computação',
+          action: 'REMOVE',
+          category: 'PERSONAL_DATA',
+          excerpt: 'O número dela é',
+        }),
+      ),
+    ).toBe(
+      'Sua mensagem “O número dela é” foi removida pela moderação de **Engenharia de Computação** · dados pessoais',
+    )
+    const restricted = (lifted: boolean) =>
+      notification('USER_RESTRICTED', {
+        courseSlug: 'eng-comp',
+        courseName: 'Engenharia de Computação',
+        restriction: 'MUTE',
+        lifted,
+        expiresAt: lifted ? null : '2026-11-09T15:00:00.000Z',
+      })
+    expect(text(restricted(false))).toBe(
+      'Você foi silenciado no fórum de **Engenharia de Computação** até 09/11',
+    )
+    expect(text(restricted(true))).toBe(
+      'Sua restrição no fórum de **Engenharia de Computação** acabou',
+    )
     expect(describeNotification(likes(1))).toMatchObject({
       category: 'Fórum',
       href: `/eng-comp/forum/${ID}`,

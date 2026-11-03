@@ -60,4 +60,66 @@ export const ForumErrors = {
       'RATE_LIMITED',
       'Você está enviando rápido demais. Espere um pouco e tente de novo',
     ),
+  moderationDenied: () =>
+    new DomainError(
+      'ACCESS_DENIED',
+      'FORBIDDEN',
+      'Só a moderação do curso e admins moderam o fórum',
+    ),
+  banned: () =>
+    new DomainError(
+      'FORUM_BANNED',
+      'FORBIDDEN',
+      'Você não tem acesso ao fórum deste curso por decisão da moderação',
+    ),
+  muted: () =>
+    new DomainError(
+      'FORUM_MUTED',
+      'FORBIDDEN',
+      'Você foi silenciado no fórum deste curso e não pode escrever nem curtir',
+    ),
+  cannotReportOwn: () =>
+    new DomainError(
+      'FORUM_CANNOT_REPORT_OWN',
+      'FORBIDDEN',
+      'Não dá para denunciar a própria mensagem',
+    ),
+  alreadyReported: () =>
+    new DomainError(
+      'FORUM_ALREADY_REPORTED',
+      'CONFLICT',
+      'Você já denunciou esta mensagem',
+    ),
+  invalidModeration: () =>
+    new DomainError(
+      'FORUM_INVALID_MODERATION',
+      'CONFLICT',
+      'Esta ação não vale para a situação atual da mensagem',
+    ),
+  noOpenReports: () =>
+    new DomainError(
+      'FORUM_NO_OPEN_REPORTS',
+      'CONFLICT',
+      'A mensagem não tem denúncias abertas',
+    ),
+  cannotRestrictSelf: () =>
+    new DomainError(
+      'FORUM_CANNOT_RESTRICT_SELF',
+      'FORBIDDEN',
+      'Não dá para restringir a si',
+    ),
+  cannotRestrictStaff: () =>
+    new DomainError(
+      'FORUM_CANNOT_RESTRICT_STAFF',
+      'FORBIDDEN',
+      'Moderadores do curso e admins não podem ser restringidos',
+    ),
+  userNotFound: () =>
+    new DomainError('USER_NOT_FOUND', 'NOT_FOUND', 'Pessoa não encontrada'),
+  restrictionNotFound: () =>
+    new DomainError(
+      'RESTRICTION_NOT_FOUND',
+      'NOT_FOUND',
+      'Restrição não encontrada ou já encerrada',
+    ),
 }

@@ -230,6 +230,56 @@ export class EventNotifier {
           }
           return { actorId: event.authorId, drafts }
         }
+        case 'MessageModerated': {
+          if (!event.authorId) return { actorId: event.moderatorId, drafts: [] }
+          const course = await directory.course(event.courseId)
+          return {
+            actorId: event.moderatorId,
+            drafts: [
+              {
+                userId: event.authorId,
+                type: 'MESSAGE_MODERATED',
+                actorId: event.moderatorId,
+                courseId: event.courseId,
+                entityType: 'message',
+                entityId: event.messageId,
+                groupKey: null,
+                data: {
+                  messageId: event.messageId,
+                  courseSlug: course?.slug ?? '',
+                  courseName: course?.name ?? '',
+                  action: event.action,
+                  category: event.category,
+                  excerpt: event.excerpt,
+                },
+              },
+            ] satisfies NotificationDraft[],
+          }
+        }
+        case 'UserRestricted': {
+          const course = await directory.course(event.courseId)
+          return {
+            actorId: event.moderatorId,
+            drafts: [
+              {
+                userId: event.userId,
+                type: 'USER_RESTRICTED',
+                actorId: event.moderatorId,
+                courseId: event.courseId,
+                entityType: 'user_course_restriction',
+                entityId: event.courseId,
+                groupKey: null,
+                data: {
+                  courseSlug: course?.slug ?? '',
+                  courseName: course?.name ?? '',
+                  restriction: event.restriction,
+                  lifted: event.lifted,
+                  expiresAt: event.expiresAt?.toISOString() ?? null,
+                },
+              },
+            ] satisfies NotificationDraft[],
+          }
+        }
         case 'MessageLiked': {
           if (!event.messageAuthorId)
             return { actorId: event.likerId, drafts: [] }

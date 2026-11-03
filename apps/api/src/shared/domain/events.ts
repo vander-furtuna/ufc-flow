@@ -1,3 +1,5 @@
+import type { ReportReason } from '@ufc-flow/contracts'
+
 // Eventos de domínio publicados depois do commit. Os handlers (notificações,
 // por enquanto) rodam fora da transação e nunca afetam a ação principal: sem
 // outbox, um evento pode se perder se a API cair nesse meio (modelagem,
@@ -58,6 +60,28 @@ export type DomainEvent =
       // Quem já escreveu na conversa (FORUM_THREAD_REPLY)
       threadAuthorIds: string[]
       excerpt: string
+      occurredAt: Date
+    }
+  | {
+      type: 'MessageModerated'
+      messageId: string
+      courseId: string
+      authorId: string | null
+      // Nulo na ocultação automática por denúncias
+      moderatorId: string | null
+      action: 'HIDE' | 'REMOVE' | 'RESTORE'
+      category: ReportReason | null
+      excerpt: string
+      occurredAt: Date
+    }
+  | {
+      type: 'UserRestricted'
+      userId: string
+      courseId: string
+      moderatorId: string
+      restriction: 'MUTE' | 'BAN'
+      lifted: boolean
+      expiresAt: Date | null
       occurredAt: Date
     }
   | {

@@ -20,6 +20,19 @@ export const messageStatusSchema = z
   .enum(['VISIBLE', 'HIDDEN', 'REMOVED'])
   .meta({ id: 'MessageStatus' })
 
+// Motivo da denúncia; na remoção pela moderação, é a categoria que aparece
+// para todos ("Motivo: dados pessoais"), sem o texto do moderador
+export const reportReasonSchema = z
+  .enum([
+    'SPAM',
+    'OFFENSIVE',
+    'HARASSMENT',
+    'PERSONAL_DATA',
+    'OFF_TOPIC',
+    'OTHER',
+  ])
+  .meta({ id: 'ReportReason' })
+
 // Mensagem nova, resposta ou edição. As menções vão no texto como @CÓDIGO.
 export const messageInputSchema = z
   .object({
@@ -57,6 +70,8 @@ export const messageSchema = z
     status: messageStatusSchema,
     // Quem tirou a mensagem do ar: o próprio autor ou a moderação
     removedBy: z.enum(['AUTHOR', 'MODERATION']).nullable(),
+    // Categoria pública da remoção pela moderação
+    removalCategory: reportReasonSchema.nullable(),
     replyCount: z.int().nonnegative(),
     likeCount: z.int().nonnegative(),
     likedByMe: z.boolean(),
@@ -124,6 +139,7 @@ export const trendingSubjectSchema = z
   .meta({ id: 'TrendingSubject' })
 
 export type MessageStatus = z.infer<typeof messageStatusSchema>
+export type ReportReason = z.infer<typeof reportReasonSchema>
 export type MessageInput = z.input<typeof messageInputSchema>
 export type ParsedMessageInput = z.output<typeof messageInputSchema>
 export type MessageMention = z.infer<typeof messageMentionSchema>
