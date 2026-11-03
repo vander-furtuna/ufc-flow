@@ -439,7 +439,16 @@ function forumRepositories(db: Executor): ForumRepositories {
               WHERE course_id = ${courseId} AND is_current LIMIT 1)
           WHERE s.search_name LIKE ${`%${term}%`}
             OR s.code LIKE ${`${term.toUpperCase()}%`}
-          ORDER BY (cs.id IS NULL), s.name
+          -- EC vigente primeiro; dentro de cada grupo, código ou nome que
+          -- começa com o termo, depois uma palavra que começa com ele
+          ORDER BY (cs.id IS NULL),
+            CASE
+              WHEN s.code LIKE ${`${term.toUpperCase()}%`}
+                OR s.search_name LIKE ${`${term}%`} THEN 0
+              WHEN s.search_name LIKE ${`% ${term}%`} THEN 1
+              ELSE 2
+            END,
+            s.name
           LIMIT ${limit * 3}
         `)
         return result.rows

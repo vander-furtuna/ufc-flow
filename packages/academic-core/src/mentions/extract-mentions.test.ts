@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { extractMentions } from './extract-mentions'
+import { extractMentions, splitMentions } from './extract-mentions'
 
 describe('extractMentions', () => {
   it('extrai o código de uma menção', () => {
@@ -48,5 +48,28 @@ describe('extractMentions', () => {
 
   it('devolve lista vazia sem menções', () => {
     expect(extractMentions('Sem menções aqui, nem @ sozinho')).toEqual([])
+  })
+})
+
+describe('splitMentions', () => {
+  it('separa o texto e os tokens, na ordem', () => {
+    expect(splitMentions('A prova de @ECO0036 e (@SBL0057).')).toEqual([
+      { text: 'A prova de ' },
+      { code: 'ECO0036' },
+      { text: ' e (' },
+      { code: 'SBL0057' },
+      { text: ').' },
+    ])
+  })
+
+  it('sem menção, um trecho só; vazio, nenhum', () => {
+    expect(splitMentions('Oi, @todos')).toEqual([{ text: 'Oi, @todos' }])
+    expect(splitMentions('')).toEqual([])
+  })
+
+  it('o que extractMentions ignora continua texto', () => {
+    expect(splitMentions('e-mail ana@ECO0005.com e @ECO0005abc')).toEqual([
+      { text: 'e-mail ana@ECO0005.com e @ECO0005abc' },
+    ])
   })
 })

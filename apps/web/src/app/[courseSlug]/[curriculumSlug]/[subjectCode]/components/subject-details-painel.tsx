@@ -14,6 +14,9 @@ import { useCallback, useState } from 'react'
 import type { Branch, Subject } from '@/types/course'
 import { getGlowColor } from '@/utils/get-glow-color'
 import { toast } from 'sonner'
+import { useParams } from 'next/navigation'
+
+import { SubjectDiscussions } from '@/components/forum/subject-discussions'
 
 type SubjectDetailsPainelProps = {
   subject: Subject
@@ -29,6 +32,8 @@ export function SubjectDetailsPainel({
   onBack,
 }: SubjectDetailsPainelProps) {
   const [isInfoPanelOpen, setIsInfoPanelOpen] = useState(true)
+  const params = useParams<{ courseSlug?: string; curriculumSlug?: string }>()
+  const { courseSlug, curriculumSlug } = params
 
   const colors =
     branches
@@ -103,6 +108,17 @@ export function SubjectDetailsPainel({
             Icon={<ClockIcon weight="bold" className="size-4" />}
             label={`${subject.duration}h`}
             colors={glowColor}
+          />
+        </div>
+      )}
+
+      {isInfoPanelOpen && courseSlug && curriculumSlug && (
+        <div className="mt-3">
+          <SubjectDiscussions
+            courseSlug={courseSlug}
+            curriculumSlug={curriculumSlug}
+            code={subject.code}
+            name={subject.name}
           />
         </div>
       )}
