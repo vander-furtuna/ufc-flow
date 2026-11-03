@@ -226,7 +226,7 @@ flowchart LR
 - [x] Progresso com a exigência de complementares lida do componente `COMPLEMENTARY_ACTIVITY` e o total da D27 revisto (D40); ênfases exigidas e permitidas e máximos de grupo (D37).
 - [x] Troca de EC no mesmo curso, auditada, e transferência interna, que cria nova matrícula.
 - [ ] Lançamento de atividades com certificado (fase 8) e categorias por EC, cadastradas por moderadores. A API está no PR 9.1; as telas, no PR 9.3.
-- [ ] Minha área:
+- [x] Minha área (PR 9.2), com as telas `Minha-Area`, `Historico`, `Mobile-Minha-Area`, `Mobile-Historico`, `Mobile-Historico-Registro` e `Mobile-Navegacao`:
   - Progresso por categoria e por vertente.
   - Disciplinas cursando e liberadas para cursar.
   - Histórico filtrável por situação, com registro de disciplina em painel ou folha.
