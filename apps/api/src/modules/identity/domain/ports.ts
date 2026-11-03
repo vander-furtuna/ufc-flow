@@ -69,6 +69,8 @@ export interface UserRepository {
   updatePassword(userId: string, passwordHash: string, at: Date): Promise<void>
   setAvatar(userId: string, fileId: string | null, at: Date): Promise<void>
   rolesOf(userId: string): Promise<UserRole[]>
+  // Cursos da matrícula atual e ativa: é o que faz de alguém aluno do curso
+  enrolledCourseIds(userId: string): Promise<string[]>
   addRole(
     userId: string,
     role: UserRole,

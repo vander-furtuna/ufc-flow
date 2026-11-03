@@ -3,8 +3,8 @@ import { Inject, Injectable } from '@nestjs/common'
 import { ANONYMOUS, type Actor } from '../../../shared/domain/access-policy'
 import { IDENTITY_UOW, type IdentityUnitOfWork } from '../domain/ports'
 
-// Monta o ator da AccessPolicy a partir do usuário do token. Matrículas
-// ativas entram na fase 9; até lá ninguém é "aluno do curso".
+// Monta o ator da AccessPolicy a partir do usuário do token. "Aluno do curso"
+// é quem tem a matrícula atual e ativa nele.
 @Injectable()
 export class LoadActorUseCase {
   constructor(@Inject(IDENTITY_UOW) private readonly uow: IdentityUnitOfWork) {}
@@ -19,7 +19,7 @@ export class LoadActorUseCase {
         userId,
         isAdmin: roles.includes('ADMIN'),
         moderatedCourseIds: new Set(courses.map((course) => course.id)),
-        enrolledCourseIds: new Set(),
+        enrolledCourseIds: new Set(await users.enrolledCourseIds(userId)),
       }
     })
   }

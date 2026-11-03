@@ -3,6 +3,7 @@ import { Inject, Injectable } from '@nestjs/common'
 import {
   and,
   asc,
+  count,
   desc,
   eq,
   inArray,
@@ -19,6 +20,7 @@ import {
   mapUnique,
   type Executor,
 } from '../../../../shared/infrastructure/persistence/drizzle-helpers'
+import { studentEnrollments } from '../../../academic-record/infrastructure/persistence/academic-record.schema'
 import {
   auditLogs,
   userRoles,
@@ -31,7 +33,6 @@ import type {
   CatalogRepositories,
   CatalogUnitOfWork,
   CurriculumImport,
-  EnrollmentCounter,
 } from '../../domain/ports'
 import type { ReviewPoint } from '../../domain/review-points'
 import { subjectSlug, type Subject } from '../../domain/subject'
@@ -727,18 +728,21 @@ export function catalogRepositories(db: Executor): CatalogRepositories {
         return new Map(rows.map((row) => [row.id, row.name]))
       },
     },
-    enrollments: noEnrollmentsYet,
+    enrollments: {
+      countForCurriculum: async (curriculumId) => {
+        const [row] = await db
+          .select({ total: count() })
+          .from(studentEnrollments)
+          .where(eq(studentEnrollments.curriculumId, curriculumId))
+        return row?.total ?? 0
+      },
+    },
     audit: {
       record: async (entry) => {
         await db.insert(auditLogs).values({ ...entry, module: 'catalog' })
       },
     },
   }
-}
-
-// As matrículas chegam na fase 9; até lá nenhuma EC tem matrícula
-export const noEnrollmentsYet: EnrollmentCounter = {
-  countForCurriculum: async () => 0,
 }
 
 @Injectable()

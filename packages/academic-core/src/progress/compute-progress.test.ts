@@ -10,12 +10,14 @@ import type {
 
 const s = (code: string): RequirementExpr => ({ kind: 'subject', code })
 
-// EC pequena: 3 obrigatórias, 3 optativas, uma ênfase com subárea
+// EC pequena: 3 obrigatórias, 3 optativas, uma ênfase com subárea. Como no
+// SIGAA, as obrigatórias incluem o componente de atividades complementares
+// (ATV0001, 100 h), exigido pelas atividades lançadas (D40)
 const curriculum: ProgressCurriculum = {
-  mandatoryHours: 192,
+  mandatoryHours: 292,
   optativeHours: 128,
   maxFreeOptativeHours: 64,
-  complementaryActivityHours: 100,
+  complementaryComponentCode: 'ATV0001',
   extensionHours: 50,
   minTotalHours: 470,
   subjects: [
@@ -35,6 +37,12 @@ const curriculum: ProgressCurriculum = {
       code: 'OBR0003',
       nature: 'MANDATORY',
       workloadHours: 64,
+      extensionHours: 0,
+    },
+    {
+      code: 'ATV0001',
+      nature: 'MANDATORY',
+      workloadHours: 100,
       extensionHours: 0,
     },
     {
@@ -207,9 +215,12 @@ describe('computeProgress', () => {
         branchId: 'enfase',
         minHours: 128,
         minComponents: 3,
+        maxHours: null,
+        maxComponents: null,
         completedHours: 64,
         completedComponents: 1,
         met: false,
+        overMax: false,
       })
     })
 
@@ -228,25 +239,34 @@ describe('computeProgress', () => {
           branchId: 'enfase',
           minHours: 128,
           minComponents: 3,
+          maxHours: null,
+          maxComponents: null,
           completedHours: 128,
           completedComponents: 3,
           met: true,
+          overMax: false,
         },
         {
           branchId: 'subarea',
           minHours: 32,
           minComponents: null,
+          maxHours: null,
+          maxComponents: null,
           completedHours: 64,
           completedComponents: 2,
           met: true,
+          overMax: false,
         },
         {
           branchId: 'livre',
           minHours: null,
           minComponents: null,
+          maxHours: null,
+          maxComponents: null,
           completedHours: 0,
           completedComponents: 0,
           met: true,
+          overMax: false,
         },
       ])
     })
@@ -259,6 +279,75 @@ describe('computeProgress', () => {
       )
       const enfase = progress.branches.find((b) => b.branchId === 'enfase')
       expect(enfase).toMatchObject({ completedComponents: 2, met: false })
+    })
+  })
+
+  describe('ênfases e grupos (D37)', () => {
+    const withEmphases: ProgressCurriculum = {
+      ...curriculum,
+      minEmphases: 1,
+      maxEmphases: 2,
+      branches: [
+        {
+          id: 'enfase',
+          parentId: null,
+          minHours: 64,
+          minComponents: null,
+          type: 'EMPHASIS',
+        },
+        {
+          id: 'subarea',
+          parentId: 'enfase',
+          minHours: null,
+          minComponents: null,
+          maxComponents: 1,
+          type: 'SPECIFIC_GROUP',
+        },
+        {
+          id: 'livre',
+          parentId: null,
+          minHours: null,
+          minComponents: null,
+          type: 'SLOPE',
+        },
+      ],
+    }
+
+    it('conta as ênfases cumpridas contra o exigido e o permitido', () => {
+      const none = computeProgress(input({ curriculum: withEmphases }))
+      expect(none.emphases).toEqual({ required: 1, allowed: 2, completed: 0 })
+      const one = computeProgress(
+        input({
+          curriculum: withEmphases,
+          completedSubjects: [subject('OPT0001', 64)],
+        }),
+      )
+      expect(one.emphases.completed).toBe(1)
+    })
+
+    it('passar do máximo do grupo vira aviso, sem cortar horas', () => {
+      const progress = computeProgress(
+        input({
+          curriculum: withEmphases,
+          completedSubjects: [subject('OPT0002', 32), subject('OPT0003', 32)],
+        }),
+      )
+      expect(
+        progress.branches.find((b) => b.branchId === 'subarea'),
+      ).toMatchObject({
+        maxComponents: 1,
+        completedComponents: 2,
+        overMax: true,
+      })
+      expect(progress.optative.curriculumHours).toBe(64)
+    })
+
+    it('EC sem exigência de ênfases', () => {
+      expect(computeProgress(input()).emphases).toEqual({
+        required: null,
+        allowed: null,
+        completed: 0,
+      })
     })
   })
 
@@ -278,12 +367,65 @@ describe('computeProgress', () => {
         requiredHours: 100,
         completedHours: 95,
         met: false,
+        componentCompleted: false,
         byCategory: [
           { categoryId: 'monitoria', declaredHours: 80, countedHours: 60 },
           { categoryId: 'eventos', declaredHours: 30, countedHours: 30 },
           { categoryId: null, declaredHours: 5, countedHours: 5 },
         ],
       })
+    })
+
+    it('o componente de complementares sai das obrigatórias', () => {
+      const progress = computeProgress(
+        input({ completedSubjects: [subject('OBR0001', 64)] }),
+      )
+      expect(progress.mandatory).toEqual({
+        requiredHours: 192,
+        completedHours: 64,
+        met: false,
+      })
+      expect(progress.complementary).toMatchObject({
+        requiredHours: 100,
+        componentCompleted: false,
+      })
+    })
+
+    it('componente aprovado pela coordenação cumpre as complementares sem contar duas vezes', () => {
+      const progress = computeProgress(
+        input({
+          completedSubjects: [subject('ATV0001', 100)],
+          activities: [
+            { kind: 'COMPLEMENTARY', categoryId: 'eventos', hours: 30 },
+          ],
+        }),
+      )
+      expect(progress.mandatory.completedHours).toBe(0)
+      expect(progress.complementary).toMatchObject({
+        requiredHours: 100,
+        completedHours: 100,
+        componentCompleted: true,
+        met: true,
+      })
+      expect(progress.total.completedHours).toBe(100)
+    })
+
+    it('EC sem o componente não exige complementares', () => {
+      const progress = computeProgress(
+        input({
+          curriculum: { ...curriculum, complementaryComponentCode: null },
+          activities: [
+            { kind: 'COMPLEMENTARY', categoryId: 'eventos', hours: 30 },
+          ],
+        }),
+      )
+      expect(progress.complementary).toMatchObject({
+        requiredHours: 0,
+        completedHours: 30,
+        met: true,
+      })
+      // Sem exigência, as atividades não entram no total
+      expect(progress.total.completedHours).toBe(0)
     })
 
     it('no total, conta só até as horas exigidas', () => {

@@ -84,9 +84,21 @@ export function computeProgress({
     (item) => !curriculumCodes.has(item.code) && !consumed.has(item.code),
   )
 
+  // O componente de complementares é exigido à parte (D40)
+  const component = curriculum.complementaryComponentCode
+    ? (curriculum.subjects.find(
+        (item) => item.code === curriculum.complementaryComponentCode,
+      ) ?? null)
+    : null
+  const requiredComplementary = component?.workloadHours ?? 0
+  const componentCompleted =
+    component !== null && satisfied.some((item) => item.code === component.code)
+
   const mandatoryHours = sum(
     satisfied
-      .filter((item) => item.nature === 'MANDATORY')
+      .filter(
+        (item) => item.nature === 'MANDATORY' && item.code !== component?.code,
+      )
       .map((item) => item.workloadHours),
   )
   const curriculumOptativeHours = sum(
@@ -123,21 +135,33 @@ export function computeProgress({
     const codes = [...(branchSubjects.get(branch.id) ?? [])]
     const completedHours = sum(codes.map((code) => workloadOf.get(code) ?? 0))
     const completedComponents = codes.length
+    const maxHours = branch.maxHours ?? null
+    const maxComponents = branch.maxComponents ?? null
     return {
       branchId: branch.id,
+      type: branch.type,
       minHours: branch.minHours,
       minComponents: branch.minComponents,
+      maxHours,
+      maxComponents,
       completedHours,
       completedComponents,
       met:
         (branch.minHours === null || completedHours >= branch.minHours) &&
         (branch.minComponents === null ||
           completedComponents >= branch.minComponents),
+      overMax:
+        (maxHours !== null && completedHours > maxHours) ||
+        (maxComponents !== null && completedComponents > maxComponents),
     }
   })
 
   const byCategory = activityHours(curriculum, activities, 'COMPLEMENTARY')
-  const complementaryHours = sum(byCategory.map((item) => item.countedHours))
+  const declaredComplementary = sum(byCategory.map((item) => item.countedHours))
+  // Componente integralizado: as complementares estão cumpridas
+  const complementaryHours = componentCompleted
+    ? Math.max(requiredComplementary, declaredComplementary)
+    : declaredComplementary
 
   const fromSubjectsHours = sum([
     ...satisfied.map((item) => item.extensionHours),
@@ -154,20 +178,31 @@ export function computeProgress({
   const totalHours =
     mandatoryHours +
     optativeHours +
-    Math.min(complementaryHours, curriculum.complementaryActivityHours) +
+    Math.min(complementaryHours, requiredComplementary) +
     fromActivitiesHours
 
   return {
-    mandatory: hours(curriculum.mandatoryHours, mandatoryHours),
+    mandatory: hours(
+      curriculum.mandatoryHours - requiredComplementary,
+      mandatoryHours,
+    ),
     optative: {
       ...hours(curriculum.optativeHours, optativeHours),
       curriculumHours: curriculumOptativeHours,
       freeHours,
       freeHoursOverCap: declaredFreeHours - freeHours,
     },
-    branches,
+    branches: branches.map(({ type: _type, ...branch }) => branch),
+    emphases: {
+      required: curriculum.minEmphases ?? null,
+      allowed: curriculum.maxEmphases ?? null,
+      completed: branches.filter(
+        (branch) => branch.type === 'EMPHASIS' && branch.met,
+      ).length,
+    },
     complementary: {
-      ...hours(curriculum.complementaryActivityHours, complementaryHours),
+      ...hours(requiredComplementary, complementaryHours),
+      componentCompleted,
       byCategory,
     },
     extension: {

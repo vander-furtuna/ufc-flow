@@ -7,6 +7,7 @@ import { ThrottlerModule } from '@nestjs/throttler'
 import type { Env } from './config/env'
 import { DatabaseModule } from './database/database.module'
 import { HealthController } from './health.controller'
+import { AcademicRecordModule } from './modules/academic-record/academic-record.module'
 import { CatalogModule } from './modules/catalog/catalog.module'
 import { ClassesModule } from './modules/classes/classes.module'
 import { FilesModule } from './modules/files/files.module'
@@ -35,6 +36,7 @@ export class AppModule {
         PlanningModule,
         NotificationsModule,
         FilesModule,
+        AcademicRecordModule,
       ],
       controllers: [HealthController],
       providers: [{ provide: APP_GUARD, useClass: AppThrottlerGuard }],

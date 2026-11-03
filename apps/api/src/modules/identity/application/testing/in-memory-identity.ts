@@ -31,6 +31,7 @@ export class InMemoryIdentity implements IdentityUnitOfWork {
   requests = new Map<string, ModeratorRequest>()
   moderators: (CourseModerator & { revokedAt: Date | null })[] = []
   courses = new Map<string, CourseSummary>()
+  enrolledCourses = new Map<string, string[]>()
   auditEntries: AuditEntry[] = []
   files = new Map<string, FileRecord>()
 
@@ -60,6 +61,8 @@ export class InMemoryIdentity implements IdentityUnitOfWork {
         this.users.set(userId, { ...user, avatarFileId, updatedAt: at })
       },
       rolesOf: async (userId) => this.roles.get(userId) ?? [],
+      enrolledCourseIds: async (userId) =>
+        this.enrolledCourses.get(userId) ?? [],
       addRole: async (userId, role) => {
         const current = this.roles.get(userId) ?? []
         if (!current.includes(role)) this.roles.set(userId, [...current, role])
