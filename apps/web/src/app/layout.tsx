@@ -180,7 +180,11 @@ export default async function RootLayout({
       <body
         className={`${clashDisplay.variable} ${poppins.variable} ${dmMono.variable} ${outfit.variable} ${geist.variable} max-h-full min-h-dvh bg-background font-sans antialiased`}
       >
-        <AppProvider courses={courses} currentTerm={currentTerm}>
+        <AppProvider
+          courses={courses}
+          currentTerm={currentTerm}
+          apiEnabled={Boolean(process.env.API_URL)}
+        >
           <ThemeProvider
             attribute="class"
             defaultTheme="system"

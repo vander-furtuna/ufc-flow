@@ -3,6 +3,7 @@ import {
   CalendarDotsIcon,
   ForkKnifeIcon,
   GraduationCapIcon,
+  NewspaperIcon,
   SquaresFourIcon,
   UserIcon,
 } from '@phosphor-icons/react/ssr'
@@ -22,9 +23,17 @@ export type NavItem = {
   // Só aparece com um curso escolhido (pela rota ou pela matrícula)
   requiresCourse?: boolean
   requiresLogin?: boolean
+  // Só com a API configurada (D51)
+  requiresApi?: boolean
 }
 
-// Hub e Fórum entram aqui nas fases 10 e 11
+// Hub do curso a partir do endereço da grade (/{curso}/{ec} → /{curso}/hub)
+export function hubHref(baseHref?: string) {
+  const courseSlug = baseHref?.split('/')[1]
+  return courseSlug ? `/${courseSlug}/hub` : '/'
+}
+
+// O Fórum entra aqui na fase 11
 export const navItems: NavItem[] = [
   {
     id: 'grade',
@@ -33,6 +42,15 @@ export const navItems: NavItem[] = [
     href: (baseHref?: string) => mountHref('', baseHref) || '/',
     group: 'course',
     requiresCourse: true,
+  },
+  {
+    id: 'hub',
+    label: 'Hub do curso',
+    icon: <NewspaperIcon weight="bold" className="size-6 text-inherit" />,
+    href: hubHref,
+    group: 'course',
+    requiresCourse: true,
+    requiresApi: true,
   },
   {
     id: 'agenda',
