@@ -9,7 +9,7 @@ import { useState, useRef, useEffect, type ReactNode } from 'react'
 import { AnimatePresence } from 'motion/react'
 import { Glow } from './glow'
 import { ToolBar } from './toolbar'
-import { NavMenu } from './nav-menu'
+import { isInsideNavPortal, NavMenu } from './nav-menu'
 import { cn } from '@/lib/utils'
 
 export type AppSearchBarProps = {
@@ -56,7 +56,8 @@ export function AppSearchBar({
     function handleClickOutside(event: MouseEvent) {
       if (
         containerRef.current &&
-        !containerRef.current.contains(event.target as Node)
+        !containerRef.current.contains(event.target as Node) &&
+        !isInsideNavPortal(event.target)
       ) {
         setOptionsMode('closed')
       }
