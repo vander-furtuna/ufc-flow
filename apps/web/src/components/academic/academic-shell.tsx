@@ -8,10 +8,11 @@ import { Header } from '@/components/header'
 import { NavMenu } from '@/components/nav-menu'
 import { cn } from '@/lib/utils'
 
-// "Horas complementares" entra no PR 9.3 e "Avaliações" na fase 12
+// "Avaliações" entra na fase 12
 const SECTIONS = [
   { href: '/minha-area', label: 'Progresso' },
   { href: '/minha-area/historico', label: 'Histórico' },
+  { href: '/minha-area/horas', label: 'Horas complementares' },
   { href: '/minha-area/agendas', label: 'Agendas' },
 ]
 

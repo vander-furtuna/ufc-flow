@@ -1,6 +1,7 @@
 'use client'
 
 import type {
+  ActivityRecordInput,
   ChangeCurriculumInput,
   CloseSubjectRecordInput,
   EnrollmentInput,
@@ -21,6 +22,11 @@ import {
   listRecordsAction,
   type AcademicResult,
 } from './academic-actions'
+import {
+  deleteActivityAction,
+  listActivitiesAction,
+  saveActivityAction,
+} from './activity-actions'
 
 export const ACADEMIC_KEY = ['academic'] as const
 
@@ -117,3 +123,24 @@ export const useCloseRecord = () =>
 
 export const useDeleteRecord = () =>
   useAcademicMutation((recordId: string) => deleteRecordAction(recordId))
+
+// ——— Atividades complementares e de extensão ———
+
+export function useActivities(enrollmentId: string | undefined) {
+  return useQuery({
+    queryKey: [...ACADEMIC_KEY, 'activities', enrollmentId],
+    queryFn: async () => unwrap(await listActivitiesAction(enrollmentId!)),
+    enabled: Boolean(enrollmentId),
+  })
+}
+
+export const useSaveActivity = () =>
+  useAcademicMutation(
+    (input: {
+      target: { enrollmentId: string } | { activityId: string }
+      activity: ActivityRecordInput
+    }) => saveActivityAction(input.target, input.activity),
+  )
+
+export const useDeleteActivity = () =>
+  useAcademicMutation((activityId: string) => deleteActivityAction(activityId))

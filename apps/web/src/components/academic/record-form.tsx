@@ -34,7 +34,7 @@ import {
 import { cn } from '@/lib/utils'
 import { titleCase } from '@/utils/title-case'
 
-import { nativeSelect } from './enrollment-form'
+import { nativeSelect } from './native-select'
 
 const STATUSES: RecordStatus[] = [
   'CURSANDO',
