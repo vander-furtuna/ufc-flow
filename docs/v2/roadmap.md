@@ -239,14 +239,14 @@ flowchart LR
 - [x] `posts` e `post_images`, com validação por tipo (união do `contracts`). Corpo em Markdown com lista restrita de elementos.
 - [x] Feed com fixados primeiro e filtros por tipo, "próximos" e prazos encerrados. Posts institucionais (`course_id` nulo) só para admin.
 - [x] `hub_reads` (vinda da fase 7, D74) e o badge de novidades.
-- [ ] Página de links:
+- [x] Página de links:
   - Seis tabelas (`course_link_pages`, `course_link_sections`, `course_links`, `course_social_links`, `link_clicks_daily`, `link_page_views_daily`).
   - Leitura pública em `GET /l/:slug`, com cache de 60 s.
   - Redirecionamento contado em `GET /l/:slug/go/:linkId`.
   - Ordenação em lote, agendamento de visibilidade, destaque único, selo "Novo".
   - QR code gerado no front.
-- [ ] Editor com pré-visualização ao vivo, temas prontos, estilo e formato de botão, fonte do título e "links mais clicados".
-- [ ] Redesenhar `Links-Pagina`, `Links-Editor`, `Mobile-Links` e `Mobile-Links-Editor` junto com a implementação, com as cores de `LINK_PAGE_THEMES` (D31) em vez das do mockup.
+- [x] Editor com pré-visualização ao vivo, temas prontos, estilo e formato de botão, fonte do título e "links mais clicados".
+- [x] Redesenhar `Links-Pagina`, `Links-Editor`, `Mobile-Links` e `Mobile-Links-Editor` junto com a implementação, com as cores de `LINK_PAGE_THEMES` (D31) em vez das do mockup.
 
 ## Fase 11 — Fórum e moderação
 

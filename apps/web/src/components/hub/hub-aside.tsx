@@ -4,7 +4,11 @@ import { ArrowSquareOutIcon, LinkSimpleIcon } from '@phosphor-icons/react'
 import Link from 'next/link'
 
 import { dayMonth, deadlineHint } from '@/lib/hub/post-display'
-import { useHubDeadlines, useLinkPreview } from '@/lib/hub/use-hub'
+import {
+  useCanManageHub,
+  useHubDeadlines,
+  useLinkPreview,
+} from '@/lib/hub/use-hub'
 import { cn } from '@/lib/utils'
 
 import { postHref } from './post-card'
@@ -15,12 +19,53 @@ const panel = 'flex flex-col gap-3 rounded-2xl border bg-background p-5'
 // que conta com a origem "hub"
 export function ImportantLinks({ courseSlug }: { courseSlug: string }) {
   const { data: preview } = useLinkPreview(courseSlug)
-  if (!preview || preview.links.length === 0) return null
+  const canManage = useCanManageHub(courseSlug)
+  const editHref = `/${courseSlug}/hub/links`
+  if (!preview || preview.links.length === 0) {
+    // A moderação vê o convite para montar a página
+    if (!canManage) return null
+    return (
+      <section aria-labelledby="hub-links" className={panel}>
+        <h2 id="hub-links" className="font-clash text-lg font-semibold">
+          Links importantes
+        </h2>
+        <p className="text-sm text-muted-foreground">
+          {preview
+            ? 'A página de links ainda não tem links.'
+            : 'A página de links do curso ainda não está publicada.'}
+        </p>
+        <Link
+          href={editHref}
+          className="text-sm font-semibold underline underline-offset-2"
+        >
+          Editar a página de links
+        </Link>
+      </section>
+    )
+  }
   return (
     <section aria-labelledby="hub-links" className={panel}>
-      <h2 id="hub-links" className="font-clash text-lg font-semibold">
-        Links importantes
-      </h2>
+      <div className="flex items-baseline justify-between gap-3">
+        <h2 id="hub-links" className="font-clash text-lg font-semibold">
+          Links importantes
+        </h2>
+        <span className="flex gap-3 text-xs">
+          {canManage && (
+            <Link
+              href={editHref}
+              className="text-muted-foreground underline underline-offset-2 hover:text-foreground"
+            >
+              Editar
+            </Link>
+          )}
+          <Link
+            href={`/l/${preview.slug}?src=hub`}
+            className="font-semibold underline underline-offset-2"
+          >
+            Ver página
+          </Link>
+        </span>
+      </div>
       <ul className="flex flex-col">
         {preview.links.map((link) => (
           <li key={link.id}>
