@@ -41,8 +41,9 @@ describe('documento OpenAPI', () => {
       .filter(
         ([, operation]) =>
           !operation.summary ||
+          // Redirecionamento (3xx) também é sucesso
           !Object.keys(operation.responses ?? {}).some((status) =>
-            status.startsWith('2'),
+            /^[23]/.test(status),
           ),
       )
       .map(([name]) => name)

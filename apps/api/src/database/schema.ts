@@ -7,3 +7,4 @@ export * from '../modules/notifications/infrastructure/persistence/notifications
 export * from '../modules/files/infrastructure/persistence/files.schema'
 export * from '../modules/academic-record/infrastructure/persistence/academic-record.schema'
 export * from '../modules/hub/infrastructure/persistence/hub.schema'
+export * from '../modules/link-page/infrastructure/persistence/link-page.schema'

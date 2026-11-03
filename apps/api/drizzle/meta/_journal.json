@@ -57,6 +57,13 @@
       "when": 1793674517528,
       "tag": "0007_hub",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1793704081083,
+      "tag": "0008_link_page",
+      "breakpoints": true
     }
   ]
 }
