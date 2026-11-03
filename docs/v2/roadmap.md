@@ -236,9 +236,9 @@ flowchart LR
 
 **Objetivo:** posts do hub e a página pública de links no estilo Linktree. Modelagem: Hub do curso, Página de links. Telas: `Hub`, `Mobile-Hub`, `Links-Pagina`, `Links-Editor`, `Mobile-Links`, `Mobile-Links-Editor`.
 
-- [ ] `posts` e `post_images`, com validação por tipo (união do `contracts`). Corpo em Markdown com lista restrita de elementos.
-- [ ] Feed com fixados primeiro e filtros por tipo, "próximos" e prazos encerrados. Posts institucionais (`course_id` nulo) só para admin.
-- [ ] `hub_reads` (vinda da fase 7, D74) e o badge de novidades.
+- [x] `posts` e `post_images`, com validação por tipo (união do `contracts`). Corpo em Markdown com lista restrita de elementos.
+- [x] Feed com fixados primeiro e filtros por tipo, "próximos" e prazos encerrados. Posts institucionais (`course_id` nulo) só para admin.
+- [x] `hub_reads` (vinda da fase 7, D74) e o badge de novidades.
 - [ ] Página de links:
   - Seis tabelas (`course_link_pages`, `course_link_sections`, `course_links`, `course_social_links`, `link_clicks_daily`, `link_page_views_daily`).
   - Leitura pública em `GET /l/:slug`, com cache de 60 s.

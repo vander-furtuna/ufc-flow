@@ -18,10 +18,12 @@ import { createPortal } from 'react-dom'
 
 import { Glow } from '@/components/glow'
 import { navItems, type NavItem } from '@/config/nav-items'
+import { useFeatures } from '@/contexts/features'
 import { useCurrentEnrollment } from '@/lib/academic-record/use-academic'
 import { signOutAction } from '@/lib/auth/actions'
 import { SESSION_QUERY_KEY, useSession } from '@/lib/auth/use-session'
 import { fileUrl } from '@/lib/files/upload'
+import { useHubUnread } from '@/lib/hub/use-hub'
 import { cn } from '@/lib/utils'
 
 // O fundo e o cartão da conta vão num portal: a barra pode estar dentro de um
@@ -206,6 +208,11 @@ export function NavMenu({
       ? `/${enrollment.course.slug}/${enrollment.curriculum.slug}`
       : undefined)
 
+  const features = useFeatures()
+  const { data: hubUnread = 0 } = useHubUnread(
+    features.api ? courseHref?.split('/')[1] : undefined,
+  )
+
   const groups = useMemo(
     () =>
       GROUPS.map((group) => ({
@@ -214,10 +221,11 @@ export function NavMenu({
           (item) =>
             item.group === group.id &&
             (!item.requiresCourse || courseHref) &&
-            (!item.requiresLogin || user),
+            (!item.requiresLogin || user) &&
+            (!item.requiresApi || features.api),
         ),
       })).filter((group) => group.items.length > 0),
-    [items, courseHref, user],
+    [items, courseHref, user, features.api],
   )
   const total = groups.reduce((count, group) => count + group.items.length, 0)
 
@@ -354,6 +362,12 @@ export function NavMenu({
                           transition={{ duration: 0.2, delay: delay + 0.05 }}
                         >
                           {item.label}
+                          {item.id === 'hub' && hubUnread > 0 && (
+                            <span className="ml-2 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-orange-500 px-1.5 text-xs font-bold text-white">
+                              {hubUnread > 99 ? '99+' : hubUnread}
+                              <span className="sr-only"> novidades</span>
+                            </span>
+                          )}
                         </motion.span>
                       </Link>
                     )
