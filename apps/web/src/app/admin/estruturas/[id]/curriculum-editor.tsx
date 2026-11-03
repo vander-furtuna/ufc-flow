@@ -64,6 +64,7 @@ import { cn } from '@/lib/utils'
 import { CurriculumHeaderForm } from '../../_components/curriculum-header-form'
 import { BranchDot, Chip, PageHeader } from '../../_components/page-header'
 import { AddSubjectDialog } from './add-subject-dialog'
+import { ActivityCategoriesDialog } from './activity-categories-dialog'
 import { BranchesDialog } from './branches-dialog'
 import { PublishDialog } from './publish-dialog'
 import { SubjectPanel } from './subject-panel'
@@ -237,6 +238,7 @@ export function CurriculumEditor({
   const [query, setQuery] = useState('')
   const [linking, setLinking] = useState<Linking | null>(null)
   const [branchesOpen, setBranchesOpen] = useState(false)
+  const [categoriesOpen, setCategoriesOpen] = useState(false)
   const [addOpen, setAddOpen] = useState(false)
   const [headerOpen, setHeaderOpen] = useState(false)
   const [pending, startTransition] = useTransition()
@@ -508,6 +510,9 @@ export function CurriculumEditor({
             <Button variant="outline" onClick={() => setBranchesOpen(true)}>
               Vertentes
             </Button>
+            <Button variant="outline" onClick={() => setCategoriesOpen(true)}>
+              Atividades
+            </Button>
           </div>
 
           {groups.length === 0 && (
@@ -609,6 +614,11 @@ export function CurriculumEditor({
             'Disciplina adicionada',
           )
         }
+      />
+      <ActivityCategoriesDialog
+        open={categoriesOpen}
+        onOpenChange={setCategoriesOpen}
+        curriculumId={id}
       />
       <BranchesDialog
         open={branchesOpen}

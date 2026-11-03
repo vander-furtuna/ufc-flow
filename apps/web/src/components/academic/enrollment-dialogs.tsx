@@ -18,7 +18,8 @@ import {
   useEnrollments,
 } from '@/lib/academic-record/use-academic'
 
-import { EnrollmentForm, nativeSelect } from './enrollment-form'
+import { EnrollmentForm } from './enrollment-form'
+import { nativeSelect } from './native-select'
 
 const STATUS_TEXT: Record<EnrollmentView['status'], string> = {
   ACTIVE: 'Ativa',

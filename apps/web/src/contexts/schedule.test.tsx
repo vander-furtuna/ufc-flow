@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import type { ScheduleView } from '@ufc-flow/contracts'
 import { act, cleanup, render, screen, waitFor } from '@testing-library/react'
-import { useEffect } from 'react'
+import { useLayoutEffect } from 'react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import type { ClassSection } from '@/types/class'
@@ -75,12 +75,14 @@ const view = (overrides: Partial<ScheduleView> = {}): ScheduleView => ({
   ...overrides,
 })
 
-// O contexto atual, para os testes chamarem as ações
+// O contexto atual, para os testes chamarem as ações. Layout effect: roda no
+// commit, antes de o waitFor ver o texto novo; com useEffect, o teste às vezes
+// chamava a ação de um contexto antigo (sem a agenda) e ela era ignorada
 const current = { api: null as unknown as ReturnType<typeof useSchedule> }
 
 function Probe() {
   const api = useSchedule()
-  useEffect(() => {
+  useLayoutEffect(() => {
     current.api = api
   })
   return (

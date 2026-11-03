@@ -16,6 +16,7 @@ vi.mock('@/lib/academic-record/academic-actions', () => ({
   listEnrollmentsAction: vi.fn(async () => ({ ok: true, data: [] })),
   listRecordsAction: vi.fn(async () => ({ ok: true, data: [] })),
 }))
+vi.mock('@/lib/academic-record/activity-actions', () => ({}))
 vi.mock('@/contexts/course', () => ({
   useCourse: () => ({
     courses: [

@@ -2,6 +2,7 @@
 
 import {
   ClockIcon,
+  PlusIcon,
   HourglassMediumIcon,
   MapPinIcon,
 } from '@phosphor-icons/react'
@@ -15,6 +16,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 
 import { AcademicShell, Panel } from '@/components/academic/academic-shell'
+import { ActivityDialog } from '@/components/academic/activity-dialog'
 import { CloseSituationDialog } from '@/components/academic/close-situation-dialog'
 import {
   ChangeCurriculumDialog,
@@ -34,6 +36,7 @@ import {
 } from '@/lib/academic-record/history'
 import {
   useAcademicSummary,
+  useActivities,
   useCurrentEnrollment,
 } from '@/lib/academic-record/use-academic'
 import { useSession } from '@/lib/auth/use-session'
@@ -296,6 +299,76 @@ function SubjectLine({
 
 const LIST_LIMIT = 8
 
+// Últimas atividades e o atalho "Lançar atividade" (mockup Minha-Area)
+function HoursCard({
+  enrollment,
+  summary,
+}: {
+  enrollment: EnrollmentView
+  summary: AcademicSummary
+}) {
+  const { data: activities = [] } = useActivities(enrollment.id)
+  const [open, setOpen] = useState(false)
+  const names = new Map(
+    summary.categories.map((category) => [category.id, category.name]),
+  )
+  return (
+    <Panel
+      title="Horas complementares"
+      aside={
+        activities.length > 0 && (
+          <Link
+            href="/minha-area/horas"
+            className="text-xs font-medium underline underline-offset-2"
+          >
+            Ver todas
+          </Link>
+        )
+      }
+    >
+      {activities.length === 0 ? (
+        <p className="text-sm text-muted-foreground">
+          Nenhuma atividade lançada ainda.
+        </p>
+      ) : (
+        <ul className="flex flex-col gap-3">
+          {activities.slice(0, 3).map((activity) => (
+            <li key={activity.id} className="flex items-start gap-3 text-sm">
+              <span className="flex min-w-0 flex-1 flex-col">
+                <span className="truncate">{activity.title}</span>
+                <span className="truncate text-xs text-muted-foreground">
+                  {(activity.categoryId && names.get(activity.categoryId)) ||
+                    (activity.kind === 'EXTENSION'
+                      ? 'Extensão'
+                      : 'Sem categoria')}{' '}
+                  ·{' '}
+                  {activity.certificateFileId
+                    ? 'com certificado'
+                    : 'sem certificado'}
+                </span>
+              </span>
+              <span className="shrink-0 font-semibold tabular-nums">
+                {activity.hours} h
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
+      <Button className="mt-auto h-11 rounded-xl" onClick={() => setOpen(true)}>
+        <PlusIcon weight="bold" className="size-4" />
+        Lançar atividade
+      </Button>
+      <ActivityDialog
+        open={open}
+        onOpenChange={setOpen}
+        enrollmentId={enrollment.id}
+        categories={summary.categories}
+        activity={null}
+      />
+    </Panel>
+  )
+}
+
 function CloseReminder({
   summary,
   onClose,
@@ -472,7 +545,7 @@ function Dashboard({
         <CloseReminder summary={summary} onClose={() => setDialog('close')} />
       )}
 
-      <div className="grid gap-4 lg:grid-cols-2 lg:gap-5">
+      <div className="grid gap-4 lg:grid-cols-3 lg:gap-5">
         <Panel
           title={
             summary.currentTerm
@@ -556,6 +629,8 @@ function Dashboard({
             pelas equivalências.
           </p>
         </Panel>
+
+        <HoursCard enrollment={enrollment} summary={summary} />
       </div>
 
       <ManageEnrollmentsDialog

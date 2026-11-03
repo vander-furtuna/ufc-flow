@@ -11,8 +11,7 @@ import { termOptions } from '@/lib/academic-record/history'
 import { useCreateEnrollment } from '@/lib/academic-record/use-academic'
 import { cn } from '@/lib/utils'
 
-export const nativeSelect =
-  'h-11 w-full rounded-xl border bg-background px-3 text-sm text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none disabled:opacity-60'
+import { nativeSelect } from './native-select'
 
 // Curso, EC, matrícula e ingresso. Em outro curso, vira transferência
 // interna: a matrícula atual passa a TRANSFERRED.
