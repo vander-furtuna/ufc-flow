@@ -40,12 +40,20 @@ import { AuthorAvatar } from './author-avatar'
 import { Composer } from './composer'
 import { MessageContent } from './message-content'
 import { ReportDialog } from './report-dialog'
+import {
+  MODERATION_LABELS,
+  MessageModerationDialog,
+  moderationActionsFor,
+  type MessageModerationAction,
+} from '@/components/moderation/message-moderation'
 
 export type ForumContext = {
   courseSlug: string
   curriculumSlug: string | null
   curriculumLabel: string | null
   canPost: boolean
+  // Moderação do curso ou admin: ações rápidas no menu
+  canModerate?: boolean
 }
 
 export const conversationHref = (courseSlug: string, id: string) =>
@@ -108,6 +116,9 @@ export function MessageItem({
   const [editing, setEditing] = useState(false)
   const [reporting, setReporting] = useState(false)
   const [deleting, setDeleting] = useState(false)
+  const [moderating, setModerating] = useState<MessageModerationAction | null>(
+    null,
+  )
   const [isLiking, startLiking] = useTransition()
   const [isDeleting, startDeleting] = useTransition()
 
@@ -117,11 +128,31 @@ export function MessageItem({
       ? `/${context.courseSlug}/${context.curriculumSlug}/${code}`
       : null
   const href = conversationHref(context.courseSlug, message.id)
+  const moderation = context.canModerate ? moderationActionsFor(message) : []
+  const moderationDialog = (
+    <MessageModerationDialog
+      action={moderating}
+      message={message}
+      courseSlug={context.courseSlug}
+      onClose={() => setModerating(null)}
+    />
+  )
 
   if (message.content === null) {
     return (
       <article className="py-4">
         <Placeholder message={message} />
+        {moderation.includes('RESTORE') && (
+          <Button
+            variant="outline"
+            size="sm"
+            className="mt-2 ml-13"
+            onClick={() => setModerating('RESTORE')}
+          >
+            Restaurar
+          </Button>
+        )}
+        {moderationDialog}
         {variant === 'feed' && message.replyCount > 0 && (
           <Link
             href={href}
@@ -349,12 +380,26 @@ export function MessageItem({
                     Denunciar
                   </DropdownMenuItem>
                 )}
+                {moderation
+                  .filter((action) => !(own && action === 'RESTRICT'))
+                  .map((action) => (
+                    <DropdownMenuItem
+                      key={action}
+                      className={
+                        action === 'REMOVE' ? 'text-destructive' : undefined
+                      }
+                      onSelect={() => setModerating(action)}
+                    >
+                      {MODERATION_LABELS[action]}
+                    </DropdownMenuItem>
+                  ))}
               </DropdownMenuContent>
             </DropdownMenu>
           )}
         </div>
       </div>
 
+      {moderationDialog}
       <ReportDialog
         messageId={message.id}
         open={reporting}

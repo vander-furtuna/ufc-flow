@@ -10,6 +10,7 @@ import type { CourseHeadingData } from '@/components/course-heading'
 import { Composer } from '@/components/forum/composer'
 import { MessageItem, type ForumContext } from '@/components/forum/message-item'
 import { Header } from '@/components/header'
+import { useCanModerate } from '@/lib/moderation/use-moderation'
 import { useNow } from '@/components/notifications/notification-item'
 import { Button } from '@/components/ui/button'
 import { replyAction } from '@/lib/forum/forum-actions'
@@ -40,6 +41,7 @@ export function ConversationPage({
     conversation.data?.replies.nextCursor ?? null,
   )
   const canPost = useCanPost(course.slug)
+  const canModerate = useCanModerate(course.slug)
   const { data: restriction } = useMyRestriction(course.slug)
   const queryClient = useQueryClient()
   const composerRef = useRef<HTMLDivElement>(null)
@@ -55,6 +57,7 @@ export function ConversationPage({
       ? `EC ${course.curriculum.period}`
       : null,
     canPost: writes,
+    canModerate,
   }
   const forumHref = `/${course.slug}/forum`
 

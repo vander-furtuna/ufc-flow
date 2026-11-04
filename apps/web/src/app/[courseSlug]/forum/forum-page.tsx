@@ -15,6 +15,7 @@ import { Composer } from '@/components/forum/composer'
 import { ForumRules, TrendingSubjects } from '@/components/forum/forum-aside'
 import { MessageItem, type ForumContext } from '@/components/forum/message-item'
 import { Header } from '@/components/header'
+import { useCanModerate } from '@/lib/moderation/use-moderation'
 import { NavMenu } from '@/components/nav-menu'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
@@ -50,6 +51,7 @@ export function ForumPage({ course }: { course: ForumCourse }) {
   const now = useNow()
   const { data: user } = useSession()
   const canPost = useCanPost(course.slug)
+  const canModerate = useCanModerate(course.slug)
   const { data: restriction } = useMyRestriction(course.slug)
   const timeline = useTimeline(course.slug)
   const queryClient = useQueryClient()
@@ -71,6 +73,7 @@ export function ForumPage({ course }: { course: ForumCourse }) {
       ? `EC ${course.curriculum.period}`
       : null,
     canPost: writes,
+    canModerate,
   }
   const gradeHref = course.curriculum
     ? `/${course.slug}/${course.curriculum.slug}`

@@ -67,8 +67,7 @@ export function describeNotification(
           t(' pediu para moderar '),
           b(data.courseName),
         ],
-        // A tela de moderação do admin chega na fase 11
-        href: null,
+        href: '/admin/moderacao?aba=pedidos',
       }
     }
     case 'SCRAPE_FAILED': {

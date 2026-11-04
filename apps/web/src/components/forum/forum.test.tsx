@@ -35,6 +35,10 @@ vi.mock('@/lib/forum/use-forum', () => ({
   useInvalidateForum: () => vi.fn(),
 }))
 vi.mock('@/lib/forum/forum-actions', () => ({}))
+vi.mock('@/lib/moderation/moderation-actions', () => ({}))
+vi.mock('@/lib/moderation/use-moderation', () => ({
+  useRefreshModeration: () => vi.fn(),
+}))
 vi.mock('@/lib/auth/use-session', () => ({
   useSession: () => ({ data: { id: 'me', name: 'Eu' } }),
 }))
