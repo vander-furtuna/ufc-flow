@@ -11,6 +11,7 @@ import { AcademicRecordModule } from './modules/academic-record/academic-record.
 import { CatalogModule } from './modules/catalog/catalog.module'
 import { ClassesModule } from './modules/classes/classes.module'
 import { FilesModule } from './modules/files/files.module'
+import { EvaluationModule } from './modules/evaluation/evaluation.module'
 import { ForumModule } from './modules/forum/forum.module'
 import { HubModule } from './modules/hub/hub.module'
 import { LinkPageModule } from './modules/link-page/link-page.module'
@@ -43,6 +44,7 @@ export class AppModule {
         HubModule,
         LinkPageModule,
         ForumModule,
+        EvaluationModule,
       ],
       controllers: [HealthController],
       providers: [{ provide: APP_GUARD, useClass: AppThrottlerGuard }],

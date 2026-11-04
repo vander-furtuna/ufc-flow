@@ -9,3 +9,4 @@ export * from '../modules/academic-record/infrastructure/persistence/academic-re
 export * from '../modules/hub/infrastructure/persistence/hub.schema'
 export * from '../modules/link-page/infrastructure/persistence/link-page.schema'
 export * from '../modules/forum/infrastructure/persistence/forum.schema'
+export * from '../modules/evaluation/infrastructure/persistence/evaluation.schema'

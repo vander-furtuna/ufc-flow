@@ -23,7 +23,7 @@ Ao começar uma fase, leia a seção correspondente do roadmap, as seções da m
 ```
 apps/
   web/              Next.js 16 + React 19 (o front atual, @ufc-flow/web)
-  api/              NestJS 12 + Drizzle + PostgreSQL (@ufc-flow/api), módulos identity, catalog (com ingestão), classes (turmas), planning (agendas), notifications (eventos de domínio e notificações), files (uploads), academic-record (matrículas, histórico e atividades), hub (posts do curso), link-page (página de links) e forum (fórum do curso)
+  api/              NestJS 12 + Drizzle + PostgreSQL (@ufc-flow/api), módulos identity, catalog (com ingestão), classes (turmas), planning (agendas), notifications (eventos de domínio e notificações), files (uploads), academic-record (matrículas, histórico e atividades), hub (posts do curso), link-page (página de links), forum (fórum do curso e moderação) e evaluation (avaliação de disciplinas)
   extension/        extensão do SIGAA, Plasmo (@ufc-flow/extension)
 packages/
   contracts/        schemas Zod compartilhados (@ufc-flow/contracts)
