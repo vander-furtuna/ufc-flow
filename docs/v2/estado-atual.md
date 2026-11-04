@@ -7,7 +7,7 @@ Retrato em 02/11/2026, ao fim da fase 8 (PR 8.2, o último dos dois, em PR). Atu
 | Branch                                | Situação                                                                                                                                                                                                                                                                 |
 | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `master`                              | Produção (deploy no Coolify), e continua sendo (D20). `origin/HEAD` aponta para ela.                                                                                                                                                                                     |
-| `develop`                             | Integração. Tem o monorepo e as fases 0 (PR #61), 1 (PR #63), 2 (PR #64), 3 (PR #66), 4 (PR #70), 5 (PRs #71 a #74), 6 (PRs #75 a #77) , 7 (PRs #78 a #80) 8 (PRs #81 e #82) 9 (PRs #83 a #85) a fase 10 (PRs #86 a #89) e os PRs 11.1 e 11.2 (#90 e #91), com CI verde. |
+| `develop`                             | Integração. Tem o monorepo e as fases 0 (PR #61), 1 (PR #63), 2 (PR #64), 3 (PR #66), 4 (PR #70), 5 (PRs #71 a #74), 6 (PRs #75 a #77) , 7 (PRs #78 a #80) 8 (PRs #81 e #82) 9 (PRs #83 a #85) a fase 10 (PRs #86 a #89) e os PRs 11.1 a 11.3 (#90 a #92), com CI verde. |
 | `feature/fase-0-fundacao`             | Mesclada em `develop` pelo PR #61; pode ser apagada.                                                                                                                                                                                                                     |
 | `feature/fase-1-academic-core`        | Mesclada em `develop` pelo PR #63; pode ser apagada.                                                                                                                                                                                                                     |
 | `feature/fase-2-contracts`            | Mesclada em `develop` pelo PR #64; pode ser apagada.                                                                                                                                                                                                                     |
@@ -38,7 +38,8 @@ Retrato em 02/11/2026, ao fim da fase 8 (PR 8.2, o último dos dois, em PR). Atu
 | `feature/fase-10-links-web`           | Mesclada em `develop` pelo PR #89; pode ser apagada.                                                                                                                                                                                                                     |
 | `feature/fase-11-forum-api`           | Mesclada em `develop` pelo PR #90; pode ser apagada.                                                                                                                                                                                                                     |
 | `feature/fase-11-moderacao-api`       | Mesclada em `develop` pelo PR #91; pode ser apagada.                                                                                                                                                                                                                     |
-| `feature/fase-11-forum-web`           | Fase 11, PR 11.3 (fórum no web), em PR para `develop`.                                                                                                                                                                                                                   |
+| `feature/fase-11-forum-web`           | Mesclada em `develop` pelo PR #92; pode ser apagada.                                                                                                                                                                                                                     |
+| `feature/fase-11-moderacao-web`       | Fase 11, PR 11.4 (moderação no web), em PR para `develop`.                                                                                                                                                                                                               |
 | `feature/monorepo`                    | Mesclada em `develop`; pode ser apagada.                                                                                                                                                                                                                                 |
 | `hotfix/schedule-course-key`          | Já mesclada em `master` e `develop`; pode ser apagada.                                                                                                                                                                                                                   |
 
@@ -220,12 +221,17 @@ A `main` foi apagada no remoto (D20). As branches já mescladas ficam por enquan
   - Conversa em `/{curso}/forum/{id}` (mockup `Forum-Mobile`) e escrever em tela cheia no celular (mockup `Mobile-Forum-Escrever`); editar, apagar e denunciar pelo menu da mensagem; avisos de mensagem oculta, apagada ou removida com a categoria.
   - "Discussões" na página da disciplina; `splitMentions` no `academic-core`.
   - Ajustes: algarismos romanos no `titleCase`, a ordem da busca do `@` na API e o conteúdo do `Dialog` acima do overlay.
-- **Modelagem v2 fechada** ([modelagem.md](modelagem.md)), com 94 decisões (D1–D94) e 11 lacunas resolvidas (L1–L11).
+- **Fase 11 — PR 11.4, moderação no web** (branch `feature/fase-11-moderacao-web`):
+  - `/admin/moderacao` (mockups `Admin-Moderacao` e `Mobile-Admin-Moderacao`): denúncias com o texto do momento e os motivos, remover (com a categoria e o silenciar opcional), ocultar, restaurar e descartar; pedidos de moderação para admin; restrições ativas com suspender (D95).
+  - "Moderação" no menu do admin, com o contador; a notificação de pedido abre a aba de pedidos.
+  - Ações rápidas da moderação no menu da mensagem do fórum (ocultar, remover, restaurar, silenciar ou banir o autor).
+  - Token `--destructive-foreground` que faltava no tema: os botões destrutivos tinham o rótulo escuro sobre o vermelho.
+- **Modelagem v2 fechada** ([modelagem.md](modelagem.md)), com 95 decisões (D1–D95) e 11 lacunas resolvidas (L1–L11).
 - **39 telas desenhadas** para desktop, mobile e extensão ([telas.md](telas.md)).
 
 ## Pendências imediatas
 
-1. Mesclar o PR 11.3. Depois vem o 11.4 (moderação no web), que fecha a fase 11. As categorias de cada curso precisam ser cadastradas pelos moderadores, conforme os regulamentos. O volume Docker em `/data/uploads` entra com o deploy, na fase 13.
+1. Mesclar o PR 11.4, que fecha a fase 11. Depois vem a fase 12 (avaliação de disciplinas). As categorias de cada curso precisam ser cadastradas pelos moderadores, conforme os regulamentos. O volume Docker em `/data/uploads` entra com o deploy, na fase 13.
 2. Testar localmente:
    - `docker compose -f docker/compose.dev.yml up -d`;
    - na API, copiar `.env.example` para `.env`, `pnpm --filter @ufc-flow/api db:migrate`, `seed:admin -- --email <e-mail> --name <nome>` e `seed:catalog`;
@@ -235,7 +241,7 @@ A `main` foi apagada no remoto (D20). As branches já mescladas ficam por enquan
 
 As telas de links foram redesenhadas no código com os temas de `LINK_PAGE_THEMES` (D31); os PNG e HTML em `docs/v2/telas` ainda mostram os destaques antigos.
 
-Próximo passo: PR 11.4 (moderação no web).
+Próximo passo: fase 12 (avaliação de disciplinas).
 
 ## Segurança das dependências
 

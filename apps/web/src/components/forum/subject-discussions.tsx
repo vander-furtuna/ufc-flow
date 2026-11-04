@@ -17,6 +17,7 @@ import { useFeatures } from '@/contexts/features'
 import { useSession } from '@/lib/auth/use-session'
 import { useCanPost, useSubjectMessages } from '@/lib/forum/use-forum'
 import { useNow } from '@/components/notifications/notification-item'
+import { useCanModerate } from '@/lib/moderation/use-moderation'
 import { titleCase } from '@/utils/title-case'
 
 import { MessageItem, type ForumContext } from './message-item'
@@ -32,6 +33,7 @@ function Discussions({
 }) {
   const now = useNow()
   const canPost = useCanPost(courseSlug)
+  const canModerate = useCanModerate(courseSlug)
   const messages = useSubjectMessages(courseSlug, code)
   const items = messages.data?.pages.flatMap((page) => page.items) ?? []
   const context: ForumContext = {
@@ -39,6 +41,7 @@ function Discussions({
     curriculumSlug,
     curriculumLabel: null,
     canPost,
+    canModerate,
   }
   if (messages.isPending) {
     return <p className="p-4 text-sm text-muted-foreground">Carregando…</p>

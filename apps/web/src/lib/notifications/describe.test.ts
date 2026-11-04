@@ -87,6 +87,15 @@ describe('describeNotification', () => {
         }),
       ),
     ).toBe('**Ana Souza** pediu para moderar **Música**')
+    expect(
+      describeNotification(
+        notification('MODERATOR_REQUEST_CREATED', {
+          requestId: ID,
+          requesterName: 'Ana Souza',
+          courseName: 'Música',
+        }),
+      ).href,
+    ).toBe('/admin/moderacao?aba=pedidos')
   })
 
   it('coleta e importação, com a contagem agrupada', () => {

@@ -1,4 +1,8 @@
-import type { CursorPage, CurriculumImportView } from '@ufc-flow/contracts'
+import type {
+  CursorPage,
+  CurriculumImportView,
+  ModerationSummary,
+} from '@ufc-flow/contracts'
 import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import type { ReactNode } from 'react'
@@ -37,9 +41,12 @@ export default async function AdminLayout({
     )
   }
 
-  const pending = await adminFetch<CursorPage<CurriculumImportView>>(
-    '/v1/ingestion/curriculum-imports?status=RECEIVED&limit=100',
-  )
+  const [pending, moderation] = await Promise.all([
+    adminFetch<CursorPage<CurriculumImportView>>(
+      '/v1/ingestion/curriculum-imports?status=RECEIVED&limit=100',
+    ),
+    adminFetch<ModerationSummary>('/v1/moderation/summary'),
+  ])
   const role = isAdmin
     ? 'Admin'
     : `Moderação · ${user.moderatedCourses.map((course) => course.name).join(', ')}`
@@ -49,6 +56,11 @@ export default async function AdminLayout({
       role={role}
       isAdmin={isAdmin}
       pendingImports={pending.ok ? pending.data.items.length : 0}
+      pendingModeration={
+        moderation.ok
+          ? moderation.data.openReports + (moderation.data.pendingRequests ?? 0)
+          : 0
+      }
     >
       {children}
     </AdminShell>

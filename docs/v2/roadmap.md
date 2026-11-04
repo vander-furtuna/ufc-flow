@@ -266,7 +266,7 @@ flowchart LR
   - Ações de moderação com motivo.
   - MUTE e BAN com prazo.
   - Limite de envio por usuário.
-- [ ] Admin › Moderação com três abas: denúncias, pedidos de moderação e restrições ativas.
+- [x] Admin › Moderação com três abas: denúncias, pedidos de moderação e restrições ativas.
 - [x] Notificações do fórum: `FORUM_REPLY`, `FORUM_THREAD_REPLY`, `FORUM_LIKES`, `MESSAGE_MODERATED` e `USER_RESTRICTED`.
 
 ## Fase 12 — Avaliação de disciplinas

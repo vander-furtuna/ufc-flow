@@ -78,17 +78,20 @@ function Brand({ role }: { role: string }) {
   )
 }
 
-// Menu lateral no desktop e folha no celular. Só os itens já existentes:
-// hub, moderação e o resto chegam nas próximas fases.
+// Menu lateral no desktop e folha no celular. Só os itens já existentes;
+// os da avaliação de disciplinas chegam na fase 12.
 export function AdminShell({
   role,
   isAdmin,
   pendingImports,
+  pendingModeration,
   children,
 }: {
   role: string
   isAdmin: boolean
   pendingImports: number
+  // Denúncias abertas e, para admin, pedidos de moderação
+  pendingModeration: number
   children: ReactNode
 }) {
   const [open, setOpen] = useState(false)
@@ -96,6 +99,11 @@ export function AdminShell({
     { href: '/admin/estruturas', label: 'Estruturas curriculares' },
     { href: '/admin/importacoes', label: 'Importações', badge: pendingImports },
     { href: '/admin/semestres', label: 'Semestres e turmas' },
+    {
+      href: '/admin/moderacao',
+      label: 'Moderação',
+      badge: pendingModeration,
+    },
     { href: '/admin/cursos', label: 'Cursos', adminOnly: true },
   ].filter((item) => isAdmin || !item.adminOnly)
 
