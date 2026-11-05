@@ -94,4 +94,30 @@ export const IdentityErrors = {
       'FORBIDDEN',
       'Você não tem permissão para esta ação',
     ),
+  consentOutdated: () =>
+    new DomainError(
+      'CONSENT_VERSION_OUTDATED',
+      'CONFLICT',
+      'Os documentos mudaram; recarregue a página e leia a versão atual',
+    ),
+  passwordMismatch: () =>
+    new DomainError('PASSWORD_MISMATCH', 'INVALID', 'Senha incorreta'),
+  lastAdmin: () =>
+    new DomainError(
+      'LAST_ADMIN',
+      'CONFLICT',
+      'Você é o único admin; nomeie outro admin antes de excluir a conta',
+    ),
+  cannotSuspendSelf: () =>
+    new DomainError(
+      'CANNOT_SUSPEND_SELF',
+      'CONFLICT',
+      'Você não pode suspender a própria conta',
+    ),
+  cannotSuspendAdmin: () =>
+    new DomainError(
+      'CANNOT_SUSPEND_ADMIN',
+      'CONFLICT',
+      'Contas de admin não podem ser suspensas',
+    ),
 }

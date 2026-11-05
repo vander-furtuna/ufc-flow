@@ -34,6 +34,10 @@ export class InMemoryIdentity implements IdentityUnitOfWork {
   enrolledCourses = new Map<string, string[]>()
   auditEntries: AuditEntry[] = []
   files = new Map<string, FileRecord>()
+  // Avaliações por usuário (contagem do Admin › Usuários)
+  evaluationCounts = new Map<string, number>()
+  // Contas apagadas pelo PersonalDataStore, na ordem
+  erased: string[] = []
 
   private record(request: ModeratorRequest): ModeratorRequestRecord {
     const user = this.users.get(request.userId)!
@@ -70,6 +74,47 @@ export class InMemoryIdentity implements IdentityUnitOfWork {
       insertConsents: async (consents) => {
         this.consents.push(...consents)
       },
+      consentsOf: async (userId) =>
+        this.consents.filter((consent) => consent.userId === userId),
+      setStatus: async (userId, status, at) => {
+        const user = this.users.get(userId)!
+        this.users.set(userId, { ...user, status, updatedAt: at })
+      },
+      countAdmins: async () =>
+        [...this.roles.values()].filter((roles) => roles.includes('ADMIN'))
+          .length,
+      search: async ({ text, status, before, limit }) =>
+        [...this.users.values()]
+          .filter(
+            (user) =>
+              text === null ||
+              `${user.name} ${user.email}`
+                .toLowerCase()
+                .includes(text.toLowerCase()),
+          )
+          .filter((user) => status === null || user.status === status)
+          .sort(
+            (a, b) =>
+              b.createdAt.getTime() - a.createdAt.getTime() ||
+              b.id.localeCompare(a.id),
+          )
+          .filter(
+            (user) =>
+              before === null ||
+              user.createdAt.getTime() < before.createdAt.getTime() ||
+              (user.createdAt.getTime() === before.createdAt.getTime() &&
+                user.id < before.id),
+          )
+          .slice(0, limit + 1)
+          .map((user) => ({
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            status: user.status,
+            roles: this.roles.get(user.id) ?? [],
+            evaluationCount: this.evaluationCounts.get(user.id) ?? 0,
+            createdAt: user.createdAt,
+          })),
     },
     sessions: {
       findByTokenHash: async (hash) =>
@@ -187,6 +232,46 @@ export class InMemoryIdentity implements IdentityUnitOfWork {
         this.auditEntries.push(entry)
       },
     },
+    personalData: {
+      collect: async (userId) => ({
+        consents: this.consents.filter((consent) => consent.userId === userId),
+        sessions: [...this.sessions.values()]
+          .filter((session) => session.userId === userId)
+          .map(({ createdAt, expiresAt, ip, userAgent }) => ({
+            createdAt,
+            expiresAt,
+            ip,
+            userAgent,
+          })),
+        preferences: [],
+        moderatorRequests: [...this.requests.values()].filter(
+          (request) => request.userId === userId,
+        ),
+        moderatedCourses: [],
+        enrollments: [],
+        subjectRecords: [],
+        activityRecords: [],
+        schedules: [],
+        files: [],
+        hubPosts: [],
+        forumMessages: [],
+        forumLikes: [],
+        forumReports: [],
+        evaluations: [],
+        notifications: [],
+      }),
+      erase: async (userId) => {
+        this.erased.push(userId)
+        this.users.delete(userId)
+        this.roles.delete(userId)
+        this.consents = this.consents.filter(
+          (consent) => consent.userId !== userId,
+        )
+        for (const [id, session] of this.sessions) {
+          if (session.userId === userId) this.sessions.delete(id)
+        }
+      },
+    },
   }
 
   run<T>(work: (repositories: IdentityRepositories) => Promise<T>) {
@@ -246,8 +331,7 @@ export class SequentialIds implements IdGenerator {
 export const TEST_SETTINGS: IdentitySettings = {
   refreshTokenTtlDays: 30,
   webUrl: 'http://localhost:3000',
-  termsVersion: '0.1',
-  privacyVersion: '0.1',
+  consentVersions: { terms: '1.0', privacy: '1.0' },
 }
 
 export function identityTestbed() {

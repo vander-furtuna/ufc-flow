@@ -3,12 +3,23 @@ import {
   Controller,
   Delete,
   Get,
+  Header,
+  HttpCode,
   Inject,
+  Post,
   Put,
   UseGuards,
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger'
-import { avatarInputSchema, type AvatarInput } from '@ufc-flow/contracts'
+import { Throttle } from '@nestjs/throttler'
+import {
+  accountDeletionInputSchema,
+  avatarInputSchema,
+  consentAcceptanceInputSchema,
+  type AccountDeletionInput,
+  type AvatarInput,
+  type ConsentAcceptanceInput,
+} from '@ufc-flow/contracts'
 
 import {
   ApiJson,
@@ -22,10 +33,17 @@ import {
   RemoveAvatarUseCase,
   SetAvatarUseCase,
 } from '../../application/avatar.use-cases'
+import {
+  AcceptConsentsUseCase,
+  DeleteAccountUseCase,
+  ExportPersonalDataUseCase,
+} from '../../application/account.use-cases'
 import { GetMeUseCase } from '../../application/get-me.use-case'
 import { ListMyModeratorRequestsUseCase } from '../../application/list-my-moderator-requests.use-case'
 import { LoadActorUseCase } from '../../application/load-actor.use-case'
 import { AuthGuard, CurrentUserId } from './auth.guard'
+
+const MINUTE = 60_000
 
 @ApiTags('identity')
 @ApiBearerAuth()
@@ -40,6 +58,12 @@ export class MeController {
     @Inject(SetAvatarUseCase) private readonly setAvatar: SetAvatarUseCase,
     @Inject(RemoveAvatarUseCase)
     private readonly removeAvatar: RemoveAvatarUseCase,
+    @Inject(AcceptConsentsUseCase)
+    private readonly acceptConsents: AcceptConsentsUseCase,
+    @Inject(ExportPersonalDataUseCase)
+    private readonly exportData: ExportPersonalDataUseCase,
+    @Inject(DeleteAccountUseCase)
+    private readonly deleteAccount: DeleteAccountUseCase,
   ) {}
 
   @Get()
@@ -51,6 +75,58 @@ export class MeController {
   @ApiProblems(401, 404)
   me(@CurrentUserId() userId: string) {
     return this.getMe.execute(userId)
+  }
+
+  @Delete()
+  @HttpCode(204)
+  @Throttle({ default: { limit: 5, ttl: MINUTE } })
+  @ApiOperation({
+    summary: 'Excluir a própria conta (LGPD)',
+    description:
+      'Pede a senha. Apaga de fato matrículas, histórico, horas, agendas, preferências, sessões, curtidas e arquivos pessoais. O que é da comunidade fica anonimizado: mensagens do fórum viram "mensagem removida", avaliações e posts do hub ficam sem autor. O último admin não pode excluir a conta.',
+  })
+  @ApiJsonBody('AccountDeletionInput')
+  @ApiJson(204, 'Conta excluída')
+  @ApiProblems(400, 401, 404, 409, 429)
+  async remove(
+    @CurrentUserId() userId: string,
+    @Body(new ZodValidationPipe(accountDeletionInputSchema))
+    input: AccountDeletionInput,
+  ) {
+    await this.deleteAccount.execute(userId, input)
+  }
+
+  @Post('consents')
+  @HttpCode(200)
+  @ApiOperation({
+    summary: 'Aceitar a versão vigente dos Termos e da Política',
+    description:
+      'Usado quando o Me traz pendingConsents. As versões enviadas precisam ser as vigentes; aceitar de novo não duplica.',
+  })
+  @ApiJsonBody('ConsentAcceptanceInput')
+  @ApiJson(200, 'Usuário sem aceites pendentes', schemaRef('Me'))
+  @ApiProblems(400, 401, 404, 409)
+  consents(
+    @CurrentUserId() userId: string,
+    @Body(new ZodValidationPipe(consentAcceptanceInputSchema))
+    input: ConsentAcceptanceInput,
+  ) {
+    return this.acceptConsents.execute(userId, input)
+  }
+
+  @Get('export')
+  @Throttle({ default: { limit: 10, ttl: 60 * MINUTE } })
+  @Header('Cache-Control', 'no-store')
+  @Header('Content-Disposition', 'attachment; filename="ufc-flow-dados.json"')
+  @ApiOperation({
+    summary: 'Exportar meus dados (LGPD)',
+    description:
+      'Tudo o que a conta guarda, em JSON (portabilidade). Arquivos vêm só com os metadados; o conteúdo se baixa por /v1/files/{id}.',
+  })
+  @ApiJson(200, 'Dados da conta', schemaRef('PersonalDataExport'))
+  @ApiProblems(401, 404, 429)
+  export(@CurrentUserId() userId: string) {
+    return this.exportData.execute(userId)
   }
 
   @Get('moderator-requests')

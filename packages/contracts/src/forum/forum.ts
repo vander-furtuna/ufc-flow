@@ -68,8 +68,9 @@ export const messageSchema = z
     // Nulo na mensagem apagada, removida ou oculta para quem lê
     content: z.string().nullable(),
     status: messageStatusSchema,
-    // Quem tirou a mensagem do ar: o próprio autor ou a moderação
-    removedBy: z.enum(['AUTHOR', 'MODERATION']).nullable(),
+    // Quem tirou a mensagem do ar: o próprio autor, a moderação ou a
+    // exclusão da conta do autor (LGPD)
+    removedBy: z.enum(['AUTHOR', 'MODERATION', 'ACCOUNT_DELETED']).nullable(),
     // Categoria pública da remoção pela moderação
     removalCategory: reportReasonSchema.nullable(),
     replyCount: z.int().nonnegative(),

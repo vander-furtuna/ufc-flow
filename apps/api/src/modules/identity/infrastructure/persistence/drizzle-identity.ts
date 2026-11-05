@@ -1,5 +1,19 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { and, desc, eq, gt, isNull, lt, or, type SQL } from 'drizzle-orm'
+import type { UserRole } from '@ufc-flow/contracts'
+import {
+  and,
+  asc,
+  count,
+  desc,
+  eq,
+  gt,
+  ilike,
+  isNull,
+  lt,
+  or,
+  sql,
+  type SQL,
+} from 'drizzle-orm'
 
 import { DATABASE, type Database } from '../../../../database/database.module'
 import {
@@ -8,6 +22,7 @@ import {
 } from '../../../../shared/infrastructure/persistence/drizzle-helpers'
 import { studentEnrollments } from '../../../academic-record/infrastructure/persistence/academic-record.schema'
 import { courses } from '../../../catalog/infrastructure/persistence/catalog.schema'
+import { subjectEvaluations } from '../../../evaluation/infrastructure/persistence/evaluation.schema'
 import { fileAttachmentRepository } from '../../../files/infrastructure/persistence/drizzle-files'
 import { IdentityErrors } from '../../domain/errors'
 import type { ModeratorRequest } from '../../domain/moderator-request'
@@ -26,6 +41,11 @@ import {
   userRoles,
   users,
 } from './identity.schema'
+import { personalDataStore } from './drizzle-personal-data'
+
+// Busca literal: % e _ digitados não viram curinga
+const likePattern = (text: string) =>
+  `%${text.replace(/[\\%_]/g, (char) => `\\${char}`)}%`
 
 const requestColumns = {
   id: moderatorRequests.id,
@@ -124,7 +144,74 @@ export function identityRepositories(db: Executor): IdentityRepositories {
           .onConflictDoNothing()
       },
       insertConsents: async (consents) => {
+        if (consents.length === 0) return
         await db.insert(userConsents).values(consents)
+      },
+      consentsOf: (userId) =>
+        db
+          .select()
+          .from(userConsents)
+          .where(eq(userConsents.userId, userId))
+          .orderBy(asc(userConsents.acceptedAt)),
+      setStatus: async (userId, status, at) => {
+        await db
+          .update(users)
+          .set({ status, updatedAt: at })
+          .where(eq(users.id, userId))
+      },
+      countAdmins: async () =>
+        (
+          await db
+            .select({ total: count() })
+            .from(userRoles)
+            .where(eq(userRoles.role, 'ADMIN'))
+        )[0]!.total,
+      search: async ({ text, status, before, limit }) => {
+        const rows = await db
+          .select({
+            id: users.id,
+            name: users.name,
+            email: users.email,
+            status: users.status,
+            createdAt: users.createdAt,
+            // Nomes qualificados: dentro do select, o drizzle escreve as
+            // colunas sem a tabela, e "id" seria a da subconsulta
+            roles: sql<string[]>`coalesce((
+              select array_agg(ur.role::text order by ur.role)
+              from ${userRoles} ur where ur.user_id = "users"."id"
+            ), '{}')`,
+            evaluationCount: sql<number>`(
+              select count(*)::int from ${subjectEvaluations} se
+              where se.user_id = "users"."id"
+            )`,
+          })
+          .from(users)
+          .where(
+            and(
+              text
+                ? or(
+                    ilike(users.name, likePattern(text)),
+                    ilike(users.email, likePattern(text)),
+                  )
+                : undefined,
+              status ? eq(users.status, status) : undefined,
+              before
+                ? or(
+                    lt(users.createdAt, before.createdAt),
+                    and(
+                      eq(users.createdAt, before.createdAt),
+                      lt(users.id, before.id),
+                    ),
+                  )
+                : undefined,
+            ),
+          )
+          .orderBy(desc(users.createdAt), desc(users.id))
+          .limit(limit + 1)
+        return rows.map((row) => ({
+          ...row,
+          roles: row.roles as UserRole[],
+        }))
       },
     },
     sessions: {
@@ -303,6 +390,7 @@ export function identityRepositories(db: Executor): IdentityRepositories {
         await db.insert(auditLogs).values(entry)
       },
     },
+    personalData: personalDataStore(db),
   }
 }
 

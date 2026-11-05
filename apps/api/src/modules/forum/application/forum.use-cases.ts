@@ -29,6 +29,7 @@ import {
 import { ForumErrors } from '../domain/errors'
 import { blocks } from '../domain/moderation'
 import {
+  ACCOUNT_DELETED_REASON,
   assertRate,
   deletionOf,
   editMessage,
@@ -86,13 +87,16 @@ export function toMessageView(
     removedBy:
       row.status !== 'REMOVED'
         ? null
-        : row.removedBy !== null && row.removedBy === row.authorId
-          ? 'AUTHOR'
-          : 'MODERATION',
+        : row.removalReason === ACCOUNT_DELETED_REASON
+          ? 'ACCOUNT_DELETED'
+          : row.removedBy !== null && row.removedBy === row.authorId
+            ? 'AUTHOR'
+            : 'MODERATION',
     removalCategory:
       row.status === 'REMOVED' &&
       row.removedBy !== row.authorId &&
-      row.removalReason
+      row.removalReason &&
+      row.removalReason !== ACCOUNT_DELETED_REASON
         ? (row.removalReason as ReportReason)
         : null,
     replyCount: row.replyCount,

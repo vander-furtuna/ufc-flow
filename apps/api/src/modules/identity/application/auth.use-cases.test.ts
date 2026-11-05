@@ -35,7 +35,7 @@ function setup() {
       t.ids,
       t.settings,
     ),
-    signIn: new SignInUseCase(t.store, t.hasher, issuer),
+    signIn: new SignInUseCase(t.store, t.hasher, issuer, t.settings),
     refresh: new RefreshSessionUseCase(
       t.store,
       t.accessTokens,
@@ -45,7 +45,7 @@ function setup() {
       t.settings,
     ),
     signOut: new SignOutUseCase(t.store, t.opaqueTokens, t.clock),
-    getMe: new GetMeUseCase(t.store),
+    getMe: new GetMeUseCase(t.store, t.settings),
     loadActor: new LoadActorUseCase(t.store),
     createLink: new CreatePasswordResetLinkUseCase(
       t.store,
@@ -103,8 +103,8 @@ describe('cadastro', () => {
     expect(
       s.store.consents.map(({ document, version }) => [document, version]),
     ).toEqual([
-      ['TERMS', '0.1'],
-      ['PRIVACY', '0.1'],
+      ['TERMS', '1.0'],
+      ['PRIVACY', '1.0'],
     ])
     expect([...s.store.sessions.values()][0]).toMatchObject({
       userAgent: 'Chrome',

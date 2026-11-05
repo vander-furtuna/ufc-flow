@@ -1,6 +1,7 @@
 import type {
   CourseSummary,
   ModeratorRequestStatus,
+  PersonalDataExport,
   UserRole,
   UserStatus,
 } from '@ufc-flow/contracts'
@@ -62,6 +63,25 @@ export type RequestPageQuery = {
   limit: number
 }
 
+// Linha da busca do admin (Admin › Usuários)
+export type UserListing = {
+  id: string
+  name: string
+  email: string
+  status: UserStatus
+  roles: UserRole[]
+  evaluationCount: number
+  createdAt: Date
+}
+
+export type UserSearchQuery = {
+  // Parte do nome ou do e-mail, sem diferenciar maiúsculas
+  text: string | null
+  status: UserStatus | null
+  before: { createdAt: Date; id: string } | null
+  limit: number
+}
+
 export interface UserRepository {
   findById(id: string): Promise<User | null>
   findByEmail(email: string): Promise<User | null>
@@ -78,6 +98,26 @@ export interface UserRepository {
     at: Date,
   ): Promise<void>
   insertConsents(consents: Consent[]): Promise<void>
+  consentsOf(userId: string): Promise<Consent[]>
+  setStatus(userId: string, status: UserStatus, at: Date): Promise<void>
+  countAdmins(): Promise<number>
+  // Das contas mais novas às mais antigas; pede um item a mais (pageOf)
+  search(query: UserSearchQuery): Promise<UserListing[]>
+}
+
+// Seções da exportação (GET /me/export), sem a conta e o cabeçalho
+export type PersonalDataSections = Omit<
+  PersonalDataExport,
+  'format' | 'exportedAt' | 'account'
+>
+
+// Dados da pessoa espalhados pelos módulos (LGPD)
+export interface PersonalDataStore {
+  collect(userId: string): Promise<PersonalDataSections>
+  // Anonimiza o que é da comunidade (fórum, denúncias, contadores de
+  // curtidas, notificações de terceiros) e apaga a conta; o resto sai pelas
+  // FKs (CASCADE nos dados pessoais, SET NULL na autoria)
+  erase(userId: string, now: Date): Promise<void>
 }
 
 export interface SessionRepository {
@@ -125,6 +165,7 @@ export type IdentityRepositories = {
   audit: AuditLog
   // Arquivos ligados na mesma transação (foto de perfil)
   files: FileAttachmentRepository
+  personalData: PersonalDataStore
 }
 
 // Tudo que um caso de uso grava dentro de run() é atômico
