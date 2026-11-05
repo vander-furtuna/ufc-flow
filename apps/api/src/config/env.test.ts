@@ -25,6 +25,7 @@ describe('parseEnv', () => {
       FORUM_RATE_BURST: 1,
       FORUM_RATE_BURST_SECONDS: 10,
       FORUM_RATE_HOURLY: 30,
+      EVALUATION_REQUIRE_INSTITUTIONAL_EMAIL: false,
     })
   })
 

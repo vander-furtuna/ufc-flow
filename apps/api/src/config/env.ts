@@ -30,6 +30,8 @@ const envSchema = z
     FORUM_RATE_BURST: z.coerce.number().int().positive().default(1),
     FORUM_RATE_BURST_SECONDS: z.coerce.number().int().positive().default(10),
     FORUM_RATE_HOURLY: z.coerce.number().int().positive().default(30),
+    // Avaliar exige e-mail @alu.ufc.br (desligado até haver SMTP para verificar)
+    EVALUATION_REQUIRE_INSTITUTIONAL_EMAIL: z.stringbool().default(false),
   })
   .refine(
     (env) =>

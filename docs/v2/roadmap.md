@@ -273,10 +273,10 @@ flowchart LR
 
 **Objetivo:** notas de 1 a 5 por critério, anônimas, exibidas a partir de 5 respostas. Modelagem: Avaliação de disciplinas. Telas: `Disciplina-Avaliacao`, `Mobile-Disciplina`.
 
-- [ ] `evaluation_criteria`, `subject_evaluations` e `subject_evaluation_scores`. Critérios geridos pelo admin.
-- [ ] Só avalia quem tem `APROVADO` ou `REPROVADO` na disciplina; uma avaliação por pessoa, editável.
-- [ ] Agregados na leitura (média, contagem, distribuição) só com n ≥ 5; `user_id` nunca exposto.
-- [ ] Flag `EVALUATION_REQUIRE_INSTITUTIONAL_EMAIL`, desligada.
+- [x] `evaluation_criteria`, `subject_evaluations` e `subject_evaluation_scores`. Critérios geridos pelo admin.
+- [x] Só avalia quem tem `APROVADO` ou `REPROVADO` na disciplina; uma avaliação por pessoa, editável.
+- [x] Agregados na leitura (média, contagem, distribuição) só com n ≥ 5; `user_id` nunca exposto.
+- [x] Flag `EVALUATION_REQUIRE_INSTITUTIONAL_EMAIL`, desligada.
 
 ## Fase 13 — LGPD, deploy e lançamento
 
