@@ -22,7 +22,7 @@ import { titleCase } from '@/utils/title-case'
 
 import { MessageItem, type ForumContext } from './message-item'
 
-function Discussions({
+export function SubjectDiscussionList({
   courseSlug,
   curriculumSlug,
   code,
@@ -123,7 +123,7 @@ export function SubjectDiscussions({
           </SheetDescription>
         </SheetHeader>
         {open && (
-          <Discussions
+          <SubjectDiscussionList
             courseSlug={courseSlug}
             curriculumSlug={curriculumSlug}
             code={code}

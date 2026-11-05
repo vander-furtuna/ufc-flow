@@ -24,6 +24,7 @@ import { SubjectCardSmall } from '../subject-card-small'
 import { Details } from './details'
 import { Pill } from './pill'
 import { SectionTitle } from './section-title'
+import { SubjectTabs } from './subject-tabs'
 import { usePathname, useRouter } from 'next/navigation'
 
 export function Sidebar() {
@@ -202,54 +203,66 @@ export function Sidebar() {
             </div>
           </div>
           {selectedSubject && (
-            <div className="z-700 mt-6 w-full px-3">
-              <button
-                className="flex w-full items-center justify-between rounded-md border border-border bg-muted px-2 py-1.5 decoration-0"
-                onClick={handleGoToSubject}
-              >
-                <div className="flex items-center gap-2">
-                  <TreeStructureIcon
-                    weight="bold"
-                    className="size-4.5 text-foreground/80"
-                  />
-                  <span className="text-sm">Visualização em árvore</span>
-                </div>
+            <SubjectTabs
+              key={selectedSubject.code}
+              code={selectedSubject.code}
+              details={
+                <>
+                  {selectedSubject && (
+                    <div className="z-700 mt-6 w-full px-3">
+                      <button
+                        className="flex w-full items-center justify-between rounded-md border border-border bg-muted px-2 py-1.5 decoration-0"
+                        onClick={handleGoToSubject}
+                      >
+                        <div className="flex items-center gap-2">
+                          <TreeStructureIcon
+                            weight="bold"
+                            className="size-4.5 text-foreground/80"
+                          />
+                          <span className="text-sm">
+                            Visualização em árvore
+                          </span>
+                        </div>
 
-                <CaretRightIcon
-                  weight="bold"
-                  className="size-4 text-foreground/70"
-                />
-              </button>
-            </div>
-          )}
-          {selectedSubject && <Details code={selectedSubject.code} />}
-          {preRequisites.length > 0 && (
-            <div className="relative z-20 mt-6 flex flex-col gap-4 px-4">
-              <SectionTitle>Pré-requisitos</SectionTitle>
-              <div className="grid w-full grid-flow-dense auto-rows-[88px] grid-cols-[repeat(auto-fit,minmax(8rem,1fr))] justify-items-center gap-2">
-                {preRequisites.map((preRequisite, index) => (
-                  <SubjectCardSmall
-                    childIndex={index}
-                    subject={preRequisite}
-                    key={preRequisite.id}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
-          {unlockables.length > 0 && (
-            <div className="relative z-20 mt-6 flex flex-col gap-4 px-4">
-              <SectionTitle>Desbloqueia</SectionTitle>
-              <div className="grid w-full grid-flow-dense auto-rows-[88px] grid-cols-[repeat(auto-fit,minmax(8rem,1fr))] justify-items-center gap-2">
-                {unlockables.map((unlockable, index) => (
-                  <SubjectCardSmall
-                    childIndex={index}
-                    subject={unlockable}
-                    key={unlockable.id}
-                  />
-                ))}
-              </div>
-            </div>
+                        <CaretRightIcon
+                          weight="bold"
+                          className="size-4 text-foreground/70"
+                        />
+                      </button>
+                    </div>
+                  )}
+                  {selectedSubject && <Details code={selectedSubject.code} />}
+                  {preRequisites.length > 0 && (
+                    <div className="relative z-20 mt-6 flex flex-col gap-4 px-4">
+                      <SectionTitle>Pré-requisitos</SectionTitle>
+                      <div className="grid w-full grid-flow-dense auto-rows-[88px] grid-cols-[repeat(auto-fit,minmax(8rem,1fr))] justify-items-center gap-2">
+                        {preRequisites.map((preRequisite, index) => (
+                          <SubjectCardSmall
+                            childIndex={index}
+                            subject={preRequisite}
+                            key={preRequisite.id}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {unlockables.length > 0 && (
+                    <div className="relative z-20 mt-6 flex flex-col gap-4 px-4">
+                      <SectionTitle>Desbloqueia</SectionTitle>
+                      <div className="grid w-full grid-flow-dense auto-rows-[88px] grid-cols-[repeat(auto-fit,minmax(8rem,1fr))] justify-items-center gap-2">
+                        {unlockables.map((unlockable, index) => (
+                          <SubjectCardSmall
+                            childIndex={index}
+                            subject={unlockable}
+                            key={unlockable.id}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </>
+              }
+            />
           )}
         </div>
         <div className="fixed bottom-0 z-100 h-16 w-full rounded-md bg-linear-to-t from-slate-100 to-transparent transition-all duration-300 ease-in-out group-data-[state=closed]/sidebar:w-0 md:bottom-8 md:z-50 md:w-80 dark:from-slate-900" />
