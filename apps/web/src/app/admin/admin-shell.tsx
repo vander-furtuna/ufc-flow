@@ -78,8 +78,7 @@ function Brand({ role }: { role: string }) {
   )
 }
 
-// Menu lateral no desktop e folha no celular. Só os itens já existentes;
-// os da avaliação de disciplinas chegam na fase 12.
+// Menu lateral no desktop e folha no celular
 export function AdminShell({
   role,
   isAdmin,
@@ -105,6 +104,11 @@ export function AdminShell({
       badge: pendingModeration,
     },
     { href: '/admin/cursos', label: 'Cursos', adminOnly: true },
+    {
+      href: '/admin/criterios',
+      label: 'Critérios de avaliação',
+      adminOnly: true,
+    },
   ].filter((item) => isAdmin || !item.adminOnly)
 
   return (
