@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
 import type {
+  DiscardedEvaluations,
   EvaluationCriteriaOrder,
   EvaluationCriterion,
   EvaluationInput,
@@ -31,6 +32,40 @@ import {
 } from '../domain/ports'
 
 const byPosition = (a: Criterion, b: Criterion) => a.position - b.position
+
+// Admin descarta as avaliações de uma conta suspeita (identidade não
+// verificada, Lacunas e riscos). As médias se recalculam na leitura.
+@Injectable()
+export class DiscardUserEvaluationsUseCase {
+  constructor(
+    @Inject(EVALUATION_UOW) private readonly uow: EvaluationUnitOfWork,
+    @Inject(CLOCK) private readonly clock: Clock,
+    @Inject(ID_GENERATOR) private readonly ids: IdGenerator,
+  ) {}
+
+  async execute(actor: Actor, userId: string): Promise<DiscardedEvaluations> {
+    if (!AccessPolicy.canAdministerPlatform(actor)) {
+      throw EvaluationErrors.accessDenied()
+    }
+    return this.uow.run(async (repos) => {
+      if ((await repos.directory.email(userId)) === null) {
+        throw EvaluationErrors.userNotFound()
+      }
+      const discarded = await repos.evaluations.deleteAllOf(userId)
+      if (discarded > 0) {
+        await repos.audit.record({
+          id: this.ids.next(),
+          actorId: actor.userId,
+          action: 'evaluations.discarded',
+          entityId: userId,
+          changes: { discarded },
+          createdAt: this.clock.now(),
+        })
+      }
+      return { discarded }
+    })
+  }
+}
 
 async function subjectOf(repos: EvaluationRepositories, code: string) {
   const subject = await repos.directory.subjectByCode(code)

@@ -7,6 +7,7 @@ import {
   SteppingClock,
 } from '../../catalog/application/testing/in-memory-catalog'
 import {
+  DiscardUserEvaluationsUseCase,
   EvaluationCriteriaUseCase,
   SubjectEvaluationsUseCase,
 } from './evaluation.use-cases'
@@ -56,6 +57,7 @@ function setup(requireInstitutionalEmail = false) {
       requireInstitutionalEmail,
     }),
     criteria: new EvaluationCriteriaUseCase(store, ids),
+    discard: new DiscardUserEvaluationsUseCase(store, clock, ids),
   }
 }
 
@@ -224,5 +226,54 @@ describe('critérios', () => {
         criteria.save(ADMIN, 'nada', { ...created, description: null }),
       ),
     ).toBe('EVALUATION_CRITERION_NOT_FOUND')
+  })
+})
+
+describe('descarte pelo admin', () => {
+  const evaluation = (id: string, userId: string) => ({
+    id,
+    userId,
+    subjectId: 's1',
+    scores: [{ criterionId: 'c1', score: 1 }],
+    createdAt: new Date('2026-11-01T12:00:00Z'),
+    updatedAt: new Date('2026-11-01T12:00:00Z'),
+  })
+
+  it('apaga as avaliações da conta, audita e devolve quantas saíram', async () => {
+    const s = setup()
+    s.store.emails.set('suspeito', 'x@alu.ufc.br')
+    s.store.evaluations = [
+      evaluation('e1', 'suspeito'),
+      evaluation('e2', 'suspeito'),
+      evaluation('e3', 'outra'),
+    ]
+    expect(await s.discard.execute(ADMIN, 'suspeito')).toEqual({
+      discarded: 2,
+    })
+    expect(s.store.evaluations.map((item) => item.id)).toEqual(['e3'])
+    expect(s.store.auditEntries).toEqual([
+      {
+        action: 'evaluations.discarded',
+        entityId: 'suspeito',
+        changes: { discarded: 2 },
+      },
+    ])
+  })
+
+  it('sem avaliações, nada a auditar', async () => {
+    const s = setup()
+    s.store.emails.set('ana', 'ana@alu.ufc.br')
+    expect(await s.discard.execute(ADMIN, 'ana')).toEqual({ discarded: 0 })
+    expect(s.store.auditEntries).toEqual([])
+  })
+
+  it('só admin, e a conta precisa existir', async () => {
+    const s = setup()
+    expect(await code(s.discard.execute(actor('ana'), 'ana'))).toBe(
+      'ACCESS_DENIED',
+    )
+    expect(await code(s.discard.execute(ADMIN, 'ninguem'))).toBe(
+      'USER_NOT_FOUND',
+    )
   })
 })

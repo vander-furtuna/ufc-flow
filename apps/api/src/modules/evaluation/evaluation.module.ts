@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common'
 import { ENV, type Env } from '../../config/env'
 import { IdentityModule } from '../identity/identity.module'
 import {
+  DiscardUserEvaluationsUseCase,
   EvaluationCriteriaUseCase,
   SubjectEvaluationsUseCase,
 } from './application/evaluation.use-cases'
@@ -28,6 +29,7 @@ import { DrizzleEvaluationUnitOfWork } from './infrastructure/persistence/drizzl
     },
     SubjectEvaluationsUseCase,
     EvaluationCriteriaUseCase,
+    DiscardUserEvaluationsUseCase,
   ],
 })
 export class EvaluationModule {}

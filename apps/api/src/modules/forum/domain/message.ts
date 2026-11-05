@@ -106,6 +106,10 @@ export function deletionOf(
   }
 }
 
+// Motivo gravado nas mensagens de quem excluiu a conta (LGPD): o texto some,
+// a thread fica e o aviso diz "mensagem removida"
+export const ACCOUNT_DELETED_REASON = 'ACCOUNT_DELETED'
+
 export type RateLimits = {
   // Mensagens permitidas a cada `burstSeconds`
   burst: number

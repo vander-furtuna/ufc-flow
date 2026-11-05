@@ -14,7 +14,8 @@ import {
   type IdentityRepositories,
   type IdentityUnitOfWork,
 } from '../domain/ports'
-import { toMe } from './views'
+import { IDENTITY_SETTINGS, type IdentitySettings } from './identity-settings'
+import { loadMe } from './views'
 
 // A foto anterior é solta e o job de limpeza a apaga do disco
 async function releaseAvatar(
@@ -27,29 +28,21 @@ async function releaseAvatar(
   if (previous) await repos.files.save(markDeleted(previous, now))
 }
 
-async function meOf(repos: IdentityRepositories, userId: string) {
-  const user = await repos.users.findById(userId)
-  if (!user) throw IdentityErrors.userNotFound()
-  return toMe(
-    user,
-    await repos.users.rolesOf(userId),
-    await repos.moderation.moderatedCourses(userId),
-  )
-}
-
 // Troca a foto de perfil por um arquivo AVATAR enviado pela própria pessoa
 @Injectable()
 export class SetAvatarUseCase {
   constructor(
     @Inject(IDENTITY_UOW) private readonly uow: IdentityUnitOfWork,
     @Inject(CLOCK) private readonly clock: Clock,
+    @Inject(IDENTITY_SETTINGS) private readonly settings: IdentitySettings,
   ) {}
 
   execute(userId: string, fileId: string): Promise<Me> {
     return this.uow.run(async (repos) => {
       const user = await repos.users.findById(userId)
       if (!user) throw IdentityErrors.userNotFound()
-      if (user.avatarFileId === fileId) return meOf(repos, userId)
+      if (user.avatarFileId === fileId)
+        return loadMe(repos, userId, this.settings.consentVersions)
       const file = await repos.files.findById(fileId)
       if (!file) throw FilesErrors.fileNotFound()
       checkAttachable(file, { ownerId: userId, purpose: 'AVATAR' })
@@ -57,7 +50,7 @@ export class SetAvatarUseCase {
       await repos.files.save(attachFile(file, now))
       await releaseAvatar(repos, user.avatarFileId, now)
       await repos.users.setAvatar(userId, fileId, now)
-      return meOf(repos, userId)
+      return loadMe(repos, userId, this.settings.consentVersions)
     })
   }
 }
@@ -67,6 +60,7 @@ export class RemoveAvatarUseCase {
   constructor(
     @Inject(IDENTITY_UOW) private readonly uow: IdentityUnitOfWork,
     @Inject(CLOCK) private readonly clock: Clock,
+    @Inject(IDENTITY_SETTINGS) private readonly settings: IdentitySettings,
   ) {}
 
   execute(userId: string): Promise<Me> {
@@ -76,7 +70,7 @@ export class RemoveAvatarUseCase {
       const now = this.clock.now()
       await releaseAvatar(repos, user.avatarFileId, now)
       await repos.users.setAvatar(userId, null, now)
-      return meOf(repos, userId)
+      return loadMe(repos, userId, this.settings.consentVersions)
     })
   }
 }

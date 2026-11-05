@@ -56,19 +56,19 @@ export class SignUpUseCase {
           id: this.ids.next(),
           userId: user.id,
           document: 'TERMS',
-          version: this.settings.termsVersion,
+          version: this.settings.consentVersions.terms,
           acceptedAt: now,
         },
         {
           id: this.ids.next(),
           userId: user.id,
           document: 'PRIVACY',
-          version: this.settings.privacyVersion,
+          version: this.settings.consentVersions.privacy,
           acceptedAt: now,
         },
       ])
       const tokens = await this.issuer.start(sessions, user.id, context)
-      return { user: toMe(user, [], []), tokens }
+      return { user: toMe(user, [], [], []), tokens }
     })
   }
 }

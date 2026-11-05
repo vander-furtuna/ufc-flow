@@ -2,6 +2,8 @@ import { DomainError } from '../../../shared/domain/domain-error'
 
 // Erros do módulo evaluation, com códigos estáveis
 export const EvaluationErrors = {
+  userNotFound: () =>
+    new DomainError('USER_NOT_FOUND', 'NOT_FOUND', 'Usuário não encontrado'),
   subjectNotFound: () =>
     new DomainError(
       'SUBJECT_NOT_FOUND',

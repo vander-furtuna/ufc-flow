@@ -1,6 +1,17 @@
 import { Module } from '@nestjs/common'
 
+import { CONSENT_VERSIONS } from '@ufc-flow/contracts'
+
 import { ENV, type Env } from '../../config/env'
+import {
+  AcceptConsentsUseCase,
+  DeleteAccountUseCase,
+  ExportPersonalDataUseCase,
+} from './application/account.use-cases'
+import {
+  ListUsersUseCase,
+  SetUserStatusUseCase,
+} from './application/admin-users.use-cases'
 import { CancelModeratorRequestUseCase } from './application/cancel-moderator-request.use-case'
 import { CreatePasswordResetLinkUseCase } from './application/create-password-reset-link.use-case'
 import {
@@ -9,7 +20,6 @@ import {
 } from './application/avatar.use-cases'
 import { GetMeUseCase } from './application/get-me.use-case'
 import {
-  CONSENT_VERSIONS,
   IDENTITY_SETTINGS,
   type IdentitySettings,
 } from './application/identity-settings'
@@ -65,8 +75,7 @@ import {
       useFactory: (env: Env): IdentitySettings => ({
         refreshTokenTtlDays: env.REFRESH_TOKEN_TTL_DAYS,
         webUrl: env.WEB_URL,
-        termsVersion: CONSENT_VERSIONS.terms,
-        privacyVersion: CONSENT_VERSIONS.privacy,
+        consentVersions: CONSENT_VERSIONS,
       }),
     },
     AuthGuard,
@@ -87,6 +96,11 @@ import {
     ListMyModeratorRequestsUseCase,
     ReviewModeratorRequestUseCase,
     CancelModeratorRequestUseCase,
+    AcceptConsentsUseCase,
+    ExportPersonalDataUseCase,
+    DeleteAccountUseCase,
+    ListUsersUseCase,
+    SetUserStatusUseCase,
   ],
   exports: [AuthGuard, OptionalAuthGuard, LoadActorUseCase, ACCESS_TOKENS],
 })

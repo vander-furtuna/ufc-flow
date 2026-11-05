@@ -22,6 +22,8 @@ export interface EvaluationRepository {
   findMine(userId: string, subjectId: string): Promise<Evaluation | null>
   // Grava a avaliação e troca as notas
   save(evaluation: Evaluation): Promise<void>
+  // Descarte pelo admin (conta suspeita); devolve quantas saíram
+  deleteAllOf(userId: string): Promise<number>
 }
 
 export interface EvaluationReader {
@@ -41,11 +43,23 @@ export interface EvaluationDirectory {
   email(userId: string): Promise<string | null>
 }
 
+export interface EvaluationAudit {
+  record(entry: {
+    id: string
+    actorId: string | null
+    action: string
+    entityId: string
+    changes: Record<string, unknown> | null
+    createdAt: Date
+  }): Promise<void>
+}
+
 export type EvaluationRepositories = {
   criteria: CriterionRepository
   evaluations: EvaluationRepository
   reader: EvaluationReader
   directory: EvaluationDirectory
+  audit: EvaluationAudit
 }
 
 export interface EvaluationUnitOfWork {
