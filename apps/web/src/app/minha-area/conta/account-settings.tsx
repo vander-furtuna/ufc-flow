@@ -1,11 +1,16 @@
 'use client'
 
-import { CONSENT_VERSIONS, type Me } from '@ufc-flow/contracts'
+import {
+  CONSENT_VERSIONS,
+  type CourseSummary,
+  type Me,
+} from '@ufc-flow/contracts'
 import { DownloadSimpleIcon, WarningIcon } from '@phosphor-icons/react'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
 
 import { DeleteAccountDialog } from './delete-account-dialog'
+import { ModerationRequests } from './moderation-requests'
 
 const dateFormat = new Intl.DateTimeFormat('pt-BR', {
   dateStyle: 'long',
@@ -36,7 +41,14 @@ function Section({
   )
 }
 
-export function AccountSettings({ user }: { user: Me }) {
+export function AccountSettings({
+  user,
+  courses,
+}: {
+  user: Me
+  courses: CourseSummary[]
+}) {
+  const isAdmin = user.roles.includes('ADMIN')
   return (
     <div className="flex flex-col gap-6">
       <Section title="Seus dados">
@@ -62,6 +74,20 @@ export function AccountSettings({ user }: { user: Me }) {
           (versão {CONSENT_VERSIONS.privacy}).
         </p>
       </Section>
+
+      {/* Admin já pode tudo; não pede moderação (Matriz de permissões) */}
+      {!isAdmin && (
+        <Section title="Moderação de curso">
+          <p className="text-sm text-muted-foreground">
+            Moderadores publicam notícias e prazos no hub, cuidam da página de
+            links e do fórum do curso. Um admin analisa cada pedido.
+          </p>
+          <ModerationRequests
+            courses={courses}
+            moderatedCourses={user.moderatedCourses}
+          />
+        </Section>
+      )}
 
       <Section title="Baixar meus dados">
         <p className="text-sm text-muted-foreground">
@@ -90,7 +116,7 @@ export function AccountSettings({ user }: { user: Me }) {
           A exclusão é definitiva. Se quiser guardar seus dados, baixe o arquivo
           antes.
         </p>
-        <DeleteAccountDialog isAdmin={user.roles.includes('ADMIN')} />
+        <DeleteAccountDialog isAdmin={isAdmin} />
       </Section>
     </div>
   )

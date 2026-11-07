@@ -52,6 +52,8 @@ Arquivos de teste ficam ao lado do código: `*.test.ts`. Fixtures em `__fixtures
 ## Git e PRs
 
 - Branches: `feature/<assunto>`, `fix/<assunto>`, `hotfix/<assunto>`, `release/vX.Y.Z`, sempre a partir de `develop` (hotfix a partir da branch de produção).
+- Durante um beta (D101), correções do que o beta encontrou saem da `release/vX.Y.Z` e voltam para ela por PR; cada rodada vira a tag `vX.Y.Z-beta.N`. No fim, a release vai para `master` (tag `vX.Y.Z`) e volta para `develop`.
+- Issues de triagem levam um tipo (`bug`, `inconsistência`, `melhoria`) e uma prioridade (`bloqueante` ou `depois`), no milestone da versão; as do beta levam também `beta` ([roteiro](beta/roteiro.md#triagem)).
 - Commits em inglês, no padrão Conventional Commits, com escopo quando fizer sentido: `feat(catalog): publish curriculum with validation`.
 - Um PR por entrega coerente, mesclado em `develop`. A descrição diz o que mudou, como testar e quais caixas do roadmap fecha.
 - Ao concluir a entrega, com a definição de pronto cumprida, o agente envia a branch e abre o PR para `develop` com `gh pr create`. O merge é sempre do usuário; o agente nunca faz merge, push direto em `develop` ou `master`, nem `push --force`.

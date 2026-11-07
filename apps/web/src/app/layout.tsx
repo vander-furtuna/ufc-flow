@@ -6,6 +6,7 @@ import { connection } from 'next/server'
 import localFont from 'next/font/local'
 import { DM_Mono, Geist, Outfit } from 'next/font/google'
 
+import { BetaBanner, betaFeedbackUrl } from '@/components/beta-banner'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/sonner'
 
@@ -143,6 +144,7 @@ export default async function RootLayout({
   // do Next por 5 minutos (D65). O semestre vigente vem da API, ou das
   // variáveis de ambiente sem ela.
   await connection()
+  const feedbackUrl = betaFeedbackUrl(process.env.BETA_FEEDBACK_URL)
   const [courses, currentTerm] = await Promise.all([
     getPublicCatalog(),
     getCurrentTerm(),
@@ -197,6 +199,7 @@ export default async function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+            {feedbackUrl ? <BetaBanner feedbackUrl={feedbackUrl} /> : null}
             <main className="flex min-h-dvh w-full flex-col items-center justify-start">
               {children}
             </main>

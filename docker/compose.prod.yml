@@ -69,6 +69,8 @@ services:
       # O web é BFF: fala com a API pela rede interna do compose
       API_URL: http://api:3333
       PRIVACY_CONTACT_EMAIL: ${PRIVACY_CONTACT_EMAIL:-}
+      # Só no ambiente beta: liga a faixa "Versão beta · Enviar feedback"
+      BETA_FEEDBACK_URL: ${BETA_FEEDBACK_URL:-}
     expose:
       - '3000'
 

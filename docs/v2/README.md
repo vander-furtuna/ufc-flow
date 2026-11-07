@@ -11,6 +11,7 @@ Tudo que um desenvolvedor (pessoa ou agente) precisa para continuar a v2 do UFC 
 5. [design-system.md](design-system.md): como traduzir os mockups para os tokens Tailwind/shadcn do web.
 6. [convencoes.md](convencoes.md): padrões de código, testes, git e definição de pronto.
 7. [deploy.md](deploy.md): deploy no Coolify, variáveis de ambiente e seeds do primeiro deploy.
+8. [beta/roteiro.md](beta/roteiro.md) e [beta/guia-do-testador.md](beta/guia-do-testador.md): verificação por perfil, triagem e o guia de quem testa o beta (D101).
 
 ## Mapa rápido: funcionalidade → modelagem → telas → fase
 

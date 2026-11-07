@@ -4,10 +4,12 @@ import {
   CONSENT_VERSIONS,
   accountDeletionInputSchema,
   adminUserListQuerySchema,
+  createModeratorRequestInputSchema,
   type AdminUserListQuery,
   type AdminUserPage,
   type DiscardedEvaluations,
   type Me,
+  type ModeratorRequest,
   type PasswordResetLink,
   type ProblemDetails,
 } from '@ufc-flow/contracts'
@@ -88,4 +90,31 @@ export async function discardEvaluationsAction(id: string) {
   return call<DiscardedEvaluations>(`${user(id)}/evaluations`, {
     method: 'DELETE',
   })
+}
+
+// Pedidos de moderação da própria pessoa (aprovados por um admin)
+export async function myModeratorRequestsAction() {
+  return call<ModeratorRequest[]>('/v1/me/moderator-requests')
+}
+
+export async function requestModerationAction(
+  courseId: string,
+  justification: string,
+) {
+  const parsed = createModeratorRequestInputSchema.safeParse({
+    courseId,
+    justification,
+  })
+  if (!parsed.success) return invalid(parsed.error.issues[0]!.message)
+  return call<ModeratorRequest>('/v1/moderator-requests', {
+    method: 'POST',
+    body: parsed.data,
+  })
+}
+
+export async function cancelModeratorRequestAction(id: string) {
+  return call<ModeratorRequest>(
+    `/v1/moderator-requests/${encodeURIComponent(id)}/cancel`,
+    { method: 'POST' },
+  )
 }

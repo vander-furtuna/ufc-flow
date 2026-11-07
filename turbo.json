@@ -10,7 +10,8 @@
         "NEXT_PUBLIC_*",
         "PLASMO_PUBLIC_*",
         "API_URL",
-        "PRIVACY_CONTACT_EMAIL"
+        "PRIVACY_CONTACT_EMAIL",
+        "BETA_FEEDBACK_URL"
       ]
     },
     "typecheck": {
@@ -23,7 +24,7 @@
     "dev": {
       "cache": false,
       "persistent": true,
-      "env": ["API_URL"]
+      "env": ["API_URL", "PRIVACY_CONTACT_EMAIL", "BETA_FEEDBACK_URL"]
     },
     "start": {
       "cache": false,
