@@ -1,5 +1,3 @@
-import { fileURLToPath, pathToFileURL } from 'node:url'
-
 import {
   normalizeRequirement,
   SUBJECT_CODE_PATTERN,
@@ -7,7 +5,7 @@ import {
 } from '@ufc-flow/academic-core'
 import type { CurriculumImportV1, SubjectType } from '@ufc-flow/contracts'
 
-// Converte o apps/web/src/data/courses.ts (formato do front atual) para o
+// Converte o legacy/courses-data.ts (o antigo courses.ts do front) para o
 // CurriculumImportV1, para o seed passar pelo mesmo pipeline da extensão.
 // Os pré-requisitos ali são listas e perderam o OU: entram como E de todos
 // os códigos, e a EC fica marcada para reimportação.
@@ -206,12 +204,8 @@ export function legacyToImport(
   }
 }
 
-// Import dinâmico: o arquivo usa os aliases do web (@/types), que o tsc da
-// API não resolve
+// Os dados moram ao lado, desde que saíram do web (D51)
 export async function loadLegacyCourses(): Promise<LegacyCourse[]> {
-  const file = new URL('../../../web/src/data/courses.ts', import.meta.url)
-  const data = (await import(pathToFileURL(fileURLToPath(file)).href)) as {
-    COURSES_DATA: LegacyCourse[]
-  }
-  return data.COURSES_DATA
+  return (await import('./legacy/courses-data'))
+    .COURSES_DATA as unknown as LegacyCourse[]
 }

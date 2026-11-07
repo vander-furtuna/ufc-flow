@@ -7,6 +7,9 @@ const envSchema = z
       .enum(['development', 'test', 'production'])
       .default('development'),
     PORT: z.coerce.number().int().positive().default(3333),
+    // Proxies confiáveis à frente da API (Express "trust proxy"): o IP do
+    // usuário é o que o último deles acrescentou ao X-Forwarded-For
+    TRUST_PROXY_HOPS: z.coerce.number().int().nonnegative().default(1),
     DATABASE_URL: z.url(),
     // Assina os tokens de acesso (HS256)
     JWT_SECRET: z
@@ -50,7 +53,12 @@ export type Env = z.infer<typeof envSchema>
 export const ENV = Symbol('Env')
 
 export function parseEnv(source: Record<string, string | undefined>): Env {
-  const result = envSchema.safeParse(source)
+  // Variável vazia vale como ausente: o compose de produção repassa as
+  // opcionais como "" quando não foram definidas
+  const defined = Object.fromEntries(
+    Object.entries(source).filter(([, value]) => value !== ''),
+  )
+  const result = envSchema.safeParse(defined)
   if (result.success) return result.data
   const issues = result.error.issues
     .map((issue) => `${issue.path.join('.')}: ${issue.message}`)

@@ -1,6 +1,6 @@
 # UFC Flow — guia para agentes
 
-UFC Flow é uma plataforma para estudantes da Universidade Federal do Ceará: grade curricular interativa com pré-requisitos, turmas do semestre, simulador de agenda, cardápio do RU e calendário acadêmico. É o TCC de Vanderlei Furtuna. Em produção hoje é só o front (Next.js, dados estáticos em `apps/web/src/data/courses.ts`). Na `develop`, com `API_URL` configurada, o web lê o catálogo da API; sem ela, continua o `courses.ts`.
+UFC Flow é uma plataforma para estudantes da Universidade Federal do Ceará: grade curricular interativa com pré-requisitos, turmas do semestre, simulador de agenda, cardápio do RU e calendário acadêmico. É o TCC de Vanderlei Furtuna. Em produção (`master`) hoje é só o front, com os dados estáticos do antigo `courses.ts`. Na `develop`, o web lê o catálogo só da API (`API_URL`, D51 e D100); o deploy da v2 no Coolify está em [docs/v2/deploy.md](docs/v2/deploy.md).
 
 O trabalho atual é a **v2**: API NestJS + PostgreSQL, contas de usuário, histórico acadêmico, agendas sincronizadas, hub do curso, página de links, fórum, avaliação de disciplinas, área administrativa de grades e uma extensão de navegador que extrai a estrutura curricular do SIGAA.
 
@@ -15,6 +15,7 @@ O trabalho atual é a **v2**: API NestJS + PostgreSQL, contas de usuário, hist�
 | [docs/v2/telas.md](docs/v2/telas.md)                 | As 39 telas desenhadas (PNG + HTML), por fase                          |
 | [docs/v2/design-system.md](docs/v2/design-system.md) | Tokens, tipografia e como traduzir os mockups para Tailwind/shadcn     |
 | [docs/v2/convencoes.md](docs/v2/convencoes.md)       | Padrões de código, testes, commits, git flow e definição de pronto     |
+| [docs/v2/deploy.md](docs/v2/deploy.md)               | Deploy no Coolify, variáveis de ambiente e seeds do primeiro deploy    |
 
 Ao começar uma fase, leia a seção correspondente do roadmap, as seções da modelagem que ela cita e as telas listadas nela. Não invente regra de negócio: se algo não está na modelagem, pergunte ao usuário ou registre como pergunta em aberto.
 
@@ -46,6 +47,7 @@ pnpm build | pnpm lint | pnpm typecheck | pnpm test   # todos os pacotes, via Tu
 pnpm test:integration                 # testes da API contra Postgres (Testcontainers; precisa do Docker)
 pnpm format | pnpm format:check       # Prettier no repositório inteiro
 docker compose -f docker/compose.dev.yml up -d   # PostgreSQL de desenvolvimento
+docker build -f apps/api/Dockerfile .            # imagem da API (o web usa o Dockerfile da raiz)
 pnpm --filter @ufc-flow/web <script>  # um pacote específico
 pnpm --filter @ufc-flow/academic-core add -D vitest   # dependência num pacote
 ```

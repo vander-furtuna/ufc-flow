@@ -283,6 +283,6 @@ flowchart LR
 **Objetivo:** pôr a v2 no ar com segurança. Modelagem: Usuários (LGPD), Lacunas e riscos.
 
 - [x] Texto final dos Termos de uso e da Política de privacidade, com versão nova e novo aceite de quem aceitou a `0.1` (D46). `GET /me/export` e exclusão de conta com as regras de apagar e anonimizar da modelagem. Feito nos PRs 13.1 (API, D98) e 13.2 (web, D99), com Admin › Usuários (suspensão e descarte de avaliações).
-- [ ] Coolify com três containers (`web`, `api`, `postgres`), volume de uploads e variáveis de ambiente documentadas.
-- [ ] Revisar os riscos em aberto: backup, identidade não verificada, dependência do HTML do SIGAA.
+- [x] Coolify com três containers (`web`, `api`, `postgres`), volume de uploads e variáveis de ambiente documentadas. PR 13.3 (D100): `docker/compose.prod.yml`, `apps/api/Dockerfile` e [deploy.md](deploy.md); domínios configurados na VM, fora do repositório.
+- [x] Revisar os riscos em aberto: backup, identidade não verificada, dependência do HTML do SIGAA. Backup segue em aberto por decisão do usuário; identidade não verificada tem suspensão e descarte de avaliações (D98, D99); o SIGAA tem o aviso `SCRAPE_FAILED`.
 - [ ] Release `release/v2.0.0` → `master` e `develop`, tag `v2.0.0`. Atualizar versão, README e documentos de GCS.

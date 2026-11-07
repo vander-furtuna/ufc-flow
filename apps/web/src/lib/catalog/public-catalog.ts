@@ -49,22 +49,19 @@ async function fromApi(apiUrl: string): Promise<Course[]> {
   return courses.filter((course) => course.curriculumStructures.length > 0)
 }
 
-async function fromStaticData(): Promise<Course[]> {
-  return (await import('@/data/courses')).COURSES_DATA
-}
-
-// Catálogo das telas públicas. Sem API_URL (previews do Vercel, produção até
-// a fase 13), continua o courses.ts (D51). Com a API configurada e fora do
-// ar sem nada em cache, cai no courses.ts para a grade não sumir.
+// Catálogo das telas públicas, só da API desde a fase 13 (D51, D100). Sem
+// API_URL, ou com a API fora do ar e nada em cache, a lista fica vazia (e o
+// erro vai para o log) em vez de derrubar a página.
 export const getPublicCatalog = cache(async (): Promise<Course[]> => {
   const apiUrl = process.env.API_URL
-  if (!apiUrl) return fromStaticData()
+  if (!apiUrl) {
+    console.error('API_URL não configurada; o catálogo fica vazio')
+    return []
+  }
   try {
     return await fromApi(apiUrl)
   } catch (error) {
-    console.error(
-      `Catálogo da API indisponível; usando o courses.ts: ${(error as Error).message}`,
-    )
-    return fromStaticData()
+    console.error(`Catálogo da API indisponível: ${(error as Error).message}`)
+    return []
   }
 })

@@ -12,6 +12,7 @@ describe('parseEnv', () => {
     expect(parseEnv(base)).toEqual({
       NODE_ENV: 'development',
       PORT: 3333,
+      TRUST_PROXY_HOPS: 1,
       DATABASE_URL: base.DATABASE_URL,
       JWT_SECRET: base.JWT_SECRET,
       ACCESS_TOKEN_TTL_SECONDS: 900,
@@ -33,6 +34,19 @@ describe('parseEnv', () => {
     expect(
       parseEnv({ ...base, PORT: '4000', SWAGGER_ENABLED: 'false' }),
     ).toMatchObject({ PORT: 4000, SWAGGER_ENABLED: false })
+  })
+
+  it('variável vazia vale como ausente', () => {
+    expect(
+      parseEnv({
+        ...base,
+        NODE_ENV: 'production',
+        SWAGGER_ENABLED: 'false',
+        SWAGGER_USER: '',
+        SWAGGER_PASSWORD: '',
+        TRUST_PROXY_HOPS: '',
+      }),
+    ).toMatchObject({ SWAGGER_ENABLED: false, TRUST_PROXY_HOPS: 1 })
   })
 
   it('exige segredo do JWT com 32 caracteres ou mais', () => {

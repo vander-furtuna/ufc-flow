@@ -2,6 +2,7 @@ import './globals.css'
 
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
+import { connection } from 'next/server'
 import localFont from 'next/font/local'
 import { DM_Mono, Geist, Outfit } from 'next/font/google'
 
@@ -137,15 +138,20 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  // Catálogo das telas públicas: da API, ou do courses.ts sem API_URL (D51).
-  // O semestre vigente vem da API, ou das variáveis de ambiente sem ela.
+  // Renderiza a cada requisição: o catálogo vem só da API (D51), que não
+  // existe durante o build da imagem. As respostas ficam no cache de dados
+  // do Next por 5 minutos (D65). O semestre vigente vem da API, ou das
+  // variáveis de ambiente sem ela.
+  await connection()
   const [courses, currentTerm] = await Promise.all([
     getPublicCatalog(),
     getCurrentTerm(),
   ])
   return (
     <html lang="pt-br" suppressHydrationWarning>
-      <Analytics />
+      {/* O script do Vercel Analytics só existe na Vercel; no Coolify ele
+          viraria um 404 em HTML no console */}
+      {process.env.VERCEL ? <Analytics /> : null}
 
       <head>
         <link rel="icon" type="image/svg+xml" href="/icon.svg" />

@@ -1,6 +1,9 @@
-import type { Course } from '@/types/course'
-
-export const COURSES_DATA: Course[] = [
+// Catálogo estático do front até a fase 12 (o antigo apps/web/src/data/
+// courses.ts). Desde a fase 13 o web lê só a API (D51); este arquivo serve
+// apenas ao seed:catalog, que leva os 6 cursos e as 9 ECs para o banco.
+// Sem anotação de tipo: o formato do front tem campos que o seed ignora;
+// o legacy-courses.ts converte e o teste dele confere.
+export const COURSES_DATA = [
   {
     id: '657484',
     name: 'Engenharia de Computação',

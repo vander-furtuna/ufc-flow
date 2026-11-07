@@ -41,7 +41,7 @@ type HandleSelectProps = {
 
 const courseContext = createContext<CourseContextType>({} as CourseContextType)
 
-// O catálogo vem do servidor (layout raiz): da API ou do courses.ts (D51)
+// O catálogo vem do servidor (layout raiz), só da API desde a fase 13 (D51)
 export function CourseProvider({
   children,
   courses,
