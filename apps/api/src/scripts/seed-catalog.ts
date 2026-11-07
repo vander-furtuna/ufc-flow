@@ -1,11 +1,11 @@
-import { readFileSync } from 'node:fs'
-
 import type { SigaaCourse } from '@ufc-flow/academic-core'
 import type { CurriculumImportV1 } from '@ufc-flow/contracts'
 import { and, eq } from 'drizzle-orm'
 import { drizzle } from 'drizzle-orm/node-postgres'
 import pg from 'pg'
 
+import sigaaCourses from '../../../extension/src/sigaa/catalog/sigaa-courses.json'
+import realFixtureJson from '../../../../packages/contracts/fixtures/engenharia-de-computacao-2006-2.json'
 import * as schema from '../database/schema'
 import { CreateCourseUseCase } from '../modules/catalog/application/courses.use-cases'
 import { CurriculumEditor } from '../modules/catalog/application/curriculum-editor'
@@ -26,23 +26,17 @@ import { RandomIdGenerator } from '../shared/infrastructure/random-id-generator'
 import { SystemClock } from '../shared/infrastructure/system-clock'
 import { legacyToImport, loadLegacyCourses } from './legacy-courses'
 
-// Leva os 6 cursos e as 9 ECs do apps/web/src/data/courses.ts para o banco
+// Leva os 6 cursos e as 9 ECs do legacy/courses-data.ts para o banco
 // pelo mesmo pipeline da extensão (importar, resolver pontos, publicar).
 // Eng. de Computação 2006.2 usa a fixture real do SIGAA, com os OU; as
 // demais ficam marcadas para reimportação. Idempotente: pula o que existe.
 // Rode depois do seed:admin.
 //   pnpm --filter @ufc-flow/api seed:catalog
 
-const root = new URL('../../../../', import.meta.url)
-const read = (path: string) => readFileSync(new URL(path, root), 'utf8')
-
-// Catálogo do SIGAA embutido na extensão, para não depender da internet
-const sigaaCatalog = JSON.parse(
-  read('apps/extension/src/sigaa/catalog/sigaa-courses.json'),
-) as SigaaCourse[]
-const realFixture = JSON.parse(
-  read('packages/contracts/fixtures/engenharia-de-computacao-2006-2.json'),
-) as CurriculumImportV1
+// Importados (e não lidos do disco) para entrarem no bundle do seed, que
+// também roda dentro da imagem da API
+const sigaaCatalog = sigaaCourses as SigaaCourse[]
+const realFixture = realFixtureJson as unknown as CurriculumImportV1
 
 const url = process.env.DATABASE_URL
 if (!url) throw new Error('Defina DATABASE_URL (veja apps/api/.env.example)')

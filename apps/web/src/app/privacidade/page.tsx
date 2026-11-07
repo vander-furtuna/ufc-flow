@@ -121,8 +121,8 @@ export default function PrivacyPage() {
           <p>
             Usamos dois cookies de sessão, restritos ao servidor do site, para
             manter você conectado. Eles não servem para rastrear você em outros
-            sites. As visitas são contadas de forma agregada, sem cookies e sem
-            identificar quem visitou.
+            sites. Quando contamos visitas, é de forma agregada, sem cookies e
+            sem identificar quem visitou.
           </p>
         </section>
         <section className="flex flex-col gap-2">

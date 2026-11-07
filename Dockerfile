@@ -18,7 +18,9 @@ RUN pnpm fetch
 COPY . .
 RUN pnpm install --offline --frozen-lockfile
 
-# Argumentos de build para variáveis NEXT_PUBLIC (injetadas pelo Coolify)
+# Argumentos de build para variáveis NEXT_PUBLIC (injetadas pelo Coolify).
+# API_URL e PRIVACY_CONTACT_EMAIL são de execução: vêm do docker/compose.prod.yml
+# (o layout renderiza por requisição, D100). Variáveis em docs/v2/deploy.md.
 ARG NEXT_PUBLIC_SITE_URL
 ARG NEXT_PUBLIC_CURRENT_YEAR
 ARG NEXT_PUBLIC_CURRENT_SEMESTER

@@ -1,0 +1,77 @@
+# Produção no Coolify: web, api e postgres (modelagem, Execução na VM).
+# No Coolify, crie um recurso "Docker Compose" apontando para este arquivo;
+# os domínios e o proxy (Traefik) são configurados no próprio Coolify, por
+# isso nenhum serviço publica porta aqui. Variáveis em docs/v2/deploy.md.
+#
+# Local, para conferir a pilha (com um .env ao lado deste arquivo):
+#   docker compose -f docker/compose.prod.yml --env-file docker/.env.prod up -d --build
+name: ufc-flow
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-ufcflow}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?defina POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB:-ufcflow}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}']
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: ..
+      dockerfile: apps/api/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgres://${POSTGRES_USER:-ufcflow}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-ufcflow}
+      JWT_SECRET: ${JWT_SECRET:?defina JWT_SECRET (32+ caracteres)}
+      # Endereço público do web: base dos links de redefinição de senha
+      WEB_URL: ${WEB_URL:?defina WEB_URL}
+      TRUST_PROXY_HOPS: ${TRUST_PROXY_HOPS:-1}
+      SWAGGER_ENABLED: ${SWAGGER_ENABLED:-false}
+      SWAGGER_USER: ${SWAGGER_USER:-}
+      SWAGGER_PASSWORD: ${SWAGGER_PASSWORD:-}
+      SIGAA_SYNC_ENABLED: ${SIGAA_SYNC_ENABLED:-true}
+      CLASSES_SYNC_ENABLED: ${CLASSES_SYNC_ENABLED:-true}
+      CLASSES_SYNC_PAUSE_MS: ${CLASSES_SYNC_PAUSE_MS:-5000}
+      FORUM_RATE_BURST: ${FORUM_RATE_BURST:-1}
+      FORUM_RATE_BURST_SECONDS: ${FORUM_RATE_BURST_SECONDS:-10}
+      FORUM_RATE_HOURLY: ${FORUM_RATE_HOURLY:-30}
+      EVALUATION_REQUIRE_INSTITUTIONAL_EMAIL: ${EVALUATION_REQUIRE_INSTITUTIONAL_EMAIL:-false}
+    volumes:
+      - uploads:/data/uploads
+    expose:
+      - '3333'
+
+  web:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-}
+        NEXT_PUBLIC_CURRENT_YEAR: ${NEXT_PUBLIC_CURRENT_YEAR:-}
+        NEXT_PUBLIC_CURRENT_SEMESTER: ${NEXT_PUBLIC_CURRENT_SEMESTER:-}
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_healthy
+    environment:
+      # O web é BFF: fala com a API pela rede interna do compose
+      API_URL: http://api:3333
+      PRIVACY_CONTACT_EMAIL: ${PRIVACY_CONTACT_EMAIL:-}
+    expose:
+      - '3000'
+
+volumes:
+  postgres-data:
+  uploads:

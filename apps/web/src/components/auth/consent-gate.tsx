@@ -9,6 +9,8 @@ import { useSession } from '@/lib/auth/use-session'
 // aceite e a conta (para exportar ou excluir sem aceitar)
 const OPEN_PATHS = [
   '/aceitar-termos',
+  // O login redireciona sozinho; o gate não disputa com ele
+  '/entrar',
   '/termos',
   '/privacidade',
   '/minha-area/conta',

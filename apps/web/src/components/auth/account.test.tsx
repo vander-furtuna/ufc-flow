@@ -72,6 +72,7 @@ describe('consentRedirect', () => {
       '/aceitar-termos?next=%2Fminha-area%2Fhistorico',
     ],
     ['na tela de aceite', ['TERMS'], '/aceitar-termos', null],
+    ['no login, que redireciona sozinho', ['TERMS'], '/entrar', null],
     ['lendo os termos', ['PRIVACY'], '/privacidade', null],
     ['na conta, para excluir', ['TERMS'], '/minha-area/conta', null],
     [

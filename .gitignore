@@ -41,6 +41,8 @@ pnpm-debug.log*
 # local env files
 .env
 .env*.local
+# variáveis do compose de produção, para conferir localmente
+docker/.env.prod
 
 # vercel
 .vercel
