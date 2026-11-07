@@ -109,6 +109,7 @@ export function AdminShell({
       label: 'Critérios de avaliação',
       adminOnly: true,
     },
+    { href: '/admin/usuarios', label: 'Usuários', adminOnly: true },
   ].filter((item) => isAdmin || !item.adminOnly)
 
   return (

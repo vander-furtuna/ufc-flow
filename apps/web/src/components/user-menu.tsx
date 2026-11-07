@@ -2,6 +2,7 @@
 
 import {
   CameraIcon,
+  GearSixIcon,
   GraduationCapIcon,
   SignOutIcon,
   TrashIcon,
@@ -146,6 +147,12 @@ export function UserMenu() {
           <Link href="/minha-area">
             <GraduationCapIcon className="size-4" />
             Minha área
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild className="gap-2">
+          <Link href="/minha-area/conta">
+            <GearSixIcon className="size-4" />
+            Minha conta
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
