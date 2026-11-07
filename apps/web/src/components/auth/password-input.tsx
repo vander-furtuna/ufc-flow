@@ -17,7 +17,11 @@ export function PasswordInput({
       <Input
         {...props}
         type={visible ? 'text' : 'password'}
-        className={cn('h-12 rounded-[12px] pr-12', className)}
+        // O Edge mostra o próprio botão de revelar; fica só o nosso
+        className={cn(
+          'h-12 rounded-[12px] pr-12 [&::-ms-reveal]:hidden',
+          className,
+        )}
       />
       <button
         type="button"

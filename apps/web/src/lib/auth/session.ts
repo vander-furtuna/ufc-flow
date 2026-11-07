@@ -5,12 +5,13 @@ import { cookies, headers } from 'next/headers'
 import { cache } from 'react'
 
 import { callApi } from './api'
+import { clientIpFrom } from './client-ip'
 import { ACCESS_COOKIE, REFRESH_COOKIE, sessionCookies } from './cookies'
 
 export async function clientContext() {
   const list = await headers()
   return {
-    clientIp: list.get('x-forwarded-for')?.split(',')[0]?.trim() ?? null,
+    clientIp: clientIpFrom(list.get('x-forwarded-for')),
     userAgent: list.get('user-agent'),
   }
 }

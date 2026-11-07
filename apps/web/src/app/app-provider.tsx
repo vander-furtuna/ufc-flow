@@ -13,6 +13,7 @@ import { queryClient } from '@/lib/query-client'
 import { ToolsProvider } from '@/contexts/tools'
 import { ScheduleProvider } from '@/contexts/schedule'
 import { ScheduleImportPrompt } from '@/components/schedule-import/schedule-import-prompt'
+import { ConsentGate } from '@/components/auth/consent-gate'
 import { CalendarProvider } from '@/contexts/calendar'
 import { FeaturesProvider } from '@/contexts/features'
 
@@ -43,6 +44,7 @@ export function AppProvider({
                       <ScheduleProvider>
                         {children}
                         <ScheduleImportPrompt />
+                        <ConsentGate />
                       </ScheduleProvider>
                     </CalendarProvider>
                   </ClassProvider>

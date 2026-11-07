@@ -6,7 +6,12 @@
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**", "build/**"],
-      "env": ["NEXT_PUBLIC_*", "PLASMO_PUBLIC_*", "API_URL"]
+      "env": [
+        "NEXT_PUBLIC_*",
+        "PLASMO_PUBLIC_*",
+        "API_URL",
+        "PRIVACY_CONTACT_EMAIL"
+      ]
     },
     "typecheck": {
       "dependsOn": ["^typecheck"]

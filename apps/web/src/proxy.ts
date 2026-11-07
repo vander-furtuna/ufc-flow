@@ -2,6 +2,7 @@ import type { AuthTokens } from '@ufc-flow/contracts'
 import { NextRequest, NextResponse } from 'next/server'
 
 import { callApi } from '@/lib/auth/api'
+import { clientIpFrom } from '@/lib/auth/client-ip'
 import {
   ACCESS_COOKIE,
   REFRESH_COOKIE,
@@ -52,7 +53,7 @@ async function renewSession(request: NextRequest): Promise<CookieChange> {
   const result = await callApi<AuthTokens>('/v1/auth/refresh', {
     method: 'POST',
     body: { refreshToken },
-    clientIp: request.headers.get('x-forwarded-for')?.split(',')[0]?.trim(),
+    clientIp: clientIpFrom(request.headers.get('x-forwarded-for')),
     userAgent: request.headers.get('user-agent'),
   })
   if (result.ok) return { kind: 'set', cookies: sessionCookies(result.data) }
@@ -90,9 +91,10 @@ export async function proxy(request: NextRequest) {
 }
 
 // Rotas de API ficam de fora, menos /api/auth (o menu do usuário lê a
-// sessão por lá) e /api/files (upload): as duas precisam da renovação
+// sessão por lá), /api/files (upload) e /api/me (exportação dos dados): as
+// três precisam da renovação
 export const config = {
   matcher: [
-    '/((?!api(?!/auth|/files)|_next/static|_next/image|favicon.ico|icon.svg|banner.jpg).*)',
+    '/((?!api(?!/auth|/files|/me)|_next/static|_next/image|favicon.ico|icon.svg|banner.jpg).*)',
   ],
 }
