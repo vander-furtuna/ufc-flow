@@ -2,6 +2,7 @@ import { z } from 'zod'
 
 import { isoDateTimeSchema, uuidSchema } from '../common/primitives'
 import { userRoleSchema, userStatusSchema } from '../enums'
+import { consentDocumentSchema } from './account'
 
 // Sem regra de composição (orientação do NIST): só o tamanho
 export const passwordSchema = z
@@ -58,6 +59,8 @@ export const meSchema = z
     moderatedCourses: z.array(courseSummarySchema),
     // Foto de perfil (arquivo público); null mostra as iniciais
     avatarFileId: uuidSchema.nullable(),
+    // Documentos com aceite numa versão anterior à vigente (novo aceite)
+    pendingConsents: z.array(consentDocumentSchema),
     createdAt: isoDateTimeSchema,
   })
   .meta({ id: 'Me' })

@@ -179,4 +179,28 @@ describe('MessageItem', () => {
       ),
     ).toBeTruthy()
   })
+
+  it('de conta excluída vira "Mensagem removida", sem autor', () => {
+    wrap(
+      <MessageItem
+        message={message({
+          author: null,
+          content: null,
+          status: 'REMOVED',
+          removedBy: 'ACCOUNT_DELETED',
+          removalCategory: null,
+          replyCount: 1,
+          mentions: [],
+        })}
+        context={context}
+        now={now}
+      />,
+    )
+    expect(screen.getByText('Mensagem removida')).toBeTruthy()
+    expect(
+      screen.getByText(
+        'A conta do autor foi excluída · a resposta continua visível',
+      ),
+    ).toBeTruthy()
+  })
 })

@@ -9,8 +9,9 @@ import {
   type IdentityUnitOfWork,
   type PasswordHasher,
 } from '../domain/ports'
+import { IDENTITY_SETTINGS, type IdentitySettings } from './identity-settings'
 import { SessionIssuer, type SessionContext } from './session-issuer'
-import { toMe } from './views'
+import { loadMe } from './views'
 
 // Login com e-mail e senha. O limite de tentativas fica na rota (throttler).
 @Injectable()
@@ -19,6 +20,7 @@ export class SignInUseCase {
     @Inject(IDENTITY_UOW) private readonly uow: IdentityUnitOfWork,
     @Inject(PASSWORD_HASHER) private readonly hasher: PasswordHasher,
     @Inject(SessionIssuer) private readonly issuer: SessionIssuer,
+    @Inject(IDENTITY_SETTINGS) private readonly settings: IdentitySettings,
   ) {}
 
   async execute(
@@ -38,10 +40,10 @@ export class SignInUseCase {
       if (user.status === 'SUSPENDED') throw IdentityErrors.userSuspended()
 
       const tokens = await this.issuer.start(sessions, user.id, context)
-      const me = toMe(
+      const me = await loadMe(
+        { users, moderation },
         user,
-        await users.rolesOf(user.id),
-        await moderation.moderatedCourses(user.id),
+        this.settings.consentVersions,
       )
       return { user: me, tokens }
     })

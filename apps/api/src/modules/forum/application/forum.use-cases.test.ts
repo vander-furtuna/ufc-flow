@@ -7,11 +7,12 @@ import {
   SequentialIds,
   SteppingClock,
 } from '../../catalog/application/testing/in-memory-catalog'
-import type { RateLimits } from '../domain/message'
+import { ACCOUNT_DELETED_REASON, type RateLimits } from '../domain/message'
 import {
   ReadForumUseCase,
   SearchSubjectsUseCase,
   WriteForumUseCase,
+  toMessageView,
 } from './forum.use-cases'
 import { InMemoryForum } from './testing/in-memory-forum'
 
@@ -308,5 +309,43 @@ describe('busca de disciplinas para o @', () => {
         (item) => item.code,
       ),
     ).toEqual(['ECO0036', 'ECO0100'])
+  })
+})
+
+describe('mensagem de conta excluída (LGPD)', () => {
+  it('aparece como removida pela exclusão da conta, sem autor nem motivo', () => {
+    const at = new Date('2026-11-03T12:00:00.000Z')
+    const view = toMessageView(
+      {
+        id: 'm1',
+        courseId: COURSE,
+        authorId: null,
+        parentId: null,
+        rootId: null,
+        content: '',
+        replyCount: 2,
+        likeCount: 0,
+        status: 'REMOVED',
+        createdAt: at,
+        editedAt: null,
+        removedAt: at,
+        removedBy: null,
+        removalReason: ACCOUNT_DELETED_REASON,
+        authorName: null,
+        authorAvatarFileId: null,
+        parentAuthorName: null,
+        likedByMe: false,
+        mentions: [],
+      },
+      { userId: 'bruno', canModerate: false },
+      at,
+    )
+    expect(view).toMatchObject({
+      author: null,
+      content: null,
+      removedBy: 'ACCOUNT_DELETED',
+      removalCategory: null,
+      replyCount: 2,
+    })
   })
 })

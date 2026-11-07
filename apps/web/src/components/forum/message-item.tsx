@@ -70,12 +70,14 @@ function Placeholder({ message }: { message: MessageView }) {
       ? ['Mensagem oculta pela moderação', 'Aguardando a decisão da moderação']
       : message.removedBy === 'AUTHOR'
         ? ['Mensagem apagada pelo autor', null]
-        : [
-            'Mensagem removida pela moderação',
-            message.removalCategory
-              ? `Motivo: ${REPORT_REASONS[message.removalCategory].toLowerCase()}`
-              : null,
-          ]
+        : message.removedBy === 'ACCOUNT_DELETED'
+          ? ['Mensagem removida', 'A conta do autor foi excluída']
+          : [
+              'Mensagem removida pela moderação',
+              message.removalCategory
+                ? `Motivo: ${REPORT_REASONS[message.removalCategory].toLowerCase()}`
+                : null,
+            ]
   return (
     <div className="flex items-start gap-3">
       <span

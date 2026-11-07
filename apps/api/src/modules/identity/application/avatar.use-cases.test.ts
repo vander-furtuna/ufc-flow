@@ -45,8 +45,8 @@ function setup() {
   }
   return {
     ...t,
-    set: new SetAvatarUseCase(t.store, t.clock),
-    remove: new RemoveAvatarUseCase(t.store, t.clock),
+    set: new SetAvatarUseCase(t.store, t.clock, t.settings),
+    remove: new RemoveAvatarUseCase(t.store, t.clock, t.settings),
   }
 }
 

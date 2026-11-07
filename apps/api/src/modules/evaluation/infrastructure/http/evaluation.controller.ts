@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Inject,
   Param,
@@ -34,6 +35,7 @@ import {
   CurrentUserId,
 } from '../../../identity/infrastructure/http/auth.guard'
 import {
+  DiscardUserEvaluationsUseCase,
   EvaluationCriteriaUseCase,
   SubjectEvaluationsUseCase,
 } from '../../application/evaluation.use-cases'
@@ -56,7 +58,27 @@ export class EvaluationController {
     private readonly evaluations: SubjectEvaluationsUseCase,
     @Inject(EvaluationCriteriaUseCase)
     private readonly criteria: EvaluationCriteriaUseCase,
+    @Inject(DiscardUserEvaluationsUseCase)
+    private readonly discard: DiscardUserEvaluationsUseCase,
   ) {}
+
+  @Delete('admin/users/:userId/evaluations')
+  @UseGuards(AuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Descartar as avaliações de um usuário (admin)',
+    description:
+      'Para contas suspeitas (identidade não verificada). Apaga as avaliações e as notas; as médias se recalculam.',
+  })
+  @ApiParam({ name: 'userId', format: 'uuid' })
+  @ApiJson(200, 'Quantas avaliações saíram', schemaRef('DiscardedEvaluations'))
+  @ApiProblems(400, 401, 403, 404)
+  async discardOf(
+    @CurrentUserId() actorId: string,
+    @Param('userId', idParam) userId: string,
+  ) {
+    return this.discard.execute(await this.loadActor.execute(actorId), userId)
+  }
 
   @Get('subjects/:code/evaluations')
   @ApiOperation({

@@ -9,7 +9,10 @@ import {
   studentSubjectRecords,
 } from '../../../academic-record/infrastructure/persistence/academic-record.schema'
 import { subjects } from '../../../catalog/infrastructure/persistence/catalog.schema'
-import { users } from '../../../identity/infrastructure/persistence/identity.schema'
+import {
+  auditLogs,
+  users,
+} from '../../../identity/infrastructure/persistence/identity.schema'
 import type {
   EvaluationRepositories,
   EvaluationUnitOfWork,
@@ -88,6 +91,14 @@ function evaluationRepositories(db: Executor): EvaluationRepositories {
           .insert(subjectEvaluationScores)
           .values(scores.map((score) => ({ evaluationId: row.id, ...score })))
       },
+      async deleteAllOf(userId) {
+        // As notas saem em cascata
+        const rows = await db
+          .delete(subjectEvaluations)
+          .where(eq(subjectEvaluations.userId, userId))
+          .returning({ id: subjectEvaluations.id })
+        return rows.length
+      },
     },
     reader: {
       async totals(subjectId) {
@@ -146,6 +157,15 @@ function evaluationRepositories(db: Executor): EvaluationRepositories {
           .from(users)
           .where(eq(users.id, userId))
         return row?.email ?? null
+      },
+    },
+    audit: {
+      async record(entry) {
+        await db.insert(auditLogs).values({
+          ...entry,
+          module: 'evaluation',
+          entity: 'user',
+        })
       },
     },
   }

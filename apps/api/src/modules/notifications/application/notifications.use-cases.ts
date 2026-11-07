@@ -320,6 +320,9 @@ export class EventNotifier {
               },
             ),
           }
+        // Não vira notificação: quem ouve é a limpeza de arquivos
+        case 'AccountDeleted':
+          return { actorId: null, drafts: [] }
       }
     })
     return this.dispatcher.deliver(drafts, actorId)

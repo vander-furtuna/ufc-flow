@@ -21,6 +21,7 @@ export class InMemoryEvaluation implements EvaluationUnitOfWork {
     termCode: string
   }[] = []
   emails = new Map<string, string>()
+  auditEntries: { action: string; entityId: string; changes: unknown }[] = []
 
   repositories(): EvaluationRepositories {
     return {
@@ -52,6 +53,13 @@ export class InMemoryEvaluation implements EvaluationUnitOfWork {
             clone(evaluation),
           ]
         },
+        deleteAllOf: async (userId) => {
+          const before = this.evaluations.length
+          this.evaluations = this.evaluations.filter(
+            (item) => item.userId !== userId,
+          )
+          return before - this.evaluations.length
+        },
       },
       reader: {
         totals: async (subjectId) => {
@@ -74,6 +82,11 @@ export class InMemoryEvaluation implements EvaluationUnitOfWork {
             )
             .map(({ status, termCode }) => ({ status, termCode })),
         email: async (userId) => this.emails.get(userId) ?? null,
+      },
+      audit: {
+        record: async ({ action, entityId, changes }) => {
+          this.auditEntries.push({ action, entityId, changes })
+        },
       },
     }
   }

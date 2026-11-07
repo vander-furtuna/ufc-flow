@@ -1,12 +1,21 @@
 import type {
+  AdminUser,
   AuthTokens,
+  ConsentDocument,
   CourseSummary,
   Me,
   ModeratorRequest,
   UserRole,
 } from '@ufc-flow/contracts'
 
-import type { ModeratorRequestRecord, User } from '../domain/ports'
+import { pendingConsents, type ConsentVersions } from '../domain/account'
+import { IdentityErrors } from '../domain/errors'
+import type {
+  IdentityRepositories,
+  ModeratorRequestRecord,
+  User,
+  UserListing,
+} from '../domain/ports'
 
 // Conversão do domínio para os formatos do packages/contracts
 
@@ -14,6 +23,7 @@ export const toMe = (
   user: User,
   roles: UserRole[],
   moderatedCourses: CourseSummary[],
+  pending: ConsentDocument[],
 ): Me => ({
   id: user.id,
   name: user.name,
@@ -22,7 +32,37 @@ export const toMe = (
   roles,
   moderatedCourses,
   avatarFileId: user.avatarFileId ?? null,
+  pendingConsents: pending,
   createdAt: user.createdAt.toISOString(),
+})
+
+// Me completo, com papéis, cursos moderados e aceites pendentes
+export async function loadMe(
+  repos: Pick<IdentityRepositories, 'users' | 'moderation'>,
+  userOrId: User | string,
+  versions: ConsentVersions,
+): Promise<Me> {
+  const user =
+    typeof userOrId === 'string'
+      ? await repos.users.findById(userOrId)
+      : userOrId
+  if (!user) throw IdentityErrors.userNotFound()
+  return toMe(
+    user,
+    await repos.users.rolesOf(user.id),
+    await repos.moderation.moderatedCourses(user.id),
+    pendingConsents(await repos.users.consentsOf(user.id), versions),
+  )
+}
+
+export const toAdminUser = (row: UserListing): AdminUser => ({
+  id: row.id,
+  name: row.name,
+  email: row.email,
+  status: row.status,
+  roles: row.roles,
+  evaluationCount: row.evaluationCount,
+  createdAt: row.createdAt.toISOString(),
 })
 
 export const toModeratorRequest = (

@@ -93,6 +93,13 @@ export type DomainEvent =
       excerpt: string
       occurredAt: Date
     }
+  | {
+      // Conta excluída pela própria pessoa (LGPD): os arquivos pessoais
+      // ficaram sem dono e a limpeza os apaga do disco
+      type: 'AccountDeleted'
+      userId: string
+      occurredAt: Date
+    }
 
 export type DomainEventType = DomainEvent['type']
 
