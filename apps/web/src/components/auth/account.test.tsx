@@ -23,6 +23,9 @@ const mocks = vi.hoisted(() => ({
   passwordResetLinkAction: vi.fn(),
   discardEvaluationsAction: vi.fn(),
   signOutAction: vi.fn(),
+  myModeratorRequestsAction: vi.fn(),
+  requestModerationAction: vi.fn(),
+  cancelModeratorRequestAction: vi.fn(),
 }))
 vi.mock('next/navigation', () => ({
   useRouter: () => ({ replace: mocks.replace, refresh: mocks.refresh }),
@@ -35,6 +38,9 @@ vi.mock('@/lib/account/account-actions', () => ({
   reactivateUserAction: mocks.reactivateUserAction,
   passwordResetLinkAction: mocks.passwordResetLinkAction,
   discardEvaluationsAction: mocks.discardEvaluationsAction,
+  myModeratorRequestsAction: mocks.myModeratorRequestsAction,
+  requestModerationAction: mocks.requestModerationAction,
+  cancelModeratorRequestAction: mocks.cancelModeratorRequestAction,
 }))
 vi.mock('@/lib/auth/actions', () => ({ signOutAction: mocks.signOutAction }))
 vi.mock('sonner', () => ({ toast: { success: vi.fn(), error: vi.fn() } }))
@@ -42,6 +48,7 @@ vi.mock('sonner', () => ({ toast: { success: vi.fn(), error: vi.fn() } }))
 import { ConsentAcceptance } from '@/app/aceitar-termos/consent-acceptance'
 import { UsersManager } from '@/app/admin/usuarios/users-manager'
 import { DeleteAccountDialog } from '@/app/minha-area/conta/delete-account-dialog'
+import { ModerationRequests } from '@/app/minha-area/conta/moderation-requests'
 
 import { consentRedirect } from './consent-gate'
 
@@ -295,5 +302,73 @@ describe('UsersManager', () => {
     expect(
       (within(dialog).getByLabelText('Link') as HTMLInputElement).value,
     ).toBe('http://localhost:3000/redefinir-senha?token=abc')
+  })
+})
+
+describe('ModerationRequests', () => {
+  const ENG = { id: 'c-eng', slug: 'eng', name: 'Engenharia de Computação' }
+  const PSI = { id: 'c-psi', slug: 'psi', name: 'Psicologia' }
+  const MUS = { id: 'c-mus', slug: 'mus', name: 'Música' }
+
+  beforeEach(() => {
+    mocks.myModeratorRequestsAction.mockResolvedValue({
+      ok: true,
+      data: [
+        {
+          id: 'r1',
+          user: { id: 'u1', name: 'Ana', email: 'ana@alu.ufc.br' },
+          course: PSI,
+          justification: 'Sou do centro acadêmico de psicologia.',
+          status: 'PENDING',
+          reviewNote: null,
+          reviewedAt: null,
+          createdAt: '2026-11-07T12:00:00.000Z',
+        },
+      ],
+    })
+  })
+
+  it('mostra os pedidos e só oferece cursos sem moderação nem pedido aberto', async () => {
+    wrap(
+      <ModerationRequests courses={[ENG, PSI, MUS]} moderatedCourses={[MUS]} />,
+    )
+    expect(await screen.findByText('Aguardando um admin')).toBeTruthy()
+    expect(screen.getByText('Música')).toBeTruthy()
+    const options = within(screen.getByLabelText('Curso'))
+      .getAllByRole('option')
+      .map((option) => option.textContent)
+    expect(options).toEqual(['Escolha o curso', 'Engenharia de Computação'])
+  })
+
+  it('envia o pedido e mostra o erro de validação da API', async () => {
+    const user = userEvent.setup()
+    mocks.requestModerationAction.mockResolvedValueOnce({
+      ok: false,
+      problem: {
+        code: 'VALIDATION_FAILED',
+        detail: 'Conte em pelo menos 20 caracteres por que quer moderar',
+      },
+    })
+    wrap(<ModerationRequests courses={[ENG, PSI]} moderatedCourses={[]} />)
+    await screen.findByText('Aguardando um admin')
+    await user.selectOptions(screen.getByLabelText('Curso'), 'c-eng')
+    await user.type(screen.getByLabelText('Por que você quer moderar?'), 'oi')
+    await user.click(screen.getByRole('button', { name: 'Pedir moderação' }))
+    expect(
+      await screen.findByText(
+        'Conte em pelo menos 20 caracteres por que quer moderar',
+      ),
+    ).toBeTruthy()
+    expect(mocks.requestModerationAction).toHaveBeenCalledWith('c-eng', 'oi')
+  })
+
+  it('cancela um pedido pendente', async () => {
+    const user = userEvent.setup()
+    mocks.cancelModeratorRequestAction.mockResolvedValue({ ok: true, data: {} })
+    wrap(<ModerationRequests courses={[ENG, PSI]} moderatedCourses={[]} />)
+    await user.click(await screen.findByRole('button', { name: 'Cancelar' }))
+    await waitFor(() =>
+      expect(mocks.cancelModeratorRequestAction).toHaveBeenCalledWith('r1'),
+    )
   })
 })

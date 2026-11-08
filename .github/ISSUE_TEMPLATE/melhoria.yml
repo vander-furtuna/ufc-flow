@@ -1,0 +1,21 @@
+name: Melhoria
+description: Sugestão de algo novo ou diferente
+labels: ['melhoria']
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: Sugestão
+      description: O que mudaria e para quem
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Por quê
+      description: Que problema resolve ou que uso facilita
+  - type: input
+    id: origin
+    attributes:
+      label: Origem
+      description: Quem sugeriu (beta, verificação própria) e quando

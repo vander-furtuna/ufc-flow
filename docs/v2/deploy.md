@@ -66,12 +66,13 @@ A imagem já define `PORT=3333`, `UPLOADS_DIR=/data/uploads` e `MIGRATIONS_DIR=/
 
 ### `web`
 
-| Variável                                                   | Quando   | Para quê                                                                                        |
-| ---------------------------------------------------------- | -------- | ----------------------------------------------------------------------------------------------- |
-| `API_URL`                                                  | execução | Fixado no compose em `http://api:3333`. Sem ele, o catálogo fica vazio.                         |
-| `PRIVACY_CONTACT_EMAIL`                                    | execução | E-mail de contato da Política de privacidade. Sem ele, a política orienta a falar com um admin. |
-| `NEXT_PUBLIC_CURRENT_YEAR`, `NEXT_PUBLIC_CURRENT_SEMESTER` | build    | Semestre usado só quando a API ainda não tem semestre vigente marcado.                          |
-| `NEXT_PUBLIC_SITE_URL`                                     | build    | Repassado ao build, como antes.                                                                 |
+| Variável                                                   | Quando   | Para quê                                                                                           |
+| ---------------------------------------------------------- | -------- | -------------------------------------------------------------------------------------------------- |
+| `API_URL`                                                  | execução | Fixado no compose em `http://api:3333`. Sem ele, o catálogo fica vazio.                            |
+| `BETA_FEEDBACK_URL`                                        | execução | Só no ambiente beta: liga a faixa "Versão beta · Enviar feedback" com o link do formulário (D101). |
+| `PRIVACY_CONTACT_EMAIL`                                    | execução | E-mail de contato da Política de privacidade. Sem ele, a política orienta a falar com um admin.    |
+| `NEXT_PUBLIC_CURRENT_YEAR`, `NEXT_PUBLIC_CURRENT_SEMESTER` | build    | Semestre usado só quando a API ainda não tem semestre vigente marcado.                             |
+| `NEXT_PUBLIC_SITE_URL`                                     | build    | Repassado ao build, como antes.                                                                    |
 
 ### Extensão
 
@@ -81,6 +82,19 @@ A extensão não roda no Coolify: é gerada na máquina de quem publica. Antes d
 | ---------------------------- | ----------------------------------------------------------------- |
 | `PLASMO_PUBLIC_FLOW_API_URL` | Endereço público da API; entra também no `host_permissions`.      |
 | `PLASMO_PUBLIC_FLOW_WEB_URL` | Endereço público do web (links para criar conta e abrir a grade). |
+
+## Ambiente beta
+
+O beta fechado (D101) roda num segundo recurso do Coolify, com o mesmo `docker/compose.prod.yml` e um banco próprio, sem tocar a produção atual.
+
+1. Crie a `release/v2.0.0` a partir da `develop` e marque a tag `v2.0.0-beta.1`.
+2. No Coolify, crie outro recurso Docker Compose apontando para a branch `release/v2.0.0`, com um endereço próprio para o beta.
+3. Use as mesmas variáveis da produção, com segredos próprios, e defina `BETA_FEEDBACK_URL` com o link do formulário: a faixa "Versão beta · Enviar feedback" aparece no topo de todas as páginas.
+4. Siga o [primeiro deploy](#primeiro-deploy): seeds, aceite do admin e semestre vigente.
+5. Gere a extensão com os endereços do beta e compacte a pasta `apps/extension/build/chrome-mv3-prod` num zip para quem testa.
+6. Mande o convite com o endereço, o período, o formulário e o [guia de quem testa](beta/guia-do-testador.md).
+
+No lançamento, este ambiente vira a produção: tire a `BETA_FEEDBACK_URL`, aponte o recurso para a `master` depois do merge e o domínio principal para ele. Antes, limpe o conteúdo de teste (posts, mensagens e contas de teste).
 
 ## Atualizar
 

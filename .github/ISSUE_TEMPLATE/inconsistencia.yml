@@ -1,0 +1,28 @@
+name: Inconsistência
+description: Funciona, mas diverge de outra tela, do SIGAA ou da regra da modelagem
+labels: ['inconsistência']
+body:
+  - type: input
+    id: where
+    attributes:
+      label: Onde
+      description: Página ou tela
+    validations:
+      required: true
+  - type: textarea
+    id: divergence
+    attributes:
+      label: O que diverge
+      description: O que aparece e com o que deveria bater (SIGAA, outra tela, decisão da modelagem)
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidência
+      description: Captura, link do SIGAA ou trecho da modelagem
+  - type: input
+    id: origin
+    attributes:
+      label: Origem
+      description: Quem relatou (beta, verificação própria) e quando

@@ -1,0 +1,49 @@
+name: Bug
+description: Algo não funciona como deveria
+labels: ['bug']
+body:
+  - type: input
+    id: where
+    attributes:
+      label: Onde
+      description: Página ou tela (o endereço, se possível)
+      placeholder: /engenharia-de-computacao-ufc-sobral/2006-2
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Passos
+      description: O que foi feito, na ordem
+      placeholder: |
+        1. Entrei com uma conta de aluno
+        2. Abri o histórico
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: O que aconteceu e o que era esperado
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Dispositivo e navegador
+      placeholder: Celular Android, Chrome
+  - type: dropdown
+    id: profile
+    attributes:
+      label: Perfil
+      options:
+        - Sem conta
+        - Aluno
+        - Moderador
+        - Admin
+        - Extensão
+  - type: input
+    id: origin
+    attributes:
+      label: Origem
+      description: Quem relatou (beta, verificação própria) e quando
