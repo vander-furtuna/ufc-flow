@@ -21,10 +21,16 @@ const toUtcIsoDate = (year: number, monthIndex: number, day: number) => {
   return new Date(Date.UTC(year, monthIndex, day)).toISOString()
 }
 
-export function CalendarView() {
+// Abre no mês atual; num outro ano, em janeiro dele
+const initialMonth = (year: number) => {
+  const today = new Date()
+  return today.getFullYear() === year ? today : new Date(year, 0, 1)
+}
+
+export function CalendarView({ year }: { year: number }) {
   const { events, isLoading } = useCalendar()
 
-  const [currentDate, setCurrentDate] = useState(new Date())
+  const [currentDate, setCurrentDate] = useState(() => initialMonth(year))
   const [selectedDay, setSelectedDay] = useState<number | null>(null)
   const [selectedDateIso, setSelectedDateIso] = useState<string>('')
   const [isModalOpen, setIsModalOpen] = useState(false)
