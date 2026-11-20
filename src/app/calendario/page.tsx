@@ -42,7 +42,21 @@ export default function AcademicCalendarPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [showImportantEvents, setShowImportantEvents] = useState(false)
   const [view, setView] = useState<CalendarViewMode>('list')
-  const { lastUpdatedAt, isFetching, refetchCalendar } = useCalendar()
+  const {
+    lastUpdatedAt,
+    isFetching,
+    refetchCalendar,
+    calendarYear,
+    calendarYears,
+    changeCalendarYear,
+  } = useCalendar()
+  const yearOptions: ViewSwitcherOption<string>[] = calendarYears.map(
+    (year) => ({
+      value: String(year),
+      label: String(year),
+      title: `Calendário universitário de ${year}`,
+    }),
+  )
 
   return (
     <div className="flex h-dvh w-full max-w-7xl flex-col items-center justify-start overflow-hidden">
@@ -52,11 +66,21 @@ export default function AcademicCalendarPage() {
           view === 'list' && 'px-4 pt-4 pb-0 lg:pb-0!',
         )}
       >
-        <header className="flex h-18 w-full shrink-0 items-center justify-between">
+        <header className="flex w-full shrink-0 flex-wrap items-center justify-between gap-x-2 gap-y-3 sm:h-18 sm:flex-nowrap">
           <Link href="/" aria-label="Home">
             <Logo className="h-12" id="tour-return" isResponsive />
           </Link>
-          <div className="flex items-center gap-2">
+          {/* No celular, o ano fica ao lado do logo e os controles descem
+              para a linha de baixo */}
+          <ViewSwitcher
+            options={yearOptions}
+            value={String(calendarYear)}
+            onValueChange={(year) => changeCalendarYear(Number(year))}
+            ariaLabel="Ano do calendário"
+            disabled={isFetching}
+            className="ml-auto"
+          />
+          <div className="flex w-full items-center justify-end gap-2 sm:w-auto">
             <button
               onClick={refetchCalendar}
               disabled={isFetching}
@@ -90,12 +114,14 @@ export default function AcademicCalendarPage() {
           </div>
         </header>
         {view === 'list' ? (
+          // A chave reinicia a rolagem até o mês atual ao trocar de ano
           <ListView
+            key={calendarYear}
             search={searchQuery}
             showImportantEvents={showImportantEvents}
           />
         ) : (
-          <CalendarView />
+          <CalendarView key={calendarYear} year={calendarYear} />
         )}
         {view === 'list' && (
           <div className="fixed bottom-8 left-0 z-50 flex w-full justify-center px-4">

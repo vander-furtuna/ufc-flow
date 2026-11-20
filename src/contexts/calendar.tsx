@@ -12,7 +12,6 @@ import {
   useState,
 } from 'react'
 import { usePathname } from 'next/navigation'
-import { useClass } from './class'
 
 export type CalendarContextType = {
   monthGroups: MonthGroup[] | null
@@ -22,14 +21,28 @@ export type CalendarContextType = {
   isFetching: boolean
   lastUpdatedAt: Date | null
   refetchCalendar: () => Promise<void>
+  // Ano do calendário, independente do semestre escolhido na agenda
+  calendarYear: number
+  calendarYears: number[]
+  changeCalendarYear: (year: number) => void
+  // O site da UFC ainda não publicou o ano (ou está fora do ar sem cache)
+  isError: boolean
 }
 
 export const CalendarContext = createContext<CalendarContextType>(
   {} as CalendarContextType,
 )
 
+// O ano corrente e o seguinte: a UFC publica o calendário do próximo ano
+// antes de ele começar
+const yearsOnOffer = () => {
+  const thisYear = new Date().getFullYear()
+  return [thisYear, thisYear + 1]
+}
+
 export function CalendarProvider({ children }: { children: React.ReactNode }) {
-  const { currentYear } = useClass()
+  const [calendarYears] = useState(yearsOnOffer)
+  const [currentYear, setCurrentYear] = useState(calendarYears[0])
   const { fetchCalendar, getCalendarLastUpdateTime } = useCalendarManager()
   const pathname = usePathname()
   const queryClient = useQueryClient()
@@ -49,6 +62,7 @@ export function CalendarProvider({ children }: { children: React.ReactNode }) {
     data: monthGroups,
     isLoading,
     isFetching,
+    isError,
   } = useQuery({
     queryKey: ['calendar', currentYear],
     queryFn: async () => {
@@ -60,6 +74,8 @@ export function CalendarProvider({ children }: { children: React.ReactNode }) {
     refetchOnMount: 'always',
     refetchOnWindowFocus: false,
     staleTime: 0,
+    // Ano não publicado responde 404: não adianta insistir
+    retry: false,
   })
 
   // Sincroniza a data da última atualização ao entrar na página do calendário
@@ -112,6 +128,10 @@ export function CalendarProvider({ children }: { children: React.ReactNode }) {
       isFetching,
       lastUpdatedAt,
       refetchCalendar,
+      calendarYear: currentYear,
+      calendarYears,
+      changeCalendarYear: setCurrentYear,
+      isError,
     }),
     [
       monthGroups,
@@ -121,6 +141,9 @@ export function CalendarProvider({ children }: { children: React.ReactNode }) {
       isFetching,
       lastUpdatedAt,
       refetchCalendar,
+      currentYear,
+      calendarYears,
+      isError,
     ],
   )
 
