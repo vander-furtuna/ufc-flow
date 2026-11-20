@@ -2,6 +2,7 @@
 // extensão. Sem dependência de framework nem de I/O.
 export * from './search/normalize-search'
 export * from './mentions/extract-mentions'
+export * from './terms/selectable-terms'
 export * from './terms/term'
 export * from './requirements/types'
 export * from './requirements/parse-requirement'

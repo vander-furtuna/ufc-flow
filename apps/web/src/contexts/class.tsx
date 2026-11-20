@@ -17,6 +17,8 @@ import type { StorageClass, SubjectGroup } from '@/types/class'
 import { useCourse } from './course'
 
 type ClassContextType = {
+  // Semestre vigente (API ou ambiente), base dos semestres selecionáveis
+  officialTerm: CurrentTerm
   currentYear: number | null
   currentSemester: number | null
   currentClassGroup: StorageClass | null
@@ -148,6 +150,7 @@ export function ClassProvider({
 
   const value = useMemo(
     () => ({
+      officialTerm: initialTerm,
       currentYear,
       currentSemester,
       currentClassGroup,
@@ -158,6 +161,7 @@ export function ClassProvider({
       handleRefreshSubjectInformations,
     }),
     [
+      initialTerm,
       currentYear,
       currentSemester,
       currentClassGroup,

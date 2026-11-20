@@ -6,14 +6,10 @@ import { COLORS } from '@/data/colors'
 import { useDebounce } from '@/hooks/use-debounce'
 import { cn } from '@/lib/utils'
 import { normalizeWords } from '@/utils/normalize-words'
-import {
-  CalendarBlankIcon,
-  CalendarDotsIcon,
-  CaretUpIcon,
-  ClockIcon,
-} from '@phosphor-icons/react'
-import { useEffect, useRef, useState } from 'react'
+import { CalendarBlankIcon, CalendarDotsIcon } from '@phosphor-icons/react'
+import { useEffect, useRef } from 'react'
 import type { MonthGroup } from '@/types/calendar'
+import { UpcomingEvents } from './upcoming-events'
 
 type ListViewProps = {
   search?: string
@@ -42,8 +38,7 @@ function isCurrentMonthGroup(group: MonthGroup): boolean {
 }
 
 export function ListView({ search, showImportantEvents }: ListViewProps) {
-  const [showUpcomingEvents, setShowUpcomingEvents] = useState(true)
-  const { monthGroups, upcomingEvents, isLoading } = useCalendar()
+  const { monthGroups, isLoading, isError, calendarYear } = useCalendar()
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const currentMonthRef = useRef<HTMLElement>(null)
   const hasScrolledRef = useRef(false)
@@ -236,93 +231,14 @@ export function ListView({ search, showImportantEvents }: ListViewProps) {
               className="mx-auto mb-4 h-12 w-12 opacity-20"
             />
             <p className="text-sm text-muted-foreground">
-              Nenhum evento encontrado.
+              {isError
+                ? `O calendário de ${calendarYear} ainda não está disponível no site da UFC.`
+                : 'Nenhum evento encontrado.'}
             </p>
           </div>
         )}
       </div>
-      <aside className="h-fit w-full shrink-0 lg:w-80">
-        <div className="top-24 md:sticky">
-          <div className="overflow-hidden rounded-lg border border-border bg-card transition-colors">
-            <div className="flex items-center justify-between gap-2 border-b border-border bg-muted/50 px-3 py-3 md:px-5 md:py-4">
-              <div className="flex items-center gap-2">
-                <ClockIcon weight="bold" className="h-4 w-4 text-primary" />
-                <h3 className="text-sm font-bold tracking-wider text-foreground uppercase">
-                  Próximos Eventos
-                </h3>
-              </div>
-
-              <button
-                className="text-xs font-medium text-primary underline transition-all hover:opacity-80 md:hidden"
-                onClick={() => setShowUpcomingEvents(!showUpcomingEvents)}
-              >
-                <CaretUpIcon
-                  weight="bold"
-                  className={cn(
-                    'transition-transform',
-                    showUpcomingEvents && 'rotate-180',
-                  )}
-                />
-              </button>
-            </div>
-
-            <div
-              className={cn(
-                'max-h-96 overflow-hidden p-2 transition-all duration-400',
-                showUpcomingEvents && 'max-h-0 p-0 md:max-h-96 md:p-2',
-              )}
-            >
-              {isLoading && upcomingEvents.length === 0 ? (
-                <div className="space-y-3 p-1">
-                  {Array.from({ length: 3 }).map((_, i) => (
-                    <div key={i} className="animate-pulse space-y-1.5 p-2">
-                      <div className="h-4 w-16 rounded bg-muted" />
-                      <div className="h-3 w-full rounded bg-muted/70" />
-                      <div className="h-3 w-2/3 rounded bg-muted/50" />
-                    </div>
-                  ))}
-                </div>
-              ) : upcomingEvents.length > 0 ? (
-                upcomingEvents.map((event, i) => (
-                  <div
-                    key={event.id}
-                    className={`group rounded-lg p-2 py-3 transition-colors hover:bg-muted/30 md:p-4 ${i !== upcomingEvents.length - 1 ? 'border-b border-border/50' : ''}`}
-                  >
-                    <div className="mb-1 flex items-center gap-2">
-                      <span
-                        className={cn(
-                          'rounded bg-primary/10 px-2 py-0.5 text-[10px] font-bold text-primary uppercase',
-                          event.isImportant && 'bg-compulsory text-background',
-                        )}
-                      >
-                        {new Date(event.date).toLocaleDateString('pt-BR', {
-                          day: '2-digit',
-                          month: 'short',
-                          timeZone: 'UTC',
-                        })}
-                      </span>
-                      {event.isRange && (
-                        <span className="text-[9px] font-medium text-muted-foreground italic">
-                          Início de período
-                        </span>
-                      )}
-                    </div>
-                    <p className="line-clamp-3 text-xs leading-snug text-card-foreground group-hover:text-foreground">
-                      {event.description}
-                    </p>
-                  </div>
-                ))
-              ) : (
-                <div className="p-8 text-center">
-                  <p className="text-xs text-muted-foreground">
-                    Nenhum evento futuro encontrado.
-                  </p>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </aside>
+      <UpcomingEvents />
     </article>
   )
 }

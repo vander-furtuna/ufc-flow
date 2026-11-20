@@ -106,6 +106,14 @@ function groupEventsByMonth(events: AcademicEvent[]): MonthGroup[] {
   return Object.values(groups)
 }
 
+const notPublished = (year: string) =>
+  new Response(
+    JSON.stringify({
+      error: `O calendário de ${year} ainda não foi publicado pela UFC.`,
+    }),
+    { status: 404, headers: { 'Content-Type': 'application/json' } },
+  )
+
 // --- Rota Principal (Server Action) ---
 
 export async function GET(req: Request): Promise<Response> {
@@ -135,6 +143,9 @@ export async function GET(req: Request): Promise<Response> {
 
   try {
     const res = await fetchWithCookies(CALENDAR_URL)
+    // Ano ainda não publicado: o site da UFC responde com erro. Devolve 404
+    // em vez de uma lista vazia, para o navegador não guardar o vazio.
+    if (!res.ok) return notPublished(yearToFetch)
     const html = await res.text()
 
     // Se quiser testar com o HTML local (mock), descomente a linha abaixo e passe o HTML string:
@@ -179,6 +190,8 @@ export async function GET(req: Request): Promise<Response> {
         })
       }
     })
+
+    if (allEvents.length === 0) return notPublished(yearToFetch)
 
     // Ordenação cronológica
     allEvents.sort(
