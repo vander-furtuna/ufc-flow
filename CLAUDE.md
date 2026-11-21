@@ -66,7 +66,7 @@ pnpm --filter @ufc-flow/academic-core add -D vitest   # dependência num pacote
 - **Contratos únicos.** DTOs, enums e o formato `CurriculumImportV1` vivem em `packages/contracts` (Zod 4), tipados contra o `academic-core`. Validação da API, Swagger (`toOpenApiComponents()`) e formulários do web derivam do mesmo schema. Dê `.meta({ id })` a todo schema que vira componente do Swagger. Também exige 90% de cobertura.
 - **API hexagonal por módulo** (`domain/`, `application/`, `infrastructure/`), com o rigor completo onde a modelagem pede (catalog, academic-record, planning, forum, identity). Detalhes em `docs/v2/modelagem.md` › Monorepo e arquitetura.
 - **Swagger obrigatório** em toda rota, com respostas de erro em Problem Details. Rota sem documentação quebra o CI.
-- **Não mexa no RU nem no Calendário Acadêmico** (`apps/web/src/app/restaurante`, `calendario`, `api/ru`, `api/calendar`): continuam como estão (decisão D10).
+- **Não mexa no RU nem no Calendário Acadêmico** (`apps/web/src/app/restaurante`, `calendario`, `api/ru`, `api/calendar`): continuam como estão (decisão D10). Exceção: as mudanças do calendário vindas de hotfix da v1 entram também na v2 (D102).
 - **Anônimo continua funcionando.** Grade, turmas e agenda local não podem passar a exigir login.
 - **Sem SMTP na v2.** Nada de envio de e-mail; recuperação de senha é por link gerado pelo admin.
 - **Idioma:** interface e documentação em português do Brasil; identificadores de código em inglês; mensagens de commit em inglês (Conventional Commits).

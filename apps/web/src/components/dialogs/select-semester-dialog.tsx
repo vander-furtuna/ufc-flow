@@ -14,6 +14,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { useClass } from '@/contexts/class'
+import { lastSelectableTerm } from '@/utils/academic-term'
 
 import NumberSelector from '../number-selector'
 import YearSelector from '../year-selector'
@@ -34,7 +35,20 @@ export default function SelectSemesterDialog({
     currentSemester ?? null,
   )
 
-  const { changeSemester, changeYear } = useClass()
+  const { changeSemester, changeYear, officialTerm } = useClass()
+
+  // Vai até o semestre seguinte ao corrente: no último ano, só os períodos
+  // que já existem (ex.: 2027 só com o .1)
+  const last = lastSelectableTerm(officialTerm)
+  const lastSemesterOf = (year: number | null) =>
+    year === last.year ? last.semester : 2
+
+  const changeYearState = (year: number) => {
+    setCurrentYear(year)
+    setCurrentSemester((semester) =>
+      semester === null ? semester : Math.min(semester, lastSemesterOf(year)),
+    )
+  }
 
   const handleChangeSemester = useCallback(() => {
     if (currentYearState !== null && currentSemesterState !== null) {
@@ -60,16 +74,16 @@ export default function SelectSemesterDialog({
         <div className="my-4 flex w-full items-center justify-center gap-4">
           <YearSelector
             startYear={2006}
-            endYear={2026}
+            endYear={last.year}
             initialYear={currentYear}
-            onYearChange={(year) => {
-              setCurrentYear(year)
-            }}
+            onYearChange={changeYearState}
           />
           <NumberSelector
+            // Remonta quando o limite muda, para o período nunca passar dele
+            key={lastSemesterOf(currentYearState)}
             startNumber={1}
-            endNumber={2}
-            initialNumber={currentSemester}
+            endNumber={lastSemesterOf(currentYearState)}
+            initialNumber={currentSemesterState ?? currentSemester}
             onNumberChange={(semester) => {
               setCurrentSemester(semester)
             }}

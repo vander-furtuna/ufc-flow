@@ -1,6 +1,7 @@
 'use client'
 
 import { useClass } from '@/contexts/class'
+import { selectableTerms } from '@/utils/academic-term'
 import { useMemo } from 'react'
 import {
   Select,
@@ -12,6 +13,7 @@ import {
 
 export function SemesterSelector() {
   const {
+    officialTerm,
     currentYear,
     currentSemester,
     changeYear,
@@ -19,18 +21,15 @@ export function SemesterSelector() {
     isClassLoading,
   } = useClass()
 
-  const semesterOptions = useMemo(() => {
-    const currentYearNum = new Date().getFullYear()
-    const startYear = 2022
-    const endYear = currentYearNum
-    const options: { value: string; label: string }[] = []
-
-    for (let y = Math.max(endYear, 2026); y >= startYear; y--) {
-      options.push({ value: `${y}-2`, label: `${y}.2` })
-      options.push({ value: `${y}-1`, label: `${y}.1` })
-    }
-    return options
-  }, [])
+  // Até o semestre seguinte ao corrente (que já tem as disciplinas)
+  const semesterOptions = useMemo(
+    () =>
+      selectableTerms(officialTerm).map(({ year, semester }) => ({
+        value: `${year}-${semester}`,
+        label: `${year}.${semester}`,
+      })),
+    [officialTerm],
+  )
 
   const handleSemesterChange = (value: string) => {
     const [yearStr, semesterStr] = value.split('-')
